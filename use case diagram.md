@@ -1,23 +1,31 @@
 ```plantuml
 @startuml
 ' human actors
-actor "Cashier" as cashier
-actor "Customer" as customer
-actor "Manager" as manager
+actor "Leader" as leader
+actor "user" as user
+
 ' system actors
-actor "Accounting system" <<system>> as accountingSystem
-actor "Tax calculator" <<system>> as taxCalculator
-actor "Payment auth service" <<system>> as payAuthService
+actor "Server System" <<system>> as serverSystem
+actor "Notification System" <<system>> as notificationSystem
+actor "Login System" <<system>> as loginSystem 
+
 ' list all use cases in package
-package "NextGen POS"{
-usecase "Process sale" as procSale
+package "HouseMates"{
+usecase "Shopping List" as shoppingList
+usecase "Calendar" as calendar
+usecase "Chore Creating" as choreCreating
 }
 ' list relationships between actors and use cases
-customer --> procSale
-cashier --> procSale
-manager --> procSale
-procSale --> accountingSystem
-procSale --> taxCalculator
-procSale --> payAuthService
+Leader --> loginSystem
+user --> loginSystem
+Leader --> serverSystem
+user --> serverSystem
+shoppingList --> notificationSystem
+calendar --> notificationSystem
+choreCreating --> notificationSystem
+shoppingList --> serverSystem
+calendar --> serverSystem
+choreCreating --> serverSystem
+
 @enduml
 ```
