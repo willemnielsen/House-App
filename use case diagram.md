@@ -1,4 +1,4 @@
-```
+```plantuml
 @startuml
 ' human actors
 actor "Cashier" as cashier
