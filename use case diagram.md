@@ -20,6 +20,4 @@ procSale --> accountingSystem
 procSale --> taxCalculator
 procSale --> payAuthService
 @enduml
-
-
 ```
