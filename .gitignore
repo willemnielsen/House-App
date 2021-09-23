@@ -1,0 +1,6 @@
+# Default ignored files
+/shelf/
+/.idea/
+.idea/**/usage.statistics.xml
+out/**
+HouseMates.iml
