@@ -30,6 +30,7 @@
     1. Users can select when they want to be notified before an event ( 1hr, 30min, 15min, 5min, etc.)
 
 ###Extensions:
+
 **2.i.b.** If there are overlapping events:
 1. System notifies user of conflict
 2. User can choose to accept conflict or choose a different time or location
