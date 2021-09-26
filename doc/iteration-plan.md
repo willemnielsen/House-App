@@ -1,4 +1,4 @@
-##Iterative Plan 1
+##Iteration Plan 1
 ###Use case rankings
 1. Add Items
 2. Calendar
