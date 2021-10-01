@@ -1,6 +1,6 @@
-##Iteration Plan 2
+## Iteration Plan 2
 
-Will have added: **add item ** and **split shopping list**
+Will have added: **add item** and **split shopping list**
 
 will then add: **Calendar** and **Login System**
 
