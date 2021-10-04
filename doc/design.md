@@ -74,9 +74,6 @@ activate shoppingList
 @enduml
 ```
 
-@enduml
-```
-
 # Class Diagram
 ```plantuml
 @startuml
