@@ -1,15 +1,23 @@
-#Splitting Shopping List:
-+ **Scope: App
-+ **Level: User goal
-+ **Primary Actor: Leader and User
-##Preconditions: 
-+ **A subset Items in shopping list have be purchased
+#Charge Housemates
++ **Scope:** App -> Shopping list -> Purchased Items
++ **Level:** User goal
++ **Primary Actor:** Housemate
+###Preconditions: 
++ System is in the purchased items menu
 		
 ##Postconditions: 
-
++ Each person's debt is adjusted accordingly 
 ##Main success scenario:
-+ **Select items that were purchased (as not to charge for items not purchased)
-+ **Delete Item
+1. User selects option to charge housemates
+2. System prompts user with options to
+   1. Charge based on owner of items
+   2. Charge evenly throughout house
+   3. Charge me
+   4. Charge custom
+3. User selects charge based on owner of items
+4. System notifies each housemate that they owe the user x amount
+of dollars for items a, b and c.
+5. System updates the debt database for each housemate
 
 ##Extensions:
 	+ Even split
