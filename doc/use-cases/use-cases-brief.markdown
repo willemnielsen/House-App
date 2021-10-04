@@ -1,38 +1,73 @@
 ##Brief Use Cases
-1. Splitting shopping list 
-   1. Splits shopping bill among housemembers. Distributes charge based
-on who bought what. Notifies those who owe the shopper money. Notes who
-owes who on ledger.
-2. Delete item
-   1. User enters shopping list interface. System provides a way to delete
-   an item from the list
-3. Notify member 
-   1. Request to notify a member with the notification is sent to the
-system by another system (assign chore, splitting shopping list, etc.)
+1. Delete item
+   1. User enters shopping list interface
+   2. User tells system that they want to delete an item
+   3. System provides way to select item/s that they want to delete
+   4. User selects item/s they want to delete
+   5. System asks user to confirm
+   6. User confirms
+2. Notify housemate 
+   1. Other system requests to notify member
    2. This request includes the member to send the notification as well
-as the message to send them. The system then sends the notification
-4. Edit chore 
+as the message to send them
+   3. System adds notification to notification list
+   4. The system then sends the notification
+   5. The user receives a notification and clicks on it
+   6. The system opens the notification menu
+3. Edit chore 
    1. User enters the chore list interface
-   2. System provides user with a way
-to edit a chore. Can edit:
-      1. Chore
-      2. Person doing the chore
-      3. Time of chore
-      4. Frequency of chore
-5. Delete chore 
+   2. User selects option to edit chore
+   3. System prompts user to select which chore they want to edit
+   4. User selects which chore they want to edit
+   5. System prompts user on what part of the chore they want to edit
+      1. Time
+      2. Frequency
+      3. People responsible for chore
+      4. Chore type
+   6. User selects option from 4 listed above
+   7. System provides screen where the option can be edited
+   8. User edits option
+   9. System displays change and asks user to confirm
+   10. User confirms
+4. Delete chore 
    1. User enters the chore list interface
    2. System provides user with a way to delete a chore
-   3. User deletes chore and it is removed from chore list and calendar
-6. Create house
+   3. User selects option to delete chore
+   4. System prompts user to select which chores to delete
+   5. User selects chores they want to delete
+   6. System displays selected items and asks user to confirm
+   7. User confirms
+5. Create house
    1. User selects option to create a house
-   2. System adds new house into the database
-7. Add member 
-   1. User chooses to add member
-   2. System adds member to the user's house
-8. Remove member
-   1. User chooses to remove member
-   2. System removes member from the user's house
-9. Join house
-   1. User chooses to join house
-   2. Notification is sent house leader to approve or deny request
-   3. Once approved user is added to said house
+   2. System prompts user to enter a house name
+   3. User enters house name
+   4. System prompts user to enter housemate names
+   5. User enters housemates
+   6. System enters house into database
+6. Add housemate 
+   1. User selects house menu
+   2. System displays house menu screen
+   3. System provides option to add housemate
+   4. User selects option to add housemate
+   5. System prompts user to enter name of housemate
+   6. User enters name of housemate
+   7. System asks user to confirm addition of housemate to house
+   8. User confirms
+   9. System adds housemate to house database
+7. Remove member
+   1. User selects house menu
+   2. System displays house menu screen
+   3. System provides option to remove housemate
+   4. User selects option to remove housemate
+   5. System prompts user to select housemate to remove
+   6. User selects housemate to remove
+   7. System asks user to confirm removal of housemate from house
+   8. User confirms
+8. Join house
+   1. User enters main screen
+   2. System provides user with a join house option
+   3. User selects join house
+   4. System prompts user for name of house they want to join
+   5. User enters name of house
+   6. System displays name of house and asks user to confirm join request
+   7. User confirms
