@@ -13,26 +13,32 @@
 
 ###Postconditions:
 + The checklist is restarted once everything is purchased
-+ Costs are available
++ The total costs are available for housemates to see
 
 ###Main success scenario:
 
-1. User decides to make a checklist for the items that need to be purchased for the household
-2. The user opens a menu to choose between stores: Walmart, Target
-3. Have custom items saved for convenience
+1. User selects option to add items to the Housemate shopping list
+2. User manually adds the item to the list
+   1. User provides the name of the item, quantity, and price.
+      1. **Extension**: If a price is not given, an average price will be calculated.
+      2. **Extension**: Another housemate can add to the quantity if needed.  
+   2. Item is connected to the person who added the item
+      1.  **Extension**: If an item has been added before, it will be recommended when added items in the future.
+   3. User has option to add more people to the item
+      1. **Extension**: Another housemate can add themselves to the item
+   4. System asks user if the information provided is correct
+      1. If not, the user is prompted to provide the information again.
+      2. If it is correct, the item is stored.
+3. The shopping list is updated with the added item and the shopping list is displayed to the user
+4. User has the option to add more items 
+   1. If the housemate decides to add an item they'll repeat steps 1 - 4.
+   2. If the housemate decides to not add more items, they can exit or take other actions.
 
 
-###Extensions:
-
-2a. If items added from specific store find same item at stores which can be used to unify shopping list to have all items from one store if possible
-
-3a. If store isn’t an option, allow user to manually add a store and the items they can to add
 
 
 ###Special requirements:
 Adding items manually should work quick and effortlessly
-
-###Technology and data variations list:
 
 ###Frequency of occurrence:
 + Often
