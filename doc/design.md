@@ -1,10 +1,6 @@
 # Add Item Domain Model
 ```plantuml
 @startuml
-testdot
-hide circle
-hide empty methods
-' classes
 class House{
     name
 }
