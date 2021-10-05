@@ -1,10 +1,6 @@
 # Add Item Domain Model
 ```plantuml
 @startuml
-testdot
-hide circle
-hide empty methods
-' classes
 class House{
     name
 }
@@ -70,6 +66,40 @@ end
 
 activate shoppingList
 
+
+@enduml
+```
+
+# Class Diagram
+```plantuml
+@startuml
+
+class House {
+    name
+    }
+
+class ShoppingList
+class Item {
+    name
+    quantity 
+    }
+class ItemInfo {
+    name
+    quality
+    price
+    }
+class Store
+class Member {
+    name
+    id
+    }
+
+class Debt {
+    list of (members, amount)
+    }
+
+Member <|-- Debt
+Item <|-- ItemInfo 
 
 @enduml
 ```
