@@ -70,6 +70,32 @@ activate shoppingList
 @enduml
 ```
 
+# Charge Housemate Sequence Diagram
+```plantuml
+
+@startuml
+actor Housemate as Actor
+participant "Shopping List: List" as shoppingList
+participant ": CreditDebt" as database
+participant ": Charge" as chargeHousemates
+
+
+[o-> shoppingList : charge housemates
+activate shoppingList
+
+    shoppingList -->> Actor  : get items to be charged
+    shoppingList -->> Actor  : get charge distribution option
+    shoppingList -->> Actor  : get confirmation
+    shoppingList -->> chargeHousemates : charge(Items, distribution)
+    chargeHousemates -->> database : calculate(charge)
+    chargeHousemates -->> shoppingList : remove(Items)
+
+activate shoppingList
+
+
+@enduml
+```
+
 # Class Diagram
 ```plantuml
 @startuml
@@ -94,11 +120,15 @@ class Member {
     id
     }
 
-class Debt {
+class CreditDebt {
     list of (members, amount)
     }
+class Charge {
+    items
+    distribution
+    }
 
-Member <|-- Debt
+Member <|-- CreditDebt
 Item <|-- ItemInfo 
 
 @enduml
