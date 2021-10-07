@@ -1,6 +1,7 @@
 # Add Item Domain Model
 ```plantuml
 @startuml
+hide circle
 class House{
     name
 }
@@ -19,26 +20,42 @@ class ItemInfo{
     image
     quantity
 }
+class Record{
+    house
+}
 class Debt{
-    address
-    name
+    Housemate
+    Item
 }
 class Housemate{   
     name
     paymentInfo
     housemateId
 }
+class Charge{
+    items
+    charger
+    chargees
+}
 
 ' associations
 House "1" -- "1..*" Housemate : \tContains\t\t
-House "1" -- "1" ShoppingList : \tContains\t\t
+House "1" -right- "1..*" ShoppingList : \tContains\t\t
+House "1" -- "1" Record : Contains
 Housemate "0" - "1..*" Item : \tOwn\t\t
-ShoppingList "0" - "0..*" Item : \tContains\t\t
-Housemate "0" -- "*" Debt : \tOwes\t\t
+ShoppingList "1" - "0..*" Item : \tContains\t\t
 Item "*" -- "1...*" Store : \tFrom\t\t
 Item "*" -- "1...*" ItemInfo : \tDescribed by \t\t
 ItemInfo "*" -left- "1..*"  Store : \tGets info from\t\t
 @enduml
+
+/*Record "1" -- "*" Debt : Contains
+Debt "1" --  "1" Item : Contains
+Debt "*" -- "2" Housemate : Amount-Owed-Between
+Charge "1" -- Item : Contains
+Charge "1" -- Housemate : Contains
+*/
+
 ```
 # Get Item Sequence Diagram
 ```plantuml
