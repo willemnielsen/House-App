@@ -1,5 +1,8 @@
 public class Housemate {
-    String name;
-    String paymentInfo;
-    int housemateId;
+    private String name;
+    protected String paymentInfo;
+    protected int housemateId;
+
+
+
 }
