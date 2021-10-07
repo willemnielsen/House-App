@@ -1,3 +1,7 @@
+package Domain;
+
+import Domain.LineItem;
+
 import java.util.ArrayList;
 
 public class ShoppingList {

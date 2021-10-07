@@ -1,13 +1,13 @@
-# Add Item Domain Model
+# Add Domain.Item Domain Model
 ```plantuml
 @startuml
 hide circle
-class House{
+class Domain.House{
     name
 }
-class ShoppingList{ 
+class Domain.ShoppingList{ 
 }
-class Item{
+class Domain.Item{
     name
     avalibility
 }
@@ -26,7 +26,7 @@ class Record{
 class Charge{
     debt
 }
-class Housemate{   
+class Domain.Housemate{   
     name
     paymentInfo
     housemateId
@@ -36,44 +36,44 @@ class Transaction{
 }
 
 ' associations
-House "1" -- "1..*" Housemate : \tContains\t\t
-House "1" -right- "1..*" ShoppingList : \tContains\t\t
-House "1" -- "1" Record : Contains
-Housemate "0" - "1..*" Item : \tOwn\t\t
-ShoppingList "1" - "0..*" Item : \tContains\t\t
-Item "*" -- "1...*" Store : \tFrom\t\t
-Item "*" -- "1...*" ItemInfo : \tDescribed by \t\t
+Domain.House "1" -- "1..*" Domain.Housemate : \tContains\t\t
+Domain.House "1" -right- "1..*" Domain.ShoppingList : \tContains\t\t
+Domain.House "1" -- "1" Record : Contains
+Domain.Housemate "0" - "1..*" Domain.Item : \tOwn\t\t
+Domain.ShoppingList "1" - "0..*" Domain.Item : \tContains\t\t
+Domain.Item "*" -- "1...*" Store : \tFrom\t\t
+Domain.Item "*" -- "1...*" ItemInfo : \tDescribed by \t\t
 ItemInfo "*" -left- "1..*"  Store : \tGets info from\t\t
 Record "1" -- "*" Charge : Contains
-Charge "1" --  "1" Item : Contains
-Charge "*" -- "2" Housemate : Amount-Owed-Between
-Transaction "1" -- Item : Contains
-Transaction "1" -- Housemate : Contains
+Charge "1" --  "1" Domain.Item : Contains
+Charge "*" -- "2" Domain.Housemate : Amount-Owed-Between
+Transaction "1" -- Domain.Item : Contains
+Transaction "1" -- Domain.Housemate : Contains
 @enduml
 
 
 
 
 ```
-# Get Item Sequence Diagram
+# Get Domain.Item Sequence Diagram
 ```plantuml
 
 @startuml
 actor Actor as Actor
-participant "ShoppingList: List" as shoppingList
-participant ": Item" as item
+participant "Domain.ShoppingList: List" as shoppingList
+participant ": Domain.Item" as item
 participant ": ItemInfo" as itemInfo
 participant ": Store" as store
 
 
-[o-> shoppingList : add Item
+[o-> shoppingList : add Domain.Item
 activate shoppingList
 
 loop while not done
     shoppingList -->> Actor  : get name and quality
-    shoppingList -->> item **: Item(name, quality)
+    shoppingList -->> item **: Domain.Item(name, quality)
     item -->> itemInfo **: ItemInfo(name, quality)
-    item -->> Actor : get Housemate/s info
+    item -->> Actor : get Domain.Housemate/s info
     item -->> Actor : get store/s info
     item -->> store : assoicate Store (null --> default)
 
@@ -85,11 +85,11 @@ activate shoppingList
 @enduml
 ```
 
-# Charge Housemate Sequence Diagram
+# Charge Domain.Housemate Sequence Diagram
 ```plantuml
 
 @startuml
-actor Housemate as Actor
+actor Domain.Housemate as Actor
 participant "Shopping List: List" as shoppingList
 participant ": Transaction" as transaction
 participant ": Record" as record
@@ -115,12 +115,12 @@ activate shoppingList
 ```plantuml
 @startuml
 
-class House {
+class Domain.House {
     name
     }
 
-class ShoppingList
-class Item {
+class Domain.ShoppingList
+class Domain.Item {
     name
     quantity 
     }
@@ -145,7 +145,7 @@ class Record {
 class Charge{
     debt
 }
-Item <|-- ItemInfo 
+Domain.Item <|-- ItemInfo 
 
 Record <|-- Charge
 @enduml

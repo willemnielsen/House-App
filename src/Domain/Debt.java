@@ -1,3 +1,5 @@
+package Domain;
+
 public class Debt {
     boolean isPaid = false;
     Housemate debtor;

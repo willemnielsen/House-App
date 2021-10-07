@@ -1,6 +1,8 @@
+package Domain;
+
 import java.util.ArrayList;
 
-public class LineItem extends Item{
+public class LineItem extends Item {
 
 
     private int quantity;

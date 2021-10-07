@@ -1,10 +1,10 @@
 #Calendar:
 + **Scope:** App
 + **Level:** User goal
-+ **Primary actor:** Housemate or the House Leader
++ **Primary actor:** Domain.Housemate or the Domain.House Leader
 
 ###Stakeholders and interests:
-+ **Housemate/House Leader:** Wants an easy and efficient way to plan events and coordinate calendars among housemates
++ **Domain.Housemate/Domain.House Leader:** Wants an easy and efficient way to plan events and coordinate calendars among housemates
 
 ###Preconditions:
 + The housemate viewing/changing the calendar is identified and authenticated

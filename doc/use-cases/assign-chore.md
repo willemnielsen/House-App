@@ -1,12 +1,12 @@
 #Assign Chores:
 + **Scope:** Housemates App
 + **Level:** User goal
-+ **Primary actor:** Housemate or the House Leader
++ **Primary actor:** Domain.Housemate or the Domain.House Leader
 
 ###Stakeholders and interests:
-+ **Housemate/House Leader that's assigning the chore:** Wants to assign a chore quickly and easily at the right time, the
++ **Domain.Housemate/Domain.House Leader that's assigning the chore:** Wants to assign a chore quickly and easily at the right time, the
 right frequency and to the right person
-+ **Other Housemates/House leader:** Wants to be notified when they are assigned a chore
++ **Other Housemates/Domain.House leader:** Wants to be notified when they are assigned a chore
 and not notified when they aren't involved in a chore
 
 ###Preconditions:
@@ -14,7 +14,7 @@ and not notified when they aren't involved in a chore
 
 ###Postconditions:
 + Chore is added to house calendar/chore list
-+ House members involved are notified
++ Domain.House members involved are notified
 
 ###Main success scenario:
 1. User selects option to add chore
