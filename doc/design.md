@@ -150,5 +150,6 @@ class Debt{
 }
 Item <|-- ItemInfo 
 
+Record <|-- Debt
 @enduml
 ```
