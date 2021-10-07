@@ -1,2 +1,5 @@
-package PACKAGE_NAME;public class Housemate {
+public class Housemate {
+    String name;
+    String paymentInfo;
+    int housemateId;
 }
