@@ -138,15 +138,16 @@ class Member {
     id
     }
 
-class CreditDebt {
-    list of (members, amount)
-    }
 class Charge {
-    items
     distribution
     }
+class Record { 
+    houseid
+}
 
-Member <|-- CreditDebt
+class Debt{
+    amountOwed
+}
 Item <|-- ItemInfo 
 
 @enduml
