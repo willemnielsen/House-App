@@ -21,7 +21,7 @@ class ItemInfo{
     quantity
 }
 class Record{
-    house
+    houseID
 }
 class Debt{
     Housemate
@@ -47,14 +47,15 @@ ShoppingList "1" - "0..*" Item : \tContains\t\t
 Item "*" -- "1...*" Store : \tFrom\t\t
 Item "*" -- "1...*" ItemInfo : \tDescribed by \t\t
 ItemInfo "*" -left- "1..*"  Store : \tGets info from\t\t
-@enduml
-
-/*Record "1" -- "*" Debt : Contains
+Record "1" -- "*" Debt : Contains
 Debt "1" --  "1" Item : Contains
 Debt "*" -- "2" Housemate : Amount-Owed-Between
 Charge "1" -- Item : Contains
 Charge "1" -- Housemate : Contains
-*/
+@enduml
+
+
+
 
 ```
 # Get Item Sequence Diagram
@@ -93,8 +94,8 @@ activate shoppingList
 @startuml
 actor Housemate as Actor
 participant "Shopping List: List" as shoppingList
-participant ": CreditDebt" as database
-participant ": Charge" as chargeHousemates
+participant ": Charge" as charge
+participant ": Record" as record
 
 
 [o-> shoppingList : charge housemates
@@ -103,9 +104,9 @@ activate shoppingList
     shoppingList -->> Actor  : get items to be charged
     shoppingList -->> Actor  : get charge distribution option
     shoppingList -->> Actor  : get confirmation
-    shoppingList -->> chargeHousemates : charge(Items, distribution)
-    chargeHousemates -->> database : calculate(charge)
-    chargeHousemates -->> shoppingList : remove(Items)
+    shoppingList -->> charge** : create(Items, distribution)
+    charge -->> record : calculate(charge)
+    charge -->> shoppingList : remove(Items)
 
 activate shoppingList
 
