@@ -2,6 +2,15 @@
 ```plantuml
 @startuml
 hide circle
+
+class UI.TerminalController{
+
+}
+
+class Domain.HouseController{
+    House house
+}
+
 class Domain.House{
     name
 }
@@ -36,6 +45,9 @@ class Transaction{
 }
 
 ' associations
+Domain.HouseController "1" -- "1..*" UI.TerminalController : \tContains\t\t
+Domain.House "1" -- "1" Domain.HouseController : \tContains\t\t
+
 Domain.House "1" -- "1..*" Domain.Housemate : \tContains\t\t
 Domain.House "1" -right- "1..*" Domain.ShoppingList : \tContains\t\t
 Domain.House "1" -- "1" Record : Contains
