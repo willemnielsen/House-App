@@ -1,9 +1,12 @@
+import java.util.ArrayList;
 public class House {
     private String name;
-    // getName(){
 
-    //}
+    public String getName() {
+        return name;
+    }
+
     public static void main(String[] args){
-        System.out.println("Hey");
+
     }
 }
