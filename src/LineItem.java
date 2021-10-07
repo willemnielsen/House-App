@@ -6,6 +6,7 @@ public class LineItem extends Item{
     private int quantity;
     private ArrayList<Housemate> interestedHouseMates;
 
+
     public LineItem(int quantity, String name, ArrayList<Housemate> interestedHouseMates){
         super(name);
         this.quantity = quantity;
