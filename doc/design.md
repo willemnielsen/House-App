@@ -23,19 +23,16 @@ class ItemInfo{
 class Record{
     houseID
 }
-class Debt{
-    Housemate
-    Item
+class Charge{
+    debt
 }
 class Housemate{   
     name
     paymentInfo
     housemateId
 }
-class Charge{
-    items
-    charger
-    chargees
+class Transaction{
+    distribution
 }
 
 ' associations
@@ -47,11 +44,11 @@ ShoppingList "1" - "0..*" Item : \tContains\t\t
 Item "*" -- "1...*" Store : \tFrom\t\t
 Item "*" -- "1...*" ItemInfo : \tDescribed by \t\t
 ItemInfo "*" -left- "1..*"  Store : \tGets info from\t\t
-Record "1" -- "*" Debt : Contains
-Debt "1" --  "1" Item : Contains
-Debt "*" -- "2" Housemate : Amount-Owed-Between
-Charge "1" -- Item : Contains
-Charge "1" -- Housemate : Contains
+Record "1" -- "*" Charge : Contains
+Charge "1" --  "1" Item : Contains
+Charge "*" -- "2" Housemate : Amount-Owed-Between
+Transaction "1" -- Item : Contains
+Transaction "1" -- Housemate : Contains
 @enduml
 
 
@@ -94,7 +91,7 @@ activate shoppingList
 @startuml
 actor Housemate as Actor
 participant "Shopping List: List" as shoppingList
-participant ": Charge" as charge
+participant ": Transaction" as transaction
 participant ": Record" as record
 
 
@@ -104,9 +101,9 @@ activate shoppingList
     shoppingList -->> Actor  : get items to be charged
     shoppingList -->> Actor  : get charge distribution option
     shoppingList -->> Actor  : get confirmation
-    shoppingList -->> charge** : create(Items, distribution)
-    charge -->> record : calculate(charge)
-    charge -->> shoppingList : remove(Items)
+    shoppingList -->> transaction** : create(Items, distribution)
+    transaction -->> record : addCharge(charge)
+    transaction -->> shoppingList : remove(Items)
 
 activate shoppingList
 
@@ -138,17 +135,18 @@ class Member {
     id
     }
 
-class Charge {
+class Transaction {
     distribution
     }
 class Record { 
     houseid
 }
 
-class Debt{
-    amountOwed
+class Charge{
+    debt
 }
 Item <|-- ItemInfo 
 
+Record <|-- Charge
 @enduml
 ```
