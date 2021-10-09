@@ -21,15 +21,32 @@ public class House {
         this.houseName = houseName;
     }
 
-    public void addHousemate(Housemate housemate) {
-
+    public boolean addHousemate(Housemate housemate){
+        if (housemates.contains(housemate)){
+            System.out.println(housemate.name + " is already a member of this house.")
+            return false;
+        }
+        else{
+            housemates.add(housemate);
+            System.out.println(housemate.name + " successfully added to this house.");
+            return true;
+        }
     }
 
     public void removeHousemate(Housemate housemate){
-
+        if (housemates.contains(housemate)){
+            housemates.remove(housemate);
+            System.out.println(housemate.name + " sucessfully removed from this house.");
+            return true;
+        }
+        else{
+            System.out.println(housemate.name + " is not a member of this house.");
+            return false;
+        }
     }
 
     public void nameHouse(String name){
-
+        houseName = name;
+        System.out.println("House name changed to '" + houseName + "'.");
     }
 }
