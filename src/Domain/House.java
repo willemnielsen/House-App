@@ -8,7 +8,8 @@ public class House {
     private String houseName;
     int houseID = 0;
     private ShoppingList shoppingList;
-    ArrayList<Housemate> housemates;
+    private ArrayList<Housemate> housemates;
+    private ArrayList<lineItem> puchasedItems;
 
     public House(String houseName){
         Random random = new Random();
@@ -20,7 +21,6 @@ public class House {
         shoppingList = new ShoppingList();
         this.houseName = houseName;
     }
-
     public boolean addHousemate(Housemate housemate){
         if (housemates.contains(housemate)){
             System.out.println(housemate.name + " is already a member of this house.")
@@ -48,5 +48,8 @@ public class House {
     public void nameHouse(String name){
         houseName = name;
         System.out.println("House name changed to '" + houseName + "'.");
+    }
+    private purchaseItem(LineItem lineItem){
+        puchasedItems.add(lineItem)
     }
 }
