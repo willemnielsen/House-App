@@ -7,7 +7,7 @@ public class LineItem extends Item {
 
     private int quantity;
     private ArrayList<Housemate> interestedHouseMates;
-
+    public Housemate purchaser;
 
     public LineItem(int quantity, String name, ArrayList<Housemate> interestedHouseMates){
         super(name);
@@ -18,7 +18,9 @@ public class LineItem extends Item {
     public int getQuantity() {
         return quantity;
     }
-
+    public void addPurchaser(Housemate purchaser){
+        this.purchaser = purchaser
+    }
     public void setQuantity(int quanity) {
         this.quantity = quanity;
     }
