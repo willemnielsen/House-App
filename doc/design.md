@@ -20,7 +20,7 @@ class ItemInfo{
 
 class Debt{
     isPaid
-}
+
 class Housemate{   
     name
     paymentInfo
@@ -35,7 +35,6 @@ ShoppingList "1" - "0..*" LineItem : \tContains\t\t
 LineItem "*" -- "1...*" ItemInfo : \tDescribed by\t\t
 ItemInfo "*" -left- "1..*"  Store : \tGets info from\t\t
 Debt "*" -- "*" Housemate : \tAmount-Owed-Between\t\t
-
 
 @enduml
 
@@ -79,7 +78,7 @@ activate shoppingList
 @startuml
 actor Housemate as Actor
 participant "Shopping List: List" as shoppingList
-participant ": Charge" as charge
+participant ": Transaction" as transaction
 participant ": Record" as record
 
 
@@ -89,9 +88,9 @@ activate shoppingList
     shoppingList -->> Actor  : get items to be charged
     shoppingList -->> Actor  : get charge distribution option
     shoppingList -->> Actor  : get confirmation
-    shoppingList -->> charge** : create(Items, distribution)
-    charge -->> record : calculate(charge)
-    charge -->> shoppingList : remove(Items)
+    shoppingList -->> transaction** : create(Items, distribution)
+    transaction -->> record : addCharge(charge)
+    transaction -->> shoppingList : remove(Items)
 
 activate shoppingList
 
@@ -123,18 +122,18 @@ class Member {
     id
     }
 
-class Charge {
+class Transaction {
     distribution
     }
 class Record { 
     houseid
 }
 
-class Debt{
-    amountOwed
+class Charge{
+    debt
 }
 Item <|-- ItemInfo 
 
-Record <|-- Debt
+Record <|-- Charge
 @enduml
 ```

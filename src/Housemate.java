@@ -1,7 +1,14 @@
+
 public class Housemate {
-    private String name;
-    protected String paymentInfo;
-    protected int housemateId;
+
+
+    String name;
+    String housemateId;
+
+    public Housemate(String name, String housemateId){
+        this.name = name;
+        this.housemateId = housemateId;
+    }
 
 
 
