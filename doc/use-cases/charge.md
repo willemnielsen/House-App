@@ -1,7 +1,7 @@
 #Charge
 + **Scope:** App -> Shopping list -> Purchased Items
 + **Level:** User goal
-+ **Primary Actor:** Housemate
++ **Primary Actor:** Domain.Housemate
 ###Preconditions: 
 + System is in the shopping list menu
 		

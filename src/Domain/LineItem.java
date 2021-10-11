@@ -1,10 +1,13 @@
+package Domain;
+
 import java.util.ArrayList;
 
-public class LineItem extends Item{
+public class LineItem extends Item {
 
 
     private int quantity;
     private ArrayList<Housemate> interestedHouseMates;
+
 
     public LineItem(int quantity, String name, ArrayList<Housemate> interestedHouseMates){
         super(name);

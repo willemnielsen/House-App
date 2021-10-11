@@ -7,6 +7,6 @@
 | Space | A location inside a given household that is communal |  |  |  Room / Location |
 | ID | A unique code given to a house team | Combination of characters |  | Login code |
 | Split | Dividing a bill within a household |  |  |  |
-| House Leader | The head of a household, assigned by whoever created the house |  |  |  |
-|Item Associate|Member who will be charge for item and/or request Item for purchase in shopping List| | | |
+| Domain.House Leader | The head of a household, assigned by whoever created the house |  |  |  |
+|Domain.Item Associate|Member who will be charge for item and/or request Domain.Item for purchase in shopping List| | | |
 

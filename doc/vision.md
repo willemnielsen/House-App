@@ -20,15 +20,15 @@ Our organizational software addresses customer needs that other products do not:
 
 ##Stakeholder goals summary:
 
-+ House leader: create house in-app, send invites to other housemates, remove housemates from house, all Housemate goals
-+ Housemate: enter personal calendar, enter chores, scan receipts, confirm payments
++ Domain.House leader: create house in-app, send invites to other housemates, remove housemates from house, all Domain.Housemate goals
++ Domain.Housemate: enter personal calendar, enter chores, scan receipts, confirm payments
 
 ##System context diagram:
 ```plantuml
 @startuml
 ' human actors
-actor "House Leader" as leader
-actor "Housemate" as user
+actor "Domain.House Leader" as leader
+actor "Domain.Housemate" as user
 
 ' system actors
 actor "Calendar System" <<system>> as calendarSystem
