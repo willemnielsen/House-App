@@ -19,7 +19,7 @@ public class LineItem extends Item {
         return quantity;
     }
     public void addPurchaser(Housemate purchaser){
-        this.purchaser = purchaser
+        this.purchaser = purchaser;
     }
     public void setQuantity(int quanity) {
         this.quantity = quanity;

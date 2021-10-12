@@ -20,12 +20,15 @@ public class ShoppingList {
      * @param interestedHouseMates
      * @return true if lineitem added to shopping list
      */
-    public boolean addItem(int quantity, String name,float price, ArrayList<Housemate> interestedHouseMates){
+
+
+    public boolean addItem(int quantity, String name, float price, ArrayList<Housemate> interestedHouseMates){
         LineItem lineItem = new LineItem(quantity, name, interestedHouseMates);
         lineItem.setPrice(price);
         shoppingList.add(lineItem);
         return true;
     }
+
 
 
 

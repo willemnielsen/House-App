@@ -9,7 +9,7 @@ public class House {
     int houseID = 0;
     private ShoppingList shoppingList;
     private ArrayList<Housemate> housemates;
-    private ArrayList<lineItem> puchasedItems;
+    private ArrayList<LineItem> puchasedItems;
     private ArrayList<Debt> housedebt;
 
     public House(String houseName) {
@@ -26,7 +26,7 @@ public class House {
 
     public boolean addHousemate(Housemate housemate) {
         if (housemates.contains(housemate)) {
-            System.out.println(housemate.name + " is already a member of this house.")
+            System.out.println(housemate.name + " is already a member of this house.");
             return false;
         } else {
             housemates.add(housemate);
@@ -35,10 +35,10 @@ public class House {
         }
     }
 
-    public void removeHousemate(Housemate housemate) {
+    public boolean removeHousemate(Housemate housemate) {
         if (housemates.contains(housemate)) {
             housemates.remove(housemate);
-            System.out.println(housemate.name + " sucessfully removed from this house.");
+            System.out.println(housemate.name + " successfully removed from this house.");
             return true;
         } else {
             System.out.println(housemate.name + " is not a member of this house.");
@@ -51,8 +51,8 @@ public class House {
         System.out.println("House name changed to '" + houseName + "'.");
     }
 
-    private purchaseItem(LineItem lineItem) {
-        puchasedItems.add(lineItem)
+    private void purchaseItem(LineItem lineItem) {
+        puchasedItems.add(lineItem);
     }
 
 
