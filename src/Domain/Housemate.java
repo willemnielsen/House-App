@@ -10,26 +10,26 @@ public class Housemate {
     public Housemate(String name, String housemateId){
         this.name = name;
         this.housemateId = housemateId;
-        debt = new ArrayList<Debt>();
+        ArrayList<Debt> debtlist = new ArrayList<Debt>();
     }
 
     public void myTransactions(){
         for (Debt debt: debtlist) {
-            System.out.println("You owe " + debt.creditor + " " + debt.owed + " for " + debt.name + ".\n");
+            System.out.println("You owe " + debt.creditor + " " + debt.owed + " for " + debt.itemName + ".\n");
         }
     }
 
     public void myBalance(){
-        private float credit = 0;
-        private float owed = 0;
+        float credit = 0;
+        float owed = 0;
         for (Debt debt: debtlist) {
-            if(debt.creditor.name.equal(this.name))
+            if(debt.creditor.name.equals(this.name))
                 credit += debt.owed;
             else owed += debt.owed;
 
-
     }
-        System.out.println("Your balance is " + credit - debt + ".");
+        float net = credit-owed;
+        System.out.println("Your balance is " + net + ".");
     }
 
 }
