@@ -9,7 +9,7 @@ public class House {
     int houseID = 0;
     private ShoppingList shoppingList;
     private ArrayList<Housemate> housemates;
-    private ArrayList<LineItem> puchasedItems;
+    private ArrayList<LineItem> purchasedItems;
     private ArrayList<Debt> housedebt;
 
     public House(String houseName) {
@@ -52,7 +52,7 @@ public class House {
     }
 
     private void purchaseItem(LineItem lineItem) {
-        puchasedItems.add(lineItem);
+        purchasedItems.add(lineItem);
     }
 
 
@@ -67,12 +67,20 @@ public class House {
         }
     }
     public void checkout() {
-        for (LineItem lineItem: puchasedItems) {
+        for (LineItem lineItem: purchasedItems) {
             createDebt(lineItem);
         }
-        for (LineItem lineItem: puchasedItems) {
-            purchasedItem.remove(lineItem);
+        for (LineItem lineItem: purchasedItems) {
+            purchasedItems.remove(lineItem);
         }
+    }
+
+    public String houseTransactions(){
+        String transactionList = "";
+        for (Debt debt: housedebt) {
+            transactionList += debt.getDebtor() + " owes " + debt.getCreditor() + " " + debt.getOwed() + " for " + debt.getItemName() + ".\n";
+        }
+        return transactionList;
     }
 }
 
