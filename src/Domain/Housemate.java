@@ -13,23 +13,27 @@ public class Housemate {
         ArrayList<Debt> debtlist = new ArrayList<Debt>();
     }
 
-    public void myTransactions(){
+    public String myTransactions(){
+        String transactionList = "";
         for (Debt debt: debtlist) {
-            System.out.println("You owe " + debt.creditor + " " + debt.owed + " for " + debt.itemName + ".\n");
+            transactionList += "You owe " + debt.getCreditor() + " " + debt.getOwed() + " for " + debt.getItemName() + ".\n";
         }
+        return transactionList;
     }
 
-    public void myBalance(){
+    public String myBalance(){
         float credit = 0;
         float owed = 0;
+        String balanceTotal = "";
         for (Debt debt: debtlist) {
-            if(debt.creditor.name.equals(this.name))
-                credit += debt.owed;
-            else owed += debt.owed;
+            if(debt.getCreditor().name.equals(this.name))
+                credit += debt.getOwed();
+            else owed += debt.getOwed();
 
     }
         float net = credit-owed;
-        System.out.println("Your balance is " + net + ".");
+        balanceTotal += "Your balance is " + net + ".";
+        return balanceTotal;
     }
 
 }

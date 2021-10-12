@@ -2,7 +2,6 @@ package Domain;
 
 import Domain.ShoppingList;
 
-import javax.lang.model.type.ArrayType;
 import java.util.*;
 public class House {
 
@@ -10,7 +9,7 @@ public class House {
     int houseID = 0;
     private ShoppingList shoppingList;
     private ArrayList<Housemate> housemates;
-    private ArrayList<LineItem> purchasedItems;
+    private ArrayList<LineItem> puchasedItems;
     private ArrayList<Debt> housedebt;
 
     public House(String houseName) {
@@ -75,6 +74,14 @@ public class House {
         for (LineItem lineItem: purchasedItems) {
             purchasedItems.remove(lineItem);
         }
+    }
+
+    public String houseTransactions(){
+        String transactionList = "";
+        for (Debt debt: housedebt) {
+            transactionList += debt.getDebtor() + " owes " + debt.getCreditor() + " " + debt.getOwed() + " for " + debt.getItemName() + ".\n";
+        }
+        return transactionList;
     }
 
     public ShoppingList getShoppingList(){
