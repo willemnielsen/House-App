@@ -58,8 +58,11 @@ public class House {
 
     public void createDebt(LineItem lineItem) {
         for (Housemate interHM : lineItem.interestedHousemates) {
-                Debt newdebt = new Debt(lineItem.puchaser, interHM, lineItem.price/lineItem.interestedHousemates.size());
-                this.housedebt.add(newdebt)
+                Debt newdebt = new Debt(lineItem.puchaser, interHM, lineItem.price/lineItem.interestedHousemates.size(), lineItem.name);
+                if(!iterHM.name.equals(lineItem.purchaser.name)){
+                    this.housedebt.add(newdebt);
+                    interHM.debtlist.add(newdebt);
+                    lineItem.purchaser.debtlist.add(newdebt);
             }
         }
     }
