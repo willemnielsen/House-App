@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 public class ShoppingList {
 
-    private ArrayList<Item> shoppingList = new ArrayList<Item>();
+    private ArrayList<LineItem> shoppingList = new ArrayList<LineItem>();
 
     public ShoppingList(){
 
