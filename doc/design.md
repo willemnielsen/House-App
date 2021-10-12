@@ -1,7 +1,6 @@
 # Add Domain.Item Domain Model
 ```plantuml
 @startuml
-
 hide circle
 
 class UI.TerminalController{
@@ -17,43 +16,38 @@ class Domain.House{
 }
 class Domain.ShoppingList{ 
 }
-class Domain.Item{
+class Domain.LineItem{
+    quantity
+}
+class Store{
+    address
     name
-    avalibility
+}
+class ItemInfo{
+    price
+    image
+    quantity
 }
 
-class ItemInfo{
-    name
-    price
-}
 
 
 class Domain.Housemate{   
-
     name
     paymentInfo
     housemateId
 }
 
 ' associations
-
 Domain.HouseController "1" -- "1..*" UI.TerminalController : \tContains\t\t
 Domain.House "1" -- "1" Domain.HouseController : \tContains\t\t
-
 Domain.House "1" -- "1..*" Domain.Housemate : \tContains\t\t
 Domain.House "1" -right- "1..*" Domain.ShoppingList : \tContains\t\t
-Domain.House "1" -- "1" Record : Contains
-Domain.Housemate "0" - "1..*" Domain.Item : \tOwn\t\t
-Domain.ShoppingList "1" - "0..*" Domain.Item : \tContains\t\t
-Domain.Item "*" -- "1...*" Store : \tFrom\t\t
-Domain.Item "*" -- "1...*" ItemInfo : \tDescribed by \t\t
+Domain.Housemate "1..*" - "0..*" Domain.LineItem : \tOwns\t\t
+Domain.ShoppingList "1" - "0..*" Domain.LineItem : \tContains\t\t
+Domain.LineItem "*" -- "1...*" Store : \tFrom\t\t
+Domain.LineItem "*" -- "1...*" ItemInfo : \tDescribed by \t\t
 ItemInfo "*" -left- "1..*"  Store : \tGets info from\t\t
-Record "1" -- "*" Charge : Contains
-Charge "1" --  "1" Domain.Item : Contains
-Charge "*" -- "2" Domain.Housemate : Amount-Owed-Between
-Transaction "1" -- Domain.Item : Contains
-Transaction "1" -- Domain.Housemate : Contains
-
+Domain.Housemate "1" - "0..*" Domain.LineItem : Purchases
 @enduml
 
 
@@ -96,8 +90,8 @@ activate shoppingList
 @startuml
 actor Domain.Housemate as Actor
 participant "Shopping List: List" as shoppingList
-participant ": Transaction" as transaction
-participant ": Record" as record
+participant ": LineItem" as LineItem
+participant ": House" as house
 
 
 [o-> shoppingList : charge housemates
@@ -106,9 +100,9 @@ activate shoppingList
     shoppingList -->> Actor  : get items to be charged
     shoppingList -->> Actor  : get charge distribution option
     shoppingList -->> Actor  : get confirmation
-    shoppingList -->> transaction** : create(Items, distribution)
-    transaction -->> record : addCharge(charge)
-    transaction -->> shoppingList : remove(Items)
+    shoppingList -->> LineItem** : addPurchaser(purchaser, LineItem)
+    shoppingList -->> house : addCharge(LineItem)
+    house -->> shoppingList : removePurchasedItems(LineItem)
 
 activate shoppingList
 
@@ -125,7 +119,7 @@ class Domain.House {
     }
 
 class Domain.ShoppingList
-class Domain.Item {
+class Domain.LineItem {
     name
     quantity 
     }
@@ -135,23 +129,15 @@ class ItemInfo {
     price
     }
 class Store
-class Member {
+class Housemate {
     name
     id
     }
 
-class Transaction {
-    distribution
-    }
-class Record { 
-    houseid
-}
 
-class Charge{
-    debt
-}
-Domain.Item <|-- ItemInfo 
+Domain.LineItem -- ItemInfo 
+Domain.House -- Housemate
 
-Record <|-- Charge
+
 @enduml
 ```
