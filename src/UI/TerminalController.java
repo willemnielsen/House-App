@@ -1,6 +1,8 @@
 package UI;
 
 import Domain.HouseController;
+import Domain.Housemate;
+
 import java.util.Scanner;
 
 public class TerminalController implements Runnable{
@@ -23,23 +25,36 @@ public class TerminalController implements Runnable{
      * app run loop handles single house at time
      */
     public void run(){
-        houseController = new HouseController(ask("Enter name of house"));
+        houseController = new HouseController("TH80");
+        houseController.addHousemate(new Housemate(ask("Enter your name"), "120332412"));
+        houseController.addHousemate(new Housemate("Tom", "12033546457"));
+        houseController.addHousemate(new Housemate("Jerry", "12033457457"));
+
+
         while(true){
             //ask high level questions first
-            String action = ask("\nActions\n\"Members\"\n\"ShoppingLists\"\n");
+            String action = ask("\nActions\n\"ShoppingList\"\n\"Purchase\"\n");
 
             switch (action) {
-                case "Members"://Member?
-                    String memberubAction = ask("\"add new Member\"\n\"remove Member\"\n\"list of Members\"\n");
-                    //add/remove member
-                    //member list
-                    break;
                 case "ShoppingList"://ShoppingList
-                    String shoppingListSubAction = ask("\"add item\"\n\"remove item\"\n\"list of items\"\n");
-
-                        //add item
-                        //remove item
-                        //show wish list
+                    String shoppingListSubAction = ask("\"add item\"\n");
+                        if(shoppingListSubAction.contains("add item")){
+                            String input = "";
+                            do {
+                                String name = ask("Enter Item name");
+                                float price = (float) Double.parseDouble(ask("Enter price", "double"));
+                                int quantity = Integer.parseInt(ask("Enter quantity", "int"));
+                                houseController.getHouse().getShoppingList().addItem(quantity, name, price, null);
+                                if(ask("add more items (yes) or done (done)").contains("done")){
+                                    break;
+                                }
+                            } while (true);
+                        } else if(shoppingListSubAction.contains("Done")) {
+                            continue;
+                        }
+                    break;
+                case "Purchase":
+                    purchase();
                     break;
                 //checkout
                     //splitting options
@@ -59,6 +74,37 @@ public class TerminalController implements Runnable{
     public static String ask(String question){
         System.out.println(question);
         return scanner.nextLine();
+    }
+
+    public static String ask(String question, String type){
+        String input = "";
+        while(true) {
+            try {
+                if (type.equals("String")) {
+                    break;
+                } else if (type.contains("int")) {
+                    int x = Integer.parseInt(input);
+                    break;
+                } else if (type.contains("double") || type.contains("float")) {
+                    double x = Double.parseDouble(input);
+                    break;
+                }
+            } catch (Exception e) {
+                System.out.println(question);
+                input = scanner.nextLine();
+            }
+        }
+        return input;
+    }
+
+    public void purchase(){
+        for(int i = 0; i < houseController.getHouse().getShoppingList().getShoppingList().size(); i++){
+            System.out.println(houseController.getHouse().getShoppingList().getShoppingList().get(i).toString());
+            String respond = ask("Do you want to purchase this item. (yes/no)");
+            if(respond.contains("yes")){
+                houseController.getHouse().getPurchasedItems().add(houseController.getHouse().getShoppingList().getShoppingList().get(i));
+            }
+        }
     }
 
     public static void main(String[] args){

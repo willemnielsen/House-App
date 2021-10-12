@@ -23,15 +23,19 @@ public class ShoppingList {
 
 
     public boolean addItem(int quantity, String name, float price, ArrayList<Housemate> interestedHouseMates){
-        LineItem lineItem = new LineItem(quantity, name, interestedHouseMates);
-        lineItem.setPrice(price);
-        shoppingList.add(lineItem);
+       if(interestedHouseMates == null ){
+           LineItem lineItem = new LineItem(quantity, name, new ArrayList<Housemate>());
+           lineItem.setPrice(price);
+           shoppingList.add(lineItem);
+       } else {
+           LineItem lineItem = new LineItem(quantity, name, interestedHouseMates);
+           lineItem.setPrice(price);
+           shoppingList.add(lineItem);
+       }
         return true;
     }
 
-
-
-
-
-
+    public ArrayList<LineItem> getShoppingList() {
+        return shoppingList;
+    }
 }

@@ -16,5 +16,9 @@ public class HouseController {
         house.removeHousemate(housemate);
     }
 
+    public House getHouse(){
+        return house;
+    }
+
 
 }

@@ -28,4 +28,9 @@ public class LineItem extends Item {
     public ArrayList<Housemate> getInterestedHouseMates() {
         return interestedHouseMates;
     }
+
+    public String toString(){
+        return this.getName();
+    }
+
 }

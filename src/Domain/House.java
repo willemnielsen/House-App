@@ -2,6 +2,7 @@ package Domain;
 
 import Domain.ShoppingList;
 
+import javax.lang.model.type.ArrayType;
 import java.util.*;
 public class House {
 
@@ -9,7 +10,7 @@ public class House {
     int houseID = 0;
     private ShoppingList shoppingList;
     private ArrayList<Housemate> housemates;
-    private ArrayList<LineItem> puchasedItems;
+    private ArrayList<LineItem> purchasedItems;
     private ArrayList<Debt> housedebt;
 
     public House(String houseName) {
@@ -21,6 +22,7 @@ public class House {
         housemates = new ArrayList<Housemate>();
         shoppingList = new ShoppingList();
         housedebt = new ArrayList<Debt>();
+        purchasedItems = new ArrayList<LineItem>();
         this.houseName = houseName;
     }
 
@@ -52,7 +54,7 @@ public class House {
     }
 
     private void purchaseItem(LineItem lineItem) {
-        puchasedItems.add(lineItem);
+        purchasedItems.add(lineItem);
     }
 
 
@@ -67,12 +69,20 @@ public class House {
         }
     }
     public void checkout() {
-        for (LineItem lineItem: puchasedItems) {
+        for (LineItem lineItem: purchasedItems) {
             createDebt(lineItem);
         }
-        for (LineItem lineItem: puchasedItems) {
-            purchasedItem.remove(lineItem);
+        for (LineItem lineItem: purchasedItems) {
+            purchasedItems.remove(lineItem);
         }
+    }
+
+    public ShoppingList getShoppingList(){
+        return this.shoppingList;
+    }
+
+    public ArrayList<LineItem> getPurchasedItems() {
+        return purchasedItems;
     }
 }
 
