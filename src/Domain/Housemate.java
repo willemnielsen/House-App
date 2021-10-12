@@ -15,7 +15,7 @@ public class Housemate {
 
     public void myTransactions(){
         for (Debt debt: debtlist) {
-            System.out.println("You owe " + debt.creditor + " " + debt.owed + " for " + debt.itemName + ".\n");
+            System.out.println("You owe " + debt.getCreditor() + " " + debt.getOwed() + " for " + debt.getItemName() + ".\n");
         }
     }
 
@@ -23,9 +23,9 @@ public class Housemate {
         float credit = 0;
         float owed = 0;
         for (Debt debt: debtlist) {
-            if(debt.creditor.name.equals(this.name))
-                credit += debt.owed;
-            else owed += debt.owed;
+            if(debt.getCreditor().name.equals(this.name))
+                credit += debt.getOwed();
+            else owed += debt.getOwed();
 
     }
         float net = credit-owed;
