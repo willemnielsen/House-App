@@ -30,7 +30,7 @@ public class LineItem extends Item {
     }
 
     public String toString(){
-        return this.getName();
+        return "x" + this.quantity + " " + super.toString();
     }
 
 }

@@ -1,5 +1,8 @@
 package Domain;
 
+import javax.sound.sampled.Line;
+import java.util.ArrayList;
+
 public class HouseController {
 
     private House house;
@@ -16,9 +19,28 @@ public class HouseController {
         house.removeHousemate(housemate);
     }
 
+
+    public LineItem getShoppingListLineItem(int i){
+        return house.getShoppingListLineItem(i);
+    }
+
+    public boolean addLineItemToShoppingList(int quantity, String name, float price, ArrayList<Housemate> interestedHouseMates){
+        return house.addLineItemToShoppingList(quantity, name, price, interestedHouseMates);
+    }
+
+    public int getShoppingListSize(){
+        return house.getShoppingListSize();
+    }
+
+    public String shoppingListToString(){
+        return house.getShoppingList().toString();
+    }
+
+    public void addToPurchse(LineItem lineitem){
+        house.getPurchasedItems().add(lineitem);
+    }
+
     public House getHouse(){
         return house;
     }
-
-
 }

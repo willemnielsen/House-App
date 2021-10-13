@@ -8,6 +8,7 @@ public class ShoppingList {
 
     private ArrayList<LineItem> shoppingList = new ArrayList<LineItem>();
 
+
     public ShoppingList(){
 
     }
@@ -20,8 +21,6 @@ public class ShoppingList {
      * @param interestedHouseMates
      * @return true if lineitem added to shopping list
      */
-
-
     public boolean addItem(int quantity, String name, float price, ArrayList<Housemate> interestedHouseMates){
        if(interestedHouseMates == null ){
            LineItem lineItem = new LineItem(quantity, name, new ArrayList<Housemate>());
@@ -35,7 +34,24 @@ public class ShoppingList {
         return true;
     }
 
-    public ArrayList<LineItem> getShoppingList() {
-        return shoppingList;
+    /**
+     * @param i, i is in range of indexes that shopping list has
+     */
+    public LineItem getShoppingListLineItem(int i) {
+        return shoppingList.get(i);
     }
+
+    public int size(){
+        return shoppingList.size();
+    }
+
+    public String toString(){
+        String list = "Items {\n";
+        for(LineItem lineItem : shoppingList) {
+            list += "\t" + lineItem.toString() + "\n";
+        }
+        return list + "}\n";
+    }
+
+
 }

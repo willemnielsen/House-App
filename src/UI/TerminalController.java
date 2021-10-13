@@ -37,18 +37,20 @@ public class TerminalController implements Runnable{
 
             switch (action) {
                 case "ShoppingList"://ShoppingList
-                    String shoppingListSubAction = ask("\"add item\"\n");
+                    String shoppingListSubAction = ask("\"add item\"\n\"list\"\n");
                         if(shoppingListSubAction.contains("add item")){
                             String input = "";
                             do {
                                 String name = ask("Enter Item name");
                                 float price = (float) Double.parseDouble(ask("Enter price", "double"));
                                 int quantity = Integer.parseInt(ask("Enter quantity", "int"));
-                                houseController.getHouse().getShoppingList().addItem(quantity, name, price, null);
+                                houseController.addLineItemToShoppingList(quantity, name, price, null);
                                 if(ask("add more items (yes) or done (done)").contains("done")){
                                     break;
                                 }
                             } while (true);
+                        } else if(shoppingListSubAction.contains("list")){
+                            System.out.println(houseController.shoppingListToString());
                         } else if(shoppingListSubAction.contains("Done")) {
                             continue;
                         }
@@ -63,6 +65,16 @@ public class TerminalController implements Runnable{
 
 
 
+        }
+    }
+
+    public void purchase(){
+        for(int i = 0; i < houseController.getHouse().getShoppingListSize(); i++){
+            System.out.println(houseController.getShoppingListLineItem(i).toString());
+            String respond = ask("Do you want to purchase this item. (yes/no)");
+            if(respond.contains("yes")){
+                houseController.addToPurchse(houseController.getShoppingListLineItem(i));
+            }
         }
     }
 
@@ -95,16 +107,6 @@ public class TerminalController implements Runnable{
             }
         }
         return input;
-    }
-
-    public void purchase(){
-        for(int i = 0; i < houseController.getHouse().getShoppingList().getShoppingList().size(); i++){
-            System.out.println(houseController.getHouse().getShoppingList().getShoppingList().get(i).toString());
-            String respond = ask("Do you want to purchase this item. (yes/no)");
-            if(respond.contains("yes")){
-                houseController.getHouse().getPurchasedItems().add(houseController.getHouse().getShoppingList().getShoppingList().get(i));
-            }
-        }
     }
 
     public static void main(String[] args){

@@ -9,7 +9,7 @@ public class House {
     int houseID = 0;
     private ShoppingList shoppingList;
     private ArrayList<Housemate> housemates;
-    private ArrayList<LineItem> puchasedItems;
+    private ArrayList<LineItem> purchasedItems;
     private ArrayList<Debt> housedebt;
 
     public House(String houseName) {
@@ -84,8 +84,20 @@ public class House {
         return transactionList;
     }
 
+    public boolean addLineItemToShoppingList(int quantity, String name, float price, ArrayList<Housemate> interestedHouseMates){
+        return shoppingList.addItem(quantity, name, price, interestedHouseMates);
+    }
+
+    public LineItem getShoppingListLineItem(int i){
+        return shoppingList.getShoppingListLineItem(i);
+    }
+
+    public int getShoppingListSize(){
+        return this.shoppingList.size();
+    }
+
     public ShoppingList getShoppingList(){
-        return this.shoppingList;
+        return shoppingList;
     }
 
     public ArrayList<LineItem> getPurchasedItems() {
