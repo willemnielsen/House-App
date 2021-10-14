@@ -59,52 +59,51 @@ public class House {
 
     public void createDebtForIHM(LineItem lineItem) {
         for (Housemate interHM : lineItem.getInterestedHouseMates()) {
-                Debt newdebt = new Debt(lineItem.purchaser, interHM, (lineItem.getPrice()*lineItem.getQuantity())/lineItem.getInterestedHouseMates().size(), lineItem.getName());
-                if(!interHM.name.equals(lineItem.purchaser.name)) {
+                Debt newdebt = new Debt(lineItem.getPurchaser(), interHM, (lineItem.getPrice()*lineItem.getQuantity())/lineItem.getInterestedHouseMates().size(), lineItem.getName());
+                if(!interHM.name.equals(lineItem.getPurchaser().name)) {
                     this.housedebt.add(newdebt);
                     interHM.debtlist.add(newdebt);
-                    lineItem.purchaser.debtlist.add(newdebt);
+                    lineItem.getPurchaser().debtlist.add(newdebt);
                 }
                 else{
                     this.housedebt.add(newdebt);
-                    lineItem.purchaser.debtlist.add(newdebt);
+                    lineItem.getPurchaser().debtlist.add(newdebt);
                 }
         }
     }
 
     public void createDebtForHH(LineItem lineItem) {
         for (Housemate currHM : housemates) {
-            Debt newdebt = new Debt(lineItem.purchaser, currHM, (lineItem.getPrice()*lineItem.getQuantity())/housemates.size(), lineItem.getName());
-            if(!currHM.name.equals(lineItem.purchaser.name)) {
+            Debt newdebt = new Debt(lineItem.getPurchaser(), currHM, (lineItem.getPrice()*lineItem.getQuantity())/housemates.size(), lineItem.getName());
+            if(!currHM.name.equals(lineItem.getPurchaser().name)) {
                 this.housedebt.add(newdebt);
                 currHM.debtlist.add(newdebt);
-                lineItem.purchaser.debtlist.add(newdebt);
+                lineItem.getPurchaser().debtlist.add(newdebt);
             }
             else{
                 this.housedebt.add(newdebt);
-                lineItem.purchaser.debtlist.add(newdebt);
+                lineItem.getPurchaser().debtlist.add(newdebt);
             }
         }
     }
 
     public void createDebtForMe(LineItem lineItem) {
-        Debt newdebt = new Debt(lineItem.purchaser, lineItem.purchaser, lineItem.getPrice()*lineItem.getQuantity(), lineItem.getName());
+        Debt newdebt = new Debt(lineItem.getPurchaser(), lineItem.getPurchaser(), lineItem.getPrice()*lineItem.getQuantity(), lineItem.getName());
         this.housedebt.add(newdebt);
-        lineItem.purchaser.debtlist.add(newdebt);
+        lineItem.getPurchaser().debtlist.add(newdebt);
         }
 
     public void checkout(String distribution) {
         for (LineItem lineItem: purchasedItems) {
-            if(distribution.equals("Charge Based on Interested Housemates"))
+            if(distribution.equals("Charge Based on Interested Housemates") || distribution.equals("A"))
                 createDebtForIHM(lineItem);
-            else if(distribution.equals("Charge Household"))
+            else if(distribution.equals("Charge Household") || distribution.equals("B"))
                 createDebtForHH(lineItem);
-            else if(distribution.equals("Charge Me"))
+            else if(distribution.equals("Charge Me") || distribution.equals("C"))
                 createDebtForMe(lineItem);
         }
-        for (LineItem lineItem: purchasedItems) {
-            purchasedItems.remove(lineItem);
-        }
+        purchasedItems.clear();
+        shoppingList.clear();
     }
 
     public String houseTransactions(){

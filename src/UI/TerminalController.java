@@ -56,6 +56,16 @@ public class TerminalController implements Runnable{
                     break;
                 case "Purchase":
                     purchase();
+                    //print purchased list (assume no mistake)
+                    System.out.println();
+                    //ask payment methods 3 of them
+                    String paymentType = ask("Select a payment option:\nA \"Charge Based on Interested Housemates\"\nB \"Charge Household\"\nC \"Charge Me\"");
+                        //call the method to split bill
+                        //clear purchase and shopping list;
+                    houseController.checkout(paymentType);
+                        //whose paying
+                    //show debt
+
                     break;
                 case "Done":
                     return;

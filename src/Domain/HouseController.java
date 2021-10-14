@@ -20,6 +20,10 @@ public class HouseController {
     }
 
 
+    public void checkout(String distribution){
+        house.checkout(distribution);
+    }
+
     public LineItem getShoppingListLineItem(int i){
         return house.getShoppingListLineItem(i);
     }

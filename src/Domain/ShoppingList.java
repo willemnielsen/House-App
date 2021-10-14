@@ -45,6 +45,10 @@ public class ShoppingList {
         return shoppingList.size();
     }
 
+    public void clear(){
+        shoppingList.clear();
+    }
+
     public String toString(){
         String list = "Items {\n";
         for(LineItem lineItem : shoppingList) {
