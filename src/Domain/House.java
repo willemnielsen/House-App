@@ -25,31 +25,31 @@ public class House {
         this.houseName = houseName;
     }
 
-    public boolean addHousemate(Housemate housemate) {
+    public String addHousemate(Housemate housemate) {
+        String output;
         if (housemates.contains(housemate)) {
-            System.out.println(housemate.name + " is already a member of this house.");
-            return false;
+            output = housemate.name + " is already a member of this house.";
         } else {
             housemates.add(housemate);
-            System.out.println(housemate.name + " successfully added to this house.");
-            return true;
+            output = housemate.name + " successfully added to this house.";
         }
+        return output;
     }
 
-    public boolean removeHousemate(Housemate housemate) {
+    public String removeHousemate(Housemate housemate) {
+        String output;
         if (housemates.contains(housemate)) {
             housemates.remove(housemate);
-            System.out.println(housemate.name + " successfully removed from this house.");
-            return true;
+            output = housemate.name + " successfully removed from this house.";
         } else {
-            System.out.println(housemate.name + " is not a member of this house.");
-            return false;
+            output = housemate.name + " is not a member of this house.";
         }
+        return output;
     }
 
-    public void nameHouse(String name) {
+    public String nameHouse(String name) {
         houseName = name;
-        System.out.println("House name changed to '" + houseName + "'.");
+        return "House name changed to '" + houseName + "'.";
     }
 
     private void purchaseItem(LineItem lineItem) {
@@ -136,6 +136,14 @@ public class House {
 
     public ArrayList<LineItem> getPurchasedItems() {
         return purchasedItems;
+    }
+
+    public String toString(){
+        String list = "Purchased Items {\n";
+        for(LineItem lineItem : purchasedItems) {
+            list += "\t" + lineItem.toString() + "\n";
+        }
+        return list + "}\n";
     }
 }
 
