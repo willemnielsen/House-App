@@ -41,4 +41,8 @@ public class Housemate {
     public String getName() {
         return name;
     }
+
+    public String toString(){
+        return "{" + name + "}";
+    }
 }

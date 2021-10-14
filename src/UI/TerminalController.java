@@ -4,6 +4,7 @@ import Domain.House;
 import Domain.HouseController;
 import Domain.Housemate;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class TerminalController implements Runnable{
@@ -63,8 +64,12 @@ public class TerminalController implements Runnable{
                     String paymentType = ask("Select a payment option:\nA \"Charge Based on Interested Housemates\"\nB \"Charge Household\"\nC \"Charge Me\"");
                         //call the method to split bill
                         //clear purchase and shopping list;
-                    //houseController.checkout(paymentType, null);
-                        //whose paying
+                    //whose paying
+                    System.out.println("Select a purchaser");
+                    Housemate x = askForHouseMate(houseController);
+                    System.out.println(x);
+                    houseController.checkout(paymentType, x);
+                    System.out.println("Works");
                     //show debt
 
                     break;
@@ -83,16 +88,20 @@ public class TerminalController implements Runnable{
     public void purchase(){
         for(int i = 0; i < houseController.getHouse().getShoppingListSize(); i++){
             System.out.println(houseController.getShoppingListLineItem(i).toString());
-            String respond = ask("Do you want to purchase this item. (yes/no)");
+            String respond = ask("Did you purchase this item. (yes/no)");
             if(respond.contains("yes")){
                 houseController.addToPurchse(houseController.getShoppingListLineItem(i));
             }
         }
     }
 
-    public Housemate askForHouseMate(){
-        //System.out.println(HouseController.convertHouseMatesToString());//all names
-        return null;
+    public Housemate askForHouseMate(HouseController housecontroller){
+        System.out.println(HouseController.convertHouseMatesToString(housecontroller.getHousemates()));//all names
+        Housemate x = null;
+        do {
+            x = housecontroller.getHousemate(ask("Enter a Housemate"));
+        } while (x == null);
+        return x;
     }
 
 

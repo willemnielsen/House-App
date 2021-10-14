@@ -79,4 +79,7 @@ public class HouseController {
     }
 
 
+    public ArrayList<Housemate> getHousemates() {
+        return house.getHousemates();
+    }
 }
