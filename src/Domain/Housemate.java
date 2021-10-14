@@ -28,10 +28,10 @@ public class Housemate {
         float owed = 0;
         String balanceTotal = "";
         for (Debt debt: debtlist) {
-            if(debt.getCreditor().name.equals(this.name))
+            if(debt.getCreditor().name.equals(this.name) && !debt.getCreditor().name.equals(debt.getDebtor().name))
                 credit += debt.getOwed();
-            else owed += debt.getOwed();
-
+            if (debt.getDebtor().name.equals(this.name) && !debt.getCreditor().name.equals(debt.getDebtor().name))
+                owed += debt.getOwed();
     }
         float net = credit-owed;
         balanceTotal += "Your balance is " + net + ".";
