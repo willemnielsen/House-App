@@ -18,7 +18,7 @@ public class Housemate {
         for (Debt debt: debtlist) {
             if(debt.getCreditor().name.equals(debt.getDebtor().name))
             transactionList += "You paid " + debt.getOwed() + " for " + debt.getItemName() + ".\n";
-            else transactionList += "You paid " + debt.getCreditor().name + " " + debt.getOwed() + " for " + debt.getItemName() + ".\n";
+            else transactionList += "You owe " + debt.getCreditor().name + " " + debt.getOwed() + " for " + debt.getItemName() + ".\n";
         }
         return transactionList;
     }
