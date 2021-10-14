@@ -1,5 +1,6 @@
 package UI;
 
+import Domain.House;
 import Domain.HouseController;
 import Domain.Housemate;
 
@@ -88,6 +89,12 @@ public class TerminalController implements Runnable{
             }
         }
     }
+
+    public Housemate askForHouseMate(){
+        //System.out.println(HouseController.convertHouseMatesToString());//all names
+        return null;
+    }
+
 
     /**
      *

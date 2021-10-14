@@ -27,11 +27,11 @@ public class House {
 
     public boolean addHousemate(Housemate housemate) {
         if (housemates.contains(housemate)) {
-            System.out.println(housemate.name + " is already a member of this house.");
+            System.out.println(housemate.getName() + " is already a member of this house.");
             return false;
         } else {
             housemates.add(housemate);
-            System.out.println(housemate.name + " successfully added to this house.");
+            System.out.println(housemate.getName() + " successfully added to this house.");
             return true;
         }
     }
@@ -39,10 +39,10 @@ public class House {
     public boolean removeHousemate(Housemate housemate) {
         if (housemates.contains(housemate)) {
             housemates.remove(housemate);
-            System.out.println(housemate.name + " successfully removed from this house.");
+            System.out.println(housemate.getName() + " successfully removed from this house.");
             return true;
         } else {
-            System.out.println(housemate.name + " is not a member of this house.");
+            System.out.println(housemate.getName() + " is not a member of this house.");
             return false;
         }
     }
@@ -60,7 +60,7 @@ public class House {
     public void createDebtForIHM(LineItem lineItem) {
         for (Housemate interHM : lineItem.getInterestedHouseMates()) {
                 Debt newdebt = new Debt(lineItem.getPurchaser(), interHM, (lineItem.getPrice()*lineItem.getQuantity())/lineItem.getInterestedHouseMates().size(), lineItem.getName());
-                if(!interHM.name.equals(lineItem.getPurchaser().name)) {
+                if(!interHM.getName().equals(lineItem.getPurchaser().getName())) {
                     this.housedebt.add(newdebt);
                     interHM.debtlist.add(newdebt);
                     lineItem.getPurchaser().debtlist.add(newdebt);
@@ -75,7 +75,7 @@ public class House {
     public void createDebtForHH(LineItem lineItem) {
         for (Housemate currHM : housemates) {
             Debt newdebt = new Debt(lineItem.getPurchaser(), currHM, (lineItem.getPrice()*lineItem.getQuantity())/housemates.size(), lineItem.getName());
-            if(!currHM.name.equals(lineItem.getPurchaser().name)) {
+            if(!currHM.getName().equals(lineItem.getPurchaser().getName())) {
                 this.housedebt.add(newdebt);
                 currHM.debtlist.add(newdebt);
                 lineItem.getPurchaser().debtlist.add(newdebt);
@@ -110,10 +110,10 @@ public class House {
     public String houseTransactions(){
         String transactionList = "";
         for (Debt debt: housedebt) {
-            if(debt.getCreditor().name.equals(debt.getDebtor().name))
-                transactionList += debt.getDebtor().name + " paid " + debt.getOwed() + " for " + debt.getItemName() + ".\n";
+            if(debt.getCreditor().getName().equals(debt.getDebtor().getName()))
+                transactionList += debt.getDebtor().getName() + " paid " + debt.getOwed() + " for " + debt.getItemName() + ".\n";
             else
-                transactionList += debt.getDebtor().name + " owes " + debt.getCreditor().name + " " + debt.getOwed() + " for " + debt.getItemName() + ".\n";
+                transactionList += debt.getDebtor().getName() + " owes " + debt.getCreditor().getName() + " " + debt.getOwed() + " for " + debt.getItemName() + ".\n";
         }
         return transactionList;
     }
@@ -136,6 +136,10 @@ public class House {
 
     public ArrayList<LineItem> getPurchasedItems() {
         return purchasedItems;
+    }
+
+    public ArrayList<Housemate> getHousemates(){
+        return housemates;
     }
 }
 

@@ -47,4 +47,36 @@ public class HouseController {
     public House getHouse(){
         return house;
     }
+
+
+    /**
+     *
+     * @return object with corresponding name else null
+     */
+    public Housemate getHousemate(String name){
+        for(Housemate housemate : house.getHousemates()){
+            if(housemate.getName().equals(name)){
+                return housemate;
+            }
+        }
+        return null;
+    }
+
+    public static String convertPurchaseToString(ArrayList<LineItem> lIL){
+        String list = "Items {\n";
+        for(LineItem lineItem : lIL) {
+            list += "\t" + lineItem.toString() + "\n";
+        }
+        return list + "}\n";
+    }
+
+    public static String convertHouseMatesToString(ArrayList<Housemate> h){
+        String list = "HouseMates {\n";
+        for(Housemate housemate : h) {
+            list += "\t" + housemate.toString() + "\n";
+        }
+        return list + "}\n";
+    }
+
+
 }

@@ -3,8 +3,8 @@ import java.util.*;
 public class Housemate {
 
 
-    String name;
-    String housemateId;
+    private String name;
+    private String housemateId;
     public ArrayList<Debt> debtlist;
 
     public Housemate(String name, String housemateId){
@@ -38,4 +38,7 @@ public class Housemate {
         return balanceTotal;
     }
 
+    public String getName() {
+        return name;
+    }
 }
