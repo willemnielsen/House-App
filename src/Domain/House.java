@@ -59,7 +59,7 @@ public class House {
 
     public void createDebtForIHM(LineItem lineItem) {
         for (Housemate interHM : lineItem.getInterestedHouseMates()) {
-                Debt newdebt = new Debt(lineItem.getPurchaser(), interHM, (lineItem.getPrice()*lineItem.getQuantity())/lineItem.getInterestedHouseMates().size(), lineItem.getName());
+                Debt newdebt = new Debt(lineItem.getPurchaser(), interHM, (lineItem.getPrice()*lineItem.getQuantity())/lineItem.getInterestedHouseMates().size(), lineItem);
                 if(!interHM.getName().equals(lineItem.getPurchaser().getName())) {
                     this.housedebt.add(newdebt);
                     interHM.debtlist.add(newdebt);
@@ -74,7 +74,7 @@ public class House {
 
     public void createDebtForHH(LineItem lineItem) {
         for (Housemate currHM : housemates) {
-            Debt newdebt = new Debt(lineItem.getPurchaser(), currHM, (lineItem.getPrice()*lineItem.getQuantity())/housemates.size(), lineItem.getName());
+            Debt newdebt = new Debt(lineItem.getPurchaser(), currHM, (lineItem.getPrice()*lineItem.getQuantity())/housemates.size(), lineItem);
             if(!currHM.getName().equals(lineItem.getPurchaser().getName())) {
                 this.housedebt.add(newdebt);
                 currHM.debtlist.add(newdebt);
@@ -88,7 +88,7 @@ public class House {
     }
 
     public void createDebtForMe(LineItem lineItem) {
-        Debt newdebt = new Debt(lineItem.getPurchaser(), lineItem.getPurchaser(), lineItem.getPrice()*lineItem.getQuantity(), lineItem.getName());
+        Debt newdebt = new Debt(lineItem.getPurchaser(), lineItem.getPurchaser(), lineItem.getPrice()*lineItem.getQuantity(), lineItem);
         this.housedebt.add(newdebt);
         lineItem.getPurchaser().debtlist.add(newdebt);
         }
@@ -111,9 +111,9 @@ public class House {
         String transactionList = "";
         for (Debt debt: housedebt) {
             if(debt.getCreditor().getName().equals(debt.getDebtor().getName()))
-                transactionList += debt.getDebtor().getName() + " paid " + debt.getOwed() + " for " + debt.getItemName() + ".\n";
+                transactionList += debt.getDebtor().getName() + " paid " + debt.getOwed() + " for " + debt.getItem().getName() + ".\n";
             else
-                transactionList += debt.getDebtor().getName() + " owes " + debt.getCreditor().getName() + " " + debt.getOwed() + " for " + debt.getItemName() + ".\n";
+                transactionList += debt.getDebtor().getName() + " owes " + debt.getCreditor().getName() + " " + debt.getOwed() + " for " + debt.getItem().getName() + ".\n";
         }
         return transactionList;
     }
