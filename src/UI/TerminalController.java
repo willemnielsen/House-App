@@ -33,13 +33,12 @@ public class TerminalController implements Runnable{
 
         while(true){
             //ask high level questions first
-            String action = ask("\nActions\n\"ShoppingList\"\n\"Purchase\"\n");
+            String action = ask("\nActions\n\"ShoppingList\"\n\"Purchase\"\n\"Done\" to exit\n");
 
             switch (action) {
                 case "ShoppingList"://ShoppingList
-                    String shoppingListSubAction = ask("\"add item\"\n\"list\"\n");
+                    String shoppingListSubAction = ask("\"add item\"\n\"list\"\n\"Done\" to return\n");
                         if(shoppingListSubAction.contains("add item")){
-                            String input = "";
                             do {
                                 String name = ask("Enter Item name");
                                 float price = (float) Double.parseDouble(ask("Enter price", "double"));
@@ -58,7 +57,9 @@ public class TerminalController implements Runnable{
                 case "Purchase":
                     purchase();
                     break;
-                //checkout
+                case "Done":
+                    return;
+                    //checkout
                     //splitting options
                     //refining wishlist to perched items
             }
