@@ -62,6 +62,11 @@ public class HouseController {
         return null;
     }
 
+    public String houseTransactions(){
+        return house.houseTransactions();
+    }
+
+
     public static String convertPurchaseToString(ArrayList<LineItem> lIL){
         String list = "Items {\n";
         for(LineItem lineItem : lIL) {

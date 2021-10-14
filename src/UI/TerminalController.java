@@ -66,11 +66,10 @@ public class TerminalController implements Runnable{
                         //clear purchase and shopping list;
                     //whose paying
                     System.out.println("Select a purchaser");
-                    Housemate x = askForHouseMate(houseController);
-                    System.out.println(x);
-                    houseController.checkout(paymentType, x);
-                    System.out.println("Works");
-                    //show debt
+                    houseController.checkout(paymentType, askForHouseMate(houseController));
+                    System.out.println(houseController.houseTransactions());
+
+
 
                     break;
                 case "Done":
