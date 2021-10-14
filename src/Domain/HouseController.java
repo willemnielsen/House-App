@@ -20,8 +20,8 @@ public class HouseController {
     }
 
 
-    public void checkout(String distribution){
-        house.checkout(distribution);
+    public void checkout(String distribution, Housemate purchaser){
+        house.checkout(distribution, purchaser);
     }
 
     public LineItem getShoppingListLineItem(int i){

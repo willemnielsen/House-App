@@ -25,31 +25,31 @@ public class House {
         this.houseName = houseName;
     }
 
-    public String addHousemate(Housemate housemate) {
-        String output;
+    public boolean addHousemate(Housemate housemate) {
         if (housemates.contains(housemate)) {
-            output = housemate.name + " is already a member of this house.";
+            System.out.println(housemate.name + " is already a member of this house.");
+            return false;
         } else {
             housemates.add(housemate);
-            output = housemate.name + " successfully added to this house.";
+            System.out.println(housemate.name + " successfully added to this house.");
+            return true;
         }
-        return output;
     }
 
-    public String removeHousemate(Housemate housemate) {
-        String output;
+    public boolean removeHousemate(Housemate housemate) {
         if (housemates.contains(housemate)) {
             housemates.remove(housemate);
-            output = housemate.name + " successfully removed from this house.";
+            System.out.println(housemate.name + " successfully removed from this house.");
+            return true;
         } else {
-            output = housemate.name + " is not a member of this house.";
+            System.out.println(housemate.name + " is not a member of this house.");
+            return false;
         }
-        return output;
     }
 
-    public String nameHouse(String name) {
+    public void nameHouse(String name) {
         houseName = name;
-        return "House name changed to '" + houseName + "'.";
+        System.out.println("House name changed to '" + houseName + "'.");
     }
 
     private void purchaseItem(LineItem lineItem) {
@@ -59,8 +59,8 @@ public class House {
 
     public void createDebtForIHM(LineItem lineItem) {
         for (Housemate interHM : lineItem.getInterestedHouseMates()) {
-                Debt newdebt = new Debt(lineItem.purchaser, interHM, (lineItem.getPrice()*lineItem.getQuantity())/lineItem.getInterestedHouseMates().size(), lineItem.getName());
-                if(!interHM.name.equals(lineItem.purchaser.name)) {
+                Debt newdebt = new Debt(lineItem.getPurchaser(), interHM, (lineItem.getPrice()*lineItem.getQuantity())/lineItem.getInterestedHouseMates().size(), lineItem.getName());
+                if(!interHM.name.equals(lineItem.getPurchaser().name)) {
                     this.housedebt.add(newdebt);
                     interHM.debtlist.add(newdebt);
                     lineItem.getPurchaser().debtlist.add(newdebt);
@@ -95,7 +95,7 @@ public class House {
 
     public void checkout(String distribution, Housemate purchaser) {
         for (LineItem lineItem: purchasedItems) {
-            lineItem.purchaser = purchaser;
+            lineItem.setPurchaser(purchaser);
             if(distribution.equals("Charge Based on Interested Housemates"))
                 createDebtForIHM(lineItem);
             else if(distribution.equals("Charge Household") || distribution.equals("B"))
@@ -136,14 +136,6 @@ public class House {
 
     public ArrayList<LineItem> getPurchasedItems() {
         return purchasedItems;
-    }
-
-    public String toString(){
-        String list = "Purchased Items {\n";
-        for(LineItem lineItem : purchasedItems) {
-            list += "\t" + lineItem.toString() + "\n";
-        }
-        return list + "}\n";
     }
 }
 

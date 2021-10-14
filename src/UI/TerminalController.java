@@ -62,7 +62,7 @@ public class TerminalController implements Runnable{
                     String paymentType = ask("Select a payment option:\nA \"Charge Based on Interested Housemates\"\nB \"Charge Household\"\nC \"Charge Me\"");
                         //call the method to split bill
                         //clear purchase and shopping list;
-                    houseController.checkout(paymentType);
+                    //houseController.checkout(paymentType, null);
                         //whose paying
                     //show debt
 
