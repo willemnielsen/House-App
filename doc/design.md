@@ -19,10 +19,7 @@ class Domain.ShoppingList{
 class Domain.LineItem{
     quantity
 }
-class Store{
-    address
-    name
-}
+
 class ItemInfo{
     price
     image
@@ -42,11 +39,10 @@ Domain.HouseController "1" -- "1..*" UI.TerminalController : \tContains\t\t
 Domain.House "1" -- "1" Domain.HouseController : \tContains\t\t
 Domain.House "1" -- "1..*" Domain.Housemate : \tContains\t\t
 Domain.House "1" -right- "1..*" Domain.ShoppingList : \tContains\t\t
+Domain.House "1" -- "1" Domain.LineItem : \tPurchased\t\t
 Domain.Housemate "1..*" - "0..*" Domain.LineItem : \tOwns\t\t
 Domain.ShoppingList "1" - "0..*" Domain.LineItem : \tContains\t\t
-Domain.LineItem "*" -- "1...*" Store : \tFrom\t\t
 Domain.LineItem "*" -- "1...*" ItemInfo : \tDescribed by \t\t
-ItemInfo "*" -left- "1..*"  Store : \tGets info from\t\t
 Domain.Housemate "1" - "0..*" Domain.LineItem : Purchases
 @enduml
 
@@ -62,7 +58,6 @@ actor Actor as Actor
 participant "Domain.ShoppingList: List" as shoppingList
 participant ": Domain.Item" as item
 participant ": ItemInfo" as itemInfo
-participant ": Store" as store
 
 
 [o-> shoppingList : add Domain.Item
@@ -115,20 +110,27 @@ activate shoppingList
 @startuml
 
 class Domain.House {
-    name
+    houseName : String {unique}
+    houseID : int = 0
     }
+ Domain.House -> "(1) \nshoppingList\n{ArrayList}" Domain.ShoppingList : \t\t\t\t
+ Domain.House -> "(1) \nhousemates\n{ArrayList}" Domain.Housemate : \t\t\t\t
+ Domain.House -> "(1..*) \npurchasedItems\n{ArrayList}" Domain.LineItem : \t\t\t\t
+ Domain.House -> "(1..*) \nhousedebt\n{ArrayList}" Domain.Debt : \t\t\t\t
 
-class Domain.ShoppingList
+class Domain.ShoppingList{
+}
+Domain.House -> "(1..*) \nshoppingList\n{ArrayList}" Domain.LineItem : \t\t\t\t
 class Domain.LineItem {
-    name
-    quantity 
+    quantity  : int 
     }
+Domain.LineItem -> "(1) \ninterestedHouseMates\n{ArrayList}" Domain.Housemate : \t\t\t\t
 class ItemInfo {
     name
     quality
     price
     }
-class Store
+
 class Housemate {
     name
     id
