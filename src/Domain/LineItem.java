@@ -2,15 +2,16 @@ package Domain;
 
 import java.util.ArrayList;
 
-public class LineItem extends Item {
+public class LineItem {
 
 
     private int quantity;
     private ArrayList<Housemate> interestedHouseMates;
     private Housemate purchaser;
+    private Item item;
 
     public LineItem(int quantity, String name, ArrayList<Housemate> interestedHouseMates){
-        super(name);
+        item = new Item(name);
         this.quantity = quantity;
         this.interestedHouseMates = interestedHouseMates;
     }
@@ -37,8 +38,20 @@ public class LineItem extends Item {
         this.purchaser = purchaser;
     }
 
+    public float getPrice(){
+        return item.getPrice();
+    }
+
+    public void setPrice(float price){
+        item.setPrice(price);
+    }
+
+    public String getName(){
+        return item.getName();
+    }
+
     public String toString(){
-        return "x" + this.quantity + " " + super.toString();
+        return "x" + this.quantity + " " + item.toString();
     }
 
 }
