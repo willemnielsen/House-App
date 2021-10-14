@@ -69,6 +69,9 @@ public class TerminalController implements Runnable{
                     houseController.checkout(paymentType, askForHouseMate(houseController));
                     System.out.println(houseController.houseTransactions());
 
+                    //
+                    // Print blanace for house
+                    //
 
 
                     break;
