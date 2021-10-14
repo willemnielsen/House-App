@@ -59,8 +59,8 @@ public class House {
 
     public void createDebtForIHM(LineItem lineItem) {
         for (Housemate interHM : lineItem.getInterestedHouseMates()) {
-                Debt newdebt = new Debt(lineItem.getPurchaser(), interHM, (lineItem.getPrice()*lineItem.getQuantity())/lineItem.getInterestedHouseMates().size(), lineItem.getName());
-                if(!interHM.name.equals(lineItem.getPurchaser().name)) {
+                Debt newdebt = new Debt(lineItem.purchaser, interHM, (lineItem.getPrice()*lineItem.getQuantity())/lineItem.getInterestedHouseMates().size(), lineItem.getName());
+                if(!interHM.name.equals(lineItem.purchaser.name)) {
                     this.housedebt.add(newdebt);
                     interHM.debtlist.add(newdebt);
                     lineItem.getPurchaser().debtlist.add(newdebt);
@@ -93,9 +93,10 @@ public class House {
         lineItem.getPurchaser().debtlist.add(newdebt);
         }
 
-    public void checkout(String distribution) {
+    public void checkout(String distribution, Housemate purchaser) {
         for (LineItem lineItem: purchasedItems) {
-            if(distribution.equals("Charge Based on Interested Housemates") || distribution.equals("A"))
+            lineItem.purchaser = purchaser;
+            if(distribution.equals("Charge Based on Interested Housemates"))
                 createDebtForIHM(lineItem);
             else if(distribution.equals("Charge Household") || distribution.equals("B"))
                 createDebtForHH(lineItem);
