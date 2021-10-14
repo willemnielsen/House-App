@@ -93,8 +93,9 @@ public class House {
         lineItem.purchaser.debtlist.add(newdebt);
         }
 
-    public void checkout(String distribution) {
+    public void checkout(String distribution, Housemate purchaser) {
         for (LineItem lineItem: purchasedItems) {
+            lineItem.purchaser = purchaser;
             if(distribution.equals("Charge Based on Interested Housemates"))
                 createDebtForIHM(lineItem);
             else if(distribution.equals("Charge Household"))
