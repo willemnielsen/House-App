@@ -16,7 +16,9 @@ public class Housemate {
     public String myTransactions(){
         String transactionList = "";
         for (Debt debt: debtlist) {
-            transactionList += "You owe " + debt.getCreditor() + " " + debt.getOwed() + " for " + debt.getItemName() + ".\n";
+            if(debt.getCreditor().name.equals(debt.getDebtor().name))
+            transactionList += "You paid " + debt.getOwed() + " for " + debt.getItemName() + ".\n";
+            else transactionList += "You paid " + debt.getCreditor().name + " " + debt.getOwed() + " for " + debt.getItemName() + ".\n";
         }
         return transactionList;
     }
