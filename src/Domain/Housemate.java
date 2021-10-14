@@ -1,11 +1,12 @@
 package Domain;
+import java.lang.reflect.Array;
 import java.util.*;
 public class Housemate {
 
 
     private String name;
     private String housemateId;
-    public ArrayList<Debt> debtlist;
+    private ArrayList<Debt> debtlist;
 
     public Housemate(String name, String housemateId){
         this.name = name;
@@ -41,6 +42,8 @@ public class Housemate {
     public String getName() {
         return name;
     }
+
+    public ArrayList<Debt> getDebtlist(){return debtlist;}
 
     public String toString(){
         return "{" + name + "}";
