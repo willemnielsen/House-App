@@ -46,14 +46,16 @@ public class TerminalController implements Runnable{
                                 String name = ask("Enter Item name");
                                 float price = (float) Double.parseDouble(ask("Enter price", "double"));
                                 int quantity = Integer.parseInt(ask("Enter quantity", "int"));
-                                houseController.addLineItemToShoppingList(quantity, name, price, null);
-                                if(ask("add more items (yes) or done (done)").contains("done")){
+                                ArrayList<Housemate> ihm = getInteresetedHousemates(houseController);
+                                System.out.println(HouseController.convertHouseMatesToString(ihm));
+                                houseController.addLineItemToShoppingList(quantity, name, price, ihm);
+                                if(ask("add more items (yes) or done (done)").toLowerCase().contains("done")){
                                     break;
                                 }
                             } while (true);
                         } else if(shoppingListSubAction.contains("list")){
                             System.out.println(houseController.shoppingListToString());
-                        } else if(shoppingListSubAction.contains("Done")) {
+                        } else if(shoppingListSubAction.toLowerCase().contains("Done")) {
                             continue;
                         }
                     break;
@@ -71,21 +73,16 @@ public class TerminalController implements Runnable{
                     System.out.println(houseController.houseTransactions());
                     System.out.println(houseController.houseBalance());
 
-                    //
-                    // Print blanace for house
-                    //
-
 
                     break;
                 case "Done":
+                    //status at the end
+                    System.out.println("Closing App");
+                    System.out.println(HouseController.convertHouseMatesToString(houseController.getHousemates()));
+                    System.out.println(houseController.houseTransactions());
+                    System.out.println(houseController.houseBalance());
                     return;
-                    //checkout
-                    //splitting options
-                    //refining wishlist to perched items
             }
-
-
-
         }
     }
 
@@ -97,6 +94,25 @@ public class TerminalController implements Runnable{
                 houseController.addToPurchse(houseController.getShoppingListLineItem(i));
             }
         }
+    }
+
+
+    public ArrayList<Housemate> getInteresetedHousemates(HouseController houseController){
+        ArrayList<Housemate> interestedHousemates = new ArrayList<Housemate>();
+        System.out.println(HouseController.convertHouseMatesToString(houseController.getHousemates()));
+        String input = "";
+        Housemate x = null;
+        do {
+            input = ask("Enter interested Housemates one at a time; 'Done' for when done");
+            x = houseController.getHousemate(input);
+            if(x != null && !interestedHousemates.contains(x)){
+                interestedHousemates.add(x);
+                x = null;
+            }
+        } while (!input.equals("Done"));
+
+
+        return interestedHousemates;
     }
 
     public Housemate askForHouseMate(HouseController housecontroller){
