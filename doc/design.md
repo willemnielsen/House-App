@@ -5,7 +5,7 @@ hide circle
 hide empty methods
 
 class UI.TerminalController{
-
+    isRunning
 }
 
 class Domain.HouseController{
@@ -118,17 +118,17 @@ activate shoppingList
 class Domain.House {
     - houseName : String {unique}
     - houseID : int = 0
-    + addHousemate(Housemate housemate) : String
-    + removeHousemate(Housemate housemate) : String
-    + nameHouse(String name). : String
-    - purchaseItem(LineItem lineItem) : void
-    + createDebtForIHM(LineItem lineItem) : void
-    + createDebtForHH(LineItem lineItem) : void
-    + createDebtForMe(LineItem lineItem) : void
-    + checkout(String distribution, Housemate purchaser) : void
+    + addHousemate(housemate : Housemate) : String
+    + removeHousemate(housemate : Housemate) : String
+    + nameHouse(name : String) : String
+    - purchaseItem(lineItem : LineItem) : void
+    + createDebtForIHM(lineItem : LineItem) : void
+    + createDebtForHH(lineItem : LineItem) : void
+    + createDebtForMe(lineItem : LineItem) : void
+    + checkout(distribution : String, purchaser : Housemate) : void
     + houseTransactions() : String
-    + addLineItemToShoppingList(int quantity, String name, float price, ArrayList<Housemate> interestedHouseMates) : boolean
-    + getShoppingListLineItem(int i) : LineItem
+    + addLineItemToShoppingList(quantity : int, name : String, price : float,  interestedHouseMates : ArrayList<Housemate>) : boolean
+    + getShoppingListLineItem(i : int) : LineItem
     + getShoppingListSize() : int
     + getShoppingList() : ShoppingList
     + getPurchasedItems() : ArrayList<LineItem>
@@ -140,24 +140,47 @@ class Domain.House {
  Domain.House -> "(1..*) \nhousedebt\n{ArrayList}" Domain.Debt : \t\t\t\t
 
 class Domain.ShoppingList{
+    + addItem(quantity : int, name : String, price : float, interestedHouseMates : ArrayList<Housemate>) : boolean
+    + getShoppingListLineItem(i : int) : LineItem
+    + size() : int
+    + clear() : void
+    + toString() : String
 }
 Domain.House --> "(1..*) \nshoppingList\n{ArrayList}" Domain.LineItem : \t\t\t\t
 
 class Domain.LineItem {
     - quantity  : int 
+    + getQuantity() : int
+    + addPurchaser(purchaser : Housemate) : void
+    + setQuantity(quantity : int) : void
+    + getInterestedHouseMates() : ArrayList<Housemate>
+    + getPurchaser() : Housemate
+    + setPurchaser() : void
+    + getPrice() : float
+    + setPrice() : void
+    + getName() : String
+    + toString() : String
     }   
 Domain.LineItem --> "(1) \ninterestedHouseMates\n{ArrayList}" Domain.Housemate : \t\t\t\t
+Domain.LineItem --> "(1) \nPurchaser\n{ArrayList}" Domain.Housemate : \t\t\t\t
 Domain.LineItem *-- Domain.Item
 
 class Domain.Item {
-    - name
-    - quality
-    - price
+    - name : String
+    - price : float
+    + setPrice(price : float) : void
+    + getPrice() : float
+    + getName() : String
+    + toString() : String
     }
 
 class Domain.Housemate {
     - name : String
     - housemateId : String
+    + myTransactions() : String
+    + myBalance() : String
+    + getName() : String
+    + toString() : String
     }
 Domain.Housemate --> "(1..*) \ndebtlist\n{ArrayList}" Domain.Debt : \t\t\t\t
 
@@ -174,25 +197,33 @@ Domain.Debt -> "(1) \ncreditor\n" Domain.Housemate : \t\t\t\t
 Domain.Debt -> "(1..*) \nlineItem\n" Domain.LineItem : \t\t\t\t
 
 class Domain.HouseController{
-    + addHousemate(Housemate housemate) : void
-    + removeHousemate(Housemate housemate) : void
-    + checkout(String distribution, Housemate purchaser) : void
-    + getShoppingListLineItem(int i) : LineItem
-    + addLineItemToShoppingList(int quantity, String name, float price, ArrayList<Housemate> interestedHouseMates) : boolean
+    + addHousemate(housemate : Housemate) : void
+    + removeHousemate(housemate : Housemate) : void
+    + checkout(distribution : String, purchaser : Housemate) : void
+    + getShoppingListLineItem(i : int) : LineItem
+    + addLineItemToShoppingList(quantity : int, name : String, price : float, interestedHouseMates : ArrayList<Housemate>) : boolean
     + getShoppingListSize() : int
     + shoppingListToString() : String
-    + addToPurchase(LineItem lineitem) : void
+    + addToPurchase(lineitem : LineItem) : void
     + getHouse() : House
-    + getHousemate(String name) : Housemate
+    + getHousemate(name : String) : Housemate
     + houseTransactions() : String
-    + {static} convertPurchaseToString(ArrayList<LineItem> lIL) : String
-    + {static} convertHouseMatesToString(ArrayList<Housemate> h) : String
+    + {static} convertPurchaseToString(lIL : ArrayList<LineItem>) : String
+    + {static} convertHouseMatesToString(h : ArrayList<Housemate>) : String
     + getHousemates() : ArrayList<Housemate>
 }
 Domain.HouseController --> "(1) \nhouse\n{House}" Domain.House :\t\t\t\t
+
 class UI.TerminalController{
-
+    + isRunning : boolean = false
+    + start() : void
+    + run() : void
+    + purchase() : void
+    + askForHouseMate(housecontroller : HouseController) : Housemate
+    + {static} ask(question : String) : String
+    + {static} ask(question : String, type : String) : String
+    + {static} main(String[] args) : void
 }
-
+UI.TerminalController --> Domain.HouseController
 @enduml
 ```
