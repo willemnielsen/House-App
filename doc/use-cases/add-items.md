@@ -1,44 +1,43 @@
 #Add Items:
-+ **Scope:** Application
++ **Scope:** Application -> Shopping list
 + **Level:** User Goal
-+ **Primary actor:** Domain.Housemate or the housemate leader
++ **Primary actor:** Domain.Housemate or Domain.House Leader
 
 ###Stakeholders and interests:
-+ **Domain.Housemate leader:** wants to make it easy to keep track of what needs to be purchased and keep the home stacked with essential items.
-+ **Domain.Housemate:** wants to have everything stocked and available
++ **Domain.House Leader/Domain.Housemate:** Wants an easy and efficient way to keep track of household needs, purchases, and finances
 
 
 ###Preconditions:
-+ The housemate adding items to the shopping list is identified and authenticated
-
++ The housemate/house leader adding items to the shopping list is identified and authenticated
++ System is in the shopping list menu
++ 
 ###Postconditions:
-+ The checklist is restarted once everything is purchased
-+ The total costs are available for housemates to see
-
++ The house shopping list with the newly added items are available for all housemates to view
 ###Main success scenario:
 
 1. User selects option to add items to the Domain.Housemate shopping list
-2. User manually adds the item to the list
-   1. User provides the name of the item, quantity, and price.
-      1. **Extension**: If a price is not given, an average price will be calculated.
-      2. **Extension**: Another housemate can add to the quantity if needed.  
-   2. Domain.Item is connected to the person who added the item
-      1.  **Extension**: If an item has been added before, it will be recommended when added items in the future.
-   3. User has option to add more people to the item
-      1. **Extension**: Another housemate can add themselves to the item
-   4. System asks user if the information provided is correct
-      1. If not, the user is prompted to provide the information again.
-      2. If it is correct, the item is stored.
-3. The shopping list is updated with the added item and the shopping list is displayed to the user
-4. User has the option to add more items 
-   1. If the housemate decides to add an item they'll repeat steps 1 - 4.
-   2. If the housemate decides to not add more items, they can exit or take other actions.
+2. System asks user for name, price, and quantity of item
+3. User enters name, price, and quantity
+4. System asks user for housemates interested in purchasing the item and provides list of housemates
+5. User selects interested housemates
+6. System adds item object to house shopping list
+7. System asks user if they would like to add more items
+8. System displays shopping list to user
 
+###Extensions:
 
+**3a.** If user does not provide valid input:
+1. System will not proceed until valid inputs are provided
+
+**4a.** If user does not select any housemates:
+1. System will not proceed until at least 1 housemate is selected
+
+**6a.** If user selects to add more items:
+1. System will loop back to Step 2
 
 
 ###Special requirements:
-Adding items manually should work quick and effortlessly
+System must update shopping list within 30 seconds 90% of the time.
 
 ###Frequency of occurrence:
 + Often
