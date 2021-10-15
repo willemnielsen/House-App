@@ -96,33 +96,33 @@ public class House {
     public void checkout(String distribution, Housemate purchaser) {
         for (LineItem lineItem: purchasedItems) {
             lineItem.setPurchaser(purchaser);
-            if(distribution.equals("Charge Based on Interested Housemates"))
+            if(distribution.equals("Charge Based on Interested Housemates") || distribution.equals("A"))
                 createDebtForIHM(lineItem);
             else if(distribution.equals("Charge Household") || distribution.equals("B"))
                 createDebtForHH(lineItem);
             else if(distribution.equals("Charge Me") || distribution.equals("C"))
                 createDebtForMe(lineItem);
+            shoppingList.remove(lineItem);
         }
         purchasedItems.clear();
-        shoppingList.clear();
     }
 
     public String houseTransactions(){
         String transactionList = "";
         for (Debt debt: housedebt) {
             if(debt.getCreditor().getName().equals(debt.getDebtor().getName()))
-                transactionList += debt.getDebtor().getName() + " paid " + debt.getOwed() + " for " + debt.getItem().getName() + ".\n";
+                transactionList += debt.getDebtor().getName() + " paid " + debt.getOwed() + " for " + debt.getItem().getQuantity() + " " + debt.getItem().getName() + "(s).\n";
             else
-                transactionList += debt.getDebtor().getName() + " owes " + debt.getCreditor().getName() + " " + debt.getOwed() + " for " + debt.getItem().getName() + ".\n";
+                transactionList += debt.getDebtor().getName() + " owes " + debt.getCreditor().getName() + " " + debt.getOwed() + " for " + debt.getItem().getQuantity() + " " + debt.getItem().getName() + "(s).\n";
         }
         return transactionList;
     }
 
     public String houseBalance(){
-        float credit = 0;
-        float owed = 0;
         String balanceTotal = "";
         for (Housemate hm: housemates) {
+            float credit = 0;
+            float owed = 0;
             for (Debt debt : hm.getDebtlist()) {
                 if (debt.getCreditor().getName().equals(hm.getName()) && !debt.getCreditor().getName().equals(debt.getDebtor().getName()))
                     credit += debt.getOwed();
@@ -130,8 +130,7 @@ public class House {
                     owed += debt.getOwed();
             }
             float net = credit - owed;
-            balanceTotal += hm.getName() + "has a balance of " + net + ".\n";
-
+            balanceTotal += hm.getName() + " has a balance of " + net + ".\n";
         }
         return balanceTotal;
     }
