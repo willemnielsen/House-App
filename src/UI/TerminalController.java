@@ -3,6 +3,7 @@ package UI;
 import Domain.House;
 import Domain.HouseController;
 import Domain.Housemate;
+import Domain.LineItem;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -59,7 +60,7 @@ public class TerminalController implements Runnable{
                 case "Purchase":
                     purchase();
                     //print purchased list (assume no mistake)
-                    System.out.println();
+                    System.out.println(houseController.convertPurchaseToString(houseController.getHouse().getPurchasedItems()));
                     //ask payment methods 3 of them
                     String paymentType = ask("Select a payment option:\nA \"Charge Based on Interested Housemates\"\nB \"Charge Household\"\nC \"Charge Me\"");
                         //call the method to split bill
@@ -68,6 +69,7 @@ public class TerminalController implements Runnable{
                     System.out.println("Select a purchaser");
                     houseController.checkout(paymentType, askForHouseMate(houseController));
                     System.out.println(houseController.houseTransactions());
+                    System.out.println(houseController.houseBalance());
 
                     //
                     // Print blanace for house
