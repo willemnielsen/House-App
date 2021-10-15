@@ -41,6 +41,10 @@ public class ShoppingList {
         return shoppingList.get(i);
     }
 
+    public void remove(LineItem lineItem) {
+        shoppingList.remove(lineItem);
+    }
+
     public int size(){
         return shoppingList.size();
     }
