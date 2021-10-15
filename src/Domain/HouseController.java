@@ -66,6 +66,10 @@ public class HouseController {
         return house.houseTransactions();
     }
 
+    public String houseBalance(){
+        return house.houseBalance();
+    }
+
 
     public static String convertPurchaseToString(ArrayList<LineItem> lIL){
         String list = "Items {\n";
