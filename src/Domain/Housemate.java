@@ -6,20 +6,20 @@ public class Housemate {
 
     private String name;
     private String housemateId;
-    private ArrayList<Debt> debtlist;
+    public ArrayList<Debt> debtlist;
 
     public Housemate(String name, String housemateId){
         this.name = name;
         this.housemateId = housemateId;
-        ArrayList<Debt> debtlist = new ArrayList<Debt>();
+        debtlist = new ArrayList<Debt>();
     }
 
     public String myTransactions(){
         String transactionList = "";
         for (Debt debt: debtlist) {
             if(debt.getCreditor().name.equals(debt.getDebtor().name))
-            transactionList += "You paid " + debt.getOwed() + " for " + debt.getItem().getName() + ".\n";
-            else transactionList += "You paid " + debt.getCreditor().name + " " + debt.getOwed() + " for " + debt.getItem().getName() + ".\n";
+            transactionList += "You paid " + debt.getOwed() + " for " + debt.getItem().getQuantity() + " " + debt.getItem().getName() + "(s).\n";
+            else transactionList += "You owe " + debt.getCreditor().name + " " + debt.getOwed() + " for " + debt.getItem().getQuantity() + " " + debt.getItem().getName() + "(s).\n";
         }
         return transactionList;
     }
