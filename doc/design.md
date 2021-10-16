@@ -24,12 +24,10 @@ class Domain.LineItem{
 
 class Domain.Item{
     price
-    image
-    quantity
+    name
 }
 
 class Domain.Debt{
-    isPaid
     owed
 }
 
@@ -48,7 +46,8 @@ Domain.House "1" -- "1" Domain.LineItem : \tPurchased\t\t
 Domain.Housemate "1..*" - "0..*" Domain.LineItem : \tOwns\t\t
 Domain.ShoppingList "1" -- "0..*" Domain.LineItem : \tContains\t\t
 Domain.LineItem "*" - "1...*" Domain.Item : \tDescribed by \t\t
-Domain.Housemate "1..*" -left- "0..*" Domain.Debt : \tOwed by\t\t
+Domain.Housemate "1..*" -down- "0..*" Domain.Debt : \tOwed by\t\t
+Domain.Debt "1*" -right- "1" Domain.LineItem : for
 Domain.Housemate "1" - "0..*" Domain.LineItem : Purchases
 @enduml
 
