@@ -48,7 +48,7 @@ Domain.House "1" -- "1" Domain.LineItem : \tPurchased\t\t
 Domain.Housemate "1..*" - "0..*" Domain.LineItem : \tOwns\t\t
 Domain.ShoppingList "1" -- "0..*" Domain.LineItem : \tContains\t\t
 Domain.LineItem "*" - "1...*" Domain.Item : \tDescribed by \t\t
-Domain.Housemate "1..*" -left- "0..*" Domain.Debt : \tOwes\t\t
+Domain.Housemate "1..*" -left- "0..*" Domain.Debt : \tOwed by\t\t
 Domain.Housemate "1" - "0..*" Domain.LineItem : Purchases
 @enduml
 
@@ -90,24 +90,15 @@ activate shoppingList
 
 @startuml
 actor Domain.Housemate as Actor
-participant "Shopping List: List" as shoppingList
-participant ": LineItem" as LineItem
-participant ": House" as house
+participant ": Domain.House" as house
+participant ": Domain.Housemate" as housemate
 
 
-[o-> shoppingList : charge housemates
-activate shoppingList
-
-    shoppingList -->> Actor  : get items to be charged
-    shoppingList -->> Actor  : get charge distribution option
-    shoppingList -->> Actor  : get confirmation
-    shoppingList -->> LineItem** : addPurchaser(purchaser, LineItem)
-    shoppingList -->> house : addCharge(LineItem)
-    house -->> shoppingList : removePurchasedItems(LineItem)
-
-activate shoppingList
-
-
+[o-> house : charge housemates
+    activate house
+    house -->> Actor  : get purchased items
+    house -->> Actor  : get charge distribution option
+    house -->> housemate : createDebt(purchasedItems, distribution)
 @enduml
 ```
 
