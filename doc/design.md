@@ -62,20 +62,17 @@ Domain.Housemate "1" - "0..*" Domain.LineItem : Purchases
 @startuml
 actor Actor as Actor
 participant "Domain.ShoppingList: List" as shoppingList
+participant ": Domain.LineItem" as lineItem
 participant ": Domain.Item" as item
-participant ": ItemInfo" as itemInfo
 
 
 [o-> shoppingList : add Domain.Item
 activate shoppingList
 
 loop while not done
-    shoppingList -->> Actor  : get name and quality
-    shoppingList -->> item **: Domain.Item(name, quality)
-    item -->> itemInfo **: ItemInfo(name, quality)
-    item -->> Actor : get Domain.Housemate/s info
-    item -->> Actor : get store/s info
-    item -->> store : assoicate Store (null --> default)
+    shoppingList -->> Actor  : get price, name, quantity, and interestedHouseMates
+    shoppingList -->> lineItem **: Domain.LineItem(price, name, quantity, interestedHouseMates)
+    lineItem -->> item **: Item(price, name)
 
 end
 
