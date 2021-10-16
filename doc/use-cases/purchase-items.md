@@ -2,6 +2,10 @@
 + **Scope:** App -> Shopping list -> Purchased Items
 + **Level:** User goal
 + **Primary Actor:** Domain.Housemate or Domain.House Leader
+
+###Stakeholders and interests:
++ **Domain.Housemate/Domain.House Leader:** Wants an easy way to manage house purchases and finances
+
 ###Preconditions: 
 + The housemate/house leader purchasing shopping list items is identified and authenticated
 + System is in the shopping list menu
