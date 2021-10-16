@@ -22,8 +22,8 @@ public class LineItem {
     public void addPurchaser(Housemate purchaser){
         this.purchaser = purchaser;
     }
-    public void setQuantity(int quanity) {
-        this.quantity = quanity;
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
     }
 
     public ArrayList<Housemate> getInterestedHouseMates() {
