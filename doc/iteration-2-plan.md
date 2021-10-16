@@ -1,6 +1,6 @@
 ## Iteration Plan 2
 
-Will have added: **add item** and **split shopping list**
+Will have added: **add item** and **charge housemates**
 
 will then add: **Calendar** and **Login System**
 
