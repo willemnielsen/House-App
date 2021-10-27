@@ -114,33 +114,33 @@ class Domain.House {
     + createDebtForMe(lineItem : LineItem) : void
     + checkout(distribution : String, purchaser : Housemate) : void
     + houseTransactions() : String
-    + addLineItemToShoppingList(quantity : int, name : String, price : float,  interestedHouseMates : ArrayList<Housemate>) : boolean
+    + addLineItemToShoppingList(quantity : int, name : String, price : float,  interestedHouseMates : List<Housemate>) : boolean
     + getShoppingListLineItem(i : int) : LineItem
     + getShoppingListSize() : int
     + getShoppingList() : ShoppingList
-    + getPurchasedItems() : ArrayList<LineItem>
-    + getHousemates() : ArrayList<Housemate>
+    + getPurchasedItems() : List<LineItem>
+    + getHousemates() : List<Housemate>
     }
- Domain.House -> "(1) \nshoppingList\n{ArrayList}" Domain.ShoppingList : \t\t\t\t
- Domain.House --> "(1) \nhousemates\n{ArrayList}" Domain.Housemate : \t\t\t\t
- Domain.House --> "(1..*) \npurchasedItems\n{ArrayList}" Domain.LineItem : \t\t\t\t
- Domain.House -> "(1..*) \nhousedebt\n{ArrayList}" Domain.Debt : \t\t\t\t
+ Domain.House -> "(1) \nshoppingList\n{List}" Domain.ShoppingList : \t\t\t\t
+ Domain.House --> "(1) \nhousemates\n{List}" Domain.Housemate : \t\t\t\t
+ Domain.House --> "(1..*) \npurchasedItems\n{List}" Domain.LineItem : \t\t\t\t
+ Domain.House -> "(1..*) \nhousedebt\n{List}" Domain.Debt : \t\t\t\t
 
 class Domain.ShoppingList{
-    + addItem(quantity : int, name : String, price : float, interestedHouseMates : ArrayList<Housemate>) : boolean
+    + addItem(quantity : int, name : String, price : float, interestedHouseMates : List<Housemate>) : boolean
     + getShoppingListLineItem(i : int) : LineItem
     + size() : int
     + clear() : void
     + toString() : String
 }
-Domain.House --> "(1..*) \nshoppingList\n{ArrayList}" Domain.LineItem : \t\t\t\t
+Domain.House --> "(1..*) \nshoppingList\n{List}" Domain.LineItem : \t\t\t\t
 
 class Domain.LineItem {
     - quantity  : int 
     + getQuantity() : int
     + addPurchaser(purchaser : Housemate) : void
     + setQuantity(quantity : int) : void
-    + getInterestedHouseMates() : ArrayList<Housemate>
+    + getInterestedHouseMates() : List<Housemate>
     + getPurchaser() : Housemate
     + setPurchaser() : void
     + getPrice() : float
@@ -148,8 +148,8 @@ class Domain.LineItem {
     + getName() : String
     + toString() : String
     }   
-Domain.LineItem --> "(1) \ninterestedHouseMates\n{ArrayList}" Domain.Housemate : \t\t\t\t
-Domain.LineItem --> "(1) \nPurchaser\n{ArrayList}" Domain.Housemate : \t\t\t\t
+Domain.LineItem --> "(1) \ninterestedHouseMates\n{List}" Domain.Housemate : \t\t\t\t
+Domain.LineItem --> "(1) \nPurchaser\n{List}" Domain.Housemate : \t\t\t\t
 Domain.LineItem *-- Domain.Item
 
 class Domain.Item {
@@ -169,7 +169,7 @@ class Domain.Housemate {
     + getName() : String
     + toString() : String
     }
-Domain.Housemate --> "(1..*) \ndebtlist\n{ArrayList}" Domain.Debt : \t\t\t\t
+Domain.Housemate --> "(1..*) \ndebtlist\n{List}" Domain.Debt : \t\t\t\t
 
 class Domain.Debt{
     - isPaid : boolean = false
@@ -188,16 +188,16 @@ class Domain.HouseController{
     + removeHousemate(housemate : Housemate) : void
     + checkout(distribution : String, purchaser : Housemate) : void
     + getShoppingListLineItem(i : int) : LineItem
-    + addLineItemToShoppingList(quantity : int, name : String, price : float, interestedHouseMates : ArrayList<Housemate>) : boolean
+    + addLineItemToShoppingList(quantity : int, name : String, price : float, interestedHouseMates : List) : boolean
     + getShoppingListSize() : int
     + shoppingListToString() : String
     + addToPurchase(lineitem : LineItem) : void
     + getHouse() : House
     + getHousemate(name : String) : Housemate
     + houseTransactions() : String
-    + {static} convertPurchaseToString(lIL : ArrayList<LineItem>) : String
-    + {static} convertHouseMatesToString(h : ArrayList<Housemate>) : String
-    + getHousemates() : ArrayList<Housemate>
+    + {static} convertPurchaseToString(lIL : List<LineItem>) : String
+    + {static} convertHouseMatesToString(h : List<Housemate>) : String
+    + getHousemates() : List<Housemate>
 }
 Domain.HouseController --> "(1) \nhouse\n{House}" Domain.House :\t\t\t\t
 
