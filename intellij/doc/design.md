@@ -4,14 +4,6 @@
 hide circle
 hide empty methods
 
-class UI.TerminalController{
-    isRunning
-}
-
-class Domain.HouseController{
-    house
-}
-
 class Domain.House{
     houseName
     houseID
@@ -38,8 +30,6 @@ class Domain.Housemate{
 }
 
 ' associations
-Domain.HouseController "1" - "1..*" UI.TerminalController : \tContains\t\t
-Domain.House "1" - "1" Domain.HouseController : \tContains\t\t
 Domain.House "1" -- "1..*" Domain.Housemate : \tContains\t\t
 Domain.House "1" -- "1..*" Domain.ShoppingList : \tContains\t\t
 Domain.House "1" -- "1" Domain.LineItem : \tPurchased\t\t
