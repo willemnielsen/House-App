@@ -4,24 +4,167 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/dark_gray"
     tools:context=".SecondFragment">
 
-    <TextView
-        android:id="@+id/textview_second"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toTopOf="@id/button_second"
+    <Button
+        android:id="@+id/previous"
+        android:layout_width="123dp"
+        android:layout_height="60dp"
+        android:elevation="4dp"
+        android:fontFamily="@font/rubik_bold"
+        android:text="@string/add"
+        app:cornerRadius="10dp"
+        app:layout_constraintBottom_toTopOf="@+id/interestedHM"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/square"
+        app:layout_constraintVertical_bias="0.652"
+        tools:ignore="DuplicateSpeakableTextCheck" />
 
     <Button
-        android:id="@+id/button_second"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/previous"
+        android:id="@+id/interestedHM"
+        style="@style/Widget.AppCompat.Button"
+        android:layout_width="260dp"
+        android:layout_height="63dp"
+        android:layout_marginBottom="176dp"
+        android:elevation="4dp"
+        android:fontFamily="@font/rubik_bold"
+        android:text="@string/interestedHM"
+        app:cornerRadius="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <View
+        android:id="@+id/square"
+        android:layout_width="260dp"
+        android:layout_height="266dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/square"
+        android:elevation="4dp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.507"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/textview_second" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.297" />
+
+
+
+
+    <EditText
+        android:id="@+id/type_qt"
+        android:layout_width="84dp"
+        android:layout_height="48dp"
+        android:ems="10"
+        android:importantForAutofill="no"
+        android:inputType="number"
+        android:minHeight="48dp"
+        app:layout_constraintBottom_toBottomOf="@+id/label_qt"
+        app:layout_constraintEnd_toEndOf="@+id/square"
+        app:layout_constraintHorizontal_bias="0.557"
+        app:layout_constraintStart_toEndOf="@+id/label_qt"
+        app:layout_constraintTop_toTopOf="@+id/label_qt"
+        tools:ignore="SpeakableTextPresentCheck,DuplicateSpeakableTextCheck" />
+
+    <EditText
+        android:id="@+id/type_price"
+        android:layout_width="80dp"
+        android:layout_height="48dp"
+        android:layout_marginEnd="32dp"
+        android:ems="10"
+        android:importantForAutofill="no"
+        android:inputType="numberDecimal"
+        android:minHeight="48dp"
+        app:layout_constraintBottom_toBottomOf="@+id/label_price"
+        app:layout_constraintEnd_toEndOf="@+id/square"
+        app:layout_constraintHorizontal_bias="0.96"
+        app:layout_constraintStart_toEndOf="@+id/label_price"
+        app:layout_constraintTop_toTopOf="@+id/label_price"
+        tools:ignore="SpeakableTextPresentCheck,DuplicateSpeakableTextCheck" />
+
+    <TextView
+        android:id="@+id/add_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:fontFamily="@font/rubik_bold"
+        android:text="@string/add"
+        android:textAppearance="@style/add_item"
+        android:textColor="#000000"
+        android:textSize="34sp"
+        app:layout_constraintEnd_toEndOf="@+id/square"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="@+id/square"
+        app:layout_constraintTop_toTopOf="@+id/square" />
+
+    <TextView
+        android:id="@+id/label_item_name"
+        android:layout_width="114dp"
+        android:layout_height="21dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="127dp"
+        android:fontFamily="@font/rubik_bold"
+        android:labelFor="@id/type_item_name"
+        android:text="@string/item_name_t"
+        android:textAlignment="center"
+        android:textAppearance="@style/item_labels"
+        app:layout_constraintEnd_toEndOf="@+id/square"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@+id/square"
+        app:layout_constraintTop_toBottomOf="@+id/add_title" />
+
+    <TextView
+        android:id="@+id/label_qt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:fontFamily="@font/rubik_bold"
+        android:labelFor="@id/type_qt"
+        android:text="@string/qt_t"
+        android:textAppearance="@style/item_labels"
+        app:layout_constraintEnd_toEndOf="@+id/square"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/label_item_name"
+        app:layout_constraintTop_toBottomOf="@+id/label_item_name" />
+
+    <TextView
+        android:id="@+id/label_price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:fontFamily="@font/rubik_bold"
+        android:labelFor="@id/type_price"
+        android:text="@string/price_t"
+        android:textAppearance="@style/item_labels"
+        app:layout_constraintBottom_toBottomOf="@+id/square"
+        app:layout_constraintEnd_toEndOf="@+id/square"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/label_qt"
+        app:layout_constraintTop_toBottomOf="@+id/label_qt"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <EditText
+        android:id="@+id/type_item_name"
+        android:layout_width="81dp"
+        android:layout_height="48dp"
+        android:ems="10"
+        android:importantForAutofill="no"
+        android:inputType="textPersonName"
+        android:minHeight="48dp"
+        android:text="@string/item_name"
+        android:textAppearance="@style/item_labels"
+        app:layout_constraintBottom_toBottomOf="@+id/label_item_name"
+        app:layout_constraintEnd_toEndOf="@+id/square"
+        app:layout_constraintHorizontal_bias="0.239"
+        app:layout_constraintStart_toEndOf="@+id/label_item_name"
+        app:layout_constraintTop_toTopOf="@+id/label_item_name"
+        tools:ignore="DuplicateSpeakableTextCheck" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

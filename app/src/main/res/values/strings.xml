@@ -1,12 +1,23 @@
 <resources>
-    <string name="app_name">Test</string>
+    <string name="app_name">Housemates</string>
     <string name="action_settings">Settings</string>
     <!-- Strings used for fragments for navigation -->
-    <string name="first_fragment_label">First Fragment</string>
-    <string name="second_fragment_label">Second Fragment</string>
-    <string name="next">Next</string>
-    <string name="previous">Previous</string>
+    <string name="first_fragment_label">Shopping List</string>
+    <string name="second_fragment_label">Add Item</string>
 
-    <string name="hello_first_fragment">Hello first fragment</string>
+    <!-- title for Shopping List -->
+    <string name="shopping_li">Shopping\nList</string>
+
+    <!-- Strings used for Shopping List -->
+    <string name="qt">Quantity</string>
+    <string name="item_name">Item Name</string>
+    <string name="price">Price</string>
+
+    <!-- Strings used for Add Item -->
+    <string name="add">Add Item</string>
+    <string name="interestedHM">Interested Housemates</string>
+    <string name="qt_t">Quantity:</string>
+    <string name="item_name_t">Item Name:</string>
+    <string name="price_t">Price:</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
 </resources>

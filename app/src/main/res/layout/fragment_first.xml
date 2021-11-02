@@ -4,25 +4,90 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/green_2"
     tools:context=".FirstFragment">
 
+
     <TextView
-        android:id="@+id/textview_first"
+        android:id="@+id/shopping_li"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/hello_first_fragment"
-        app:layout_constraintBottom_toTopOf="@id/button_first"
+        android:layout_marginTop="40dp"
+        android:fontFamily="@font/rubik_bold"
+        android:gravity="center_horizontal|top"
+        android:text="@string/shopping_li"
+        android:textAlignment="center"
+        android:textAppearance="@style/shopping_li"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/button_first"
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/addButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/next"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="24dp"
+        android:clickable="true"
+        android:contentDescription="@string/add"
+        android:src="@android:drawable/ic_input_add"
+        app:backgroundTint="@color/dark_gray"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:rippleColor="@color/green_2" />
+
+    <View
+        android:id="@+id/rect_1"
+        android:layout_width="411dp"
+        android:layout_height="30dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:background="@drawable/rect_1"
+        app:layout_constraintBottom_toBottomOf="@+id/item_name"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/textview_first" />
+        app:layout_constraintTop_toTopOf="@+id/item_name" />
+
+    <TextView
+        android:id="@+id/qt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/rubik_bold"
+        android:text="@string/qt"
+        android:textAlignment="center"
+        android:textColor="#000000"
+        app:layout_constraintBottom_toBottomOf="@+id/item_name"
+        app:layout_constraintEnd_toStartOf="@+id/item_name"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/item_name" />
+
+
+    <TextView
+        android:id="@+id/item_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:fontFamily="@font/rubik_bold"
+        android:text="@string/item_name"
+        android:textAlignment="center"
+        android:textColor="#000000"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/shopping_li" />
+
+    <TextView
+        android:id="@+id/price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/rubik_bold"
+        android:text="@string/price"
+        android:textAlignment="center"
+        android:textColor="#000000"
+        app:layout_constraintBottom_toBottomOf="@+id/item_name"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/item_name"
+        app:layout_constraintTop_toTopOf="@+id/item_name" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
