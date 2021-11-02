@@ -8,7 +8,7 @@
     tools:context=".SecondFragment">
 
     <Button
-        android:id="@+id/previous"
+        android:id="@+id/add_Item_button"
         android:layout_width="123dp"
         android:layout_height="60dp"
         android:elevation="4dp"
@@ -38,6 +38,7 @@
         app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent" />
 
+
     <View
         android:id="@+id/square"
         android:layout_width="260dp"
@@ -49,13 +50,10 @@
         android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.507"
+        app:layout_constraintHorizontal_bias="0.35"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.297" />
-
-
-
+        app:layout_constraintVertical_bias="0.238" />
 
     <EditText
         android:id="@+id/type_qt"
@@ -166,5 +164,17 @@
         app:layout_constraintStart_toEndOf="@+id/label_item_name"
         app:layout_constraintTop_toTopOf="@+id/label_item_name"
         tools:ignore="DuplicateSpeakableTextCheck" />
+
+    <Button
+        android:id="@+id/previous"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="158dp"
+        android:layout_marginTop="39dp"
+        android:layout_marginEnd="159dp"
+        android:text="Button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/interestedHM" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

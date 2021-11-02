@@ -10,10 +10,12 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
 
 import edu.vassar.cmpu.test.databinding.FragmentFirstBinding;
+import edu.vassar.cmpu.test.view.addItemView.IAddItemView;
 
-public class FirstFragment extends Fragment {
+public class FirstFragment extends Fragment implements IAddItemView.Listener {
 
     private FragmentFirstBinding binding;
+    IAddItemView addItemsView;
 
     @Override
     public View onCreateView(
@@ -44,4 +46,8 @@ public class FirstFragment extends Fragment {
         binding = null;
     }
 
+    @Override
+    public void onAddedItem(String name, int quantity) {
+
+    }
 }
