@@ -9,6 +9,7 @@ public class House {
     private ArrayList<Housemate> housemates;
     private ArrayList<LineItem> purchasedItems;
     private ArrayList<Debt> housedebt;
+    private Calendar calendar;
 
     public House(String houseName) {
         Random random = new Random();
@@ -21,6 +22,7 @@ public class House {
         housemates = new ArrayList<Housemate>();
         purchasedItems = new ArrayList<LineItem>();
         housedebt = new ArrayList<Debt>();
+        calendar = new Calendar();
     }
 
     public boolean addLineItemToShoppingList(int quantity, String name, float price, ArrayList<Housemate> interestedHouseMates){
@@ -150,5 +152,9 @@ public class House {
     public ArrayList<Housemate> getHousemates(){
         return housemates;
     }
+    public Calendar getCalendar(){
+        return calendar;
+    }
+
 }
 
