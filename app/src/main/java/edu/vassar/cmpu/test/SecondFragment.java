@@ -46,6 +46,8 @@ public class SecondFragment extends Fragment {
                         .navigate(R.id.action_SecondFragment_to_FirstFragment);
             }
         });
+
+        binding.square.setZ(0);
     }
 
     @Override
