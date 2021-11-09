@@ -4,8 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/dark_gray"
-    tools:context=".SecondFragment">
+    tools:context=".view.addItemView.AddItemFragment">
 
     <Button
         android:id="@+id/add_Item_button"
@@ -156,8 +155,6 @@
         android:importantForAutofill="no"
         android:inputType="textPersonName"
         android:minHeight="48dp"
-        android:text="@string/item_name"
-        android:textAppearance="@style/item_labels"
         app:layout_constraintBottom_toBottomOf="@+id/label_item_name"
         app:layout_constraintEnd_toEndOf="@+id/square"
         app:layout_constraintHorizontal_bias="0.239"
@@ -172,7 +169,7 @@
         android:layout_marginStart="158dp"
         android:layout_marginTop="39dp"
         android:layout_marginEnd="159dp"
-        android:text="Button"
+        android:text="Back"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/interestedHM" />
