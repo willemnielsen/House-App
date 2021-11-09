@@ -7,10 +7,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import edu.vassar.cmpu.test.domain.HouseController;
 import edu.vassar.cmpu.test.view.addItemView.AddItemFragment;
 import edu.vassar.cmpu.test.view.addItemView.IAddItemView;
-import edu.vassar.cmpu.test.view.homeScreen.IMainScreenView;
-import edu.vassar.cmpu.test.view.homeScreen.MainScreenFragment;
+import edu.vassar.cmpu.test.view.homeScreen.IShoppingListScreenView;
+import edu.vassar.cmpu.test.view.homeScreen.ShoppingListScreenFragment;
 
-public class ControllerActivity extends AppCompatActivity implements IMainScreenView.Listener, IAddItemView.Listener {
+public class ControllerActivity extends AppCompatActivity implements IShoppingListScreenView.Listener, IAddItemView.Listener {
     //extends makes this class an activity
 
     private HouseController houseController;
@@ -24,7 +24,7 @@ public class ControllerActivity extends AppCompatActivity implements IMainScreen
         mainView = new MainView(this);
         setContentView(mainView.getRootView());
 
-        this.mainView.displayFragment(new MainScreenFragment(this));//displays the add Item Fragment
+        this.mainView.displayFragment(new ShoppingListScreenFragment(this));//displays the add Item Fragment
     }
 
 
@@ -34,8 +34,8 @@ public class ControllerActivity extends AppCompatActivity implements IMainScreen
     }
 
     @Override
-    public void onAddedItem(String name, int quantity, IAddItemView addItemView) {
-        houseController.addLineItemToShoppingList(quantity, name, 0.0f, null);
+    public void onAddedItem(String name, int quantity, float price, IAddItemView addItemView) {
+        houseController.addLineItemToShoppingList(quantity, name, price, null);
         addItemView.updateDisplay(houseController.getHouse().getShoppingList());
     }
 
@@ -46,7 +46,9 @@ public class ControllerActivity extends AppCompatActivity implements IMainScreen
 
 
     public void openHomeScreen() {
-        this.mainView.displayFragment(new MainScreenFragment(this));
+        IShoppingListScreenView sl = new ShoppingListScreenFragment(this);
+        this.mainView.displayFragment((ShoppingListScreenFragment) sl);
+        sl.updateDisplay(houseController.getHouse().getShoppingList());
     }
 
     public void openAddItemScreen() {

@@ -52,11 +52,11 @@ public class ShoppingList {
     }
 
     public String toString(){
-        String list = "Items {\n";
+        String list = "";
         for(LineItem lineItem : shoppingList) {
-            list += "\t" + lineItem.toString() + "\n";
+            list += lineItem.toString() + "\n";
         }
-        return list + "}\n";
+        return list;
     }
 
 

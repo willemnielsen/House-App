@@ -8,23 +8,21 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import edu.vassar.cmpu.test.R;
-import edu.vassar.cmpu.test.databinding.FragmentAddItemBinding;
-import edu.vassar.cmpu.test.databinding.FragmentMainScreenBinding;
+import edu.vassar.cmpu.test.databinding.FragmentShoppingListScreenBinding;
+import edu.vassar.cmpu.test.databinding.FragmentShoppingListScreenBinding;
 import edu.vassar.cmpu.test.domain.ShoppingList;
-import edu.vassar.cmpu.test.view.addItemView.AddItemFragment;
 
-public class MainScreenFragment extends Fragment implements IMainScreenView{
+public class ShoppingListScreenFragment extends Fragment implements IShoppingListScreenView {
 
     private Listener listener;
-    private FragmentMainScreenBinding binding;
+    private FragmentShoppingListScreenBinding binding;
 
-    public MainScreenFragment() {
+    public ShoppingListScreenFragment() {
         //IMPORTANT
         //lets activity on launch assign fragment
     }
 
-    public MainScreenFragment(Listener listener) {
+    public ShoppingListScreenFragment(Listener listener) {
         this.listener = listener;
     }
 
@@ -35,18 +33,19 @@ public class MainScreenFragment extends Fragment implements IMainScreenView{
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        this.binding = FragmentMainScreenBinding.inflate(inflater);
+        this.binding = FragmentShoppingListScreenBinding.inflate(inflater);
         return this.binding.getRoot();
     }
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         this.binding.addButton.setOnClickListener((View clickedView) -> {
-            MainScreenFragment.this.listener.onAddItem();
+            this.listener.onAddItem();
         });
     }
 
     @Override
     public void updateDisplay(ShoppingList shoppingList) {
+        this.binding.shoppingList.setText(shoppingList.toString());
     }
 }
