@@ -7,9 +7,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import edu.vassar.cmpu.test.domain.HouseController;
 import edu.vassar.cmpu.test.view.addItemView.AddItemFragment;
 import edu.vassar.cmpu.test.view.addItemView.IAddItemView;
+import edu.vassar.cmpu.test.view.homeScreen.IMainScreenView;
 import edu.vassar.cmpu.test.view.homeScreen.MainScreenFragment;
 
-public class ControllerActivity extends AppCompatActivity implements IAddItemView.Listener {
+public class ControllerActivity extends AppCompatActivity implements IMainScreenView.Listener, IAddItemView.Listener {
     //extends makes this class an activity
 
     private HouseController houseController;
@@ -23,9 +24,14 @@ public class ControllerActivity extends AppCompatActivity implements IAddItemVie
         mainView = new MainView(this);
         setContentView(mainView.getRootView());
 
-        this.mainView.displayFragment(new AddItemFragment(this));//displays the add Item Fragment
+        this.mainView.displayFragment(new MainScreenFragment(this));//displays the add Item Fragment
     }
 
+
+    @Override
+    public void onAddItem() {
+        this.openAddItemScreen();
+    }
 
     @Override
     public void onAddedItem(String name, int quantity, IAddItemView addItemView) {
@@ -40,6 +46,12 @@ public class ControllerActivity extends AppCompatActivity implements IAddItemVie
 
 
     public void openHomeScreen() {
-        this.mainView.displayFragment(new MainScreenFragment());
+        this.mainView.displayFragment(new MainScreenFragment(this));
     }
+
+    public void openAddItemScreen() {
+        this.mainView.displayFragment(new AddItemFragment(this));
+    }
+
+
 }
