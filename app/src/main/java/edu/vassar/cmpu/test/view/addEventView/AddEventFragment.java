@@ -20,9 +20,9 @@ import edu.vassar.cmpu.test.domain.Calendar;
 
 public class AddEventFragment extends Fragment implements IAddEventView {
     private FragmentAddEventBinding binding;
-    private IAddEventView.Listener listener;
+    private Listener listener;
 
-    public AddEventFragment(IAddEventView.Listener listener){ this.listener = listener; }
+    public AddEventFragment(Listener listener){ this.listener = listener; }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
