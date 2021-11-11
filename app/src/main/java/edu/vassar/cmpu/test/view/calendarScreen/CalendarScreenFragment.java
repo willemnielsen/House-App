@@ -14,11 +14,11 @@ import edu.vassar.cmpu.test.domain.Calendar;
 import java.util.Date;
 
 public class CalendarScreenFragment extends Fragment implements ICalendarScreenView{
-    private ICalendarScreenView.Listener listener;
+    private Listener listener;
     private FragmentCalendarMonthBinding binding;
 
 
-    public CalendarScreenFragment(ICalendarScreenView.Listener listener) {
+    public CalendarScreenFragment(Listener listener) {
         this.listener = listener;
     }
 
