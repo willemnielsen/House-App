@@ -1,6 +1,8 @@
 package edu.vassar.cmpu.test.domain;
 
+import java.sql.Time;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class HouseController {
 
@@ -70,5 +72,19 @@ public class HouseController {
     }
     public ArrayList<Housemate> getHousemates() {
         return house.getHousemates();
+    }
+
+    public Event getThisEvent(Event event){
+        return house.getCalendar().getThisEvent(event);}
+
+    public boolean addEventToCalendar(String name, Date date, Time startTime, Time endTime, ArrayList<Housemate> housemates, String recurrence){
+        return house.getCalendar().addEvent(name, date, startTime, endTime, housemates, recurrence);
+    }
+
+    public String calendarToString(Date date){
+        return house.getCalendar().toString(date);
+    }
+    public boolean setDate(Date date){
+        return house.getCalendar().setCurrentDate(date);
     }
 }
