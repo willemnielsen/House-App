@@ -4,13 +4,20 @@ import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.sql.Time;
+import java.util.Date;
+
 import edu.vassar.cmpu.test.domain.HouseController;
 import edu.vassar.cmpu.test.view.addItemView.AddItemFragment;
 import edu.vassar.cmpu.test.view.addItemView.IAddItemView;
 import edu.vassar.cmpu.test.view.homeScreen.IShoppingListScreenView;
 import edu.vassar.cmpu.test.view.homeScreen.ShoppingListScreenFragment;
+import edu.vassar.cmpu.test.view.addEventView.AddEventFragment;
+import edu.vassar.cmpu.test.view.addEventView.IAddEventView;
+import edu.vassar.cmpu.test.view.calendarScreen.ICalendarScreenView;
+import edu.vassar.cmpu.test.view.calendarScreen.CalendarScreenFragment;
 
-public class ControllerActivity extends AppCompatActivity implements IShoppingListScreenView.Listener, IAddItemView.Listener {
+public class ControllerActivity extends AppCompatActivity implements IShoppingListScreenView.Listener, IAddItemView.Listener, ICalendarScreenView.Listener, IAddEventView.Listener {
     //extends makes this class an activity
 
     private HouseController houseController;
@@ -54,6 +61,45 @@ public class ControllerActivity extends AppCompatActivity implements IShoppingLi
     public void openAddItemScreen() {
         this.mainView.displayFragment(new AddItemFragment(this));
     }
+
+    @Override
+    public void onAddEvent() {
+        this.openAddEventScreen();
+    }
+
+    @Override
+    public void onAddedEvent(String name, Date date, Time startTime, Time endTime, IAddEventView addEventView) {
+        houseController.addEventToCalendar(name, date, startTime, endTime, null, "Daily");
+        addEventView.updateDisplay(houseController.getHouse().getCalendar());
+    }
+
+    @Override
+    public void onPreviousInAddEventFragment() {
+        this.openCalendarScreen();
+    }
+
+
+    public void openCalendarScreen() {
+        ICalendarScreenView cs = new CalendarScreenFragment(this);
+        this.mainView.displayFragment((CalendarScreenFragment) cs);
+        cs.updateDisplay(houseController.getHouse().getCalendar());
+    }
+
+    public void openAddEventScreen() {
+        this.mainView.displayFragment(new AddEventFragment(this));
+    }
+
+    @Override
+    public void onOpenCalendarScreen() {
+        this.openCalendarScreen();
+    }
+
+    @Override
+    public void onSetDate(Date date) {
+        houseController.setDate(date);
+    }
+
+
 
 
 }
