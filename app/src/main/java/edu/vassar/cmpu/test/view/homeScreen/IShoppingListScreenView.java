@@ -7,6 +7,7 @@ public interface IShoppingListScreenView {
 
     interface Listener{
         void onAddItem();
+        void onOpenCalendarScreen();
     }
 
     void updateDisplay(ShoppingList shoppingList);
