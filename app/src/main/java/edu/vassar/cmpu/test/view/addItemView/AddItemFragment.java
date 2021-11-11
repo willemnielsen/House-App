@@ -13,7 +13,7 @@ import edu.vassar.cmpu.test.R;
 import edu.vassar.cmpu.test.databinding.FragmentAddItemBinding;
 import edu.vassar.cmpu.test.domain.ShoppingList;
 
-public class AddItemFragment extends Fragment implements IAddItemView{
+public class AddItemFragment extends Fragment implements IAddItemView {
 
     private FragmentAddItemBinding binding;
     private Listener listener;

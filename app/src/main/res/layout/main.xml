@@ -7,7 +7,7 @@
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/fragmentContainerView"
-        android:name="edu.vassar.cmpu.test.view.homeScreen.ShoppingListScreenFragment"
+        android:name="edu.vassar.cmpu.test.view.loginScreen.LoginScreenFragment"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
