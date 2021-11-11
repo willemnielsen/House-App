@@ -42,6 +42,9 @@ public class ShoppingListScreenFragment extends Fragment implements IShoppingLis
         this.binding.addButton.setOnClickListener((View clickedView) -> {
             this.listener.onAddItem();
         });
+        this.binding.goCalendar.setOnClickListener((View clickedView) -> {
+            this.listener.onOpenCalendarScreen();
+        });
     }
 
     @Override
