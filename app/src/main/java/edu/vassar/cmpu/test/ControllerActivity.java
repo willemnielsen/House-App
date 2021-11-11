@@ -4,15 +4,22 @@ import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.sql.Time;
+import java.util.Date;
+
 import edu.vassar.cmpu.test.domain.House;
 import edu.vassar.cmpu.test.domain.HouseController;
 import edu.vassar.cmpu.test.domain.Housemate;
+import edu.vassar.cmpu.test.view.addEventView.AddEventFragment;
+import edu.vassar.cmpu.test.view.addEventView.IAddEventView;
 import edu.vassar.cmpu.test.view.addItemView.AddItemFragment;
 import edu.vassar.cmpu.test.view.addItemView.IAddItemView;
-import edu.vassar.cmpu.test.view.homeScreen.IShoppingListScreenView;
-import edu.vassar.cmpu.test.view.homeScreen.ShoppingListScreenFragment;
+import edu.vassar.cmpu.test.view.calendarScreen.CalendarScreenFragment;
+import edu.vassar.cmpu.test.view.calendarScreen.ICalendarScreenView;
 import edu.vassar.cmpu.test.view.loginScreen.ILoginScreenFragment;
 import edu.vassar.cmpu.test.view.loginScreen.LoginScreenFragment;
+import edu.vassar.cmpu.test.view.shoppingListScreen.IShoppingListScreenView;
+import edu.vassar.cmpu.test.view.shoppingListScreen.ShoppingListScreenFragment;
 
 public class ControllerActivity extends AppCompatActivity implements IShoppingListScreenView.Listener, IAddItemView.Listener, ICalendarScreenView.Listener, IAddEventView.Listener, ILoginScreenFragment.Listener {
     //extends makes this class an activity
@@ -34,10 +41,9 @@ public class ControllerActivity extends AppCompatActivity implements IShoppingLi
     public void onCreateHouse(String houseName, String membersName) {
         houseController = new HouseController(houseName);
         houseController.addHousemate(new Housemate(membersName, "343243"));
-
+        onOpenShoppingList();
     }
 
-    @Override
     public void onOpenShoppingList() {
         openShoppingListScreen();
     }
