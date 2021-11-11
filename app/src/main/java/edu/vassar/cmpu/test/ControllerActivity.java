@@ -123,6 +123,11 @@ public class ControllerActivity extends AppCompatActivity
         this.openAddEventScreen();
     }
 
+
+    @Override
+    public void onPreviousOnCalendarScreen() {
+        this.openHomeScreen();
+    }
         //
         // add Event
         //
@@ -143,10 +148,6 @@ public class ControllerActivity extends AppCompatActivity
             calendarScreenView.updateDisplay(houseController.getHouse().getCalendar());
         }
 
-    @Override
-    public void onPreviousOnCalendarScreen() {
-        this.openHomeScreen();
-    }
 
     @Override
         public void onPreviousInAddEventFragment() {
