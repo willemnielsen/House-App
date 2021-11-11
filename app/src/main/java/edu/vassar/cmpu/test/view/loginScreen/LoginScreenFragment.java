@@ -4,15 +4,11 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
-import android.text.Editable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import edu.vassar.cmpu.test.databinding.FragmentLoginScreenBinding;
-import edu.vassar.cmpu.test.domain.HouseController;
-import edu.vassar.cmpu.test.domain.ShoppingList;
-import edu.vassar.cmpu.test.view.homeScreen.IShoppingListScreenView;
 
 public class LoginScreenFragment extends Fragment implements ILoginScreenFragment {
 
