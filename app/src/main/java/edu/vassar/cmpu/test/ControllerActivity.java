@@ -84,6 +84,11 @@ public class ControllerActivity extends AppCompatActivity
         this.openAddItemScreen();
     }
 
+    @Override
+    public void onPreviousOnShoppingListScreen() {
+        this.openHomeScreen();
+    }
+
         //
         //add item
         //
@@ -138,7 +143,12 @@ public class ControllerActivity extends AppCompatActivity
             calendarScreenView.updateDisplay(houseController.getHouse().getCalendar());
         }
 
-        @Override
+    @Override
+    public void onPreviousOnCalendarScreen() {
+        this.openHomeScreen();
+    }
+
+    @Override
         public void onPreviousInAddEventFragment() {
             this.openCalendarScreen();
         }

@@ -41,6 +41,10 @@ public class ShoppingListScreenFragment extends Fragment implements IShoppingLis
         this.binding.addButton.setOnClickListener((View clickedView) -> {
             this.listener.onAddItem();
         });
+
+        this.binding.previousOnShoppingListScreen.setOnClickListener((View clickedView) -> {
+            this.listener.onPreviousOnShoppingListScreen();
+        });
     }
 
     @Override

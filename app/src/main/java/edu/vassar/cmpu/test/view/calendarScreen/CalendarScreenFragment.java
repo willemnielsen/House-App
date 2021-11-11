@@ -40,11 +40,15 @@ public class CalendarScreenFragment extends Fragment implements ICalendarScreenV
         this.binding.addEventButton.setOnClickListener((View clickedView) -> {
             this.listener.onAddEvent();
         });
+
         this.binding.calendarView.setOnClickListener((View clickedView) ->{
             Date date = new Date(this.binding.calendarView.getDate());
             this.listener.onSetDate(date, this);
         });
 
+        this.binding.previousOnCalendarScreen.setOnClickListener((View clickedView) ->{
+            this.listener.onPreviousOnCalendarScreen();
+        });
     }
 
 

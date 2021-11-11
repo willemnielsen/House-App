@@ -9,6 +9,8 @@ public interface ICalendarScreenView{
     interface Listener{
         void onAddEvent();
         void onSetDate(Date date, ICalendarScreenView calendarScreenView);
+
+        void onPreviousOnCalendarScreen();
     }
 
     void updateDisplay(Calendar calendar);

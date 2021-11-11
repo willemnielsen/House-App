@@ -9,6 +9,8 @@ public interface IShoppingListScreenView {
          * opens the add item screen
          */
         void onAddItem();
+
+        void onPreviousOnShoppingListScreen();
     }
 
     void updateDisplay(ShoppingList shoppingList);
