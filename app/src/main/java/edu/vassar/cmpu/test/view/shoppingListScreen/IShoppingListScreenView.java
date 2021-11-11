@@ -9,7 +9,6 @@ public interface IShoppingListScreenView {
          * opens the add item screen
          */
         void onAddItem();
-        void onOpenCalendarScreen();
     }
 
     void updateDisplay(ShoppingList shoppingList);

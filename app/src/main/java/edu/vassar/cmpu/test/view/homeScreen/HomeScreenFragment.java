@@ -33,7 +33,14 @@ public class HomeScreenFragment extends Fragment implements IHomeScreenFragment 
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState){
+        this.binding.openShoppingListButton.setOnClickListener((View clickedView) ->{
+            this.listener.onOpenShoppingList();
+        });
 
+
+        this.binding.openCalenderButton.setOnClickListener((View clickedView) ->{
+            this.listener.onOpenCalendar();
+        });
     }
 
 }

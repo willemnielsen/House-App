@@ -5,10 +5,12 @@ import java.util.ArrayList;
 import java.util.Date;
 
 public class Calendar {
-    private ArrayList<Event> events = new ArrayList<Event>();
+    private ArrayList<Event> events;
     private Date currentDate;
 
     public Calendar() {
+        events = new ArrayList<Event>();
+        currentDate = new Date();
     }
 
     public boolean addEvent(String name, Date date, Time startTime, Time endTime, ArrayList<Housemate> housemates, String recurrence) {
