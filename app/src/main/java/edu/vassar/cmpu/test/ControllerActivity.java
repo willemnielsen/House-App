@@ -4,6 +4,8 @@ import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.util.ArrayList;
+
 import edu.vassar.cmpu.test.domain.House;
 import edu.vassar.cmpu.test.domain.HouseController;
 import edu.vassar.cmpu.test.domain.Housemate;
@@ -35,6 +37,8 @@ public class ControllerActivity extends AppCompatActivity
     @Override
     public void onCreateHouse(String houseName, String membersName) {
         houseController = new HouseController(houseName);
+        houseController.addHousemate(new Housemate("memberName1", "343253"));
+        houseController.addHousemate(new Housemate("memberName2", "347253"));
         houseController.addHousemate(new Housemate(membersName, "343243"));
         openHomeScreen();
     }
@@ -69,7 +73,10 @@ public class ControllerActivity extends AppCompatActivity
      * opens the add item screen
      */
     public void openAddItemScreen() {
-        this.mainView.displayFragment(new AddItemFragment(this));
+        //this.mainView.displayFragment(new AddItemFragment(this));
+        IAddItemView hm = new AddItemFragment(this);
+        this.mainView.displayFragment((AddItemFragment) hm);
+        hm.getHouseMates(houseController.getHouse().getHousemates());
     }
 
 

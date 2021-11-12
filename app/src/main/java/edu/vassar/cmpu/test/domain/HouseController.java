@@ -39,7 +39,7 @@ public class HouseController {
         return house.getShoppingList().toString();
     }
 
-    public void addToPurchse(LineItem lineitem){
+    public void addToPurchase(LineItem lineitem){
         house.getPurchasedItems().add(lineitem);
     }
 
