@@ -19,13 +19,20 @@
     <string name="qt_t">Quantity:</string>
     <string name="item_name_t">Item Name:</string>
     <string name="price_t">Price:</string>
-    <string name="back">Back</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
-    <string-array name="names">
-        <item>Alex</item>
-        <item>Henry</item>
-        <item>Adam</item>
-    </string-array>
+
+    <!-- Strings used for Calendar Month -->
+    <string name="events">Events</string>
+    <string name="calendar">Calendar</string>
+
+    <!-- Strings used for Add Event -->
+    <string name="add_event">Add Event</string>
+    <string name="addHM">Add Housemates</string>
+    <string name="event_name_t">Event Name:</string>
+    <string name="date_t">Date:</string>
+    <string name="st_t">Start Time:</string>
+    <string name="et_t">End Time:</string>
+    <string name="back">Back</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

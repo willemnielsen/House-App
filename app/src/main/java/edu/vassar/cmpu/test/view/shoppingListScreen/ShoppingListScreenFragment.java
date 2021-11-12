@@ -1,4 +1,4 @@
-package edu.vassar.cmpu.test.view.homeScreen;
+package edu.vassar.cmpu.test.view.shoppingListScreen;
 
 import android.os.Bundle;
 
@@ -8,7 +8,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import edu.vassar.cmpu.test.databinding.FragmentShoppingListScreenBinding;
 import edu.vassar.cmpu.test.databinding.FragmentShoppingListScreenBinding;
 import edu.vassar.cmpu.test.domain.ShoppingList;
 
@@ -41,6 +40,10 @@ public class ShoppingListScreenFragment extends Fragment implements IShoppingLis
     public void onViewCreated(View view, Bundle savedInstanceState) {
         this.binding.addButton.setOnClickListener((View clickedView) -> {
             this.listener.onAddItem();
+        });
+
+        this.binding.previousOnShoppingListScreen.setOnClickListener((View clickedView) -> {
+            this.listener.onPreviousOnShoppingListScreen();
         });
     }
 

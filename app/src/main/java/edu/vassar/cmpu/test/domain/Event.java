@@ -7,18 +7,27 @@ import java.util.Date;
 public class Event {
     private String name;
     private Date date;
-    private Time time;
+    private Time startTime;
+    private Time endTime;
     private ArrayList<Housemate> housemates;
+    private String recurrence;
 
-    public Event(String name, Date date, Time time,  ArrayList<Housemate> housemates) {
+    public Event(String name, Date date, Time startTime, Time endTime,  ArrayList<Housemate> housemates, String recurrence) {
         this.name = name;
         this.date = date;
-        this.time = time;
+        this.startTime = startTime;
+        this.endTime = endTime;
         this.housemates = housemates;
+        this.recurrence = recurrence;
     }
 
-    public ArrayList<Housemate> gethousemates() {return housemates;}
-    public String getname() {return name;}
-    public Date getdate() {return date;}
-    public Time gettime() {return time;}
+    public ArrayList<Housemate> getHousemates() {return housemates;}
+    public String getName() {return name;}
+    public Date getDate() {return date;}
+    public Time getStartTime() {return startTime;}
+    public Time getEndTime() {return endTime;}
+    public String getRecurrence() {return recurrence;}
+    public String toString(){
+        return name + " from " + startTime + " to " + endTime;
+    }
 }

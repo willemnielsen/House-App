@@ -1,12 +1,16 @@
-package edu.vassar.cmpu.test.view.homeScreen;
+package edu.vassar.cmpu.test.view.shoppingListScreen;
 
 import edu.vassar.cmpu.test.domain.ShoppingList;
-import edu.vassar.cmpu.test.view.addItemView.IAddItemView;
 
 public interface IShoppingListScreenView {
 
     interface Listener{
+        /**
+         * opens the add item screen
+         */
         void onAddItem();
+
+        void onPreviousOnShoppingListScreen();
     }
 
     void updateDisplay(ShoppingList shoppingList);
