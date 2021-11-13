@@ -7,9 +7,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import java.sql.Time;
 import java.util.Date;
 
-import java.util.ArrayList;
 
-import edu.vassar.cmpu.test.domain.House;
+//import edu.vassar.cmpu.test.domain.House;
 import edu.vassar.cmpu.test.domain.HouseController;
 import edu.vassar.cmpu.test.domain.Housemate;
 import edu.vassar.cmpu.test.view.addEventView.AddEventFragment;
@@ -20,14 +19,18 @@ import edu.vassar.cmpu.test.view.calendarScreen.CalendarScreenFragment;
 import edu.vassar.cmpu.test.view.calendarScreen.ICalendarScreenView;
 import edu.vassar.cmpu.test.view.homeScreen.HomeScreenFragment;
 import edu.vassar.cmpu.test.view.homeScreen.IHomeScreenFragment;
+import edu.vassar.cmpu.test.view.housemateListScreen.HousemateListScreenFragment;
+import edu.vassar.cmpu.test.view.housemateListScreen.IHousemateListScreenFragment;
 import edu.vassar.cmpu.test.view.loginScreen.ILoginScreenFragment;
 import edu.vassar.cmpu.test.view.loginScreen.LoginScreenFragment;
+// import edu.vassar.cmpu.test.view.purchasedListScreen.IPurchasedListScreenFragment;
+// import edu.vassar.cmpu.test.view.purchasedListScreen.PurchasedListScreenFragment;
 import edu.vassar.cmpu.test.view.shoppingListScreen.IShoppingListScreenView;
 import edu.vassar.cmpu.test.view.shoppingListScreen.ShoppingListScreenFragment;
 
 public class ControllerActivity extends AppCompatActivity
         implements IShoppingListScreenView.Listener, IHomeScreenFragment.Listener, IAddItemView.Listener, ICalendarScreenView.Listener,
-                   IAddEventView.Listener, ILoginScreenFragment.Listener {
+                   IAddEventView.Listener, ILoginScreenFragment.Listener, IHousemateListScreenFragment.Listener {
     //extends makes this class an activity
 
     private HouseController houseController;
@@ -71,6 +74,10 @@ public class ControllerActivity extends AppCompatActivity
     @Override
     public void onOpenCalendar() {
         openCalendarScreen();
+    }
+    @Override
+    public void onOpenHousemateList(){
+        openHousemateListScreen();
     }
 
     //
@@ -163,5 +170,19 @@ public class ControllerActivity extends AppCompatActivity
     @Override
         public void onPreviousInAddEventFragment() {
             this.openCalendarScreen();
+        }
+
+
+        //
+        // Housemate List Screen
+        //
+        public void openHousemateListScreen(){
+            IHousemateListScreenFragment hms = new HousemateListScreenFragment(this);
+            this.mainView.displayFragment((HousemateListScreenFragment) hms);
+            hms.updateDisplay(houseController.getHousemates());
+        }
+        @Override
+        public void onPreviousOnHousemateListScreen(){
+            this.openHomeScreen();
         }
 }
