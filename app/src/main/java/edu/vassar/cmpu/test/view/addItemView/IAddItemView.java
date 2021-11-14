@@ -1,6 +1,10 @@
 package edu.vassar.cmpu.test.view.addItemView;
 
+import java.util.ArrayList;
+
+
 import edu.vassar.cmpu.test.domain.ShoppingList;
+import edu.vassar.cmpu.test.domain.Housemate;
 
 public interface IAddItemView {
 
@@ -13,14 +17,13 @@ public interface IAddItemView {
          * @param addItemView
          *  adds lineitem to shopping list
          */
-        void onAddedItem(String name, int quantity, float price, IAddItemView addItemView);
+        void onAddedItem(String name, int quantity, float price, ArrayList<Housemate> interestedHMs, IAddItemView addItemView);
 
         /**
          * opens up previous fragment which will be the home screen
          */
         void onPreviousInAddItemFragment();
     }
-
+    void getHouseMates(ArrayList<Housemate> housemates);
     void updateDisplay(ShoppingList shoppingList);
-
 }

@@ -46,6 +46,6 @@ public class Housemate {
     public ArrayList<Debt> getDebtlist(){return debtlist;}
 
     public String toString(){
-        return "{" + name + "}";
+        return "" + name + "";
     }
 }

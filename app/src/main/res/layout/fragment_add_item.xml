@@ -6,53 +6,36 @@
     android:layout_height="match_parent"
     tools:context=".view.addItemView.AddItemFragment">
 
+
     <Button
         android:id="@+id/add_Item_button"
         android:layout_width="123dp"
         android:layout_height="60dp"
+        android:layout_marginTop="16dp"
         android:elevation="4dp"
         android:fontFamily="@font/rubik_bold"
         android:text="@string/add"
         app:cornerRadius="10dp"
-        app:layout_constraintBottom_toTopOf="@+id/interestedHM"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/square"
-        app:layout_constraintVertical_bias="0.652"
+        app:layout_constraintTop_toBottomOf="@+id/interestedHM"
         tools:ignore="DuplicateSpeakableTextCheck" />
 
     <Button
-        android:id="@+id/interestedHM"
-        style="@style/Widget.AppCompat.Button"
-        android:layout_width="260dp"
-        android:layout_height="63dp"
-        android:layout_marginBottom="176dp"
-        android:elevation="4dp"
+        android:id="@+id/previous"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="158dp"
+        android:layout_marginTop="114dp"
+        android:layout_marginEnd="159dp"
+        android:layout_marginBottom="28dp"
         android:fontFamily="@font/rubik_bold"
-        android:text="@string/interestedHM"
-        app:cornerRadius="20dp"
+        android:text="@string/back"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.496"
-        app:layout_constraintStart_toStartOf="parent" />
-
-
-    <View
-        android:id="@+id/square"
-        android:layout_width="260dp"
-        android:layout_height="266dp"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentBottom="true"
-        android:background="@drawable/square"
-        android:elevation="4dp"
-        android:visibility="invisible"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.35"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.238" />
+        app:layout_constraintTop_toBottomOf="@+id/add_Item_button"
+        app:layout_constraintVertical_bias="0.0" />
 
     <EditText
         android:id="@+id/type_qt"
@@ -64,64 +47,32 @@
         android:minHeight="48dp"
         app:layout_constraintBottom_toBottomOf="@+id/label_qt"
         app:layout_constraintEnd_toEndOf="@+id/square"
-        app:layout_constraintHorizontal_bias="0.557"
         app:layout_constraintStart_toEndOf="@+id/label_qt"
         app:layout_constraintTop_toTopOf="@+id/label_qt"
+        app:layout_constraintVertical_bias="0.192"
         tools:ignore="SpeakableTextPresentCheck,DuplicateSpeakableTextCheck" />
 
     <EditText
-        android:id="@+id/type_price"
-        android:layout_width="80dp"
+        android:id="@+id/type_item_name"
+        android:layout_width="81dp"
         android:layout_height="48dp"
-        android:layout_marginEnd="32dp"
         android:ems="10"
         android:importantForAutofill="no"
-        android:inputType="numberDecimal"
+        android:inputType="textPersonName"
         android:minHeight="48dp"
-        app:layout_constraintBottom_toBottomOf="@+id/label_price"
+        app:layout_constraintBottom_toBottomOf="@+id/label_item_name"
         app:layout_constraintEnd_toEndOf="@+id/square"
-        app:layout_constraintHorizontal_bias="0.96"
-        app:layout_constraintStart_toEndOf="@+id/label_price"
-        app:layout_constraintTop_toTopOf="@+id/label_price"
-        tools:ignore="SpeakableTextPresentCheck,DuplicateSpeakableTextCheck" />
-
-    <TextView
-        android:id="@+id/add_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:fontFamily="@font/rubik_bold"
-        android:text="@string/add"
-        android:textAppearance="@style/add_item"
-        android:textColor="#000000"
-        android:textSize="34sp"
-        app:layout_constraintEnd_toEndOf="@+id/square"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="@+id/square"
-        app:layout_constraintTop_toTopOf="@+id/square" />
-
-    <TextView
-        android:id="@+id/label_item_name"
-        android:layout_width="114dp"
-        android:layout_height="21dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="24dp"
-        android:layout_marginEnd="127dp"
-        android:fontFamily="@font/rubik_bold"
-        android:labelFor="@id/type_item_name"
-        android:text="@string/item_name_t"
-        android:textAlignment="center"
-        android:textAppearance="@style/item_labels"
-        app:layout_constraintEnd_toEndOf="@+id/square"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="@+id/square"
-        app:layout_constraintTop_toBottomOf="@+id/add_title" />
+        app:layout_constraintHorizontal_bias="0.239"
+        app:layout_constraintStart_toEndOf="@+id/label_item_name"
+        app:layout_constraintTop_toTopOf="@+id/label_item_name"
+        app:layout_constraintVertical_bias="0.518"
+        tools:ignore="DuplicateSpeakableTextCheck" />
 
     <TextView
         android:id="@+id/label_qt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="24dp"
         android:fontFamily="@font/rubik_bold"
         android:labelFor="@id/type_qt"
         android:text="@string/qt_t"
@@ -130,6 +81,23 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/label_item_name"
         app:layout_constraintTop_toBottomOf="@+id/label_item_name" />
+
+    <TextView
+        android:id="@+id/label_item_name"
+        android:layout_width="114dp"
+        android:layout_height="21dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="127dp"
+        android:fontFamily="@font/rubik_bold"
+        android:labelFor="@id/type_item_name"
+        android:text="@string/item_name_t"
+        android:textAlignment="textStart"
+        android:textAppearance="@style/item_labels"
+        app:layout_constraintEnd_toEndOf="@+id/square"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@+id/square"
+        app:layout_constraintTop_toBottomOf="@+id/add_title" />
 
     <TextView
         android:id="@+id/label_price"
@@ -145,33 +113,67 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/label_qt"
         app:layout_constraintTop_toBottomOf="@+id/label_qt"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.29" />
 
-    <EditText
-        android:id="@+id/type_item_name"
-        android:layout_width="81dp"
-        android:layout_height="48dp"
-        android:ems="10"
-        android:importantForAutofill="no"
-        android:inputType="textPersonName"
-        android:minHeight="48dp"
-        app:layout_constraintBottom_toBottomOf="@+id/label_item_name"
-        app:layout_constraintEnd_toEndOf="@+id/square"
-        app:layout_constraintHorizontal_bias="0.239"
-        app:layout_constraintStart_toEndOf="@+id/label_item_name"
-        app:layout_constraintTop_toTopOf="@+id/label_item_name"
-        tools:ignore="DuplicateSpeakableTextCheck" />
+    <View
+        android:id="@+id/square"
+        android:layout_width="260dp"
+        android:layout_height="266dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/square"
+        android:elevation="4dp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.264" />
 
-    <Button
-        android:id="@+id/previous"
+    <TextView
+        android:id="@+id/add_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="158dp"
-        android:layout_marginTop="39dp"
-        android:layout_marginEnd="159dp"
-        android:text="Back"
+        android:layout_marginTop="16dp"
+        android:fontFamily="@font/rubik_bold"
+        android:text="@string/add"
+        android:textAppearance="@style/add_item"
+        android:textColor="#000000"
+        android:textSize="34sp"
+        app:layout_constraintEnd_toEndOf="@+id/square"
+        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintStart_toStartOf="@+id/square"
+        app:layout_constraintTop_toTopOf="@+id/square" />
+
+    <EditText
+        android:id="@+id/type_price"
+        android:layout_width="80dp"
+        android:layout_height="48dp"
+        android:layout_marginEnd="32dp"
+        android:ems="10"
+        android:importantForAutofill="no"
+        android:inputType="numberDecimal"
+        android:minHeight="48dp"
+        app:layout_constraintBottom_toBottomOf="@+id/label_price"
+        app:layout_constraintEnd_toEndOf="@+id/square"
+        app:layout_constraintHorizontal_bias="0.95"
+        app:layout_constraintStart_toEndOf="@+id/label_price"
+        app:layout_constraintTop_toTopOf="@+id/label_price"
+        app:layout_constraintVertical_bias="0.769"
+        tools:ignore="SpeakableTextPresentCheck,DuplicateSpeakableTextCheck" />
+
+    <Button
+        android:id="@+id/interestedHM"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="28dp"
+        android:fontFamily="@font/rubik_bold"
+        android:text="@string/interestedHM"
+        android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/interestedHM" />
+        app:layout_constraintTop_toBottomOf="@+id/square" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

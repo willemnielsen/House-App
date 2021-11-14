@@ -38,8 +38,16 @@ public class LoginScreenFragment extends Fragment implements ILoginScreenFragmen
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         this.binding.joinHouseButton.setOnClickListener((View clickedView) -> {
-            this.listener.onCreateHouse(this.binding.houseName.getText().toString(),
-                    this.binding.newMembersName.getText().toString());
+            if (this.binding.houseName.getText().toString().isEmpty()) {
+                this.binding.houseName.setError("Please Enter a valid House Name");
+            }
+            if (this.binding.newMembersName.getText().toString().isEmpty()) {
+                this.binding.newMembersName.setError("Please Enter a Valid Name");
+            }
+            else{
+                this.listener.onCreateHouse(this.binding.houseName.getText().toString(),
+                        this.binding.newMembersName.getText().toString());
+            }
         });
     }
 }

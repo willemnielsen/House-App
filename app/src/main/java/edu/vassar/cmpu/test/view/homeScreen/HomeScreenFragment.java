@@ -41,6 +41,12 @@ public class HomeScreenFragment extends Fragment implements IHomeScreenFragment 
         this.binding.openCalenderButton.setOnClickListener((View clickedView) ->{
             this.listener.onOpenCalendar();
         });
+        this.binding.openHousemateListButton.setOnClickListener((View clickedView) ->{
+            this.listener.onOpenHousemateList();
+        });
+        this.binding.openPurchasedListButton.setOnClickListener((View clickedView) ->{
+            this.listener.onOpenPurchasedList();
+        });
     }
 
 }
