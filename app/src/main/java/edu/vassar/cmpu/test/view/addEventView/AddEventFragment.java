@@ -45,25 +45,36 @@ public class AddEventFragment extends Fragment implements IAddEventView {
                 Editable nameEditable = binding.typeEventName.getText();
                 String name = nameEditable.toString();
 
-                Editable stEditable = binding.typeSt.getText();
-                Time st = Time.valueOf(stEditable.toString());
+                Editable sthourEditable = binding.typeSthour.getText();
+                int sth = Integer.parseInt(sthourEditable.toString());
+                Editable stminEditable = binding.typeStmin.getText();
+                int stm = Integer.parseInt(stminEditable.toString());
+                Time st = new Time(sth, stm, 00);
 
-                Editable etEditable = binding.typeEt.getText();
-                Time et = Time.valueOf(etEditable.toString());
+                Editable ethourEditable = binding.typeEthour.getText();
+                int eth = Integer.parseInt(ethourEditable.toString());
+                Editable etminEditable = binding.typeEtmin.getText();
+                int etm = Integer.parseInt(etminEditable.toString());
+                Time et = new Time(eth, etm, 00);
 
-                Editable dateEditable = binding.typeDate.getText();
-                SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy", Locale.US);
-                try {
-                   Date date = dateFormat.parse(dateEditable.toString());
-                    onAddedEvent(name, date, st, et);
-                } catch (ParseException e) {
-                    e.printStackTrace();
-                }
+                Editable monthEditable = binding.typeMonth.getText();
+                int month = Integer.parseInt(monthEditable.toString());
+                Editable dayEditable = binding.typeDay.getText();
+                int day = Integer.parseInt(dayEditable.toString());
+                Editable yearEditable = binding.typeYear.getText();
+                int year = Integer.parseInt(yearEditable.toString());
+                Date date = new Date(year, month, day);
+
+                onAddedEvent(name, date, st, et);
 
                 nameEditable.clear();
-                dateEditable.clear();
-                stEditable.clear();
-                etEditable.clear();
+                ethourEditable.clear();
+                etminEditable.clear();
+                sthourEditable.clear();
+                stminEditable.clear();
+                monthEditable.clear();
+                dayEditable.clear();
+                yearEditable.clear();
             }
         });
 
