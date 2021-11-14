@@ -13,6 +13,7 @@ import java.util.Date;
 import edu.vassar.cmpu.test.domain.HouseController;
 import edu.vassar.cmpu.test.domain.Housemate;
 import edu.vassar.cmpu.test.domain.LineItem;
+import edu.vassar.cmpu.test.domain.Recurrence;
 import edu.vassar.cmpu.test.domain.ShoppingList;
 import edu.vassar.cmpu.test.view.addEventView.AddEventFragment;
 import edu.vassar.cmpu.test.view.addEventView.IAddEventView;
@@ -174,7 +175,11 @@ public class ControllerActivity extends AppCompatActivity
 
         @Override
         public void onAddedEvent(String name, Date date, Time startTime, Time endTime, IAddEventView addEventView) {
-            houseController.addEventToCalendar(name, date, startTime, endTime, null, "Daily");
+            Date startDate = new Date();
+            Date endDate = new Date(1637776749273L);
+            Recurrence recurrence = new Recurrence("daily", startDate, endDate);
+            houseController.addEventToCalendar(name, date, startTime, endTime, null, recurrence);
+
             addEventView.updateDisplay(houseController.getHouse().getCalendar());
         }
 
