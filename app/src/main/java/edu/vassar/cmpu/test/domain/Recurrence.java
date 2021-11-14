@@ -14,6 +14,6 @@ public class Recurrence {
 
     }
     public String getFrequency(){return this.frequency}
-    public String getStartDate(){return this.startDate}
-    public String getEndDate(){return this.endDate}
+    public Date getStartDate(){return this.startDate}
+    public Date getEndDate(){return this.endDate}
 }
