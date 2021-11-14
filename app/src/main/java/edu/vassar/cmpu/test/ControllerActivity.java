@@ -5,12 +5,15 @@ import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.sql.Time;
+import java.util.ArrayList;
 import java.util.Date;
 
 
 //import edu.vassar.cmpu.test.domain.House;
 import edu.vassar.cmpu.test.domain.HouseController;
 import edu.vassar.cmpu.test.domain.Housemate;
+import edu.vassar.cmpu.test.domain.LineItem;
+import edu.vassar.cmpu.test.domain.ShoppingList;
 import edu.vassar.cmpu.test.view.addEventView.AddEventFragment;
 import edu.vassar.cmpu.test.view.addEventView.IAddEventView;
 import edu.vassar.cmpu.test.view.addItemView.AddItemFragment;
@@ -23,14 +26,14 @@ import edu.vassar.cmpu.test.view.housemateListScreen.HousemateListScreenFragment
 import edu.vassar.cmpu.test.view.housemateListScreen.IHousemateListScreenFragment;
 import edu.vassar.cmpu.test.view.loginScreen.ILoginScreenFragment;
 import edu.vassar.cmpu.test.view.loginScreen.LoginScreenFragment;
-// import edu.vassar.cmpu.test.view.purchasedListScreen.IPurchasedListScreenFragment;
-// import edu.vassar.cmpu.test.view.purchasedListScreen.PurchasedListScreenFragment;
+import edu.vassar.cmpu.test.view.purchasedListScreen.IPurchasedListScreenFragment;
+import edu.vassar.cmpu.test.view.purchasedListScreen.PurchasedListScreenFragment;
 import edu.vassar.cmpu.test.view.shoppingListScreen.IShoppingListScreenView;
 import edu.vassar.cmpu.test.view.shoppingListScreen.ShoppingListScreenFragment;
 
 public class ControllerActivity extends AppCompatActivity
         implements IShoppingListScreenView.Listener, IHomeScreenFragment.Listener, IAddItemView.Listener, ICalendarScreenView.Listener,
-                   IAddEventView.Listener, ILoginScreenFragment.Listener, IHousemateListScreenFragment.Listener {
+                   IAddEventView.Listener, ILoginScreenFragment.Listener, IHousemateListScreenFragment.Listener, IPurchasedListScreenFragment.Listener {
     //extends makes this class an activity
 
     private HouseController houseController;
@@ -75,11 +78,14 @@ public class ControllerActivity extends AppCompatActivity
     public void onOpenCalendar() {
         openCalendarScreen();
     }
+
     @Override
     public void onOpenHousemateList(){
         openHousemateListScreen();
     }
 
+    @Override
+    public void onOpenPurchasedList(){ openPurchasedListScreen();}
     //
     // Shopping List
     //
@@ -88,6 +94,8 @@ public class ControllerActivity extends AppCompatActivity
         IShoppingListScreenView sl = new ShoppingListScreenFragment(this);
         this.mainView.displayFragment((ShoppingListScreenFragment) sl);
         sl.updateDisplay(houseController.getHouse().getShoppingList());
+        sl.purchaseItems(houseController.getHouse().getShoppingList());
+
     }
 
     @Override
@@ -99,10 +107,21 @@ public class ControllerActivity extends AppCompatActivity
     public void onPreviousOnShoppingListScreen() {
         this.openHomeScreen();
     }
+    @Override
+    public void onPurchaseItems(LineItem lineitem) {
+        houseController.addToPurchase(lineitem);
+        houseController.getHouse().getShoppingList().remove(lineitem);
+    }
+
+    public void updateShoppingPurchasedList(IShoppingListScreenView shoppingListScreenView){
+        shoppingListScreenView.updateDisplay(houseController.getHouse().getShoppingList());
+        shoppingListScreenView.updatePurchasedList(houseController.getHouse().getPurchasedItems());
+    }
 
         //
         //add item
         //
+
 
     /**
      * opens the add item screen
@@ -115,8 +134,8 @@ public class ControllerActivity extends AppCompatActivity
     }
 
         @Override
-        public void onAddedItem(String name, int quantity, float price, IAddItemView addItemView) {
-            houseController.addLineItemToShoppingList(quantity, name, price, null);
+        public void onAddedItem(String name, int quantity, float price, ArrayList<Housemate> interestedHMs, IAddItemView addItemView) {
+            houseController.addLineItemToShoppingList(quantity, name, price, interestedHMs);
             addItemView.updateDisplay(houseController.getHouse().getShoppingList());
         }
 
@@ -185,4 +204,17 @@ public class ControllerActivity extends AppCompatActivity
         public void onPreviousOnHousemateListScreen(){
             this.openHomeScreen();
         }
+
+        //
+        // Purchased Screen
+        //
+
+    public void openPurchasedListScreen() {
+        this.mainView.displayFragment(new PurchasedListScreenFragment(this));
+    }
+
+    @Override
+    public void onPreviousOnPurchasedListScreen(){
+        this.openHomeScreen();
+    }
 }

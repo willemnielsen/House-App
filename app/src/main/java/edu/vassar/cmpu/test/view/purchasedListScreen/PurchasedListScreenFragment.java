@@ -7,14 +7,25 @@ import android.view.ViewGroup;
 
 import androidx.fragment.app.Fragment;
 
-import edu.vassar.cmpu.test.databinding.FragmentLoginScreenBinding;
+import java.util.ArrayList;
+
+
 import edu.vassar.cmpu.test.databinding.FragmentPurchasedBinding;
-import edu.vassar.cmpu.test.view.loginScreen.ILoginScreenFragment;
+import edu.vassar.cmpu.test.domain.LineItem;
+import edu.vassar.cmpu.test.view.shoppingListScreen.IShoppingListScreenView;
+
 
 public class PurchasedListScreenFragment extends Fragment implements IPurchasedListScreenFragment {
     private FragmentPurchasedBinding binding;
-    private ILoginScreenFragment.Listener listener;
+    private Listener listener;
 
+    public PurchasedListScreenFragment(){
+
+    }
+
+    public PurchasedListScreenFragment(IPurchasedListScreenFragment.Listener listener) {
+        this.listener = listener;
+    }
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,11 +37,15 @@ public class PurchasedListScreenFragment extends Fragment implements IPurchasedL
         return this.binding.getRoot();
     }
 
-   // @Override
-   // public void onViewCreated(View view, Bundle savedInstanceState) {
-    //    this.binding..setOnClickListener((View clickedView) -> {
-    //        this.listener.onCreateHouse(this.binding.houseName.getText().toString(),
-    //                this.binding.newMembersName.getText().toString());
-   //     });
-  //  }
+    public void updatePurchasedList(ArrayList<LineItem> purchasedItems) {
+        for (LineItem item: purchasedItems){
+        this.binding.purchasedItem.setText("items:" + item.toString());
+    }}
+
+   @Override
+   public void onViewCreated(View view, Bundle savedInstanceState) {
+        this.binding.previousOnPurchasedListScreen.setOnClickListener((View clickedView) -> {
+           this.listener.onPreviousOnPurchasedListScreen();
+        });
+    }
 }

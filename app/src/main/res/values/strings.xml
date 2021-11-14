@@ -18,6 +18,7 @@
     <string name="qt">Quantity</string>
     <string name="item_name">Item Name</string>
     <string name="price">Price</string>
+    <string name="purchase">Purchase Button</string>
 
     <!-- Strings used for Add Item -->
     <string name="add">Add Item</string>

@@ -1,7 +1,7 @@
 package edu.vassar.cmpu.test.view.addItemView;
 
 import android.app.AlertDialog;
-import android.content.DialogInterface;
+//import android.content.DialogInterface;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -48,43 +48,6 @@ public class AddItemFragment extends Fragment implements IAddItemView {
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
-        this.binding.addItemButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                // get the item name
-                Editable nameEditable = binding.typeItemName.getText();
-                String name = nameEditable.toString();
-                nameEditable.clear();
-
-
-
-                Editable priceEditable = binding.typePrice.getText();
-                String priceString = priceEditable.toString();
-
-
-                Editable qtyEditable = binding.typeQt.getText();
-                String qtyString = qtyEditable.toString();
-                try {
-                    //price default --> 0
-                    float price = 0.0f;
-                    try {
-                        price = Float.parseFloat(priceString);
-                    } catch (NumberFormatException e) {
-                    }
-
-                    int qtyVal = Integer.parseInt(qtyString);
-                    onAddedItem(name, qtyVal, price);
-                } catch (NumberFormatException e) {
-                    binding.typeItemName.setText("");
-                    binding.typeQt.setText("");
-                    binding.typePrice.setText("");
-                }
-                priceEditable.clear();
-                qtyEditable.clear();
-            }
-        });
-
-
         this.binding.previous.setOnClickListener((View clickedView) -> {
             this.listener.onPreviousInAddItemFragment();
         });
@@ -93,10 +56,10 @@ public class AddItemFragment extends Fragment implements IAddItemView {
 
     }
 
-    private ArrayList CreateDialog(ArrayList<Housemate> housemates){
+    private ArrayList<Housemate> CreateDialog(ArrayList<Housemate> housemates){
 
         ArrayList<String> selectedHM = new ArrayList<>();
-
+        ArrayList<Housemate> interestedHM = new ArrayList<>();
         String[] names = new String[housemates.size()];
         for(int i = 0 ; i < names.length; i++){
            names[i] = housemates.get(i).getName();
@@ -109,31 +72,38 @@ public class AddItemFragment extends Fragment implements IAddItemView {
 
                     if(isChecked){
                      selectedHM.add(names[which]);
+                     interestedHM.add(housemates.get(which));
                   }
                   else if (selectedHM.contains(names[which])){
                       selectedHM.remove(names[which]);
-
+                      interestedHM.remove(housemates.get(which));
                   }
                 })
                 .setPositiveButton("Done", (dialog, which) -> {
-                        String data = "Interested Housemate Added:";
-                        for (String name : selectedHM){
-                            data = data + " " + name;
+                        if (selectedHM.isEmpty()){
+                            CreateDialog(housemates);
                         }
-                        Toast.makeText(getActivity(), data, Toast.LENGTH_SHORT).show();
-                    })
+                        else{
+                            String data = "Interested Housemate Added:";
+                            for (String name : selectedHM){
+                                data = data + " " + name;
+                            }
+
+                            Toast.makeText(getActivity(), data, Toast.LENGTH_SHORT).show();
+                        }
+                })
                 .setNegativeButton("Cancel", (dialog, which) -> {
-                    //getActivity();
+
                 });
 
         builder.create();
         builder.show();
 
-        return selectedHM;
+        return interestedHM;
     }
 
-    public void onAddedItem(String name, int quantity, float price) {
-        this.listener.onAddedItem(name, quantity, price, this);
+    public void onAddedItem(String name, int quantity, float price, ArrayList<Housemate> interestedHMs) {
+        this.listener.onAddedItem(name, quantity, price, interestedHMs, this);
     }
 
     @Override
@@ -141,11 +111,52 @@ public class AddItemFragment extends Fragment implements IAddItemView {
     }
     @Override
     public void getHouseMates(ArrayList<Housemate> housemates){
-        this.binding.interestedHM.setOnClickListener(new View.OnClickListener(){
+        this.binding.addItemButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v){
-                CreateDialog(housemates);
+            public void onClick(View view) {
+                // get the item name
+                Editable nameEditable = binding.typeItemName.getText();
+                String name = nameEditable.toString();
+
+                Editable priceEditable = binding.typePrice.getText();
+                String priceString = priceEditable.toString();
+
+                Editable qtyEditable = binding.typeQt.getText();
+                String qtyString = qtyEditable.toString();
+
+                if (name.isEmpty()) {binding.typeItemName.setError("Please Enter a name");}
+
+                if (qtyString.isEmpty()) {binding.typeQt.setError("Please Enter a Quantity");}
+
+                try {
+                    //price default --> 0
+                    float price = 0.0f;
+                    try {
+                        price = Float.parseFloat(priceString);
+                    } catch (NumberFormatException e) {
+                    }
+
+                    int qtyVal = Integer.parseInt(qtyString);
+                    ArrayList<Housemate> interestedHMs= CreateDialog(housemates);
+                    onAddedItem(name, qtyVal, price, interestedHMs);
+
+                } catch (NumberFormatException e) {
+
+                    binding.typeItemName.setText("");
+                    binding.typeQt.setText("");
+                    binding.typePrice.setText("");
+                }
+                nameEditable.clear();
+                priceEditable.clear();
+                qtyEditable.clear();
             }
         });
+
+        //this.binding.interestedHM.setOnClickListener(new View.OnClickListener(){
+         //   @Override
+         //   public void onClick(View v){
+          //      CreateDialog(housemates);
+          //  }
+        //});
     }
 }
