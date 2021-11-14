@@ -144,7 +144,7 @@ public class ControllerActivity extends AppCompatActivity
 
         @Override
         public void onSetDate(Date date, ICalendarScreenView calendarScreenView) {
-            houseController.setDate(date);
+            houseController.getHouse().getCalendar().setCurrentDate(date);
             calendarScreenView.updateDisplay(houseController.getHouse().getCalendar());
         }
 
