@@ -3,9 +3,9 @@ import java.util.Date;
 
 
 public class Recurrence {
-    public final String frequency;
-    public final Date endDate;
-    public final Date startDate;
+    private final String frequency;
+    private final Date endDate;
+    private final Date startDate;
 
     public Recurrence(String frequency, Date startDate, Date endDate) {
         this.frequency = frequency;
@@ -13,4 +13,7 @@ public class Recurrence {
         this.endDate = endDate;
 
     }
+    public String getFrequency(){return this.frequency}
+    public String getStartDate(){return this.startDate}
+    public String getEndDate(){return this.endDate}
 }
