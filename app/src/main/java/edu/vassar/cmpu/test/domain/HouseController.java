@@ -77,7 +77,7 @@ public class HouseController {
     public Event getThisEvent(Event event){
         return house.getCalendar().getThisEvent(event);}
 
-    public boolean addEventToCalendar(String name, Date date, Time startTime, Time endTime, ArrayList<Housemate> housemates, String recurrence){
+    public boolean addEventToCalendar(String name, Date date, Time startTime, Time endTime, ArrayList<Housemate> housemates, Recurrence recurrence){
         return house.getCalendar().addEvent(name, date, startTime, endTime, housemates, recurrence);
     }
 
