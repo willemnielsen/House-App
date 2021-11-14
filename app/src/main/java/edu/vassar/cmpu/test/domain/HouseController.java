@@ -81,10 +81,4 @@ public class HouseController {
         return house.getCalendar().addEvent(name, date, startTime, endTime, housemates, recurrence);
     }
 
-    public String calendarToString(Date date){
-        return house.getCalendar().toString(date);
-    }
-    public boolean setDate(Date date){
-        return house.getCalendar().setCurrentDate(date);
-    }
 }
