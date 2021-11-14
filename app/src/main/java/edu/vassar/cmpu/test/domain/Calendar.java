@@ -34,10 +34,11 @@ public class Calendar {
 
     public Date getCurrentDate(){return this.currentDate;}
 
-    public String toString(Date date){
+    public String toString(){
         String list = "";
         for(Event event : events) {
-            if(event.getDate().compareTo(date) == 0) list += event.toString() + "\n";
+            long adjustedtime = (event.getDate().getTime()+59958144000000L);
+            if(this.currentDate.getTime() == adjustedtime) list += event.toString() + "\n";
         }
         return list;
     }
