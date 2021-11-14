@@ -13,17 +13,49 @@ public class Calendar {
         currentDate = new Date();
     }
 
-    public boolean addEvent(String name, Date date, Time startTime, Time endTime, ArrayList<Housemate> housemates, String recurrence) {
+    public boolean addEvent(String name, Date date, Time startTime, Time endTime, ArrayList<Housemate> housemates, Recurrence recurrence) {
         Event newevent;
-        if (housemates == null) {
-            newevent = new Event(name, date, startTime, endTime, new ArrayList<Housemate>(), recurrence);
+        Date incDate = recurrence.getStartDate();
+        Long longDate;
+        switch (recurrence.getFrequency()){
+            case "daily":
+                while(incDate.before(recurrence.getEndDate())) {
+                    if (housemates == null) {
+                        newevent = new Event(name, incDate, startTime, endTime, new ArrayList<Housemate>());
+                    } else {
+                        newevent = new Event(name, incDate, startTime, endTime, housemates);
+                    }
+                    events.add(newevent);
+                    longDate = incDate.getTime() + 86400000L;
+                    incDate = new Date(longDate);
+                }
+                break;
+            case "weekly":
+                while(incDate.before(recurrence.getEndDate())) {
+                    if (housemates == null) {
+                        newevent = new Event(name, incDate, startTime, endTime, new ArrayList<Housemate>());
+                    } else {
+                        newevent = new Event(name, incDate, startTime, endTime, housemates);
+                    }
+                    events.add(newevent);
+                    longDate = incDate.getTime() + 604800000L;
+                    incDate = new Date(longDate);
+                }
+                break;
+            default:
+                if (housemates == null) {
+                    newevent = new Event(name, date, startTime, endTime, new ArrayList<Housemate>());
+                } else {
+                    newevent = new Event(name, date, startTime, endTime, housemates);
+                }
+                events.add(newevent);
 
-        } else {
-            newevent = new Event(name, date, startTime, endTime, housemates, recurrence);
+
+                return true;
         }
-        events.add(newevent);
         return true;
     }
+
 
     public void remove(Event event){events.remove(event);}
 
