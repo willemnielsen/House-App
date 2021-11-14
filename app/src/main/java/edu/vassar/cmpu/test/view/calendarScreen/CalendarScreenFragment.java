@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CalendarView;
 
 import edu.vassar.cmpu.test.databinding.FragmentCalendarMonthBinding;
 import edu.vassar.cmpu.test.domain.Calendar;
@@ -41,8 +42,8 @@ public class CalendarScreenFragment extends Fragment implements ICalendarScreenV
             this.listener.onAddEvent();
         });
 
-        this.binding.calendarView.setOnClickListener((View clickedView) ->{
-            Date date = new Date(this.binding.calendarView.getDate());
+        this.binding.calendarView.setOnDateChangeListener((CalendarView clickedView, int year, int month, int dayOfMonth) ->{
+            Date date = new Date(year, month, dayOfMonth);
             this.listener.onSetDate(date, this);
         });
 
@@ -51,9 +52,10 @@ public class CalendarScreenFragment extends Fragment implements ICalendarScreenV
         });
     }
 
-
+    int z = 0;
     @Override
     public void updateDisplay(Calendar calendar) {
-        this.binding.eventsList.setText(calendar.toString(calendar.getCurrentDate()));
+        z++;
+        this.binding.eventsList.setText(calendar.toString() +  " gr4-----" + z );
     }
 }
