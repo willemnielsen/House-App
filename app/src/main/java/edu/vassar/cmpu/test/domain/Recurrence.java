@@ -5,8 +5,12 @@ import java.util.Date;
 public class Recurrence {
     public final String frequency;
     public final Date endDate;
-    public Recurrence(String frequency, Date endDate) {
+    public final Date startDate;
+
+    public Recurrence(String frequency, Date startDate, Date endDate) {
         this.frequency = frequency;
+        this.startDate = startDate;
         this.endDate = endDate;
+
     }
 }
