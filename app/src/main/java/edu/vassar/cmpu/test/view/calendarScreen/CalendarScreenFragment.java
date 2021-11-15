@@ -43,7 +43,7 @@ public class CalendarScreenFragment extends Fragment implements ICalendarScreenV
         });
 
         this.binding.calendarView.setOnDateChangeListener((CalendarView clickedView, int year, int month, int dayOfMonth) ->{
-            Date date = new Date(year, month, dayOfMonth);
+            Date date = new Date(year-1900, month, dayOfMonth);
             this.listener.onSetDate(date, this);
         });
 
@@ -52,10 +52,9 @@ public class CalendarScreenFragment extends Fragment implements ICalendarScreenV
         });
     }
 
-    int z = 0;
+
     @Override
     public void updateDisplay(Calendar calendar) {
-        z++;
-        this.binding.eventsList.setText(calendar.toString() +  " gr4-----" + z );
+        this.binding.eventsList.setText(calendar.toString());
     }
 }

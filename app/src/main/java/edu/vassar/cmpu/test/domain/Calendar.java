@@ -67,10 +67,10 @@ public class Calendar {
     public Date getCurrentDate(){return this.currentDate;}
 
     public String toString(){
-        String list = "";
+        String list = ""+currentDate+ "\n";
         for(Event event : events) {
-            long adjustedtime = (event.getDate().getTime()+59958144000000L);
-            if(this.currentDate.getTime() == adjustedtime) list += event.toString() + "\n";
+            if(currentDate.getYear() == event.getDate().getYear() && currentDate.getMonth() == event.getDate().getMonth()
+            && currentDate.getDay() == event.getDate().getDay()) list += event.toString() + "\n";
         }
         return list;
     }
