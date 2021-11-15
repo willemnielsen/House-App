@@ -57,7 +57,6 @@ public class AddItemFragment extends Fragment implements IAddItemView {
     }
 
     private ArrayList<Housemate> CreateDialog(ArrayList<Housemate> housemates){
-
         ArrayList<String> selectedHM = new ArrayList<>();
         ArrayList<Housemate> interestedHM = new ArrayList<>();
         String[] names = new String[housemates.size()];
@@ -66,35 +65,27 @@ public class AddItemFragment extends Fragment implements IAddItemView {
         }
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
-        builder.setTitle("Interested Housemates")
-                .setMultiChoiceItems(names, null, (dialog, which, isChecked) -> {
-
-
-                    if(isChecked){
+        builder.setTitle("Interested Housemates").setMultiChoiceItems(names, null, (dialog, which, isChecked) -> {
+            if(isChecked){
                      selectedHM.add(names[which]);
                      interestedHM.add(housemates.get(which));
-                  }
-                  else if (selectedHM.contains(names[which])){
+            } else if (selectedHM.contains(names[which])){
                       selectedHM.remove(names[which]);
                       interestedHM.remove(housemates.get(which));
-                  }
-                })
-                .setPositiveButton("Done", (dialog, which) -> {
-                        if (selectedHM.isEmpty()){
-                            CreateDialog(housemates);
-                        }
-                        else{
-                            String data = "Interested Housemate Added:";
-                            for (String name : selectedHM){
-                                data = data + " " + name;
-                            }
+            }
+        }).setPositiveButton("Done", (dialog, which) -> {
+            if (selectedHM.isEmpty()){
+                CreateDialog(housemates);
+            } else{
+                String data = "Interested Housemate Added:";
+                for (String name : selectedHM){
+                    data = data + " " + name;
+                }
+                Toast.makeText(getActivity(), data, Toast.LENGTH_SHORT).show();
+            }
+        }).setNegativeButton("Cancel", (dialog, which) -> {
 
-                            Toast.makeText(getActivity(), data, Toast.LENGTH_SHORT).show();
-                        }
-                })
-                .setNegativeButton("Cancel", (dialog, which) -> {
-
-                });
+        });
 
         builder.create();
         builder.show();
@@ -102,13 +93,10 @@ public class AddItemFragment extends Fragment implements IAddItemView {
         return interestedHM;
     }
 
-    public void onAddedItem(String name, int quantity, float price, ArrayList<Housemate> interestedHMs) {
-        this.listener.onAddedItem(name, quantity, price, interestedHMs, this);
-    }
-
     @Override
     public void updateDisplay(ShoppingList shoppingList) {
     }
+
     @Override
     public void getHouseMates(ArrayList<Housemate> housemates){
         this.binding.addItemButton.setOnClickListener(new View.OnClickListener() {
@@ -137,8 +125,9 @@ public class AddItemFragment extends Fragment implements IAddItemView {
                     }
 
                     int qtyVal = Integer.parseInt(qtyString);
-                    ArrayList<Housemate> interestedHMs= CreateDialog(housemates);
-                    onAddedItem(name, qtyVal, price, interestedHMs);
+                    ArrayList<Housemate> interestedHMs = CreateDialog(housemates);
+                    if(interestedHMs.size() != 0)
+                        AddItemFragment.this.listener.onAddedItem(name, qtyVal, price, interestedHMs, AddItemFragment.this);
 
                 } catch (NumberFormatException e) {
 
