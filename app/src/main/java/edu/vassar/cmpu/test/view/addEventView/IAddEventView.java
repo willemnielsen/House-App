@@ -7,7 +7,7 @@ import edu.vassar.cmpu.test.domain.Calendar;
 
 public interface IAddEventView {
     interface Listener{
-        void onAddedEvent(String name, Date date, Time startTime, Time endTime, IAddEventView addEventView);
+        void onAddedEvent(String name, Date date, Time startTime, Time endTime, String rec, IAddEventView addEventView);
         void onPreviousInAddEventFragment();
     }
 
