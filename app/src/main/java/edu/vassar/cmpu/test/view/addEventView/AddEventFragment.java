@@ -23,6 +23,7 @@ import java.util.List;
 import edu.vassar.cmpu.test.databinding.FragmentAddEventBinding;
 import edu.vassar.cmpu.test.domain.Calendar;
 import edu.vassar.cmpu.test.domain.Housemate;
+import edu.vassar.cmpu.test.view.addItemView.AddItemFragment;
 
 
 public class AddEventFragment extends Fragment implements IAddEventView, AdapterView.OnItemSelectedListener {
@@ -118,33 +119,39 @@ public class AddEventFragment extends Fragment implements IAddEventView, Adapter
             @Override
             public void onClick(View view) {
                 // get the item name
+
                 Editable nameEditable = binding.typeEventName.getText();
                 String name = nameEditable.toString();
+                if (name.isEmpty()) {binding.typeEventName.setError("Please Enter an Event Name");}
 
+                if (binding.typeYear.getText().toString().isEmpty()) {binding.typeYear.setError("Please Select a Date");}
 
-                int sth = Integer.parseInt(binding.hourText.getText().toString());
-                int stm = Integer.parseInt(binding.minText.getText().toString());
-                Time st = new Time(sth - 1, stm, 00);
-                if (binding.ampmText.getText().toString().equals("PM")) {
-                    st.setHours(st.getHours() + 12);
+                try {
+                    int sth = Integer.parseInt(binding.hourText.getText().toString());
+                    int stm = Integer.parseInt(binding.minText.getText().toString());
+                    Time st = new Time(sth - 1, stm, 00);
+                    if (binding.ampmText.getText().toString().equals("PM")) {
+                        st.setHours(st.getHours() + 12);
+                    }
+
+                    int eth = Integer.parseInt(binding.hourText2.getText().toString());
+                    int etm = Integer.parseInt(binding.minText2.getText().toString());
+                    Time et = new Time(eth - 1, etm, 00);
+                    if (binding.ampmText2.getText().toString().equals("PM")) {
+                        et.setHours(et.getHours() + 12);
+                    }
+                    int year = Integer.parseInt(binding.typeYear.getText().toString());
+                    int month = Integer.parseInt(binding.typeMonth.getText().toString());
+                    int day = Integer.parseInt(binding.typeDay.getText().toString());
+                    Date date = new Date(year - 1900, month - 1, day);
+
+                    String recur = binding.recText.getText().toString();
+                    ArrayList<Housemate> interestedHMs = CreateDialog(housemates);
+                    onAddedEvent(name, date, st, et, interestedHMs, recur);
+
+                } catch (NumberFormatException e) {
+
                 }
-
-                int eth = Integer.parseInt(binding.hourText2.getText().toString());
-                int etm = Integer.parseInt(binding.minText2.getText().toString());
-                Time et = new Time(eth - 1, etm, 00);
-                if (binding.ampmText2.getText().toString().equals("PM")) {
-                    et.setHours(et.getHours() + 12);
-                }
-
-                int year = Integer.parseInt(binding.typeYear.getText().toString());
-                int month = Integer.parseInt(binding.typeMonth.getText().toString());
-                int day = Integer.parseInt(binding.typeDay.getText().toString());
-                Date date = new Date(year - 1900, month - 1, day);
-
-                String recur = binding.recText.getText().toString();
-
-                ArrayList<Housemate> interestedHMs = CreateDialog(housemates);
-                onAddedEvent(name, date, st, et, interestedHMs, recur);
 
                 nameEditable.clear();
                 String reseth = "01";
@@ -196,23 +203,22 @@ public class AddEventFragment extends Fragment implements IAddEventView, Adapter
                         selectedHM.remove(names[which]);
                         interestedHM.remove(housemates.get(which));
                     }
-                })
-                .setPositiveButton("Done", (dialog, which) -> {
-                    if (selectedHM.isEmpty()){
-                        CreateDialog(housemates);
-                    }
-                    else{
-                        String data = "Housemate Added:";
-                        for (String name : selectedHM){
-                            data = data + " " + name;
-                        }
-
-                        Toast.makeText(getActivity(), data, Toast.LENGTH_SHORT).show();
-                    }
-                })
-                .setNegativeButton("Cancel", (dialog, which) -> {
-
-                });
+        }).setPositiveButton("Done", (dialog, which) -> {
+            if (selectedHM.isEmpty()){
+                dialog.dismiss();
+                String data = "Failed to Create Event: No Housemates Added.";
+                Toast.makeText(getActivity(), data, Toast.LENGTH_SHORT).show();
+            } else{
+                String data = "Housemates Added to Event:";
+                for (String name : selectedHM){
+                    data = data + " " + name;
+                }
+                Toast.makeText(getActivity(), data, Toast.LENGTH_SHORT).show();
+            }
+        }).setNegativeButton("Cancel", (dialog, which) -> {
+            String data = "Event Cancelled.";
+            Toast.makeText(getActivity(), data, Toast.LENGTH_SHORT).show();
+        });
 
         builder.create();
         builder.show();
