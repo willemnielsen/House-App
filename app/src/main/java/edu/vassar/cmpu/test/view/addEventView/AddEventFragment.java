@@ -1,5 +1,6 @@
 package edu.vassar.cmpu.test.view.addEventView;
 
+import android.app.AlertDialog;
 import android.os.Bundle;
 import android.text.Editable;
 import android.view.LayoutInflater;
@@ -9,6 +10,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.CalendarView;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 
@@ -113,6 +115,13 @@ public class AddEventFragment extends Fragment implements IAddEventView, Adapter
             binding.typeYear.setText(""+year);
         });
 
+        this.binding.back.setOnClickListener((View clickedView) -> {
+            this.listener.onPreviousInAddEventFragment();
+        });
+
+    }
+    @Override
+    public void getAddedHouseMates(ArrayList<Housemate> housemates) {
         this.binding.addEventButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -120,29 +129,30 @@ public class AddEventFragment extends Fragment implements IAddEventView, Adapter
                 Editable nameEditable = binding.typeEventName.getText();
                 String name = nameEditable.toString();
 
+
                 int sth = Integer.parseInt(binding.hourText.getText().toString());
                 int stm = Integer.parseInt(binding.minText.getText().toString());
-                Time st = new Time(sth-1, stm, 00);
-                if (binding.ampmText.getText().toString().equals("PM")){
-                    st.setHours(st.getHours()+12);
+                Time st = new Time(sth - 1, stm, 00);
+                if (binding.ampmText.getText().toString().equals("PM")) {
+                    st.setHours(st.getHours() + 12);
                 }
 
                 int eth = Integer.parseInt(binding.hourText2.getText().toString());
                 int etm = Integer.parseInt(binding.minText2.getText().toString());
-                Time et = new Time(eth-1, etm, 00);
-                if (binding.ampmText2.getText().toString().equals("PM")){
-                    et.setHours(et.getHours()+12);
+                Time et = new Time(eth - 1, etm, 00);
+                if (binding.ampmText2.getText().toString().equals("PM")) {
+                    et.setHours(et.getHours() + 12);
                 }
 
                 int year = Integer.parseInt(binding.typeYear.getText().toString());
                 int month = Integer.parseInt(binding.typeMonth.getText().toString());
                 int day = Integer.parseInt(binding.typeDay.getText().toString());
-                Date date = new Date(year-1900, month-1, day);
+                Date date = new Date(year - 1900, month - 1, day);
 
                 String recur = binding.recText.getText().toString();
 
-
-                onAddedEvent(name, date, st, et, recur);
+                ArrayList<Housemate> interestedHMs = CreateDialog(housemates);
+                onAddedEvent(name, date, st, et, interestedHMs, recur);
 
                 nameEditable.clear();
                 String reseth = "01";
@@ -163,15 +173,56 @@ public class AddEventFragment extends Fragment implements IAddEventView, Adapter
 
             }
         });
-
-        this.binding.back.setOnClickListener((View clickedView) -> {
-            this.listener.onPreviousInAddEventFragment();
-        });
-
     }
 
-    public void onAddedEvent(String name, Date date, Time st, Time et, String rec) {
-        this.listener.onAddedEvent(name, date, st, et, rec,this);
+    private ArrayList<Housemate> CreateDialog(ArrayList<Housemate> housemates){
+
+        ArrayList<String> selectedHM = new ArrayList<>();
+        ArrayList<Housemate> interestedHM = new ArrayList<>();
+        String[] names = new String[housemates.size()];
+        for(int i = 0 ; i < names.length; i++){
+            names[i] = housemates.get(i).getName();
+        }
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+
+        builder.setTitle("Add Housemates to Event")
+                .setMultiChoiceItems(names, null, (dialog, which, isChecked) -> {
+
+
+                    if(isChecked){
+                        selectedHM.add(names[which]);
+                        interestedHM.add(housemates.get(which));
+                    }
+                    else if (selectedHM.contains(names[which])){
+                        selectedHM.remove(names[which]);
+                        interestedHM.remove(housemates.get(which));
+                    }
+                })
+                .setPositiveButton("Done", (dialog, which) -> {
+                    if (selectedHM.isEmpty()){
+                        CreateDialog(housemates);
+                    }
+                    else{
+                        String data = "Housemate Added:";
+                        for (String name : selectedHM){
+                            data = data + " " + name;
+                        }
+
+                        Toast.makeText(getActivity(), data, Toast.LENGTH_SHORT).show();
+                    }
+                })
+                .setNegativeButton("Cancel", (dialog, which) -> {
+
+                });
+
+        builder.create();
+        builder.show();
+
+        return interestedHM;
+    }
+
+    public void onAddedEvent(String name, Date date, Time st, Time et, ArrayList<Housemate> interestedHMs, String rec) {
+        this.listener.onAddedEvent(name, date, st, et, interestedHMs, rec,this);
     }
 
 

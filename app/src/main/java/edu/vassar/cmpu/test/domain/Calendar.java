@@ -70,7 +70,14 @@ public class Calendar {
         String list = ""+currentDate+ "\n";
         for(Event event : events) {
             if(currentDate.getYear() == event.getDate().getYear() && currentDate.getMonth() == event.getDate().getMonth()
-            && currentDate.getDay() == event.getDate().getDay()) list += event.toString() + "\n";
+            && currentDate.getDay() == event.getDate().getDay())
+                for(Housemate housemate : event.getHousemates()){
+                   if(event.getHousemates().iterator().hasNext())
+                    list += housemate.getName() + ", ";
+                   else
+                       list+= housemate.getName()+ " ";
+                }
+            list += "has " + event.toString() + "\n";
         }
         return list;
     }

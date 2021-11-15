@@ -170,15 +170,17 @@ public class ControllerActivity extends AppCompatActivity
         //
 
         public void openAddEventScreen() {
-            this.mainView.displayFragment(new AddEventFragment(this));
+            IAddEventView hm = new AddEventFragment(this);
+            this.mainView.displayFragment((AddEventFragment) hm);
+            hm.getAddedHouseMates(houseController.getHouse().getHousemates());
         }
 
         @Override
-        public void onAddedEvent(String name, Date date, Time startTime, Time endTime, String rec, IAddEventView addEventView) {
+        public void onAddedEvent(String name, Date date, Time startTime, Time endTime, ArrayList<Housemate> interestedHMs, String rec, IAddEventView addEventView) {
             Date startDate = new Date();
             Date endDate = new Date(1637776749273L);
             Recurrence recurrence = new Recurrence(rec, startDate, endDate);
-            houseController.addEventToCalendar(name, date, startTime, endTime, null, recurrence);
+            houseController.addEventToCalendar(name, date, startTime, endTime, interestedHMs, recurrence);
 
             addEventView.updateDisplay(houseController.getHouse().getCalendar());
         }
