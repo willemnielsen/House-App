@@ -4,10 +4,12 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.text.method.ScrollingMovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CalendarView;
+import android.widget.TextView;
 
 import edu.vassar.cmpu.test.databinding.FragmentCalendarMonthBinding;
 import edu.vassar.cmpu.test.domain.Calendar;
@@ -33,6 +35,8 @@ public class CalendarScreenFragment extends Fragment implements ICalendarScreenV
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         this.binding = FragmentCalendarMonthBinding.inflate(inflater);
+        TextView tv = (TextView) this.binding.eventsList;
+        tv.setMovementMethod(new ScrollingMovementMethod());
         return this.binding.getRoot();
     }
 
