@@ -68,16 +68,22 @@ public class Calendar {
 
     public String toString(){
         String list = ""+currentDate+ "\n";
-        for(Event event : events) {
-            if(currentDate.getYear() == event.getDate().getYear() && currentDate.getMonth() == event.getDate().getMonth()
-            && currentDate.getDay() == event.getDate().getDay())
-                for(Housemate housemate : event.getHousemates()){
-                   if(event.getHousemates().iterator().hasNext())
-                    list += housemate.getName() + ", ";
-                   else
-                       list+= housemate.getName()+ " ";
+        /*for(Event event : events) {
+            if (currentDate.getYear() == event.getDate().getYear() && currentDate.getMonth() == event.getDate().getMonth()
+                    && currentDate.getDay() == event.getDate().getDay()) {
+                for (int i = 0; i < event.getHousemates().size(); i++) {
+                    if (i < event.getHousemates().size()-1)
+                        list += event.getHousemates().get(i).getName() + ", ";
+                    else
+                        list += event.getHousemates().get(i).getName() + " ";
                 }
-            list += "has " + event.toString() + "\n";
+                list += "has " + event.toString() + "\n";
+            }
+        }*/
+        for(Event event : events){
+            if (currentDate.getYear() == event.getDate().getYear() && currentDate.getMonth() == event.getDate().getMonth()
+                    && currentDate.getDay() == event.getDate().getDay()) list += event.getName()
+                    +", "+events.indexOf(event) + "\n";
         }
         return list;
     }
