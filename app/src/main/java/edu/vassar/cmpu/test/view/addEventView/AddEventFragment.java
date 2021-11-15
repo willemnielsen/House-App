@@ -43,11 +43,16 @@ public class AddEventFragment extends Fragment implements IAddEventView, Adapter
         Spinner spinnerH2 = (Spinner) this.binding.ethour;
         Spinner spinnerM2 = (Spinner) this.binding.etmin;
         Spinner spinnerAP2 = (Spinner) this.binding.ampm2;
+        Spinner spinnerR = (Spinner) this.binding.recurrence;
         List<String> hours = new ArrayList<String>();
         List<String> mins = new ArrayList<String>();
         List<String> ap = new ArrayList<String>();
         ap.add("AM");
         ap.add("PM");
+        List<String> rec = new ArrayList<String>();
+        rec.add("Once");
+        rec.add("Weekly");
+        rec.add("Daily");
         for(int i = 0; i<60; i++) {
             if(i<9){
                 String time = "0";
@@ -72,11 +77,13 @@ public class AddEventFragment extends Fragment implements IAddEventView, Adapter
         ArrayAdapter<String> dataAdapterH = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, hours);
         ArrayAdapter<String> dataAdapterM = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, mins);
         ArrayAdapter<String> dataAdapterAP = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, ap);
+        ArrayAdapter<String> dataAdapterR = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, rec);
 
         // Drop down layout style - list view with radio button
         dataAdapterH.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         dataAdapterM.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         dataAdapterAP.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        dataAdapterR.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
         // attaching data adapter to spinner
         spinnerH.setAdapter(dataAdapterH);
@@ -85,6 +92,7 @@ public class AddEventFragment extends Fragment implements IAddEventView, Adapter
         spinnerH2.setAdapter(dataAdapterH);
         spinnerM2.setAdapter(dataAdapterM);
         spinnerAP2.setAdapter(dataAdapterAP);
+        spinnerR.setAdapter(dataAdapterR);
 
         spinnerH.setOnItemSelectedListener(this);
         spinnerM.setOnItemSelectedListener(this);
@@ -92,6 +100,7 @@ public class AddEventFragment extends Fragment implements IAddEventView, Adapter
         spinnerH2.setOnItemSelectedListener(this);
         spinnerM2.setOnItemSelectedListener(this);
         spinnerAP2.setOnItemSelectedListener(this);
+        spinnerR.setOnItemSelectedListener(this);
         return this.binding.getRoot();
     }
 
@@ -130,13 +139,16 @@ public class AddEventFragment extends Fragment implements IAddEventView, Adapter
                 int day = Integer.parseInt(binding.typeDay.getText().toString());
                 Date date = new Date(year-1900, month-1, day);
 
+                String recur = binding.recText.getText().toString();
 
-                onAddedEvent(name, date, st, et);
+
+                onAddedEvent(name, date, st, et, recur);
 
                 nameEditable.clear();
                 String reseth = "01";
                 String resetm = "00";
                 String resetap = "AM";
+                String resetr = "Once";
                 String reset = "";
                 binding.hourText.setText(reseth);
                 binding.minText.setText(resetm);
@@ -147,6 +159,7 @@ public class AddEventFragment extends Fragment implements IAddEventView, Adapter
                 binding.typeMonth.setText(reset);
                 binding.typeDay.setText(reset);
                 binding.typeYear.setText(reset);
+                binding.recText.setText(resetr);
 
             }
         });
@@ -157,8 +170,8 @@ public class AddEventFragment extends Fragment implements IAddEventView, Adapter
 
     }
 
-    public void onAddedEvent(String name, Date date, Time st, Time et) {
-        this.listener.onAddedEvent(name, date, st, et, this);
+    public void onAddedEvent(String name, Date date, Time st, Time et, String rec) {
+        this.listener.onAddedEvent(name, date, st, et, rec,this);
     }
 
 
@@ -184,8 +197,11 @@ public class AddEventFragment extends Fragment implements IAddEventView, Adapter
         else if(adapterView.getId() == this.binding.etmin.getId()){
             this.binding.minText2.setText(this.binding.etmin.getSelectedItem().toString());
         }
-        else{
+        else if(adapterView.getId() == this.binding.ampm2.getId()){
             this.binding.ampmText2.setText(this.binding.ampm2.getSelectedItem().toString());
+        }
+        else{
+            this.binding.recText.setText(this.binding.recurrence.getSelectedItem().toString());
         }
     }
 

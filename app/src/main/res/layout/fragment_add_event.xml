@@ -20,6 +20,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/square"
+        app:layout_constraintVertical_bias="0.0"
         tools:ignore="DuplicateSpeakableTextCheck" />
 
     <Button
@@ -30,23 +31,22 @@
         android:text="@string/back"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.488"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/square"
         app:layout_constraintVertical_bias="1.0" />
 
     <View
         android:id="@+id/square"
-        android:layout_width="355dp"
-        android:layout_height="605dp"
+        android:layout_width="354dp"
+        android:layout_height="599dp"
         android:layout_alignParentTop="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginTop="28dp"
+        android:layout_marginTop="4dp"
         android:background="@drawable/square"
         android:elevation="4dp"
         android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.465"
+        app:layout_constraintHorizontal_bias="0.421"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -54,14 +54,14 @@
         android:id="@+id/add_event_header"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="12dp"
         android:fontFamily="@font/rubik_bold"
         android:text="@string/add_event"
         android:textAppearance="@style/add_item"
         android:textColor="#000000"
         android:textSize="34sp"
         app:layout_constraintEnd_toEndOf="@+id/square"
-        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintHorizontal_bias="0.508"
         app:layout_constraintStart_toStartOf="@+id/square"
         app:layout_constraintTop_toTopOf="@+id/square" />
 
@@ -82,11 +82,27 @@
         app:layout_constraintVertical_bias="0.0" />
 
     <TextView
+        android:id="@+id/label_recurrence"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:fontFamily="@font/rubik_bold"
+        android:labelFor="@id/type_price"
+        android:text="@string/recurrence_t"
+        android:textAppearance="@style/item_labels"
+        app:layout_constraintBottom_toBottomOf="@+id/square"
+        app:layout_constraintEnd_toEndOf="@+id/square"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/label_et"
+        app:layout_constraintTop_toBottomOf="@+id/label_et"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
         android:id="@+id/label_event_name"
         android:layout_width="115dp"
         android:layout_height="33dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="12dp"
         android:layout_marginEnd="127dp"
         android:fontFamily="@font/rubik_bold"
         android:labelFor="@id/type_event_name"
@@ -94,7 +110,7 @@
         android:textAlignment="center"
         android:textAppearance="@style/item_labels"
         app:layout_constraintEnd_toEndOf="@+id/square"
-        app:layout_constraintHorizontal_bias="0.032"
+        app:layout_constraintHorizontal_bias="0.031"
         app:layout_constraintStart_toStartOf="@+id/square"
         app:layout_constraintTop_toBottomOf="@+id/add_event_header" />
 
@@ -116,30 +132,29 @@
         android:id="@+id/first_slash"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="12dp"
         android:fontFamily="@font/rubik_bold"
         android:labelFor="@id/type_year"
         android:text="@string/slash"
         android:textAppearance="@style/item_labels"
         android:textSize="24sp"
-        app:layout_constraintBottom_toBottomOf="@+id/type_month"
+        app:layout_constraintBottom_toBottomOf="@+id/label_event_date"
         app:layout_constraintEnd_toStartOf="@+id/type_day"
-        app:layout_constraintStart_toEndOf="@+id/type_month"
-        app:layout_constraintTop_toTopOf="@+id/type_month" />
+        app:layout_constraintTop_toTopOf="@+id/label_event_date" />
 
     <TextView
         android:id="@+id/second_slash"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
         android:fontFamily="@font/rubik_bold"
         android:labelFor="@id/type_year"
         android:text="@string/slash"
         android:textAppearance="@style/item_labels"
         android:textSize="24sp"
-        app:layout_constraintBottom_toBottomOf="@+id/type_day"
+        app:layout_constraintBottom_toBottomOf="@+id/label_event_date"
         app:layout_constraintEnd_toStartOf="@+id/type_year"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/type_day"
-        app:layout_constraintTop_toTopOf="@+id/type_day" />
+        app:layout_constraintTop_toTopOf="@+id/label_event_date" />
 
     <TextView
         android:id="@+id/first_colon"
@@ -188,51 +203,45 @@
         app:layout_constraintVertical_bias="1.0"
         tools:ignore="SpeakableTextPresentCheck,DuplicateSpeakableTextCheck" />
 
-    <EditText
+    <TextView
         android:id="@+id/type_year"
         android:layout_width="80dp"
         android:layout_height="48dp"
         android:layout_marginEnd="8dp"
         android:ems="10"
-        android:importantForAutofill="no"
-        android:inputType="number"
         android:minHeight="48dp"
         app:layout_constraintBottom_toBottomOf="@+id/label_event_date"
         app:layout_constraintEnd_toEndOf="@+id/square"
         app:layout_constraintTop_toTopOf="@+id/label_event_date"
-        app:layout_constraintVertical_bias="0.48"
+        app:layout_constraintVertical_bias="0.0"
         tools:ignore="SpeakableTextPresentCheck,DuplicateSpeakableTextCheck" />
 
-    <EditText
+    <TextView
         android:id="@+id/type_month"
         android:layout_width="40dp"
         android:layout_height="48dp"
         android:layout_marginEnd="156dp"
         android:ems="10"
-        android:importantForAutofill="no"
-        android:inputType="number"
         android:minHeight="48dp"
         app:layout_constraintBottom_toBottomOf="@+id/label_event_date"
         app:layout_constraintEnd_toEndOf="@+id/square"
         app:layout_constraintTop_toTopOf="@+id/label_event_date"
-        app:layout_constraintVertical_bias="0.48"
+        app:layout_constraintVertical_bias="0.0"
         tools:ignore="SpeakableTextPresentCheck,DuplicateSpeakableTextCheck" />
 
 
-    <EditText
+    <TextView
         android:id="@+id/type_day"
         android:layout_width="40dp"
         android:layout_height="48dp"
         android:ems="10"
-        android:importantForAutofill="no"
-        android:inputType="number"
         android:minHeight="48dp"
         app:layout_constraintBottom_toBottomOf="@+id/label_event_date"
         app:layout_constraintEnd_toStartOf="@+id/type_year"
         app:layout_constraintHorizontal_bias="0.535"
         app:layout_constraintStart_toEndOf="@+id/type_month"
         app:layout_constraintTop_toTopOf="@+id/label_event_date"
-        app:layout_constraintVertical_bias="0.48"
+        app:layout_constraintVertical_bias="0.0"
         tools:ignore="SpeakableTextPresentCheck,DuplicateSpeakableTextCheck" />
 
     <Spinner
@@ -397,16 +406,40 @@
         app:layout_constraintTop_toTopOf="@+id/hourText2"
         app:layout_constraintVertical_bias="0.0" />
 
+    <Spinner
+        android:id="@+id/recurrence"
+        android:layout_width="136dp"
+        android:layout_height="46dp"
+        app:layout_constraintBottom_toBottomOf="@+id/label_recurrence"
+        app:layout_constraintEnd_toEndOf="@+id/ampm2"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/ethour"
+        app:layout_constraintTop_toTopOf="@+id/label_recurrence" />
+
+    <TextView
+        android:id="@+id/recText"
+        android:layout_width="100dp"
+        android:layout_height="46dp"
+        android:fontFamily="@font/rubik_bold"
+        android:textAlignment="center"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@+id/label_recurrence"
+        app:layout_constraintEnd_toEndOf="@+id/ampm2"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/ethour"
+        app:layout_constraintTop_toTopOf="@+id/label_recurrence"
+        app:layout_constraintVertical_bias="0.0"/>
+
     <CalendarView
         android:id="@+id/calendarView2"
-        android:layout_width="356dp"
-        android:layout_height="326dp"
+        android:layout_width="353dp"
+        android:layout_height="296dp"
         app:layout_constraintBottom_toBottomOf="@+id/square"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.486"
+        app:layout_constraintHorizontal_bias="0.413"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/square"
-        app:layout_constraintVertical_bias="0.623" />
+        app:layout_constraintTop_toBottomOf="@+id/add_event_header"
+        app:layout_constraintVertical_bias="0.354" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
