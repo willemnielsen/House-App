@@ -11,56 +11,42 @@
         android:id="@+id/add_Event_button"
         android:layout_width="123dp"
         android:layout_height="60dp"
+        android:layout_marginBottom="24dp"
         android:elevation="4dp"
         android:fontFamily="@font/rubik_bold"
         android:text="@string/add_event"
         app:cornerRadius="10dp"
-        app:layout_constraintBottom_toTopOf="@+id/addHM"
+        app:layout_constraintBottom_toTopOf="@+id/back"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/square"
-        app:layout_constraintVertical_bias="0.652"
         tools:ignore="DuplicateSpeakableTextCheck" />
-
-    <Button
-        android:id="@+id/addHM"
-        style="@style/Widget.AppCompat.Button"
-        android:layout_width="260dp"
-        android:layout_height="63dp"
-        android:layout_marginBottom="124dp"
-        android:elevation="4dp"
-        android:fontFamily="@font/rubik_bold"
-        android:text="@string/addHM"
-        app:cornerRadius="20dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.509"
-        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/back"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="158dp"
-        android:layout_marginTop="39dp"
-        android:layout_marginEnd="159dp"
+        android:layout_marginBottom="24dp"
         android:text="@string/back"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.488"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/addHM" />
+        app:layout_constraintTop_toBottomOf="@+id/square"
+        app:layout_constraintVertical_bias="1.0" />
 
     <View
         android:id="@+id/square"
-        android:layout_width="263dp"
-        android:layout_height="314dp"
+        android:layout_width="355dp"
+        android:layout_height="605dp"
         android:layout_alignParentTop="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginTop="124dp"
+        android:layout_marginTop="28dp"
         android:background="@drawable/square"
         android:elevation="4dp"
         android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.465"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -97,8 +83,8 @@
 
     <TextView
         android:id="@+id/label_event_name"
-        android:layout_width="59dp"
-        android:layout_height="26dp"
+        android:layout_width="115dp"
+        android:layout_height="33dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="24dp"
         android:layout_marginEnd="127dp"
@@ -164,30 +150,18 @@
         android:text="@string/colon"
         android:textAppearance="@style/item_labels"
         android:textSize="24sp"
-        app:layout_constraintBottom_toBottomOf="@+id/type_sthour"
-        app:layout_constraintEnd_toStartOf="@+id/type_stmin"
-        app:layout_constraintStart_toEndOf="@+id/type_sthour"
-        app:layout_constraintTop_toTopOf="@+id/type_sthour" />
-
-    <TextView
-        android:id="@+id/first_colon2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/rubik_bold"
-        android:labelFor="@id/type_year"
-        android:text="@string/colon"
-        android:textAppearance="@style/item_labels"
-        android:textSize="24sp"
-        app:layout_constraintBottom_toBottomOf="@+id/type_ethour"
-        app:layout_constraintEnd_toStartOf="@+id/type_etmin"
-        app:layout_constraintStart_toEndOf="@+id/type_ethour"
-        app:layout_constraintTop_toTopOf="@+id/type_ethour" />
+        app:layout_constraintBottom_toBottomOf="@+id/sthour"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.37"
+        app:layout_constraintStart_toEndOf="@+id/label_st"
+        app:layout_constraintTop_toTopOf="@+id/sthour"
+        app:layout_constraintVertical_bias="0.625" />
 
     <TextView
         android:id="@+id/label_st"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:layout_marginBottom="88dp"
         android:fontFamily="@font/rubik_bold"
         android:labelFor="@id/type_price"
         android:text="@string/st_t"
@@ -196,44 +170,14 @@
         app:layout_constraintEnd_toEndOf="@+id/square"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/label_event_date"
-        app:layout_constraintTop_toBottomOf="@+id/label_event_date"
+        app:layout_constraintTop_toBottomOf="@+id/calendarView2"
         app:layout_constraintVertical_bias="0.0" />
 
     <EditText
-        android:id="@+id/type_etmin"
-        android:layout_width="40dp"
-        android:layout_height="48dp"
-        android:layout_marginEnd="44dp"
-        android:ems="10"
-        android:importantForAutofill="no"
-        android:inputType="time"
-        android:minHeight="48dp"
-        app:layout_constraintBottom_toBottomOf="@+id/label_et"
-        app:layout_constraintEnd_toEndOf="@+id/square"
-        app:layout_constraintTop_toTopOf="@+id/label_et"
-        app:layout_constraintVertical_bias="0.48"
-        tools:ignore="SpeakableTextPresentCheck,DuplicateSpeakableTextCheck" />
-
-    <EditText
-        android:id="@+id/type_ethour"
-        android:layout_width="40dp"
-        android:layout_height="48dp"
-        android:layout_marginEnd="92dp"
-        android:ems="10"
-        android:importantForAutofill="no"
-        android:inputType="time"
-        android:minHeight="48dp"
-        app:layout_constraintBottom_toBottomOf="@+id/label_et"
-        app:layout_constraintEnd_toEndOf="@+id/square"
-        app:layout_constraintTop_toTopOf="@+id/label_et"
-        app:layout_constraintVertical_bias="0.48"
-        tools:ignore="SpeakableTextPresentCheck,DuplicateSpeakableTextCheck" />
-
-    <EditText
         android:id="@+id/type_event_name"
-        android:layout_width="150dp"
+        android:layout_width="188dp"
         android:layout_height="41dp"
-        android:layout_marginEnd="20dp"
+        android:layout_marginEnd="8dp"
         android:ems="10"
         android:importantForAutofill="no"
         android:inputType="textPersonName"
@@ -263,7 +207,7 @@
         android:id="@+id/type_month"
         android:layout_width="40dp"
         android:layout_height="48dp"
-        android:layout_marginEnd="144dp"
+        android:layout_marginEnd="156dp"
         android:ems="10"
         android:importantForAutofill="no"
         android:inputType="number"
@@ -273,6 +217,7 @@
         app:layout_constraintTop_toTopOf="@+id/label_event_date"
         app:layout_constraintVertical_bias="0.48"
         tools:ignore="SpeakableTextPresentCheck,DuplicateSpeakableTextCheck" />
+
 
     <EditText
         android:id="@+id/type_day"
@@ -284,41 +229,184 @@
         android:minHeight="48dp"
         app:layout_constraintBottom_toBottomOf="@+id/label_event_date"
         app:layout_constraintEnd_toStartOf="@+id/type_year"
+        app:layout_constraintHorizontal_bias="0.535"
         app:layout_constraintStart_toEndOf="@+id/type_month"
         app:layout_constraintTop_toTopOf="@+id/label_event_date"
         app:layout_constraintVertical_bias="0.48"
         tools:ignore="SpeakableTextPresentCheck,DuplicateSpeakableTextCheck" />
 
-    <EditText
-        android:id="@+id/type_stmin"
-        android:layout_width="40dp"
-        android:layout_height="48dp"
-        android:layout_marginEnd="44dp"
-        android:ems="10"
-        android:importantForAutofill="no"
-        android:inputType="time"
-        android:minHeight="48dp"
-        app:layout_constraintBottom_toBottomOf="@+id/label_st"
-        app:layout_constraintEnd_toEndOf="@+id/square"
-        app:layout_constraintTop_toTopOf="@+id/label_st"
-        app:layout_constraintVertical_bias="0.48"
-        tools:ignore="SpeakableTextPresentCheck,DuplicateSpeakableTextCheck" />
+    <Spinner
+        android:id="@+id/ampm"
+        android:layout_width="47dp"
+        android:layout_height="28dp"
+        app:layout_constraintBottom_toBottomOf="@+id/stmin"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.778"
+        app:layout_constraintStart_toEndOf="@+id/first_colon"
+        app:layout_constraintTop_toTopOf="@+id/stmin" />
 
-
-    <EditText
-        android:id="@+id/type_sthour"
-        android:layout_width="40dp"
-        android:layout_height="48dp"
-        android:layout_marginEnd="92dp"
-        android:ems="10"
-        android:importantForAutofill="no"
-        android:inputType="time"
-        android:minHeight="48dp"
+    <Spinner
+        android:id="@+id/sthour"
+        android:layout_width="65dp"
+        android:layout_height="46dp"
         app:layout_constraintBottom_toBottomOf="@+id/label_st"
-        app:layout_constraintEnd_toEndOf="@+id/square"
+        app:layout_constraintEnd_toStartOf="@+id/first_colon"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/label_st"
+        app:layout_constraintTop_toTopOf="@+id/label_st" />
+
+    <Spinner
+        android:id="@+id/stmin"
+        android:layout_width="65dp"
+        android:layout_height="46dp"
+        app:layout_constraintBottom_toBottomOf="@+id/label_st"
+        app:layout_constraintEnd_toStartOf="@+id/ampm"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/first_colon"
+        app:layout_constraintTop_toTopOf="@+id/label_st" />
+
+    <TextView
+        android:id="@+id/hourText"
+        android:layout_width="36dp"
+        android:layout_height="46dp"
+        android:fontFamily="@font/rubik_bold"
+        android:textAlignment="center"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@+id/label_st"
+        app:layout_constraintEnd_toStartOf="@+id/first_colon"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/sthour"
         app:layout_constraintTop_toTopOf="@+id/label_st"
-        app:layout_constraintVertical_bias="0.48"
-        tools:ignore="SpeakableTextPresentCheck,DuplicateSpeakableTextCheck" />
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/ampmText"
+        android:layout_width="36dp"
+        android:layout_height="46dp"
+        android:fontFamily="@font/rubik_bold"
+        android:textAlignment="center"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@+id/minText"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.177"
+        app:layout_constraintStart_toEndOf="@+id/stmin"
+        app:layout_constraintTop_toTopOf="@+id/minText"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/minText"
+        android:layout_width="36dp"
+        android:layout_height="46dp"
+        android:fontFamily="@font/rubik_bold"
+        android:textAlignment="center"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@+id/hourText"
+        app:layout_constraintEnd_toEndOf="@+id/stmin"
+        app:layout_constraintHorizontal_bias="0.206"
+        app:layout_constraintStart_toEndOf="@+id/first_colon"
+        app:layout_constraintTop_toTopOf="@+id/hourText"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/second_colon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/rubik_bold"
+        android:text="@string/colon"
+        android:textAppearance="@style/item_labels"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="@+id/ethour"
+        app:layout_constraintEnd_toEndOf="@+id/first_colon"
+        app:layout_constraintHorizontal_bias="0.37"
+        app:layout_constraintTop_toTopOf="@+id/ethour"
+        app:layout_constraintStart_toStartOf="@+id/first_colon"
+        app:layout_constraintVertical_bias="0.625" />
+
+    <Spinner
+        android:id="@+id/ampm2"
+        android:layout_width="47dp"
+        android:layout_height="28dp"
+        app:layout_constraintBottom_toBottomOf="@+id/etmin"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.82"
+        app:layout_constraintStart_toEndOf="@+id/second_colon"
+        app:layout_constraintTop_toTopOf="@+id/etmin" />
+
+    <Spinner
+        android:id="@+id/ethour"
+        android:layout_width="65dp"
+        android:layout_height="46dp"
+        app:layout_constraintBottom_toBottomOf="@+id/label_et"
+        app:layout_constraintEnd_toStartOf="@+id/second_colon"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@+id/sthour"
+        app:layout_constraintStart_toEndOf="@+id/label_et"
+        app:layout_constraintTop_toTopOf="@+id/label_et" />
+
+    <Spinner
+        android:id="@+id/etmin"
+        android:layout_width="65dp"
+        android:layout_height="46dp"
+        app:layout_constraintBottom_toBottomOf="@+id/label_et"
+        app:layout_constraintEnd_toStartOf="@+id/ampm2"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/stmin"
+        app:layout_constraintStart_toEndOf="@+id/second_colon"
+        app:layout_constraintTop_toTopOf="@+id/label_et" />
+
+    <TextView
+        android:id="@+id/hourText2"
+        android:layout_width="36dp"
+        android:layout_height="46dp"
+        android:fontFamily="@font/rubik_bold"
+        android:textAlignment="center"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@+id/label_et"
+        app:layout_constraintEnd_toStartOf="@+id/second_colon"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/hourText"
+        app:layout_constraintTop_toTopOf="@+id/label_et"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/ampmText2"
+        android:layout_width="36dp"
+        android:layout_height="46dp"
+        android:fontFamily="@font/rubik_bold"
+        android:textAlignment="center"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@+id/minText2"
+        app:layout_constraintEnd_toEndOf="@id/ampmText"
+        app:layout_constraintStart_toStartOf="@+id/ampmText"
+        app:layout_constraintHorizontal_bias="0.177"
+        app:layout_constraintStart_toEndOf="@+id/etmin"
+        app:layout_constraintTop_toTopOf="@+id/minText2"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/minText2"
+        android:layout_width="36dp"
+        android:layout_height="46dp"
+        android:fontFamily="@font/rubik_bold"
+        android:textAlignment="center"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@+id/hourText2"
+        app:layout_constraintHorizontal_bias="0.206"
+        app:layout_constraintStart_toStartOf="@+id/minText"
+        app:layout_constraintEnd_toEndOf="@+id/minText"
+        app:layout_constraintTop_toTopOf="@+id/hourText2"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <CalendarView
+        android:id="@+id/calendarView2"
+        android:layout_width="356dp"
+        android:layout_height="326dp"
+        app:layout_constraintBottom_toBottomOf="@+id/square"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.486"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/square"
+        app:layout_constraintVertical_bias="0.623" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
