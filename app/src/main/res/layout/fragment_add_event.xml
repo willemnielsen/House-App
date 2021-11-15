@@ -410,6 +410,7 @@
         android:id="@+id/recurrence"
         android:layout_width="136dp"
         android:layout_height="46dp"
+        android:layout_below="@+id/recText"
         app:layout_constraintBottom_toBottomOf="@+id/label_recurrence"
         app:layout_constraintEnd_toEndOf="@+id/ampm2"
         app:layout_constraintHorizontal_bias="0.0"
