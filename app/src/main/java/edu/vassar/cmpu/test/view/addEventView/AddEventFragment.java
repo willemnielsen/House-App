@@ -46,40 +46,32 @@ public class AddEventFragment extends Fragment implements IAddEventView, Adapter
         Spinner spinnerM2 = (Spinner) this.binding.etmin;
         Spinner spinnerAP2 = (Spinner) this.binding.ampm2;
         Spinner spinnerR = (Spinner) this.binding.recurrence;
-        List<String> hours = new ArrayList<String>();
-        List<String> mins = new ArrayList<String>();
-        List<String> ap = new ArrayList<String>();
+        List<String> hours = new ArrayList<>();
+        List<String> mins = new ArrayList<>();
+        List<String> ap = new ArrayList<>();
         ap.add("AM");
         ap.add("PM");
-        List<String> rec = new ArrayList<String>();
+        List<String> rec = new ArrayList<>();
         rec.add("Once");
         rec.add("Weekly");
         rec.add("Daily");
-        for(int i = 0; i<60; i++) {
-            if(i<9){
-                String time = "0";
-                String time1 = time + (i+1);
-                time += i;
-                hours.add(time1);
-                mins.add(time);
-            }
-            else if(i<13){
-                String time = "";
-                time += i;
+        mins.add("00");
+        for(int i = 1; i<60; i++) {
+            String time = "";
+            if(i<13){
+                time += String.format("%02d", i);
                 hours.add(time);
-                mins.add(time);
             }
             else{
-                String time = "";
                 time += i;
-                mins.add(time);
             }
+            mins.add(time);
         }
         // Creating adapter for spinner
-        ArrayAdapter<String> dataAdapterH = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, hours);
-        ArrayAdapter<String> dataAdapterM = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, mins);
-        ArrayAdapter<String> dataAdapterAP = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, ap);
-        ArrayAdapter<String> dataAdapterR = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, rec);
+        ArrayAdapter<String> dataAdapterH = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_item, hours);
+        ArrayAdapter<String> dataAdapterM = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_item, mins);
+        ArrayAdapter<String> dataAdapterAP = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_item, ap);
+        ArrayAdapter<String> dataAdapterR = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_item, rec);
 
         // Drop down layout style - list view with radio button
         dataAdapterH.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
