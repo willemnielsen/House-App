@@ -153,15 +153,22 @@ public class AddEventFragment extends Fragment implements IAddEventView, Adapter
                 String resetr = "Once";
                 String reset = "";
                 binding.hourText.setText(reseth);
+                binding.sthour.setSelection(0);
                 binding.minText.setText(resetm);
+                binding.stmin.setSelection(0);
                 binding.hourText2.setText(reseth);
+                binding.ethour.setSelection(0);
                 binding.minText2.setText(resetm);
+                binding.etmin.setSelection(0);
                 binding.ampmText.setText(resetap);
+                binding.ampm.setSelection(0);
                 binding.ampmText2.setText(resetap);
+                binding.ampm2.setSelection(0);
+                binding.recText.setText(resetr);
+                binding.recurrence.setSelection(0);
                 binding.typeMonth.setText(reset);
                 binding.typeDay.setText(reset);
                 binding.typeYear.setText(reset);
-                binding.recText.setText(resetr);
 
             }
         });
