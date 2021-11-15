@@ -18,7 +18,7 @@ public class Calendar {
         Date incDate = recurrence.getStartDate();
         Long longDate;
         switch (recurrence.getFrequency()){
-            case "daily":
+            case "Daily":
                 while(incDate.before(recurrence.getEndDate())) {
                     if (housemates == null) {
                         newevent = new Event(name, incDate, startTime, endTime, new ArrayList<Housemate>());
@@ -30,7 +30,7 @@ public class Calendar {
                     incDate = new Date(longDate);
                 }
                 break;
-            case "weekly":
+            case "Weekly":
                 while(incDate.before(recurrence.getEndDate())) {
                     if (housemates == null) {
                         newevent = new Event(name, incDate, startTime, endTime, new ArrayList<Housemate>());
