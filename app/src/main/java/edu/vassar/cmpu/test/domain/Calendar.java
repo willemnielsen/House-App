@@ -17,9 +17,9 @@ public class Calendar {
         Event newevent;
         Date incDate = recurrence.getStartDate();
         Long longDate;
-        switch (recurrence.getFrequency()){
+        switch (recurrence.getFrequency()) {
             case "Daily":
-                while(incDate.before(recurrence.getEndDate())) {
+                while (incDate.before(recurrence.getEndDate())) {
                     if (housemates == null) {
                         newevent = new Event(name, incDate, startTime, endTime, new ArrayList<Housemate>());
                     } else {
@@ -31,7 +31,7 @@ public class Calendar {
                 }
                 break;
             case "Weekly":
-                while(incDate.before(recurrence.getEndDate())) {
+                while (incDate.before(recurrence.getEndDate())) {
                     if (housemates == null) {
                         newevent = new Event(name, incDate, startTime, endTime, new ArrayList<Housemate>());
                     } else {
@@ -57,34 +57,38 @@ public class Calendar {
     }
 
 
-    public void remove(Event event){events.remove(event);}
+    public void remove(Event event) {
+        events.remove(event);
+    }
 
-    public Event getThisEvent(Event event){return events.get(events.indexOf(event));}
+    public Event getThisEvent(Event event) {
+        return events.get(events.indexOf(event));
+    }
 
-    public boolean setCurrentDate(Date date){this.currentDate = date;
-    return true;}
+    public boolean setCurrentDate(Date date) {
+        this.currentDate = date;
+        return true;
+    }
 
-    public Date getCurrentDate(){return this.currentDate;}
+    public Date getCurrentDate() {
+        return this.currentDate;
+    }
 
-    public String toString(){
-        String list = ""+currentDate+ "\n";
-        /*for(Event event : events) {
+    public String toString() {
+        String list = "" + currentDate + "\n";
+        for (Event event : events) {
             if (currentDate.getYear() == event.getDate().getYear() && currentDate.getMonth() == event.getDate().getMonth()
-                    && currentDate.getDay() == event.getDate().getDay()) {
+                    && currentDate.getDate() == event.getDate().getDate()) {
                 for (int i = 0; i < event.getHousemates().size(); i++) {
-                    if (i < event.getHousemates().size()-1)
+                    if (i < event.getHousemates().size() - 1)
                         list += event.getHousemates().get(i).getName() + ", ";
                     else
                         list += event.getHousemates().get(i).getName() + " ";
                 }
                 list += "has " + event.toString() + "\n";
             }
-        }*/
-        for(Event event : events){
-            if (currentDate.getYear() == event.getDate().getYear() && currentDate.getMonth() == event.getDate().getMonth()
-                    && currentDate.getDay() == event.getDate().getDay()) list += event.getName()
-                    +", "+events.indexOf(event) + "\n";
         }
-        return list;
+            return list;
+        }
     }
-}
+
