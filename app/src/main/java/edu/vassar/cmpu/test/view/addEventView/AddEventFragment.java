@@ -205,8 +205,7 @@ public class AddEventFragment extends Fragment implements IAddEventView, Adapter
                     }
         }).setPositiveButton("Done", (dialog, which) -> {
             if (selectedHM.isEmpty()){
-                dialog.dismiss();
-                String data = "Failed to Create Event: No Housemates Added.";
+                String data = "Event Created: No Housemates Added.";
                 Toast.makeText(getActivity(), data, Toast.LENGTH_SHORT).show();
             } else{
                 String data = "Housemates Added to Event:";
