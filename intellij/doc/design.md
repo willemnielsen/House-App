@@ -28,17 +28,36 @@ class Domain.Housemate{
     name
     housemateId
 }
+class Domain.Calendar{
+
+}
+
+class Domain.Event{
+    name
+    date
+    startTime
+    endTime
+}
+
+class Domain.Recurrence{
+    frequency
+    startDate
+    endDate
+}
 
 ' associations
 Domain.House "1" -- "1..*" Domain.Housemate : \tContains\t\t
 Domain.House "1" -- "1..*" Domain.ShoppingList : \tContains\t\t
 Domain.House "1" -- "1" Domain.LineItem : \tPurchased\t\t
+Domain.House "1" -- "1" Domain.Calendar : Contains
 Domain.Housemate "1..*" - "0..*" Domain.LineItem : \tOwns\t\t
 Domain.ShoppingList "1" -- "0..*" Domain.LineItem : \tContains\t\t
 Domain.LineItem "*" - "1...*" Domain.Item : \tDescribed by \t\t
 Domain.Housemate "1..*" -down- "0..*" Domain.Debt : \tOwed by\t\t
 Domain.Debt "1*" -right- "1" Domain.LineItem : for
 Domain.Housemate "1" - "0..*" Domain.LineItem : Purchases
+Domain.Calendar "1" - "0..*" Domain.Event : Contains
+
 @enduml
 
 
