@@ -85,7 +85,8 @@ public class Calendar {
                     else
                         list += event.getHousemates().get(i).getName() + " ";
                 }
-                list += "has " + event.toString() + "\n";
+                if (event.getHousemates().size() == 0) list += "There is "+ event.toString() + "\n";
+                else list += "has " + event.toString() + "\n";
             }
         }
             return list;
