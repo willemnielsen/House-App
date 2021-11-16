@@ -25,6 +25,8 @@ import edu.vassar.cmpu.test.view.homeScreen.HomeScreenFragment;
 import edu.vassar.cmpu.test.view.homeScreen.IHomeScreenFragment;
 import edu.vassar.cmpu.test.view.housemateListScreen.HousemateListScreenFragment;
 import edu.vassar.cmpu.test.view.housemateListScreen.IHousemateListScreenFragment;
+import edu.vassar.cmpu.test.view.housemateListScreen.addHousemate.AddHousemateFragment;
+import edu.vassar.cmpu.test.view.housemateListScreen.addHousemate.IAddHousemate;
 import edu.vassar.cmpu.test.view.loginScreen.ILoginScreenFragment;
 import edu.vassar.cmpu.test.view.loginScreen.LoginScreenFragment;
 import edu.vassar.cmpu.test.view.purchasedListScreen.IPurchasedListScreenFragment;
@@ -34,7 +36,8 @@ import edu.vassar.cmpu.test.view.shoppingListScreen.ShoppingListScreenFragment;
 
 public class ControllerActivity extends AppCompatActivity
         implements IShoppingListScreenView.Listener, IHomeScreenFragment.Listener, IAddItemView.Listener, ICalendarScreenView.Listener,
-                   IAddEventView.Listener, ILoginScreenFragment.Listener, IHousemateListScreenFragment.Listener, IPurchasedListScreenFragment.Listener {
+                   IAddEventView.Listener, ILoginScreenFragment.Listener, IHousemateListScreenFragment.Listener, IPurchasedListScreenFragment.Listener,
+                   IAddHousemate.Listener {
     //extends makes this class an activity
 
     private HouseController houseController;
@@ -192,27 +195,47 @@ public class ControllerActivity extends AppCompatActivity
         }
 
 
+    @Override
+    public void onPreviousInAddEventFragment() {
+        this.openCalendarScreen();
+    }
+
+
+    //
+    // Housemate List Screen
+    //
+    public void openHousemateListScreen() {
+        IHousemateListScreenFragment hms = new HousemateListScreenFragment(this);
+        this.mainView.displayFragment((HousemateListScreenFragment) hms);
+        hms.updateDisplay(houseController.getHousemates());
+    }
 
     @Override
-        public void onPreviousInAddEventFragment() {
-            this.openCalendarScreen();
-        }
+    public void onPreviousOnHousemateListScreen() {
+        this.openHomeScreen();
+    }
 
+    @Override
+    public void onAddHousemateOnHousemateListScreen() {
+        this.mainView.displayFragment(new AddHousemateFragment(this));
+    }
 
         //
-        // Housemate List Screen
+        // add housemate
         //
-        public void openHousemateListScreen(){
-            IHousemateListScreenFragment hms = new HousemateListScreenFragment(this);
-            this.mainView.displayFragment((HousemateListScreenFragment) hms);
-            hms.updateDisplay(houseController.getHousemates());
-        }
         @Override
-        public void onPreviousOnHousemateListScreen(){
-            this.openHomeScreen();
+        public void onAddHousemate(String name) {
+            int id = (int) (Math.random() * 1000);
+            houseController.addHousemate(new Housemate(name, "" + id));
         }
 
-        //
+        @Override
+        public void onPreviousOnAddHousemateScreen() {
+            this.openHousemateListScreen();
+        }
+
+
+    //
         // Purchased Screen
         //
 
@@ -224,4 +247,5 @@ public class ControllerActivity extends AppCompatActivity
     public void onPreviousOnPurchasedListScreen(){
         this.openHomeScreen();
     }
+
 }

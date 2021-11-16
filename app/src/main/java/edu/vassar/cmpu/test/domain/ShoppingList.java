@@ -54,7 +54,7 @@ public class ShoppingList {
     public String toString(){
         String list = "";
         for(LineItem lineItem : shoppingList) {
-            list += lineItem.toString() + "\n";
+            list += lineItem.toString() + " #of HM " + lineItem.getInterestedHouseMates().size() + "\n";
         }
         return list;
     }

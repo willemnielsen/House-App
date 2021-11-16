@@ -40,6 +40,10 @@ public class HousemateListScreenFragment extends Fragment implements IHousemateL
         this.binding.previousOnHousemateListScreen.setOnClickListener((View clickedView) ->{
             this.listener.onPreviousOnHousemateListScreen();
         });
+
+        this.binding.addHousemateButton.setOnClickListener((View clickedView) -> {
+            this.listener.onAddHousemateOnHousemateListScreen();
+        });
     }
 
     @Override

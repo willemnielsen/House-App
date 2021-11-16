@@ -60,6 +60,7 @@ public class AddItemFragment extends Fragment implements IAddItemView {
         ArrayList<String> selectedHM = new ArrayList<>();
         ArrayList<Housemate> interestedHM = new ArrayList<>();
         String[] names = new String[housemates.size()];
+        boolean cancel = false;
         for(int i = 0 ; i < names.length; i++){
            names[i] = housemates.get(i).getName();
         }
@@ -73,23 +74,25 @@ public class AddItemFragment extends Fragment implements IAddItemView {
                       selectedHM.remove(names[which]);
                       interestedHM.remove(housemates.get(which));
             }
-        }).setPositiveButton("Done", (dialog, which) -> {
+        });
+
+        builder.setPositiveButton("Done", (dialog, which) -> {
             if (selectedHM.isEmpty()){
                 CreateDialog(housemates);
             } else{
                 String data = "Interested Housemate Added:";
-                for (String name : selectedHM){
-                    data = data + " " + name;
+                for (Housemate name : interestedHM){
+                    data = data + " " + name.getName();
                 }
                 Toast.makeText(getActivity(), data, Toast.LENGTH_SHORT).show();
             }
-        }).setNegativeButton("Cancel", (dialog, which) -> {
+        });
+        builder.setNegativeButton("Cancel", (dialog, which) -> {
 
         });
 
         builder.create();
         builder.show();
-
         return interestedHM;
     }
 
@@ -99,7 +102,7 @@ public class AddItemFragment extends Fragment implements IAddItemView {
 
     @Override
     public void getHouseMates(ArrayList<Housemate> housemates){
-        this.binding.addItemButton.setOnClickListener(new View.OnClickListener() {
+        this.binding.addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 // get the item name
@@ -126,8 +129,10 @@ public class AddItemFragment extends Fragment implements IAddItemView {
 
                     int qtyVal = Integer.parseInt(qtyString);
                     ArrayList<Housemate> interestedHMs = CreateDialog(housemates);
-                    if(interestedHMs.size() != 0)
+                    //doesnt work with if statement
+                    // if(interestedHMs.size() > 0)
                         AddItemFragment.this.listener.onAddedItem(name, qtyVal, price, interestedHMs, AddItemFragment.this);
+
 
                 } catch (NumberFormatException e) {
 

@@ -7,6 +7,7 @@ import edu.vassar.cmpu.test.domain.Housemate;
 public interface IHousemateListScreenFragment {
     interface Listener{
         void onPreviousOnHousemateListScreen();
+        void onAddHousemateOnHousemateListScreen();
     }
 
     void updateDisplay(ArrayList<Housemate> housemates);
