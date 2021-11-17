@@ -28,7 +28,7 @@ public class Item {
     }
 
     public String toString(){
-        return name + " for " + price;
+        return name + " for $" + price;
     }
 
 }

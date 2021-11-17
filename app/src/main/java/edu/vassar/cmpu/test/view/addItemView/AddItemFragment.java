@@ -56,7 +56,7 @@ public class AddItemFragment extends Fragment implements IAddItemView {
 
     }
 
-    private ArrayList<Housemate> CreateDialog(ArrayList<Housemate> housemates){
+    private void CreateDialog(ArrayList<Housemate> housemates, String name, int qtyVal, float price){
         ArrayList<String> selectedHM = new ArrayList<>();
         ArrayList<Housemate> interestedHM = new ArrayList<>();
         String[] names = new String[housemates.size()];
@@ -75,12 +75,13 @@ public class AddItemFragment extends Fragment implements IAddItemView {
             }
         }).setPositiveButton("Done", (dialog, which) -> {
             if (selectedHM.isEmpty()){
-                CreateDialog(housemates);
+                CreateDialog(housemates, name, qtyVal, price);
             } else{
                 String data = "Interested Housemate Added:";
-                for (String name : selectedHM){
-                    data = data + " " + name;
+                for (String n : selectedHM){
+                    data = data + " " + n;
                 }
+                AddItemFragment.this.listener.onAddedItem(name, qtyVal, price, interestedHM, AddItemFragment.this);
                 Toast.makeText(getActivity(), data, Toast.LENGTH_SHORT).show();
             }
         }).setNegativeButton("Cancel", (dialog, which) -> {
@@ -90,7 +91,6 @@ public class AddItemFragment extends Fragment implements IAddItemView {
         builder.create();
         builder.show();
 
-        return interestedHM;
     }
 
     @Override
@@ -125,10 +125,7 @@ public class AddItemFragment extends Fragment implements IAddItemView {
                     }
 
                     int qtyVal = Integer.parseInt(qtyString);
-                    ArrayList<Housemate> interestedHMs = CreateDialog(housemates);
-                    if(interestedHMs.size() != 0)
-                        AddItemFragment.this.listener.onAddedItem(name, qtyVal, price, interestedHMs, AddItemFragment.this);
-
+                    CreateDialog(housemates, name, qtyVal, price);
                 } catch (NumberFormatException e) {
 
                     binding.typeItemName.setText("");
@@ -141,11 +138,6 @@ public class AddItemFragment extends Fragment implements IAddItemView {
             }
         });
 
-        //this.binding.interestedHM.setOnClickListener(new View.OnClickListener(){
-         //   @Override
-         //   public void onClick(View v){
-          //      CreateDialog(housemates);
-          //  }
-        //});
+
     }
 }

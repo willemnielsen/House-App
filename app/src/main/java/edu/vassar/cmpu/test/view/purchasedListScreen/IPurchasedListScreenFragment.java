@@ -3,6 +3,7 @@ package edu.vassar.cmpu.test.view.purchasedListScreen;
 import java.util.ArrayList;
 
 import edu.vassar.cmpu.test.domain.LineItem;
+import edu.vassar.cmpu.test.domain.House;
 
 public interface IPurchasedListScreenFragment {
 

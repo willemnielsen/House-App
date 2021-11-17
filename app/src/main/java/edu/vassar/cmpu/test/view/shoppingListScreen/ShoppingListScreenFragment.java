@@ -16,6 +16,8 @@ import edu.vassar.cmpu.test.databinding.FragmentShoppingListScreenBinding;
 import edu.vassar.cmpu.test.domain.Housemate;
 import edu.vassar.cmpu.test.domain.LineItem;
 import edu.vassar.cmpu.test.domain.ShoppingList;
+import edu.vassar.cmpu.test.view.purchasedListScreen.IPurchasedListScreenFragment;
+import edu.vassar.cmpu.test.view.purchasedListScreen.PurchasedListScreenFragment;
 
 public class ShoppingListScreenFragment extends Fragment implements IShoppingListScreenView {
 
@@ -53,8 +55,9 @@ public class ShoppingListScreenFragment extends Fragment implements IShoppingLis
         });
 
     }
-    private ArrayList<LineItem> CreateDialog(ShoppingList shoppingList){
 
+
+    private ArrayList<LineItem> CreateDialog(ShoppingList shoppingList){
         ArrayList<String> purchasedInString = new ArrayList<>();
         ArrayList<LineItem> purchasedItems = new ArrayList<>();
         String[] items = new String[shoppingList.size()];
@@ -83,16 +86,17 @@ public class ShoppingListScreenFragment extends Fragment implements IShoppingLis
                         data = data + " " + name;
                     }
                     Toast.makeText(getActivity(), data, Toast.LENGTH_SHORT).show();
+                    for(LineItem item : purchasedItems) {
+                        onPurchaseItems(item);
+                    }
+
                 })
                 .setNegativeButton("Cancel", (dialog, which) -> {
 
                 });
-        for(LineItem item : purchasedItems){
-            onPurchaseItems(item);
-        }
+
         builder.create();
         builder.show();
-
         return purchasedItems;
     }
     @Override
@@ -101,14 +105,12 @@ public class ShoppingListScreenFragment extends Fragment implements IShoppingLis
     }
 
     public void onPurchaseItems(LineItem lineItem){
-        this.listener.onPurchaseItems(lineItem);
+        this.listener.onPurchaseItems(lineItem, this);
     }
     @Override
     public void updatePurchasedList(ArrayList<LineItem> purchasedItems) {
     }
-    public void updateShoppingPurchasedList(){
 
-    }
     @Override
     public void purchaseItems(ShoppingList shoppingList){
         this.binding.purchaseButton.setOnClickListener(new View.OnClickListener(){
@@ -119,9 +121,8 @@ public class ShoppingListScreenFragment extends Fragment implements IShoppingLis
                 }
                 else{
                     CreateDialog(shoppingList);
-
                 }
-                updateShoppingPurchasedList();
+
 
             }
         });
