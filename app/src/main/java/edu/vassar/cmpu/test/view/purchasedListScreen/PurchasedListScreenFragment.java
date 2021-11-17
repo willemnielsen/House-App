@@ -38,7 +38,7 @@ public class PurchasedListScreenFragment extends Fragment implements IPurchasedL
     }
     @Override
     public void updatePurchasedList(ArrayList<LineItem> purchasedItems) {
-        String toText = "There have been" + purchasedItems.size() + "items purchased \n";
+        String toText = "There have been " + purchasedItems.size() + " items purchased \n";
         for (LineItem item: purchasedItems){
             toText = toText + item.toString() + "\n";
         }
