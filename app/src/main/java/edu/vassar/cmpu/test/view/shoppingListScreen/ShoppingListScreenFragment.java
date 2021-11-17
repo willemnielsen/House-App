@@ -46,7 +46,7 @@ public class ShoppingListScreenFragment extends Fragment implements IShoppingLis
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
-        this.binding.addButton.setOnClickListener((View clickedView) -> {
+        this.binding.addItemButton.setOnClickListener((View clickedView) -> {
             this.listener.onAddItem();
         });
 

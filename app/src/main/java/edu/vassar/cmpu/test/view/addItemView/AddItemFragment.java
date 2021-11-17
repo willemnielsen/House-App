@@ -99,7 +99,7 @@ public class AddItemFragment extends Fragment implements IAddItemView {
 
     @Override
     public void getHouseMates(ArrayList<Housemate> housemates){
-        this.binding.addItemButton.setOnClickListener(new View.OnClickListener() {
+        this.binding.addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 // get the item name
