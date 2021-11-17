@@ -1,22 +1,29 @@
 package edu.vassar.cmpu.test.domain;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import org.junit.jupiter.api.Test;
 
 class ItemTest {
 
-    @org.junit.jupiter.api.Test
-    void setPrice() {
-    }
-
-    @org.junit.jupiter.api.Test
+    @Test
     void getPrice() {
+        Item e = new Item("name", 23.43f);
+        assertEquals(e.getPrice(), 23.43f);
+
+        Item e2 = new Item("name");
+        assertEquals(e.getPrice(), 0.0f);
     }
 
-    @org.junit.jupiter.api.Test
+    @Test
     void getName() {
+        Item e = new Item("name", 23.43f);
+        assertEquals(e.getName(), "name");
     }
 
-    @org.junit.jupiter.api.Test
+    @Test
     void testToString() {
+        Item e = new Item("name", 23.43f);
+        assertEquals(e.toString(), "name for 23.43");
     }
 }
