@@ -41,7 +41,8 @@ public class AddItemFragment extends Fragment implements IAddItemView {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
         this.binding = FragmentAddItemBinding.inflate(inflater);
         return this.binding.getRoot();
     }
@@ -56,7 +57,8 @@ public class AddItemFragment extends Fragment implements IAddItemView {
 
     }
 
-    private void CreateDialog(ArrayList<Housemate> housemates, String name, int qtyVal, float price){
+    private void CreateDialog(ArrayList<Housemate> housemates, String name, int qtyVal,
+                              float price){
         ArrayList<String> selectedHM = new ArrayList<>();
         ArrayList<Housemate> interestedHM = new ArrayList<>();
         String[] names = new String[housemates.size()];
@@ -65,7 +67,8 @@ public class AddItemFragment extends Fragment implements IAddItemView {
         }
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
-        builder.setTitle("Interested Housemates").setMultiChoiceItems(names, null, (dialog, which, isChecked) -> {
+        builder.setTitle("Interested Housemates").setMultiChoiceItems(names, null,
+                (dialog, which, isChecked) -> {
             if(isChecked){
                      selectedHM.add(names[which]);
                      interestedHM.add(housemates.get(which));
@@ -81,7 +84,8 @@ public class AddItemFragment extends Fragment implements IAddItemView {
                 for (String n : selectedHM){
                     data = data + " " + n;
                 }
-                AddItemFragment.this.listener.onAddedItem(name, qtyVal, price, interestedHM, AddItemFragment.this);
+                AddItemFragment.this.listener.onAddedItem(name, qtyVal, price, interestedHM,
+                        AddItemFragment.this);
                 Toast.makeText(getActivity(), data, Toast.LENGTH_SHORT).show();
             }
         }).setNegativeButton("Cancel", (dialog, which) -> {

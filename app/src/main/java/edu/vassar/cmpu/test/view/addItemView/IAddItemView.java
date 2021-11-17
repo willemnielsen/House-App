@@ -17,7 +17,8 @@ public interface IAddItemView {
          * @param addItemView
          *  adds lineitem to shopping list
          */
-        void onAddedItem(String name, int quantity, float price, ArrayList<Housemate> interestedHMs, IAddItemView addItemView);
+        void onAddedItem(String name, int quantity, float price, ArrayList<Housemate> interestedHMs,
+                         IAddItemView addItemView);
 
         /**
          * opens up previous fragment which will be the home screen

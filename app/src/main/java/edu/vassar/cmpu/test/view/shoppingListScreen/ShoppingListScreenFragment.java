@@ -39,7 +39,8 @@ public class ShoppingListScreenFragment extends Fragment implements IShoppingLis
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
         this.binding = FragmentShoppingListScreenBinding.inflate(inflater);
         return this.binding.getRoot();
     }
@@ -117,7 +118,8 @@ public class ShoppingListScreenFragment extends Fragment implements IShoppingLis
             @Override
             public void onClick(View v){
                 if(shoppingList.size()==0){
-                    Toast.makeText(getActivity(), "No Items in the ShoppingList", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), "No Items in the ShoppingList",
+                            Toast.LENGTH_SHORT).show();
                 }
                 else{
                     CreateDialog(shoppingList);

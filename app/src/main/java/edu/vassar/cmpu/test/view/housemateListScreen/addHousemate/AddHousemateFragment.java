@@ -28,7 +28,8 @@ public class AddHousemateFragment extends Fragment implements IAddHousemate {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
         binding = FragmentAddHousemateBinding.inflate(inflater);
         return binding.getRoot();
     }

@@ -32,7 +32,8 @@ public class PurchasedListScreenFragment extends Fragment implements IPurchasedL
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
         this.binding = FragmentPurchasedBinding.inflate(inflater);
         return this.binding.getRoot();
     }

@@ -19,7 +19,8 @@ public class ShoppingList {
      * @param interestedHouseMates
      * @return true if lineitem added to shopping list
      */
-    public boolean addItem(int quantity, String name, float price, ArrayList<Housemate> interestedHouseMates){
+    public boolean addItem(int quantity, String name, float price,
+                           ArrayList<Housemate> interestedHouseMates){
        if(interestedHouseMates == null ){
            LineItem lineItem = new LineItem(quantity, name, new ArrayList<Housemate>());
            lineItem.setPrice(price);
@@ -54,7 +55,8 @@ public class ShoppingList {
     public String toString(){
         String list = "";
         for(LineItem lineItem : shoppingList) {
-            list += lineItem.toString() + " #of HM " + lineItem.getInterestedHouseMates().size() + "\n";
+            list += lineItem.toString() + " with " + lineItem.getInterestedHouseMates().size()
+                    + "HM interested \n";
         }
         return list;
     }

@@ -9,7 +9,9 @@ import edu.vassar.cmpu.test.domain.Housemate;
 
 public interface IAddEventView {
     interface Listener{
-        void onAddedEvent(String name, Date date, Time startTime, Time endTime, ArrayList<Housemate> interestedHMs, String rec, IAddEventView addEventView);
+        void onAddedEvent(String name, Date date, Time startTime, Time endTime,
+                          ArrayList<Housemate> interestedHMs, String rec,
+                          IAddEventView addEventView);
         void onPreviousInAddEventFragment();
     }
     void getAddedHouseMates(ArrayList<Housemate> housemates);

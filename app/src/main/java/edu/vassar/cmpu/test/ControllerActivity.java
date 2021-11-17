@@ -114,7 +114,7 @@ public class ControllerActivity extends AppCompatActivity
         this.openHomeScreen();
     }
     @Override
-    public void onPurchaseItems(LineItem lineitem, IShoppingListScreenView shoppingListScreenView) {
+    public void onPurchaseItems(LineItem lineitem, IShoppingListScreenView shoppingListScreenView){
         houseController.addToPurchase(lineitem);
         houseController.getHouse().getShoppingList().remove(lineitem);
         shoppingListScreenView.updateDisplay(houseController.getHouse().getShoppingList());

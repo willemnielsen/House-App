@@ -33,7 +33,8 @@ public class CalendarScreenFragment extends Fragment implements ICalendarScreenV
 
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
         this.binding = FragmentCalendarMonthBinding.inflate(inflater);
         TextView tv = (TextView) this.binding.eventsList;
         tv.setMovementMethod(new ScrollingMovementMethod());
@@ -46,7 +47,8 @@ public class CalendarScreenFragment extends Fragment implements ICalendarScreenV
             this.listener.onAddEvent();
         });
 
-        this.binding.calendarView.setOnDateChangeListener((CalendarView clickedView, int year, int month, int dayOfMonth) ->{
+        this.binding.calendarView.setOnDateChangeListener((CalendarView clickedView, int year,
+                                                           int month, int dayOfMonth) ->{
             Date date = new Date(year-1900, month, dayOfMonth);
             this.listener.onSetDate(date, this);
         });

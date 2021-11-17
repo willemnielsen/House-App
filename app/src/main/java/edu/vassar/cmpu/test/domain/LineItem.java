@@ -16,7 +16,8 @@ public class LineItem {
         this.interestedHouseMates = interestedHouseMates;
     }
 
-    public LineItem(int quantity, String name, float price, ArrayList<Housemate> interestedHouseMates){
+    public LineItem(int quantity, String name, float price,
+                    ArrayList<Housemate> interestedHouseMates){
         item = new Item(name, price);
         this.quantity = quantity;
         this.interestedHouseMates = interestedHouseMates;
