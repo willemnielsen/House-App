@@ -30,7 +30,8 @@ public class HousemateListScreenFragment extends Fragment implements IHousemateL
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
         this.binding = FragmentHousematesBinding.inflate(inflater);
         return this.binding.getRoot();
     }

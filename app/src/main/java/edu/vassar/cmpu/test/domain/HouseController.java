@@ -29,7 +29,8 @@ public class HouseController {
         return house.getShoppingListLineItem(i);
     }
 
-    public boolean addLineItemToShoppingList(int quantity, String name, float price, ArrayList<Housemate> interestedHouseMates){
+    public boolean addLineItemToShoppingList(int quantity, String name, float price,
+                                             ArrayList<Housemate> interestedHouseMates){
         return house.addLineItemToShoppingList(quantity, name, price, interestedHouseMates);
     }
 
@@ -77,7 +78,8 @@ public class HouseController {
     public Event getThisEvent(Event event){
         return house.getCalendar().getThisEvent(event);}
 
-    public boolean addEventToCalendar(String name, Date date, Time startTime, Time endTime, ArrayList<Housemate> housemates, Recurrence recurrence){
+    public boolean addEventToCalendar(String name, Date date, Time startTime, Time endTime,
+                                      ArrayList<Housemate> housemates, Recurrence recurrence){
         return house.getCalendar().addEvent(name, date, startTime, endTime, housemates, recurrence);
     }
 

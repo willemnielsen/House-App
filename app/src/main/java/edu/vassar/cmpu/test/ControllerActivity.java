@@ -35,9 +35,10 @@ import edu.vassar.cmpu.test.view.shoppingListScreen.IShoppingListScreenView;
 import edu.vassar.cmpu.test.view.shoppingListScreen.ShoppingListScreenFragment;
 
 public class ControllerActivity extends AppCompatActivity
-        implements IShoppingListScreenView.Listener, IHomeScreenFragment.Listener, IAddItemView.Listener, ICalendarScreenView.Listener,
-                   IAddEventView.Listener, ILoginScreenFragment.Listener, IHousemateListScreenFragment.Listener, IPurchasedListScreenFragment.Listener,
-                   IAddHousemate.Listener {
+        implements IShoppingListScreenView.Listener, IHomeScreenFragment.Listener,
+            IAddItemView.Listener, ICalendarScreenView.Listener, IAddEventView.Listener,
+            ILoginScreenFragment.Listener, IHousemateListScreenFragment.Listener,
+            IPurchasedListScreenFragment.Listener, IAddHousemate.Listener {
     //extends makes this class an activity
 
     private HouseController houseController;
@@ -49,7 +50,8 @@ public class ControllerActivity extends AppCompatActivity
         mainView = new MainView(this);
         setContentView(mainView.getRootView());
 
-        this.mainView.displayFragment(new LoginScreenFragment(this));//displays the add Item Fragment
+        this.mainView.displayFragment(new LoginScreenFragment(this));
+        //displays the add Item Fragment
     }
 
     //
@@ -112,15 +114,14 @@ public class ControllerActivity extends AppCompatActivity
         this.openHomeScreen();
     }
     @Override
-    public void onPurchaseItems(LineItem lineitem) {
+    public void onPurchaseItems(LineItem lineitem, IShoppingListScreenView shoppingListScreenView){
         houseController.addToPurchase(lineitem);
         houseController.getHouse().getShoppingList().remove(lineitem);
-    }
-
-    public void updateShoppingPurchasedList(IShoppingListScreenView shoppingListScreenView){
         shoppingListScreenView.updateDisplay(houseController.getHouse().getShoppingList());
         shoppingListScreenView.updatePurchasedList(houseController.getHouse().getPurchasedItems());
     }
+
+
 
         //
         //add item
@@ -138,7 +139,8 @@ public class ControllerActivity extends AppCompatActivity
     }
 
         @Override
-        public void onAddedItem(String name, int quantity, float price, ArrayList<Housemate> interestedHMs, IAddItemView addItemView) {
+        public void onAddedItem(String name, int quantity, float price,
+                                ArrayList<Housemate> interestedHMs, IAddItemView addItemView) {
             houseController.addLineItemToShoppingList(quantity, name, price, interestedHMs);
             addItemView.updateDisplay(houseController.getHouse().getShoppingList());
         }
@@ -179,11 +181,14 @@ public class ControllerActivity extends AppCompatActivity
         }
 
         @Override
-        public void onAddedEvent(String name, Date date, Time startTime, Time endTime, ArrayList<Housemate> interestedHMs, String rec, IAddEventView addEventView) {
+        public void onAddedEvent(String name, Date date, Time startTime, Time endTime,
+                                 ArrayList<Housemate> interestedHMs, String rec,
+                                 IAddEventView addEventView) {
             Date startDate = new Date();
             Date endDate = new Date(1637776749273L);
             Recurrence recurrence = new Recurrence(rec, startDate, endDate);
-            houseController.addEventToCalendar(name, date, startTime, endTime, interestedHMs, recurrence);
+            houseController.addEventToCalendar(name, date, startTime, endTime, interestedHMs,
+                    recurrence);
 
             addEventView.updateDisplay(houseController.getHouse().getCalendar());
         }
@@ -240,7 +245,9 @@ public class ControllerActivity extends AppCompatActivity
         //
 
     public void openPurchasedListScreen() {
-        this.mainView.displayFragment(new PurchasedListScreenFragment(this));
+        IPurchasedListScreenFragment pl = new PurchasedListScreenFragment(this);
+        this.mainView.displayFragment((PurchasedListScreenFragment) pl);
+        pl.updatePurchasedList(houseController.getHouse().getPurchasedItems());
     }
 
     @Override

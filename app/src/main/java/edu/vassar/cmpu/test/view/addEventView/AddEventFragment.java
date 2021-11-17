@@ -26,7 +26,8 @@ import edu.vassar.cmpu.test.domain.Housemate;
 import edu.vassar.cmpu.test.view.addItemView.AddItemFragment;
 
 
-public class AddEventFragment extends Fragment implements IAddEventView, AdapterView.OnItemSelectedListener {
+public class AddEventFragment extends Fragment implements IAddEventView,
+        AdapterView.OnItemSelectedListener {
     private FragmentAddEventBinding binding;
     private Listener listener;
 
@@ -38,7 +39,8 @@ public class AddEventFragment extends Fragment implements IAddEventView, Adapter
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
         this.binding = FragmentAddEventBinding.inflate(inflater);
         Spinner spinnerH = (Spinner) this.binding.sthour;
         Spinner spinnerM = (Spinner) this.binding.stmin;
@@ -69,10 +71,14 @@ public class AddEventFragment extends Fragment implements IAddEventView, Adapter
             mins.add(time);
         }
         // Creating adapter for spinner
-        ArrayAdapter<String> dataAdapterH = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_item, hours);
-        ArrayAdapter<String> dataAdapterM = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_item, mins);
-        ArrayAdapter<String> dataAdapterAP = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_item, ap);
-        ArrayAdapter<String> dataAdapterR = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_item, rec);
+        ArrayAdapter<String> dataAdapterH = new ArrayAdapter<>(getContext(),
+                android.R.layout.simple_spinner_item, hours);
+        ArrayAdapter<String> dataAdapterM = new ArrayAdapter<>(getContext(),
+                android.R.layout.simple_spinner_item, mins);
+        ArrayAdapter<String> dataAdapterAP = new ArrayAdapter<>(getContext(),
+                android.R.layout.simple_spinner_item, ap);
+        ArrayAdapter<String> dataAdapterR = new ArrayAdapter<>(getContext(),
+                android.R.layout.simple_spinner_item, rec);
 
         // Drop down layout style - list view with radio button
         dataAdapterH.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -102,7 +108,8 @@ public class AddEventFragment extends Fragment implements IAddEventView, Adapter
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
-        this.binding.calendarView2.setOnDateChangeListener((CalendarView clickedView, int year, int month, int dayOfMonth) ->{
+        this.binding.calendarView2.setOnDateChangeListener((CalendarView clickedView, int year,
+                                                            int month, int dayOfMonth) ->{
             binding.typeMonth.setText(""+(month+1));
             binding.typeDay.setText(""+dayOfMonth);
             binding.typeYear.setText(""+year);
@@ -124,7 +131,8 @@ public class AddEventFragment extends Fragment implements IAddEventView, Adapter
                 String name = nameEditable.toString();
                 if (name.isEmpty()) {binding.typeEventName.setError("Please Enter an Event Name");}
 
-                if (binding.typeYear.getText().toString().isEmpty()) {binding.typeYear.setError("Please Select a Date");}
+                if (binding.typeYear.getText().toString().isEmpty()) {
+                    binding.typeYear.setError("Please Select a Date");}
 
                 try {
                     int sth = Integer.parseInt(binding.hourText.getText().toString());
@@ -225,7 +233,8 @@ public class AddEventFragment extends Fragment implements IAddEventView, Adapter
         return interestedHM;
     }
 
-    public void onAddedEvent(String name, Date date, Time st, Time et, ArrayList<Housemate> interestedHMs, String rec) {
+    public void onAddedEvent(String name, Date date, Time st, Time et,
+                             ArrayList<Housemate> interestedHMs, String rec) {
         this.listener.onAddedEvent(name, date, st, et, interestedHMs, rec,this);
     }
 

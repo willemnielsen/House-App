@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import edu.vassar.cmpu.test.domain.LineItem;
 import edu.vassar.cmpu.test.domain.ShoppingList;
+import edu.vassar.cmpu.test.view.purchasedListScreen.IPurchasedListScreenFragment;
 
 public interface IShoppingListScreenView {
 
@@ -12,9 +13,9 @@ public interface IShoppingListScreenView {
          * opens the add item screen
          */
         void onAddItem();
-        void onPurchaseItems(LineItem lineItem);
+        void onPurchaseItems(LineItem lineItem, IShoppingListScreenView shoppingListScreenView);
         void onPreviousOnShoppingListScreen();
-        void updateShoppingPurchasedList(IShoppingListScreenView shoppingListScreenView);
+
     }
 
     void updateDisplay(ShoppingList shoppingList);

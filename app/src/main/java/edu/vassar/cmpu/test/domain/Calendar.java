@@ -13,7 +13,8 @@ public class Calendar {
         currentDate = new Date();
     }
 
-    public boolean addEvent(String name, Date date, Time startTime, Time endTime, ArrayList<Housemate> housemates, Recurrence recurrence) {
+    public boolean addEvent(String name, Date date, Time startTime, Time endTime,
+                            ArrayList<Housemate> housemates, Recurrence recurrence) {
         Event newevent;
         Date incDate = recurrence.getStartDate();
         Long longDate;
@@ -21,7 +22,8 @@ public class Calendar {
             case "Daily":
                 while (incDate.before(recurrence.getEndDate())) {
                     if (housemates == null) {
-                        newevent = new Event(name, incDate, startTime, endTime, new ArrayList<Housemate>());
+                        newevent = new Event(name, incDate, startTime, endTime,
+                                new ArrayList<Housemate>());
                     } else {
                         newevent = new Event(name, incDate, startTime, endTime, housemates);
                     }
@@ -33,7 +35,8 @@ public class Calendar {
             case "Weekly":
                 while (incDate.before(recurrence.getEndDate())) {
                     if (housemates == null) {
-                        newevent = new Event(name, incDate, startTime, endTime, new ArrayList<Housemate>());
+                        newevent = new Event(name, incDate, startTime, endTime,
+                                new ArrayList<Housemate>());
                     } else {
                         newevent = new Event(name, incDate, startTime, endTime, housemates);
                     }
@@ -44,7 +47,8 @@ public class Calendar {
                 break;
             default:
                 if (housemates == null) {
-                    newevent = new Event(name, date, startTime, endTime, new ArrayList<Housemate>());
+                    newevent = new Event(name, date, startTime, endTime,
+                            new ArrayList<Housemate>());
                 } else {
                     newevent = new Event(name, date, startTime, endTime, housemates);
                 }
@@ -77,7 +81,8 @@ public class Calendar {
     public String toString() {
         String list = "" + currentDate + "\n";
         for (Event event : events) {
-            if (currentDate.getYear() == event.getDate().getYear() && currentDate.getMonth() == event.getDate().getMonth()
+            if (currentDate.getYear() == event.getDate().getYear() && currentDate.getMonth() ==
+                    event.getDate().getMonth()
                     && currentDate.getDate() == event.getDate().getDate()) {
                 for (int i = 0; i < event.getHousemates().size(); i++) {
                     if (i < event.getHousemates().size() - 1)

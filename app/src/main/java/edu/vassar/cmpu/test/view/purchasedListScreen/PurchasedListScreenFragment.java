@@ -32,15 +32,19 @@ public class PurchasedListScreenFragment extends Fragment implements IPurchasedL
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
         this.binding = FragmentPurchasedBinding.inflate(inflater);
         return this.binding.getRoot();
     }
-
+    @Override
     public void updatePurchasedList(ArrayList<LineItem> purchasedItems) {
+        String toText = "There have been " + purchasedItems.size() + " items purchased \n";
         for (LineItem item: purchasedItems){
-        this.binding.purchasedItem.setText("items:" + item.toString());
-    }}
+            toText = toText + item.toString() + "\n";
+        }
+        this.binding.purchasedItem.setText(toText);
+    }
 
    @Override
    public void onViewCreated(View view, Bundle savedInstanceState) {

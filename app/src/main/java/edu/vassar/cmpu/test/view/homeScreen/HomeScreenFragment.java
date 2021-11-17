@@ -26,7 +26,8 @@ public class HomeScreenFragment extends Fragment implements IHomeScreenFragment 
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
         this.binding = FragmentHomeScreenBinding.inflate(inflater);
         return binding.getRoot();
     }

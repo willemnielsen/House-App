@@ -41,7 +41,8 @@ public class AddItemFragment extends Fragment implements IAddItemView {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
         this.binding = FragmentAddItemBinding.inflate(inflater);
         return this.binding.getRoot();
     }
@@ -56,17 +57,18 @@ public class AddItemFragment extends Fragment implements IAddItemView {
 
     }
 
-    private ArrayList<Housemate> CreateDialog(ArrayList<Housemate> housemates){
+    private void CreateDialog(ArrayList<Housemate> housemates, String name, int qtyVal,
+                              float price){
         ArrayList<String> selectedHM = new ArrayList<>();
         ArrayList<Housemate> interestedHM = new ArrayList<>();
         String[] names = new String[housemates.size()];
-        boolean cancel = false;
         for(int i = 0 ; i < names.length; i++){
            names[i] = housemates.get(i).getName();
         }
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
-        builder.setTitle("Interested Housemates").setMultiChoiceItems(names, null, (dialog, which, isChecked) -> {
+        builder.setTitle("Interested Housemates").setMultiChoiceItems(names, null,
+                (dialog, which, isChecked) -> {
             if(isChecked){
                      selectedHM.add(names[which]);
                      interestedHM.add(housemates.get(which));
@@ -74,26 +76,25 @@ public class AddItemFragment extends Fragment implements IAddItemView {
                       selectedHM.remove(names[which]);
                       interestedHM.remove(housemates.get(which));
             }
-        });
-
-        builder.setPositiveButton("Done", (dialog, which) -> {
+        }).setPositiveButton("Done", (dialog, which) -> {
             if (selectedHM.isEmpty()){
-                CreateDialog(housemates);
+                CreateDialog(housemates, name, qtyVal, price);
             } else{
                 String data = "Interested Housemate Added:";
-                for (Housemate name : interestedHM){
-                    data = data + " " + name.getName();
+                for (String n : selectedHM){
+                    data = data + " " + n;
                 }
+                AddItemFragment.this.listener.onAddedItem(name, qtyVal, price, interestedHM,
+                        AddItemFragment.this);
                 Toast.makeText(getActivity(), data, Toast.LENGTH_SHORT).show();
             }
-        });
-        builder.setNegativeButton("Cancel", (dialog, which) -> {
+        }).setNegativeButton("Cancel", (dialog, which) -> {
 
         });
 
         builder.create();
         builder.show();
-        return interestedHM;
+
     }
 
     @Override
@@ -128,12 +129,7 @@ public class AddItemFragment extends Fragment implements IAddItemView {
                     }
 
                     int qtyVal = Integer.parseInt(qtyString);
-                    ArrayList<Housemate> interestedHMs = CreateDialog(housemates);
-                    //doesnt work with if statement
-                    // if(interestedHMs.size() > 0)
-                        AddItemFragment.this.listener.onAddedItem(name, qtyVal, price, interestedHMs, AddItemFragment.this);
-
-
+                    CreateDialog(housemates, name, qtyVal, price);
                 } catch (NumberFormatException e) {
 
                     binding.typeItemName.setText("");
@@ -146,11 +142,6 @@ public class AddItemFragment extends Fragment implements IAddItemView {
             }
         });
 
-        //this.binding.interestedHM.setOnClickListener(new View.OnClickListener(){
-         //   @Override
-         //   public void onClick(View v){
-          //      CreateDialog(housemates);
-          //  }
-        //});
+
     }
 }

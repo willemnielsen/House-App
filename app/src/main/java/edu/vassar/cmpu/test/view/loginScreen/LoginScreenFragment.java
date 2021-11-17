@@ -30,7 +30,8 @@ public class LoginScreenFragment extends Fragment implements ILoginScreenFragmen
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
         this.binding = FragmentLoginScreenBinding.inflate(inflater);
         return this.binding.getRoot();
     }
