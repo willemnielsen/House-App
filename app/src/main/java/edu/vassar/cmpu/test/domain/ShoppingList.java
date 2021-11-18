@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class ShoppingList {
 
     private ArrayList<LineItem> shoppingList = new ArrayList<LineItem>();
-
+    private static final String SALE_TOTAL = "saleTotal";
 
     public ShoppingList(){
 

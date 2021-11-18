@@ -9,6 +9,8 @@ public interface IPurchasedListScreenFragment {
 
     interface Listener {
         void onPreviousOnPurchasedListScreen();
+
+        void onPurchaseByUser(String distribution);
     }
     void updatePurchasedList(ArrayList<LineItem> purchasedItems);
 }

@@ -63,7 +63,9 @@ public class ControllerActivity extends AppCompatActivity
         houseController = new HouseController(houseName);
         houseController.addHousemate(new Housemate("memberName1", "343253"));
         houseController.addHousemate(new Housemate("memberName2", "347253"));
-        houseController.addHousemate(new Housemate(membersName, "343243"));
+        Housemate hm = new Housemate(membersName, "343243");
+        houseController.addHousemate(hm);
+        houseController.setUser(hm); // sets new user to logging in one
         openHomeScreen();
     }
 
@@ -241,9 +243,8 @@ public class ControllerActivity extends AppCompatActivity
 
 
     //
-        // Purchased Screen
-        //
-
+    // Purchased Screen
+    //
     public void openPurchasedListScreen() {
         IPurchasedListScreenFragment pl = new PurchasedListScreenFragment(this);
         this.mainView.displayFragment((PurchasedListScreenFragment) pl);
@@ -253,6 +254,12 @@ public class ControllerActivity extends AppCompatActivity
     @Override
     public void onPreviousOnPurchasedListScreen(){
         this.openHomeScreen();
+    }
+
+    @Override
+    public void onPurchaseByUser(String distribution) {
+        houseController.checkout(distribution, houseController.getLoggedInUser());
+        houseController.getHouse().getPurchasedItems().clear();
     }
 
 }

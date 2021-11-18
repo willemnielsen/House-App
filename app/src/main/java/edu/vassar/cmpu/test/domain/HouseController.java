@@ -7,6 +7,7 @@ import java.util.Date;
 public class HouseController {
 
     private House house;
+    private Housemate loggedInUser;
 
     public HouseController(String houseName){
         house = new House(houseName);
@@ -15,7 +16,15 @@ public class HouseController {
     public void addHousemate(Housemate housemate) {
         house.addHousemate(housemate);
     }
-
+    
+    public void setUser(Housemate user) {
+        loggedInUser = user;
+    }
+    
+    public Housemate getLoggedInUser(){
+        return loggedInUser;
+    }
+    
     public void removeHousemate(Housemate housemate){
         house.removeHousemate(housemate);
     }
