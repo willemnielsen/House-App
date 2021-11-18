@@ -123,7 +123,7 @@ actor Housemate as Actor
 @enduml
 ```
 
-# Class Diagram for Model
+# Class Diagram for Domain
 ```plantuml
 @startuml
 
@@ -297,7 +297,6 @@ class Controller.ControllerActivity {
 + void openPurchasedListScreen()
 + void onPreviousOnPurchasedListScreen()
 }
-Controller.ControllerActivity --> "(1)" Domain.HouseController :\t\t\t\t
 
 @enduml
 ```
@@ -549,3 +548,22 @@ View.homeScreen.IHomeScreenFragment <|.. View.homeScreen.HomeScreenFragment
 ```
 
 
+# Class Diagram Connections
+```plantuml
+@startuml
+
+class Controller.ControllerActivity{
+
+}
+class View.IFragments{
+
+}
+class Domain.HouseController{
+
+}
+
+Controller.ControllerActivity <|.. View.IFragments
+Controller.ControllerActivity --> Domain.HouseController  
+
+@enduml
+```
