@@ -36,12 +36,15 @@ import edu.vassar.cmpu.test.view.purchasedListScreen.IPurchasedListScreenFragmen
 import edu.vassar.cmpu.test.view.purchasedListScreen.PurchasedListScreenFragment;
 import edu.vassar.cmpu.test.view.shoppingListScreen.IShoppingListScreenView;
 import edu.vassar.cmpu.test.view.shoppingListScreen.ShoppingListScreenFragment;
+import edu.vassar.cmpu.test.view.transactionsScreen.ITransactionsScreenFragment;
+import edu.vassar.cmpu.test.view.transactionsScreen.TransactionsScreenFragment;
 
 public class ControllerActivity extends AppCompatActivity
         implements IShoppingListScreenView.Listener, IHomeScreenFragment.Listener,
             IAddItemView.Listener, ICalendarScreenView.Listener, IAddEventView.Listener,
             ILoginScreenFragment.Listener, IHousemateListScreenFragment.Listener,
-            IPurchasedListScreenFragment.Listener, IAddHousemate.Listener, IDebtScreenFragment.Listener {
+            IPurchasedListScreenFragment.Listener, IAddHousemate.Listener, IDebtScreenFragment.Listener,
+            ITransactionsScreenFragment.Listener {
     //extends makes this class an activity
 
     private HouseController houseController;
@@ -97,6 +100,19 @@ public class ControllerActivity extends AppCompatActivity
 
     @Override
     public void onOpenPurchasedList(){ openPurchasedListScreen();}
+
+    @Override
+    public void onOpenTransactions() {
+        ITransactionsScreenFragment ts = new TransactionsScreenFragment(this);
+        this.mainView.displayFragment((TransactionsScreenFragment) ts);
+        ts.updateDisplay(houseController.houseTransactions());
+    }
+
+    @Override
+    public void onPreviousOnTransactionsScreen() {
+        openHomeScreen();
+    }
+
     //
     // Shopping List
     //
@@ -277,5 +293,4 @@ public class ControllerActivity extends AppCompatActivity
         houseController.getHouse().getPurchasedItems().clear();
         purchasedListScreenFragment.updatePurchasedList(houseController.getHouse().getPurchasedItems());
     }
-
 }

@@ -22,6 +22,7 @@
         <entry key="app/src/main/res/layout/fragment_purchased.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_second.xml" value="0.335" />
         <entry key="app/src/main/res/layout/fragment_shopping_list_screen.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/fragment_transactions_screen.xml" value="0.15572916666666667" />
         <entry key="app/src/main/res/layout/main.xml" value="0.375" />
         <entry key="app/src/main/res/menu/menu_main.xml" value="0.22447916666666667" />
       </map>

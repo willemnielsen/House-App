@@ -7,6 +7,7 @@ public interface IHomeScreenFragment {
         public void onOpenCalendar();
         public void onOpenHousemateList();
         public void onOpenPurchasedList();
+        public void onOpenTransactions();
     }
 
 
