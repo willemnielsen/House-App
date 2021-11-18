@@ -12,7 +12,7 @@ class ItemTest {
         assertEquals(e.getPrice(), 23.43f);
 
         Item e2 = new Item("name");
-        assertEquals(e.getPrice(), 0.0f);
+        assertEquals(e2.getPrice(), 0.0f);
     }
 
     @Test
@@ -24,6 +24,6 @@ class ItemTest {
     @Test
     void testToString() {
         Item e = new Item("name", 23.43f);
-        assertEquals(e.toString(), "name for 23.43");
+        assertEquals(e.toString(), "name for $23.43");
     }
 }
