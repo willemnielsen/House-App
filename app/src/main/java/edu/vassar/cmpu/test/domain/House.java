@@ -115,12 +115,11 @@ public class House {
     public void checkout(String distribution, Housemate purchaser) {
         for (LineItem lineItem: purchasedItems) {
             lineItem.setPurchaser(purchaser);
-            if(distribution.equals("Charge Based on Interested Housemates") ||
-                    distribution.equals("A"))
+            if(distribution.equals("Charge Based on Interested Housemates"))
                 createDebtForIHM(lineItem);
-            else if(distribution.equals("Charge Household") || distribution.equals("B"))
+            else if(distribution.equals("Charge Household"))
                 createDebtForHH(lineItem);
-            else if(distribution.equals("Charge Me") || distribution.equals("C"))
+            else if(distribution.equals("Charge Me"))
                 createDebtForMe(lineItem);
             shoppingList.remove(lineItem);
         }
