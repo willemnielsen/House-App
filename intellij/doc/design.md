@@ -107,6 +107,22 @@ participant ": Domain.Housemate" as housemate
 @enduml
 ```
 
+# Add Event to Calendar
+```plantuml
+
+@startuml
+actor Housemate as Actor
+
+    addEventView -->> Actor  : get name, date, time, interestedHouseMates and recurrence
+    addEventView -->> ControllerActivity  : onAddedEvent(name, date, startTime, endTime, interestedHouseMates, recurrence)
+    ControllerActivity -->> HouseController : addEventToCalendar(name, date, startTime, endTime, getInterestedHouseMates, recurrence)
+    HouseController -->> Calendar : addEvent(name, date, startTime, endTime, getInterestedHouseMates, recurrence)
+    loop until recurrence.endDate
+        Calendar -->> Event ** : Event(name, date, stratTime, endTime)
+    end
+@enduml
+```
+
 # Class Diagram
 ```plantuml
 @startuml
