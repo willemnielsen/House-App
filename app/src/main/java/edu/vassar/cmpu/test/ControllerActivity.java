@@ -3,6 +3,7 @@ package edu.vassar.cmpu.test;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 
 import java.sql.Time;
 import java.util.ArrayList;
@@ -27,6 +28,8 @@ import edu.vassar.cmpu.test.view.housemateListScreen.HousemateListScreenFragment
 import edu.vassar.cmpu.test.view.housemateListScreen.IHousemateListScreenFragment;
 import edu.vassar.cmpu.test.view.housemateListScreen.addHousemate.AddHousemateFragment;
 import edu.vassar.cmpu.test.view.housemateListScreen.addHousemate.IAddHousemate;
+import edu.vassar.cmpu.test.view.housemateListScreen.debtScreen.DebtScreenFragment;
+import edu.vassar.cmpu.test.view.housemateListScreen.debtScreen.IDebtScreenFragment;
 import edu.vassar.cmpu.test.view.loginScreen.ILoginScreenFragment;
 import edu.vassar.cmpu.test.view.loginScreen.LoginScreenFragment;
 import edu.vassar.cmpu.test.view.purchasedListScreen.IPurchasedListScreenFragment;
@@ -38,7 +41,7 @@ public class ControllerActivity extends AppCompatActivity
         implements IShoppingListScreenView.Listener, IHomeScreenFragment.Listener,
             IAddItemView.Listener, ICalendarScreenView.Listener, IAddEventView.Listener,
             ILoginScreenFragment.Listener, IHousemateListScreenFragment.Listener,
-            IPurchasedListScreenFragment.Listener, IAddHousemate.Listener {
+            IPurchasedListScreenFragment.Listener, IAddHousemate.Listener, IDebtScreenFragment.Listener {
     //extends makes this class an activity
 
     private HouseController houseController;
@@ -227,6 +230,18 @@ public class ControllerActivity extends AppCompatActivity
         this.mainView.displayFragment(new AddHousemateFragment(this));
     }
 
+    @Override
+    public void onDebtScreenButton() {
+        IDebtScreenFragment df = new DebtScreenFragment(this);
+        this.mainView.displayFragment((DebtScreenFragment) df);
+        df.updateDisplay(houseController.houseBalance());
+    }
+
+    @Override
+    public void onPreviousOnDebtScreen() {
+        this.openHousemateListScreen();
+    }
+
         //
         // add housemate
         //
@@ -257,9 +272,10 @@ public class ControllerActivity extends AppCompatActivity
     }
 
     @Override
-    public void onPurchaseByUser(String distribution) {
+    public void onPurchaseByUser(String distribution,  IPurchasedListScreenFragment purchasedListScreenFragment) {
         houseController.checkout(distribution, houseController.getLoggedInUser());
         houseController.getHouse().getPurchasedItems().clear();
+        purchasedListScreenFragment.updatePurchasedList(houseController.getHouse().getPurchasedItems());
     }
 
 }

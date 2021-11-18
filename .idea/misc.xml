@@ -13,6 +13,7 @@
         <entry key="app/src/main/res/layout/fragment_add_housemate.xml" value="0.40680739097746416" />
         <entry key="app/src/main/res/layout/fragment_add_item.xml" value="0.335" />
         <entry key="app/src/main/res/layout/fragment_calendar_month.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/fragment_debt_screen.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_first.xml" value="0.2046875" />
         <entry key="app/src/main/res/layout/fragment_home_screen.xml" value="0.2151268115942029" />
         <entry key="app/src/main/res/layout/fragment_housemates.xml" value="0.19927536231884058" />

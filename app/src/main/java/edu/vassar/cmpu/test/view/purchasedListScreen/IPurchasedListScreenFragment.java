@@ -10,7 +10,7 @@ public interface IPurchasedListScreenFragment {
     interface Listener {
         void onPreviousOnPurchasedListScreen();
 
-        void onPurchaseByUser(String distribution);
+        void onPurchaseByUser(String distribution, IPurchasedListScreenFragment purchasedListScreenFragment);
     }
     void updatePurchasedList(ArrayList<LineItem> purchasedItems);
 }

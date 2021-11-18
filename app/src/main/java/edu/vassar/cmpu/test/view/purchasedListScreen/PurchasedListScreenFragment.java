@@ -86,7 +86,7 @@ public class PurchasedListScreenFragment extends Fragment implements IPurchasedL
                 for (String n : selectedType){
                     data = data + " " + n;
                 }
-                PurchasedListScreenFragment.this.listener.onPurchaseByUser(selectedType.get(0));
+                PurchasedListScreenFragment.this.listener.onPurchaseByUser(selectedType.get(0), PurchasedListScreenFragment.this);
                 Toast.makeText(getActivity(), data, Toast.LENGTH_SHORT).show();
             }
         }).setNegativeButton("Cancel", (dialog, which) -> {
