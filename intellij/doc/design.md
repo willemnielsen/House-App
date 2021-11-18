@@ -123,7 +123,7 @@ actor Housemate as Actor
 @enduml
 ```
 
-# Class Diagram for Domain Model
+# Class Diagram for Model
 ```plantuml
 @startuml
 
@@ -306,29 +306,6 @@ Controller.ControllerActivity --> "(1)" Domain.HouseController :\t\t\t\t
 ```plantuml
 @startuml
 
-class View.housemateListScreen.HousemateListScreenFragment {
-- Listener listener
-- FragmentHousematesBinding binding
-+ void onCreate(Bundle)
-+ View onCreateView(LayoutInflater,ViewGroup,Bundle)
-+ void onViewCreated(View,Bundle)
-+ void updateDisplay(ArrayList<Housemate>)
-}
-interface View.homeScreen.IHomeScreenFragment {
-}
-interface View.homeScreen.IHomeScreenFragment.Listener {
-+ void onOpenShoppingList()
-+ void onOpenCalendar()
-+ void onOpenHousemateList()
-+ void onOpenPurchasedList()
-+ void onOpenTransactions()
-}
-interface View.housemateListScreen.debtScreen.IDebtScreenFragment {
-+ void updateDisplay(String)
-}
-interface View.housemateListScreen.debtScreen.IDebtScreenFragment.Listener {
-~ void onPreviousOnDebtScreen()
-}
 class View.housemateListScreen.addHousemate.AddHousemateFragment {
 ~ FragmentAddHousemateBinding binding
 ~ Listener listener
@@ -336,22 +313,7 @@ class View.housemateListScreen.addHousemate.AddHousemateFragment {
 + View onCreateView(LayoutInflater,ViewGroup,Bundle)
 + void onViewCreated(View,Bundle)
 }
-interface View.addItemView.IAddItemView {
-~ void getHouseMates(ArrayList<Housemate>)
-~ void updateDisplay(ShoppingList)
-}
-interface View.addItemView.IAddItemView.Listener {
-~ void onAddedItem(String,int,float,ArrayList<Housemate>,IAddItemView)
-~ void onPreviousInAddItemFragment()
-}
-class View.housemateListScreen.debtScreen.DebtScreenFragment {
-~ FragmentDebtScreenBinding binding
-~ Listener listener
-+ void onCreate(Bundle)
-+ View onCreateView(LayoutInflater,ViewGroup,Bundle)
-+ void onViewCreated(View,Bundle)
-+ void updateDisplay(String)
-}
+
 interface View.addEventView.IAddEventView {
 ~ void getAddedHouseMates(ArrayList<Housemate>)
 ~ void updateDisplay(Calendar)
@@ -360,31 +322,16 @@ interface View.addEventView.IAddEventView.Listener {
 ~ void onAddedEvent(String,Date,Time,Time,ArrayList<Housemate>,String,IAddEventView)
 ~ void onPreviousInAddEventFragment()
 }
-class View.loginScreen.LoginScreenFragment {
+
+class View.housemateListScreen.HousemateListScreenFragment {
 - Listener listener
-- FragmentLoginScreenBinding binding
+- FragmentHousematesBinding binding
 + void onCreate(Bundle)
 + View onCreateView(LayoutInflater,ViewGroup,Bundle)
 + void onViewCreated(View,Bundle)
++ void updateDisplay(ArrayList<Housemate>)
 }
-interface View.transactionsScreen.ITransactionsScreenFragment {
-~ void updateDisplay(String)
-}
-interface View.transactionsScreen.ITransactionsScreenFragment.Listener {
-~ void onPreviousOnTransactionsScreen()
-}
-class View.homeScreen.HomeScreenFragment {
-- Listener listener
-- FragmentHomeScreenBinding binding
-+ void onCreate(Bundle)
-+ View onCreateView(LayoutInflater,ViewGroup,Bundle)
-+ void onViewCreated(View,Bundle)
-}
-interface View.loginScreen.ILoginScreenFragment {
-}
-interface View.loginScreen.ILoginScreenFragment.Listener {
-~ void onCreateHouse(String,String)
-}
+
 interface View.housemateListScreen.addHousemate.IAddHousemate {
 }
 interface View.housemateListScreen.addHousemate.IAddHousemate.Listener {
@@ -418,17 +365,7 @@ class View.calendarScreen.CalendarScreenFragment {
 class View.temp {
 }
 
-class View.addItemView.AddItemFragment {
-- FragmentAddItemBinding binding
-- Listener listener
-- HouseController house
-+ void onCreate(Bundle)
-+ View onCreateView(LayoutInflater,ViewGroup,Bundle)
-+ void onViewCreated(View,Bundle)
-- void CreateDialog(ArrayList<Housemate>,String,int,float)
-+ void updateDisplay(ShoppingList)
-+ void getHouseMates(ArrayList<Housemate>)
-}
+
 class View.addEventView.AddEventFragment {
 - FragmentAddEventBinding binding
 - Listener listener
@@ -442,34 +379,17 @@ class View.addEventView.AddEventFragment {
 + void onItemSelected(AdapterView<?>,View,int,long)
 + void onNothingSelected(AdapterView<?>)
 }
-class View.transactionsScreen.TransactionsScreenFragment {
-~ FragmentTransactionsScreenBinding binding
-~ Listener listener
-+ void onCreate(Bundle)
-+ View onCreateView(LayoutInflater,ViewGroup,Bundle)
-+ void onViewCreated(View,Bundle)
-+ void updateDisplay(String)
-}
+
 
 
 View.housemateListScreen.IHousemateListScreenFragment <|.. View.housemateListScreen.HousemateListScreenFragment
-View.homeScreen.IHomeScreenFragment +.. View.homeScreen.IHomeScreenFragment.Listener
-View.housemateListScreen.debtScreen.IDebtScreenFragment +.. View.housemateListScreen.debtScreen.IDebtScreenFragment.Listener
 View.housemateListScreen.addHousemate.IAddHousemate <|.. View.housemateListScreen.addHousemate.AddHousemateFragment
-View.addItemView.IAddItemView +.. View.addItemView.IAddItemView.Listener
-View.housemateListScreen.debtScreen.IDebtScreenFragment <|.. View.housemateListScreen.debtScreen.DebtScreenFragment
 View.addEventView.IAddEventView +.. View.addEventView.IAddEventView.Listener
 View.addEventView.IAddEventView <|.. View.addEventView.AddEventFragment
-View.loginScreen.ILoginScreenFragment <|.. View.loginScreen.LoginScreenFragment
-View.transactionsScreen.ITransactionsScreenFragment +.. View.transactionsScreen.ITransactionsScreenFragment.Listener
-View.transactionsScreen.ITransactionsScreenFragment <|.. View.transactionsScreen.TransactionsScreenFragment
-View.homeScreen.IHomeScreenFragment <|.. View.homeScreen.HomeScreenFragment
-View.loginScreen.ILoginScreenFragment +.. View.loginScreen.ILoginScreenFragment.Listener
 View.housemateListScreen.addHousemate.IAddHousemate +.. View.housemateListScreen.addHousemate.IAddHousemate.Listener
 View.housemateListScreen.IHousemateListScreenFragment +.. View.housemateListScreen.IHousemateListScreenFragment.Listener
 View.calendarScreen.ICalendarScreenView +.. View.calendarScreen.ICalendarScreenView.Listener
 View.calendarScreen.ICalendarScreenView <|.. View.calendarScreen.CalendarScreenFragment
-View.addItemView.IAddItemView <|.. View.addItemView.AddItemFragment
 
 @enduml
 ```
@@ -518,11 +438,114 @@ interface View.shoppingListScreen.IShoppingListScreenView.Listener {
 ~ void onPreviousOnShoppingListScreen()
 }
 
+class View.transactionsScreen.TransactionsScreenFragment {
+~ FragmentTransactionsScreenBinding binding
+~ Listener listener
++ void onCreate(Bundle)
++ View onCreateView(LayoutInflater,ViewGroup,Bundle)
++ void onViewCreated(View,Bundle)
++ void updateDisplay(String)
+}
+interface View.transactionsScreen.ITransactionsScreenFragment {
+~ void updateDisplay(String)
+}
+interface View.transactionsScreen.ITransactionsScreenFragment.Listener {
+~ void onPreviousOnTransactionsScreen()
+}
+
+class View.addItemView.AddItemFragment {
+- FragmentAddItemBinding binding
+- Listener listener
+- HouseController house
++ void onCreate(Bundle)
++ View onCreateView(LayoutInflater,ViewGroup,Bundle)
++ void onViewCreated(View,Bundle)
+- void CreateDialog(ArrayList<Housemate>,String,int,float)
++ void updateDisplay(ShoppingList)
++ void getHouseMates(ArrayList<Housemate>)
+}
+
+interface View.addItemView.IAddItemView {
+~ void getHouseMates(ArrayList<Housemate>)
+~ void updateDisplay(ShoppingList)
+}
+interface View.addItemView.IAddItemView.Listener {
+~ void onAddedItem(String,int,float,ArrayList<Housemate>,IAddItemView)
+~ void onPreviousInAddItemFragment()
+}
+
+
 
 View.purchasedListScreen.IPurchasedListScreenFragment <|.. View.purchasedListScreen.PurchasedListScreenFragment
 View.purchasedListScreen.IPurchasedListScreenFragment +.. View.purchasedListScreen.IPurchasedListScreenFragment.Listener
 View.shoppingListScreen.IShoppingListScreenView +.. View.shoppingListScreen.IShoppingListScreenView.Listener
 View.shoppingListScreen.IShoppingListScreenView <|.. View.shoppingListScreen.ShoppingListScreenFragment
+View.transactionsScreen.ITransactionsScreenFragment +.. View.transactionsScreen.ITransactionsScreenFragment.Listener
+View.transactionsScreen.ITransactionsScreenFragment <|.. View.transactionsScreen.TransactionsScreenFragment
+View.addItemView.IAddItemView +.. View.addItemView.IAddItemView.Listener
+View.addItemView.IAddItemView <|.. View.addItemView.AddItemFragment
 @enduml
 ```
+
+# Class Diagram for View Part 3
+```plantuml
+@startuml
+
+class View.loginScreen.LoginScreenFragment {
+- Listener listener
+- FragmentLoginScreenBinding binding
++ void onCreate(Bundle)
++ View onCreateView(LayoutInflater,ViewGroup,Bundle)
++ void onViewCreated(View,Bundle)
+}
+
+interface View.loginScreen.ILoginScreenFragment {
+}
+interface View.loginScreen.ILoginScreenFragment.Listener {
+~ void onCreateHouse(String,String)
+}
+
+class View.homeScreen.HomeScreenFragment {
+- Listener listener
+- FragmentHomeScreenBinding binding
++ void onCreate(Bundle)
++ View onCreateView(LayoutInflater,ViewGroup,Bundle)
++ void onViewCreated(View,Bundle)
+}
+
+interface View.homeScreen.IHomeScreenFragment {
+}
+interface View.homeScreen.IHomeScreenFragment.Listener {
++ void onOpenShoppingList()
++ void onOpenCalendar()
++ void onOpenHousemateList()
++ void onOpenPurchasedList()
++ void onOpenTransactions()
+}
+
+class View.housemateListScreen.debtScreen.DebtScreenFragment {
+~ FragmentDebtScreenBinding binding
+~ Listener listener
++ void onCreate(Bundle)
++ View onCreateView(LayoutInflater,ViewGroup,Bundle)
++ void onViewCreated(View,Bundle)
++ void updateDisplay(String)
+}
+
+interface View.housemateListScreen.debtScreen.IDebtScreenFragment {
++ void updateDisplay(String)
+}
+interface View.housemateListScreen.debtScreen.IDebtScreenFragment.Listener {
+~ void onPreviousOnDebtScreen()
+}
+
+View.housemateListScreen.debtScreen.IDebtScreenFragment +.. View.housemateListScreen.debtScreen.IDebtScreenFragment.Listener
+View.housemateListScreen.debtScreen.IDebtScreenFragment <|.. View.housemateListScreen.debtScreen.DebtScreenFragment
+View.loginScreen.ILoginScreenFragment <|.. View.loginScreen.LoginScreenFragment
+View.loginScreen.ILoginScreenFragment +.. View.loginScreen.ILoginScreenFragment.Listener
+View.homeScreen.IHomeScreenFragment +.. View.homeScreen.IHomeScreenFragment.Listener
+View.homeScreen.IHomeScreenFragment <|.. View.homeScreen.HomeScreenFragment
+@enduml
+```
+
 
