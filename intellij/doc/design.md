@@ -107,6 +107,22 @@ participant ": Domain.Housemate" as housemate
 @enduml
 ```
 
+# Add Event to Calendar
+```plantuml
+
+@startuml
+actor Housemate as Actor
+
+    addEventView -->> Actor  : get name, date, time, interestedHouseMates and recurrence
+    addEventView -->> ControllerActivity  : onAddedEvent(name, date, startTime, endTime, interestedHouseMates, recurrence)
+    ControllerActivity -->> HouseController : addEventToCalendar(name, date, startTime, endTime, getInterestedHouseMates, recurrence)
+    HouseController -->> Calendar : addEvent(name, date, startTime, endTime, getInterestedHouseMates, recurrence)
+    loop until recurrence.endDate
+        Calendar -->> Event ** : Event(name, date, stratTime, endTime)
+    end
+@enduml
+```
+
 # Class Diagram
 ```plantuml
 @startuml
@@ -143,6 +159,38 @@ class Domain.ShoppingList{
     + toString() : String
 }
 Domain.House --> "(1..*) \nshoppingList\n{List}" Domain.LineItem : \t\t\t\t
+Domain.House --> "(1)" Domain.Calendar 
+class Domain.Calendar {
+    - currentDate : Date
+    + addEvent(name, date, startTime, endTime, interestedHouseMates, recurrence : Recurrence) : boolean
+    + remove() : void
+    + getThisEvent() : Event
+    + setCurrentDate() : boolean
+    + getCurrentDate() : Date
+    + toString() : String
+}
+
+class Domain.Event {
+    - name : String
+    - date : Date
+    - startTime : time
+    - endTime : time
+    + getName() : String
+    + getDate() : Date
+    + getStartTime() : Time
+    + getEndTime() : Time
+    + toString() : String
+    }
+Domain.Calendar --> "(0..*) \nevents\n{List}" Domain.Event : \t\t\t\t
+Domain.Event --> "(0..*) \nhousemates\n{List}" Domain.Housemate : \t\t\t\t
+class Domain.Recurrence {
+    - frequency : String
+    - startDate : Date
+    - endDate : Date
+    + getFrequency() : String
+    + getStartDate() : Date
+    + getEndDate() : Date
+}
 
 class Domain.LineItem {
     - quantity  : int 
