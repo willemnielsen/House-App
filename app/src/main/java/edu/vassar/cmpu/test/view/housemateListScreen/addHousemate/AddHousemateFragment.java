@@ -39,7 +39,10 @@ public class AddHousemateFragment extends Fragment implements IAddHousemate {
         this.binding.addButton.setOnClickListener((View clickedView) -> {
             Editable name = this.binding.typeHousemateName.getEditableText();
             String nameStr = name.toString();
-            if(nameStr.length() != 0){
+            if (nameStr.length() == 0) {
+                this.binding.typeHousemateName.setError("Please Enter a Valid Name");
+            }
+            else{
                 this.listener.onAddHousemate(nameStr);
             }
             this.binding.typeHousemateName.setText("");
