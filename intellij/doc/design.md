@@ -107,7 +107,7 @@ participant ": Domain.Housemate" as housemate
 @enduml
 ```
 
-# Add Event to Calendar
+# Add Event to Calendar Sequence Diagram
 ```plantuml
 
 @startuml
@@ -120,6 +120,21 @@ actor Housemate as Actor
     loop until recurrence.endDate
         Calendar -->> Event ** : Event(name, date, stratTime, endTime)
     end
+@enduml
+```
+
+# Add Item to Shopping List Sequence Diagram
+```plantuml
+
+@startuml
+actor Housemate as Actor
+
+    addItemFragment -->> Actor  : get name, date, time, interestedHouseMates and recurrence
+    addItemFragment -->> ControllerActivity  : onAddedItem(name, quantity, price, interestedHMs)
+    ControllerActivity -->> HouseController : addLineItemToShoppingList(quantity, name, price, interestedHouseMates)
+    HouseController -->> House : addLineItemToShoppingList(quantity, name, price, interestedHouseMates)
+    House -->> ShoppingList : addItem(quantity, name, price, interestedHouseMates)
+    
 @enduml
 ```
 
