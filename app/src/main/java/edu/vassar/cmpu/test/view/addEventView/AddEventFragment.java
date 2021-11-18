@@ -154,8 +154,8 @@ public class AddEventFragment extends Fragment implements IAddEventView,
                     Date date = new Date(year - 1900, month - 1, day);
 
                     String recur = binding.recText.getText().toString();
-                    ArrayList<Housemate> interestedHMs = CreateDialog(housemates);
-                    onAddedEvent(name, date, st, et, interestedHMs, recur);
+                    CreateDialog(housemates, name, date, st, et, recur);
+
 
                 } catch (NumberFormatException e) {
 
@@ -189,8 +189,8 @@ public class AddEventFragment extends Fragment implements IAddEventView,
         });
     }
 
-    private ArrayList<Housemate> CreateDialog(ArrayList<Housemate> housemates){
-
+    private ArrayList<Housemate> CreateDialog(ArrayList<Housemate> housemates, String name,
+                                              Date date, Time st, Time et, String recur){
         ArrayList<String> selectedHM = new ArrayList<>();
         ArrayList<Housemate> interestedHM = new ArrayList<>();
         String[] names = new String[housemates.size()];
@@ -213,13 +213,16 @@ public class AddEventFragment extends Fragment implements IAddEventView,
                     }
         }).setPositiveButton("Done", (dialog, which) -> {
             if (selectedHM.isEmpty()){
-                String data = "Event Created: No Housemates Added.";
+                CreateDialog(housemates, name, date, st, et, recur);
+                String data = "Please Select Housemates to Add to the Event.";
                 Toast.makeText(getActivity(), data, Toast.LENGTH_SHORT).show();
             } else{
                 String data = "Housemates Added to Event:";
-                for (String name : selectedHM){
-                    data = data + " " + name;
+                for (String n : selectedHM){
+                    data = data + " " + n;
                 }
+                AddEventFragment.this.listener.onAddedEvent(name, date, st, et, interestedHM, recur,
+                        AddEventFragment.this);
                 Toast.makeText(getActivity(), data, Toast.LENGTH_SHORT).show();
             }
         }).setNegativeButton("Cancel", (dialog, which) -> {
