@@ -2,6 +2,7 @@ package edu.vassar.cmpu.test.domain;
 
 import java.sql.Time;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.Date;
 
 public class Calendar {
@@ -54,9 +55,10 @@ public class Calendar {
                 }
                 events.add(newevent);
 
-
+                sort(events);
                 return true;
         }
+        sort(events);
         return true;
     }
 
@@ -74,9 +76,11 @@ public class Calendar {
         return true;
     }
 
-    public Date getCurrentDate() {
-        return this.currentDate;
+    public static void sort(ArrayList<Event> eventlist)
+    {
+        eventlist.sort(Comparator.comparing(Event::getStartTime));
     }
+
 
     public String toString() {
         String list = "" + currentDate + "\n";
