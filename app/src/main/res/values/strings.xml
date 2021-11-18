@@ -45,7 +45,12 @@
     <string name="back">Back</string>
     <string name="slash">/</string>
     <string name="colon">:</string>
+    <!-- Strings for transactions -->
+    <string name="add_housemate">Add Housemate</string>
+    <string name="transactions">Transactions</string>
     <string name="recurrence_t">Recurrence:</string>
+    <string name="debt">Debt</string>
+    <string name="name">Name:</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
