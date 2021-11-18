@@ -24,3 +24,6 @@ Our prototype implements the following class: Calendar, on top of the classes im
 * The quantity attribute does not have a set range / cap, so housemates can input high quantities, which are not normal in everyday life
 * Only one house can be created at a time
 
+## Run Project
+When running the app, you are presented with a screen to log in, here you will put a house name and a housemate of your choice. Then you will be meet with options to view the housemate, shopping list, calendar, purchase list and transactions. If you open housemate you have the option to add a new housemate. If you open shopping list, you will have the option to purchase items with the top button in the lower right corner and add items to the list with the bottom button. The add button opens up a fragment where you add the item information and before adding the item a dialog pops up that asks the user to add the interested housemates. Furthermore, there are buttons to go back on each screen. For the calendar, you can add events by pressing{}. For the purchase list, the items purchased is displayed and you will have the option to split the payment in three different methods. 
+
