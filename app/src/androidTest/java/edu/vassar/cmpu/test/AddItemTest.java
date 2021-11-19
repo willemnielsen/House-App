@@ -59,6 +59,8 @@ public class AddItemTest {
 
         testJoinHouse();
 
+        //        Check all entry fields are set to default text
+
         ViewInteraction calendarButton = Espresso.onView(ViewMatchers.withId(R.id.open_calender_button))
                 .perform(ViewActions.click());
 
@@ -122,8 +124,9 @@ public class AddItemTest {
         eventDay.check(matches(ViewMatchers.withText("")));
         eventYear.check(matches(ViewMatchers.withText("")));
 
-        ViewInteraction currDate = Espresso.onView(ViewMatchers.withClassName(Matchers.equalTo(CalendarView.class.getName())))
+        ViewInteraction eventDate = Espresso.onView(ViewMatchers.withClassName(Matchers.equalTo(CalendarView.class.getName())))
                 .perform(clickXY(750, 500));
+
         eventMonth.check(matches(ViewMatchers.withText("11")));
         eventDay.check(matches(ViewMatchers.withText("19")));
         eventYear.check(matches(ViewMatchers.withText("2021")));
@@ -143,7 +146,7 @@ public class AddItemTest {
         closekb.perform(ViewActions.closeSoftKeyboard());
         name.check(matches(ViewMatchers.withText("Soccer")));
 
-        currDate.perform(clickXY(750, 500));
+        eventDate.perform(clickXY(750, 500));
         eventMonth.check(matches(ViewMatchers.withText("11")));
         eventDay.check(matches(ViewMatchers.withText("19")));
         eventYear.check(matches(ViewMatchers.withText("2021")));
@@ -224,7 +227,7 @@ public class AddItemTest {
         closekb.perform(ViewActions.closeSoftKeyboard());
         name.check(matches(ViewMatchers.withText("Dinner")));
 
-        currDate.perform(clickXY(750, 500));
+        eventDate.perform(clickXY(750, 500));
         eventMonth.check(matches(ViewMatchers.withText("11")));
         eventDay.check(matches(ViewMatchers.withText("19")));
         eventYear.check(matches(ViewMatchers.withText("2021")));
@@ -291,52 +294,87 @@ public class AddItemTest {
         closekb.perform(ViewActions.closeSoftKeyboard());
         name.check(matches(ViewMatchers.withText("Party")));
 
-        currDate.perform(clickXY(800, 150));
-        currDate.perform(clickXY(800, 300));
+        eventDate.perform(clickXY(800, 150));
+        eventDate.perform(clickXY(800, 300));
         eventMonth.check(matches(ViewMatchers.withText("12")));
-        eventDay.check(matches(ViewMatchers.withText("06")));
+        eventDay.check(matches(ViewMatchers.withText("4")));
         eventYear.check(matches(ViewMatchers.withText("2021")));
 
         clickStartHour.perform(ViewActions.click());
-        selectStartHour = Espresso.onData(allOf(is(instanceOf(String.class)), is("06")))
+        selectStartHour = Espresso.onData(allOf(is(instanceOf(String.class)), is("10")))
                 .perform(ViewActions.click());
-        startHour.check(matches(ViewMatchers.withText("06")));
+        startHour.check(matches(ViewMatchers.withText("10")));
 
         clickStartMin.perform(ViewActions.click());
-        selectStartMin = Espresso.onData(allOf(is(instanceOf(String.class)), is("15")))
+        selectStartMin = Espresso.onData(allOf(is(instanceOf(String.class)), is("10")))
                 .perform(ViewActions.click());
-        startMin.check(matches(ViewMatchers.withText("15")));
+        startMin.check(matches(ViewMatchers.withText("10")));
 
         clickStartAP.perform(ViewActions.click());
         selectStartAP.perform(ViewActions.click());
         startAP.check(matches(ViewMatchers.withText("PM")));
 
         clickEndHour.perform(ViewActions.click());
-        selectEndHour = Espresso.onData(allOf(is(instanceOf(String.class)), is("07")))
+        selectEndHour = Espresso.onData(allOf(is(instanceOf(String.class)), is("02")))
                 .perform(ViewActions.click());
-        endHour.check(matches(ViewMatchers.withText("07")));
+        endHour.check(matches(ViewMatchers.withText("02")));
 
         clickEndMin.perform(ViewActions.click());
-        selectEndMin = Espresso.onData(allOf(is(instanceOf(String.class)), is("20")))
+        selectEndMin = Espresso.onData(allOf(is(instanceOf(String.class)), is("00")))
                 .perform(ViewActions.click());
-        endMin.check(matches(ViewMatchers.withText("20")));
+        endMin.check(matches(ViewMatchers.withText("00")));
 
-        clickEndAP.perform(ViewActions.click());
-        selectEndAP.perform(ViewActions.click());
-        endAP.check(matches(ViewMatchers.withText("PM")));
+        endAP.check(matches(ViewMatchers.withText("AM")));
 
         clickRecur.perform(ViewActions.click());
-        selectRecur = Espresso.onData(allOf(is(instanceOf(String.class)), is("Daily")))
+        selectRecur = Espresso.onData(allOf(is(instanceOf(String.class)), is("Once")))
                 .perform(ViewActions.click());
-        recur.check(matches(ViewMatchers.withText("Daily")));
+        recur.check(matches(ViewMatchers.withText("Once")));
 
         addEventButton.perform(ViewActions.click());
-
-        selectHousemate1.perform(ViewActions.click());
 
         selectHousemate3.perform(ViewActions.click());
 
         addHMs.perform(ViewActions.click());
+
+        //        Check that program reset
+
+        name.check(matches(ViewMatchers.withText("")));
+        eventMonth.check(matches(ViewMatchers.withText("")));
+        eventDay.check(matches(ViewMatchers.withText("")));
+        eventYear.check(matches(ViewMatchers.withText("")));
+        startHour.check(matches(ViewMatchers.withText("01")));
+        startMin.check(matches(ViewMatchers.withText("00")));
+        startAP.check(matches(ViewMatchers.withText("AM")));
+        endHour.check(matches(ViewMatchers.withText("01")));
+        endMin.check(matches(ViewMatchers.withText("00")));
+        endAP.check(matches(ViewMatchers.withText("AM")));
+        recur.check(matches(ViewMatchers.withText("Once")));
+
+        //        Check that all events are displayed in start date order on their given day
+
+        ViewInteraction backButton = Espresso.onView(ViewMatchers.withId(R.id.back))
+                .perform(ViewActions.click());
+
+        ViewInteraction currDate = Espresso.onView(ViewMatchers.withClassName(Matchers.equalTo(CalendarView.class.getName())))
+                .perform(clickXY(750, 500));
+
+
+
+        ViewInteraction eventList = Espresso.onView(ViewMatchers.withId(R.id.eventsList));
+        eventList.check(matches(ViewMatchers.withText("Fri Nov 19 00:00:00 EST 2021\n" +
+                "memberName1, memberName2, Tom has Soccer from 3:00PM to 5:30PM. \n\n" +
+                "memberName1, Tom has Dinner from 6:15PM to 7:20PM. \n\n")));
+
+
+
+
+
+
+
+
+
+
 
     }
 
