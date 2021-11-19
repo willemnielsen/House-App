@@ -30,14 +30,17 @@ import android.view.View;
 import android.widget.CalendarView;
 import android.widget.DatePicker;
 
+import java.util.ArrayList;
+
+import edu.vassar.cmpu.test.model.Housemate;
+
 public class AddItemTest {
 
-    @Rule
+    @org.junit.Rule
     public ActivityScenarioRule<ControllerActivity> activityRule = new ActivityScenarioRule<>(ControllerActivity.class);
 
     @Test
-    public void testJoinHouse(){
-
+    public void testJoinHouse() {
         ViewInteraction name = Espresso.onView(ViewMatchers.withId(R.id.houseName))
                 .perform(ViewActions.typeText("Th - 42"));
 
@@ -49,8 +52,51 @@ public class AddItemTest {
 
         ViewInteraction button = Espresso.onView(ViewMatchers.withId(R.id.join_house_button))
                 .perform(ViewActions.click());
+    }
 
-        //lineItems.check(ViewAssertions.matches(ViewMatchers.withSubstring("900 units of avocado")));
+    @Test
+    public void testAddHouseMate(){
+        testJoinHouse();
+        Espresso.onView(ViewMatchers.withId(R.id.open_housemateList_button)).perform(ViewActions.click());
+
+        ArrayList<Housemate> housematesList = new ArrayList<>();
+        housematesList.add(new Housemate("Tom", "343243"));
+        housematesList.add(new Housemate("Person1", "1"));
+        housematesList.add(new Housemate("Person2",  "2"));
+
+        //add housemates
+        Espresso.onView(ViewMatchers.withId(R.id.addHousemateButton)).perform(ViewActions.click());
+
+        for(int i = 1; i < housematesList.size(); i++){
+            ViewInteraction newMembersName = Espresso.onView(ViewMatchers.withId(R.id.type_housemate_name))
+                    .perform(ViewActions.typeText(housematesList.get(i).getName()));
+            Espresso.onView(ViewMatchers.withId(R.id.type_housemate_name)).perform(ViewActions.click());
+        }
+
+        //back to housemate screen
+        Espresso.onView(ViewMatchers.withId(R.id.previous)).perform(ViewActions.click());
+
+        //checks the label contains all the members name
+        ViewInteraction housematesNames = Espresso.onView(ViewMatchers.withId(R.id.housemates));
+        for(Housemate hm : housematesList) {
+            housematesNames.check(ViewAssertions.matches(ViewMatchers.withSubstring(hm.getName())));
+        }
+
+        //resets to homescreen
+        Espresso.onView(ViewMatchers.withId(R.id.previousOnHousemateListScreen)).perform(ViewActions.click());
+    }
+
+    @Test
+    public void addItemTest(){
+        //Test shopping list displays correct items
+
+
+
+        Espresso.onView(ViewMatchers.withId(R.id.open_shoppingList_button)).perform(ViewActions.click());
+
+        Espresso.onView(ViewMatchers.withId(R.id.addItemButton)).perform(ViewActions.click());
+
+
 
     }
 
@@ -339,6 +385,7 @@ public class AddItemTest {
         addHMs.perform(ViewActions.click());
 
     }
+
 
     public static ViewAction clickXY(final int x, final int y){
         return new GeneralClickAction(
