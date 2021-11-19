@@ -45,6 +45,7 @@
     <string name="back">Back</string>
     <string name="slash">/</string>
     <string name="colon">:</string>
+    <string name="second_calendar">Second Calendar</string>
     <!-- Strings for transactions -->
     <string name="add_housemate">Add Housemate</string>
     <string name="transactions">Transactions</string>
