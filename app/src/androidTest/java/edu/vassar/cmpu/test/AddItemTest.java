@@ -33,11 +33,15 @@ import android.widget.DatePicker;
 import java.util.ArrayList;
 
 import edu.vassar.cmpu.test.domain.Housemate;
+import edu.vassar.cmpu.test.domain.LineItem;
+import edu.vassar.cmpu.test.domain.ShoppingList;
 
 public class AddItemTest {
 
     @org.junit.Rule
     public ActivityScenarioRule<ControllerActivity> activityRule = new ActivityScenarioRule<>(ControllerActivity.class);
+    public ArrayList<Housemate> housematesList;
+    public ShoppingList shoppingList;
 
     @Test
     public void testJoinHouse() {
@@ -59,7 +63,7 @@ public class AddItemTest {
         testJoinHouse();
         Espresso.onView(ViewMatchers.withId(R.id.open_housemateList_button)).perform(ViewActions.click());
 
-        ArrayList<Housemate> housematesList = new ArrayList<>();
+        housematesList = new ArrayList<>();
         housematesList.add(new Housemate("Tom", "343243"));
         housematesList.add(new Housemate("Person1", "1"));
         housematesList.add(new Housemate("Person2",  "2"));
@@ -80,7 +84,7 @@ public class AddItemTest {
         //checks the label contains all the members name
         ViewInteraction housematesNames = Espresso.onView(ViewMatchers.withId(R.id.housemates));
         for(Housemate hm : housematesList) {
-           // housematesNames.check(ViewAssertions.matches(ViewMatchers.withSubstring(hm.getName())));
+           housematesNames.check(ViewAssertions.matches(ViewMatchers.withSubstring(hm.getName())));
         }
 
         //resets to homescreen
@@ -88,18 +92,150 @@ public class AddItemTest {
     }
 
     @Test
-    public void addItemTest(){
-        //Test shopping list displays correct items
-
-
+    public void TestAddItem(){
+        this.testAddHouseMate();// --> logins too
 
         Espresso.onView(ViewMatchers.withId(R.id.open_shoppingList_button)).perform(ViewActions.click());
 
         Espresso.onView(ViewMatchers.withId(R.id.addItemButton)).perform(ViewActions.click());
 
+        shoppingList = new ShoppingList();
+        shoppingList.addItem(10, "Apple", 20f, housematesList);
+        ArrayList<Housemate> SubHousemateList1 = new ArrayList<>();
+        SubHousemateList1.add(housematesList.get(0));
+        SubHousemateList1.add(housematesList.get(1));
+        shoppingList.addItem(5, "Pie", 40f, SubHousemateList1);
 
+        for(int i = 0; i < shoppingList.size(); i++){
+            LineItem li = shoppingList.getShoppingListLineItem(i);
+            //types item info
+            Espresso.onView(ViewMatchers.withId(R.id.type_item_name))
+                    .perform(ViewActions.typeText(li.getName()));
+            Espresso.onView(ViewMatchers.withId(R.id.type_qt))
+                    .perform(ViewActions.typeText(li.getQuantity() + ""));
+            Espresso.onView(ViewMatchers.withId(R.id.type_price))
+                    .perform(ViewActions.typeText(li.getPrice() + ""));
+
+            Espresso.onView(ViewMatchers.withId(R.id.type_price)).perform(ViewActions.closeSoftKeyboard());
+
+
+            //preforms interested housemate
+            Espresso.onView(ViewMatchers.withId(R.id.addButton)).perform(ViewActions.click());
+
+            if(i == 0){
+                Espresso.onView(ViewMatchers.withText("Tom")).perform(ViewActions.click());
+                Espresso.onView(ViewMatchers.withText("Person1")).perform(ViewActions.click());
+                Espresso.onView(ViewMatchers.withText("Person2")).perform(ViewActions.click());
+            } else {
+                Espresso.onView(ViewMatchers.withText(SubHousemateList1.get(0).getName())).perform(ViewActions.click());
+                Espresso.onView(ViewMatchers.withText(SubHousemateList1.get(1).getName())).perform(ViewActions.click());
+            }
+
+            Espresso.onView(ViewMatchers.withText("Done"))
+                    .perform(ViewActions.click());
+        }
+
+        Espresso.onView(ViewMatchers.withId(R.id.previousOnAddItem)).perform(ViewActions.click());
+
+        //checks the label contains all the members name
+        ViewInteraction shoppinglistString = Espresso.onView(ViewMatchers.withId(R.id.shoppingList));
+        for(int i = 0; i < shoppingList.size(); i++){
+            shoppinglistString.check(ViewAssertions.matches(ViewMatchers.withSubstring(shoppingList.getShoppingListLineItem(i).toString())));
+        }
+
+        //back to home screen
+        Espresso.onView(ViewMatchers.withId(R.id.previous_onShoppingListScreen)).perform(ViewActions.click());
+    }
+
+    @Test
+    public void TestCheckout(){
+        this.TestAddItem();
+
+        Espresso.onView(ViewMatchers.withId(R.id.open_shoppingList_button)).perform(ViewActions.click());
+
+        Espresso.onView(ViewMatchers.withId(R.id.purchase_button)).perform(ViewActions.click());
+        for(int i = 0; i < shoppingList.size(); i++){
+            Espresso.onView(ViewMatchers.withText(shoppingList.getShoppingListLineItem(i).toString()))
+                    .perform(ViewActions.click());
+        }
+
+
+        Espresso.onView(ViewMatchers.withText("Done"))
+                .perform(ViewActions.click());
+
+        Espresso.onView(ViewMatchers.withId(R.id.previous_onShoppingListScreen)).perform(ViewActions.click());
+        //at home screen
+
+        //opens purchased list
+        Espresso.onView(ViewMatchers.withId(R.id.open_purchasedList_button)).perform(ViewActions.click());
+
+        ViewInteraction purchasedlistString = Espresso.onView(ViewMatchers.withId(R.id.purchased_item));
+        for(int i = 0; i < shoppingList.size(); i++){
+            purchasedlistString.check(ViewAssertions.matches(ViewMatchers.withSubstring(shoppingList.getShoppingListLineItem(i).toString())));
+        }
+
+        //home screen
+        Espresso.onView(ViewMatchers.withId(R.id.previous_onPurchasedListScreen)).perform(ViewActions.click());
+    }
+
+    @Test
+    public void TestPurchase(){
+        this.TestPurchase("Charge Me");
+
+        this.TestPurchase("Charge Based on Interested Housemates");
+        //doesnt work
+        //this.TestPurchase("Charge Household");
 
     }
+
+    public void TestPurchase(String distribution){
+        this.TestCheckout();
+
+        Espresso.onView(ViewMatchers.withId(R.id.open_purchasedList_button)).perform(ViewActions.click());
+
+        //purchased
+        Espresso.onView(ViewMatchers.withId(R.id.purchaseButton)).perform(ViewActions.click());
+
+        //choices checkout option
+        Espresso.onView(ViewMatchers.withText(distribution)).perform(ViewActions.click());
+        Espresso.onView(ViewMatchers.withText("Done")).perform(ViewActions.click());
+
+        //home screen
+        Espresso.onView(ViewMatchers.withId(R.id.previous_onPurchasedListScreen)).perform(ViewActions.click());
+
+        //open transactions
+        Espresso.onView(ViewMatchers.withId(R.id.TransactionsButton)).perform(ViewActions.click());
+
+        //open transactions
+        Espresso.onView(ViewMatchers.withId(R.id.transactionsText)).perform(ViewActions.click());
+
+        ViewInteraction transactionString = Espresso.onView(ViewMatchers.withId(R.id.transactionsText));
+        if(distribution.equals("Charge Me")) {
+            transactionString.check(ViewAssertions.matches(ViewMatchers.withSubstring("Tom paid 200.0 for 5 Pie(s)")));
+            transactionString.check(ViewAssertions.matches(ViewMatchers.withSubstring("Tom paid 200.0 for 10 Apple(s)")));
+        }
+
+        if(distribution.equals("Charge Based on Interested Housemates")) {
+            transactionString.check(ViewAssertions.matches(ViewMatchers.withSubstring(housematesList.get(2).getName() + " owes Tom 66.666664 for 10 Apple(s)")));
+            transactionString.check(ViewAssertions.matches(ViewMatchers.withSubstring("Tom paid 66.666664 for 10 Apple(s)")));
+            transactionString.check(ViewAssertions.matches(ViewMatchers.withSubstring(housematesList.get(1).getName() + " owes Tom 66.666664 for 10 Apple(s)")));
+            transactionString.check(ViewAssertions.matches(ViewMatchers.withSubstring("Tom paid 100.0 for 5 Pie(s)")));
+            transactionString.check(ViewAssertions.matches(ViewMatchers.withSubstring(housematesList.get(1).getName() + " owes Tom 100.0 for 5 Pie(s)")));
+        }
+
+        if(distribution.equals("Charge Household")) {
+            transactionString.check(ViewAssertions.matches(ViewMatchers.withSubstring(housematesList.get(1).getName() + " owes Tom 66.666664 for 5 Pie(s)")));
+            transactionString.check(ViewAssertions.matches(ViewMatchers.withSubstring(housematesList.get(2).getName() + " owes Tom 66.666664 for 5 Pie(s)")));
+            transactionString.check(ViewAssertions.matches(ViewMatchers.withSubstring("Tom paid 66.666664 for 5 Pie(s)")));
+            transactionString.check(ViewAssertions.matches(ViewMatchers.withSubstring(housematesList.get(1).getName() + " owes Tom 66.666664 for 10 Apple(s)")));
+            transactionString.check(ViewAssertions.matches(ViewMatchers.withSubstring(housematesList.get(2).getName() + " owes Tom 66.666664 for 10 Apple(s)")));
+            transactionString.check(ViewAssertions.matches(ViewMatchers.withSubstring("Tom paid 66.666664 for 10 Apple(s)")));
+        }
+
+        Espresso.onView(ViewMatchers.withId(R.id.previousButtonOnTransactionsScreen)).perform(ViewActions.click());
+    }
+
+
 
     @Test
     public void testCalendar(){
