@@ -154,7 +154,7 @@ public class AddEventFragment extends Fragment implements IAddEventView,
                     Date date = new Date(year - 1900, month - 1, day);
 
                     String recur = binding.recText.getText().toString();
-                    CreateDialog(housemates, name, date, st, et, recur);
+                    if (!name.isEmpty()) CreateDialog(housemates, name, date, st, et, recur);
 
 
                 } catch (NumberFormatException e) {
