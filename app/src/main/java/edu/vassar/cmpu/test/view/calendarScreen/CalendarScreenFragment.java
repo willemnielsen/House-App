@@ -43,7 +43,7 @@ public class CalendarScreenFragment extends Fragment implements ICalendarScreenV
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
-        this.binding.addEventButton.setOnClickListener((View clickedView) -> {
+        this.binding.goAddEventScreen.setOnClickListener((View clickedView) -> {
             this.listener.onAddEvent();
         });
 

@@ -21,9 +21,8 @@ import java.util.List;
 
 
 import edu.vassar.cmpu.test.databinding.FragmentAddEventBinding;
-import edu.vassar.cmpu.test.domain.Calendar;
-import edu.vassar.cmpu.test.domain.Housemate;
-import edu.vassar.cmpu.test.view.addItemView.AddItemFragment;
+import edu.vassar.cmpu.test.model.Calendar;
+import edu.vassar.cmpu.test.model.Housemate;
 
 
 public class AddEventFragment extends Fragment implements IAddEventView,
@@ -154,7 +153,7 @@ public class AddEventFragment extends Fragment implements IAddEventView,
                     Date date = new Date(year - 1900, month - 1, day);
 
                     String recur = binding.recText.getText().toString();
-                    CreateDialog(housemates, name, date, st, et, recur);
+                    if (!name.isEmpty()) CreateDialog(housemates, name, date, st, et, recur);
 
 
                 } catch (NumberFormatException e) {

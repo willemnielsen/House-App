@@ -107,7 +107,7 @@ participant ": Domain.Housemate" as housemate
 @enduml
 ```
 
-# Add Event to Calendar
+# Add Event to Calendar Sequence Diagram
 ```plantuml
 
 @startuml
@@ -122,6 +122,72 @@ actor Housemate as Actor
     end
 @enduml
 ```
+
+# Add Item to Shopping List Sequence Diagram
+```plantuml
+
+@startuml
+actor Housemate as Actor
+
+    addItemFragment -->> Actor  : get name, date, time, interestedHouseMates and recurrence
+    addItemFragment -->> ControllerActivity  : onAddedItem(name, quantity, price, interestedHMs)
+    ControllerActivity -->> HouseController : addLineItemToShoppingList(quantity, name, price, interestedHouseMates)
+    HouseController -->> House : addLineItemToShoppingList(quantity, name, price, interestedHouseMates)
+    House -->> ShoppingList : addItem(quantity, name, price, interestedHouseMates)
+    
+@enduml
+```
+
+# Add Housemate to House Sequence Diagram
+```plantuml
+@startuml
+actor Housemate as Actor
+    addHousemateFragment -->> Actor  : get name
+    addHousemateFragment -->> ControllerActivity  : onAddHousemate(name)
+    ControllerActivity -->> HouseController : addHousemate(new Housemate(name, randID))
+    HouseController -->> House : addHousemate(new Housemate(name, randID))    
+@enduml
+```
+
+# Create House Sequence Diagram
+```plantuml
+@startuml
+actor User as Actor
+    loginScreenFragment -->> Actor  : get HouseName, Usersname
+    loginScreenFragment -->> ControllerActivity  : onAddHousemate(HouseName, UsersName)
+@enduml
+```
+
+# Checkout Sequence Diagram
+```plantuml
+@startuml
+actor Housemate as Actor
+    loop until done
+        ShoppingListScreenFragment -->> Actor  : get lineItem
+        ShoppingListScreenFragment -->> ControllerActivity  : opPurchaseItems(lineItem)
+        ControllerActivity -->> HouseController : addToPurchase(lineItem)
+        HouseController -->> House : addToPurchase(lineItem)
+        
+        ControllerActivity --> ShoppingListScreenFragment : updateDisplay(houseController.getHouse().getShoppingList())
+        ControllerActivity --> ShoppingListScreenFragment : updatePurchasedList(houseController.getHouse().getPurchasedItems())
+
+    end
+    
+@enduml
+```
+
+# Add Housemate to House Sequence Diagram
+```plantuml
+@startuml
+actor Housemate as Actor
+    PurchasedListScreenFragment -->> Actor  : get distribution
+    PurchasedListScreenFragment -->> ControllerActivity  : onPurchaseByUser(distribution)
+    ControllerActivity -->> HouseController : checkout(distribution, houseController.getLoggedInUser())
+    HouseController -->> House : checkout(distribution, houseController.getLoggedInUser())
+    ControllerActivity -->> PurchasedListScreenFragment : updatePurchasedList(houseController.getHouse().getPurchasedItems())
+@enduml
+```
+
 
 # Class Diagram for Domain
 ```plantuml
