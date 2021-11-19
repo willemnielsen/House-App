@@ -149,6 +149,34 @@ actor Housemate as Actor
 @enduml
 ```
 
+# Create House Sequence Diagram
+```plantuml
+@startuml
+actor User as Actor
+    loginScreenFragment -->> Actor  : get HouseName, Usersname
+    loginScreenFragment -->> ControllerActivity  : onAddHousemate(HouseName, UsersName)
+@enduml
+```
+
+# Checkout Sequence Diagram
+```plantuml
+@startuml
+actor Housemate as Actor
+    loop until done
+        ShoppingListScreenFragment -->> Actor  : get lineItem
+        ShoppingListScreenFragment -->> ControllerActivity  : opPurchaseItems(lineItem)
+        ControllerActivity -->> HouseController : addToPurchase(lineItem)
+        HouseController -->> House : addToPurchase(lineItem)
+        
+        ControllerActivity --> ShoppingListScreenFragment : updateDisplay(houseController.getHouse().getShoppingList())
+        ControllerActivity --> ShoppingListScreenFragment : updatePurchasedList(houseController.getHouse().getPurchasedItems())
+
+    end
+    
+@enduml
+```
+
+
 
 # Class Diagram for Domain
 ```plantuml
