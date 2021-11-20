@@ -131,7 +131,7 @@ public class AddEventFragment extends Fragment implements IAddEventView,
                 if (name.isEmpty()) {binding.typeEventName.setError("Please Enter an Event Name");}
 
                 if (binding.typeYear.getText().toString().isEmpty()) {
-                    binding.typeYear.setError("Please Select a Date");}
+                    Toast.makeText(getActivity(), "Please Select a Date.", Toast.LENGTH_SHORT).show();}
 
                 try {
                     int sth = Integer.parseInt(binding.hourText.getText().toString());
