@@ -23,7 +23,6 @@ import java.util.List;
 import edu.vassar.cmpu.test.databinding.FragmentAddEventBinding;
 import edu.vassar.cmpu.test.domain.Calendar;
 import edu.vassar.cmpu.test.domain.Housemate;
-import edu.vassar.cmpu.test.view.addItemView.AddItemFragment;
 
 
 public class AddEventFragment extends Fragment implements IAddEventView,

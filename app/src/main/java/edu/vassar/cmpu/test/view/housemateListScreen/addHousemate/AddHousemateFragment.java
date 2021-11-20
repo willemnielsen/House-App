@@ -36,7 +36,7 @@ public class AddHousemateFragment extends Fragment implements IAddHousemate {
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
-        this.binding.addButton.setOnClickListener((View clickedView) -> {
+        this.binding.addNewHousemateButton.setOnClickListener((View clickedView) -> {
             Editable name = this.binding.typeHousemateName.getEditableText();
             String nameStr = name.toString();
             if (nameStr.length() == 0) {
@@ -48,7 +48,7 @@ public class AddHousemateFragment extends Fragment implements IAddHousemate {
             this.binding.typeHousemateName.setText("");
         });
 
-        this.binding.previous.setOnClickListener((View clickedView) -> {
+        this.binding.previousOnAddHousemate.setOnClickListener((View clickedView) -> {
             this.listener.onPreviousOnAddHousemateScreen();
         });
     }

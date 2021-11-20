@@ -67,6 +67,8 @@ public class Calendar {
         events.remove(event);
     }
 
+    public ArrayList<Event> getEvents(){return this.events;}
+
     public Event getThisEvent(Event event) {
         return events.get(events.indexOf(event));
     }

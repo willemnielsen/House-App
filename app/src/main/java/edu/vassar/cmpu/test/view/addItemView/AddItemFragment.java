@@ -49,7 +49,7 @@ public class AddItemFragment extends Fragment implements IAddItemView {
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
-        this.binding.previous.setOnClickListener((View clickedView) -> {
+        this.binding.previousOnAddItem.setOnClickListener((View clickedView) -> {
             this.listener.onPreviousInAddItemFragment();
         });
 
