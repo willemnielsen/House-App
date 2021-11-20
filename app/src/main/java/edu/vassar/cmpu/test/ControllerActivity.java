@@ -205,7 +205,7 @@ public class ControllerActivity extends AppCompatActivity
         public void onAddedEvent(String name, Date date, Time startTime, Time endTime,
                                  ArrayList<Housemate> interestedHMs, String rec,
                                  IAddEventView addEventView) {
-            Date startDate = new Date();
+            Date startDate = date;
             Date endDate = new Date(startDate.getTime()+31556952000L);
             Recurrence recurrence = new Recurrence(rec, startDate, endDate);
             houseController.addEventToCalendar(name, date, startTime, endTime, interestedHMs,
