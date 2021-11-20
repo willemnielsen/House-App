@@ -1,7 +1,7 @@
 package edu.vassar.cmpu.test;
 
+import static androidx.test.InstrumentationRegistry.getContext;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
-import static androidx.test.espresso.matcher.RootMatchers.withDecorView;
 
 import androidx.test.espresso.Espresso;
 import androidx.test.espresso.ViewAction;
@@ -12,10 +12,10 @@ import androidx.test.espresso.action.Press;
 import androidx.test.espresso.action.Tap;
 import androidx.test.espresso.action.ViewActions;
 import androidx.test.espresso.assertion.ViewAssertions;
+import androidx.test.espresso.contrib.PickerActions;
 import androidx.test.espresso.matcher.ViewMatchers;
 import androidx.test.ext.junit.rules.ActivityScenarioRule;
 
-import androidx.test.espresso.contrib.PickerActions;
 
 import org.hamcrest.Matchers;
 import org.junit.Rule;
@@ -41,11 +41,13 @@ public class AddItemTest {
         ViewInteraction name = Espresso.onView(ViewMatchers.withId(R.id.houseName))
                 .perform(ViewActions.typeText("Th - 42"));
 
+        ViewInteraction closekb = Espresso.onView(ViewMatchers.withId(R.id.newMembersName))
+                .perform(ViewActions.closeSoftKeyboard());
+
         ViewInteraction qty = Espresso.onView(ViewMatchers.withId(R.id.newMembersName))
                 .perform(ViewActions.typeText("Tom"));
 
-        ViewInteraction closekb = Espresso.onView(ViewMatchers.withId(R.id.newMembersName))
-                .perform(ViewActions.closeSoftKeyboard());
+        closekb.perform(ViewActions.closeSoftKeyboard());
 
         ViewInteraction button = Espresso.onView(ViewMatchers.withId(R.id.join_house_button))
                 .perform(ViewActions.click());
@@ -125,7 +127,7 @@ public class AddItemTest {
         eventYear.check(matches(ViewMatchers.withText("")));
 
         ViewInteraction eventDate = Espresso.onView(ViewMatchers.withClassName(Matchers.equalTo(CalendarView.class.getName())))
-                .perform(clickXY(750, 500));
+                .perform(clickXY(760, 500));
 
         eventMonth.check(matches(ViewMatchers.withText("11")));
         eventDay.check(matches(ViewMatchers.withText("19")));
@@ -146,7 +148,7 @@ public class AddItemTest {
         closekb.perform(ViewActions.closeSoftKeyboard());
         name.check(matches(ViewMatchers.withText("Soccer")));
 
-        eventDate.perform(clickXY(750, 500));
+        eventDate.perform(clickXY(760, 500));
         eventMonth.check(matches(ViewMatchers.withText("11")));
         eventDay.check(matches(ViewMatchers.withText("19")));
         eventYear.check(matches(ViewMatchers.withText("2021")));
@@ -227,7 +229,7 @@ public class AddItemTest {
         closekb.perform(ViewActions.closeSoftKeyboard());
         name.check(matches(ViewMatchers.withText("Dinner")));
 
-        eventDate.perform(clickXY(750, 500));
+        eventDate.perform(clickXY(760, 500));
         eventMonth.check(matches(ViewMatchers.withText("11")));
         eventDay.check(matches(ViewMatchers.withText("19")));
         eventYear.check(matches(ViewMatchers.withText("2021")));
@@ -357,9 +359,7 @@ public class AddItemTest {
                 .perform(ViewActions.click());
 
         ViewInteraction currDate = Espresso.onView(ViewMatchers.withClassName(Matchers.equalTo(CalendarView.class.getName())))
-                .perform(clickXY(750, 500));
-
-
+                .perform(clickXY(760, 500));
 
         ViewInteraction eventList = Espresso.onView(ViewMatchers.withId(R.id.eventsList));
         eventList.check(matches(ViewMatchers.withText("Fri Nov 19 00:00:00 EST 2021\n" +
@@ -367,14 +367,47 @@ public class AddItemTest {
                 "memberName1, Tom has Dinner from 6:15PM to 7:20PM. \n\n")));
 
 
+        currDate.perform(clickXY(150, 600));
+        eventList.check(matches(ViewMatchers.withText("Sun Nov 21 00:00:00 EST 2021\n" +
+                "memberName1, Tom has Dinner from 6:15PM to 7:20PM. \n\n")));
+        currDate.perform(clickXY(270, 600));
+        eventList.check(matches(ViewMatchers.withText("Mon Nov 22 00:00:00 EST 2021\n" +
+                "memberName1, Tom has Dinner from 6:15PM to 7:20PM. \n\n")));
+        currDate.perform(clickXY(390, 600));
+        eventList.check(matches(ViewMatchers.withText("Tue Nov 23 00:00:00 EST 2021\n" +
+                "memberName1, Tom has Dinner from 6:15PM to 7:20PM. \n\n")));
+        currDate.perform(clickXY(510, 600));
+        eventList.check(matches(ViewMatchers.withText("Wed Nov 24 00:00:00 EST 2021\n" +
+                "memberName1, Tom has Dinner from 6:15PM to 7:20PM. \n\n")));
+        currDate.perform(clickXY(630, 600));
+        eventList.check(matches(ViewMatchers.withText("Thu Nov 25 00:00:00 EST 2021\n" +
+                "memberName1, Tom has Dinner from 6:15PM to 7:20PM. \n\n")));
+        currDate.perform(clickXY(760, 600));
+        eventList.check(matches(ViewMatchers.withText("Fri Nov 26 00:00:00 EST 2021\n" +
+                "memberName1, memberName2, Tom has Soccer from 3:00PM to 5:30PM. \n\n" +
+                "memberName1, Tom has Dinner from 6:15PM to 7:20PM. \n\n")));
+        currDate.perform(clickXY(880, 100));
+        currDate.perform(clickXY(880, 350));
+       eventList.check(matches(ViewMatchers.withText("Sat Dec 04 00:00:00 EST 2021\n" +
+                "memberName1, Tom has Dinner from 6:15PM to 7:20PM. \n\n" +
+                "Tom has Party from 10:10PM to 2:00AM. \n\n")));
 
-
-
-
-
-
-
-
+        //      check to see daily/weekly events are still created a year out
+        currDate.perform(clickXY(880, 100));
+        currDate.perform(clickXY(880, 100));
+        currDate.perform(clickXY(880, 100));
+        currDate.perform(clickXY(880, 100));
+        currDate.perform(clickXY(880, 100));
+        currDate.perform(clickXY(880, 100));
+        currDate.perform(clickXY(880, 100));
+        currDate.perform(clickXY(880, 100));
+        currDate.perform(clickXY(880, 100));
+        currDate.perform(clickXY(880, 100));
+        currDate.perform(clickXY(880, 100));
+        currDate.perform(clickXY(760, 350));
+        eventList.check(matches(ViewMatchers.withText("Fri Nov 04 00:00:00 EDT 2022\n" +
+                "memberName1, memberName2, Tom has Soccer from 3:00PM to 5:30PM. \n\n" +
+                "memberName1, Tom has Dinner from 6:15PM to 7:20PM. \n\n")));
 
     }
 
@@ -385,8 +418,12 @@ public class AddItemTest {
                     @Override
                     public float[] calculateCoordinates(View view) {
 
+                        float density = getContext().getResources().getDisplayMetrics().densityDpi;
                         final int[] screenPos = new int[2];
                         view.getLocationOnScreen(screenPos);
+
+                       /* int xcoord = (int) ((x*440)/density);
+                        int ycoord = (int) ((y*440)/density);*/
 
                         final float screenX = screenPos[0] + x;
                         final float screenY = screenPos[1] + y;
