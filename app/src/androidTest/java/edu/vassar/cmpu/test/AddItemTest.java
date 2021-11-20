@@ -50,13 +50,11 @@ public class AddItemTest {
         ViewInteraction name = Espresso.onView(ViewMatchers.withId(R.id.houseName))
                 .perform(ViewActions.typeText("Th - 42"));
 
-        ViewInteraction closekb = Espresso.onView(ViewMatchers.withId(R.id.newMembersName))
-                .perform(ViewActions.closeSoftKeyboard());
-
         ViewInteraction qty = Espresso.onView(ViewMatchers.withId(R.id.newMembersName))
                 .perform(ViewActions.typeText("Tom"));
 
-        closekb.perform(ViewActions.closeSoftKeyboard());
+        ViewInteraction closekb = Espresso.onView(ViewMatchers.withId(R.id.newMembersName))
+                .perform(ViewActions.closeSoftKeyboard());
 
         ViewInteraction button = Espresso.onView(ViewMatchers.withId(R.id.join_house_button))
                 .perform(ViewActions.click());
@@ -520,8 +518,6 @@ public class AddItemTest {
 
         addEventButton.perform(ViewActions.click());
 
-        selectHousemate1.perform(ViewActions.click());
-
         selectHousemate3.perform(ViewActions.click());
 
         addHMs.perform(ViewActions.click());
@@ -596,6 +592,10 @@ public class AddItemTest {
                 "memberName1, memberName2, Tom has Soccer from 3:00PM to 5:30PM. \n\n" +
                 "memberName1, Tom has Dinner from 6:15PM to 7:20PM. \n\n")));
 
+        //home screen
+        Espresso.onView(ViewMatchers.withId(R.id.previousOnCalendarScreen)).perform(ViewActions.click());
+
+
     }
 
 
@@ -606,12 +606,9 @@ public class AddItemTest {
                     @Override
                     public float[] calculateCoordinates(View view) {
 
-                        float density = getContext().getResources().getDisplayMetrics().densityDpi;
                         final int[] screenPos = new int[2];
                         view.getLocationOnScreen(screenPos);
 
-                       /* int xcoord = (int) ((x*440)/density);
-                        int ycoord = (int) ((y*440)/density);*/
 
                         final float screenX = screenPos[0] + x;
                         final float screenY = screenPos[1] + y;
