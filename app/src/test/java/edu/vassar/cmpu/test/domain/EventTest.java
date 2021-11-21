@@ -5,7 +5,10 @@ import java.util.Date;
 import java.sql.Time;
 
 class EventTest {
-
+    /**
+     * Tests Event toString() by comparing expected string of a given event to the toString output
+     * of that same Event
+     */
     @org.junit.jupiter.api.Test
     void testToString() {
 

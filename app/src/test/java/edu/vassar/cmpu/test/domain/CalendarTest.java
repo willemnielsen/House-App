@@ -11,6 +11,38 @@ import java.util.Date;
 
 class CalendarTest {
 
+    /**
+     * Tests calendar toString() by comparing expected string of a given calendar to the toString()
+     * output of that calendar
+     */
+    @Test
+    void testToString() {
+        ArrayList<Event> events = new ArrayList<Event>();
+        String name = "Basketball";
+        String name2 = "Hockey";
+        Time st = new Time(30600000L);
+        Time et = new Time(34200000L);
+        Date date1 = new Date(1637298000000L);
+        ArrayList<Housemate> hms = new ArrayList<Housemate>();
+        Housemate willy = new Housemate("willy", "555555");
+        Housemate tom = new Housemate("tom", "666666");
+        hms.add(willy);
+        hms.add(tom);
+        Recurrence rec = new Recurrence("n", date1, date1);
+        Calendar cal = new Calendar();
+        cal.setCurrentDate(date1);
+        cal.addEvent(name, date1, st, et, hms, rec);
+        cal.addEvent(name2, date1, st, et, hms, rec);
+        String actual = cal.toString();
+        assertEquals("" + date1 + "\n" + "willy, tom has Basketball from 4:30AM to 5:30AM. \n\n" +
+                "willy, tom has Hockey from 4:30AM to 5:30AM. \n\n", actual);
+    }
+
+    /**
+     * Tests addEvent() method by comparing expected and actual calendars. Expected value obtained
+     * by adding 3 events on consecutive days using ArrayList.add() method. Obtains actual value by
+     * calling addEvent with "Daily" recurrence for those three days.
+     */
     @Test
     void addEvent() {
         ArrayList<Event> events = new ArrayList<Event>();
@@ -41,28 +73,5 @@ class CalendarTest {
         assertEquals(calExpected.toString(), calActual.toString(), "test addEvent");
 
 
-    }
-
-    @Test
-    void testToString() {
-        ArrayList<Event> events = new ArrayList<Event>();
-        String name = "Basketball";
-        String name2 = "Hockey";
-        Time st = new Time(30600000L);
-        Time et = new Time(34200000L);
-        Date date1 = new Date(1637298000000L);
-        ArrayList<Housemate> hms = new ArrayList<Housemate>();
-        Housemate willy = new Housemate("willy", "555555");
-        Housemate tom = new Housemate("tom", "666666");
-        hms.add(willy);
-        hms.add(tom);
-        Recurrence rec = new Recurrence("n", date1, date1);
-        Calendar cal = new Calendar();
-        cal.setCurrentDate(date1);
-        cal.addEvent(name, date1, st, et, hms, rec);
-        cal.addEvent(name2, date1, st, et, hms, rec);
-        String actual = cal.toString();
-        assertEquals("" + date1 + "\n" + "willy, tom has Basketball from 4:30AM to 5:30AM. \n\n" +
-                "willy, tom has Hockey from 4:30AM to 5:30AM. \n\n", actual);
     }
 }
