@@ -248,7 +248,7 @@ public class AddItemTest {
 
 
     @Test
-    public void testCalendar(){
+    public void testAddEvent(){
 
         //testJoinHouse();
         this.testAddHouseMate();// add person1 and person2 + login Tom
