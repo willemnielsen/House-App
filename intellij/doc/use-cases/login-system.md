@@ -1,5 +1,5 @@
 #Login System:
-+ Scope: App
++ Scope: App -> Login Screen
 + Level: User goal
 + Primary Actor: Leader and User
 + 

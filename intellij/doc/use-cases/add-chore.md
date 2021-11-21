@@ -1,5 +1,5 @@
-#Assign Chores:
-+ **Scope:** Housemates App
+#Add Chores:
++ **Scope:** App -> Chore List
 + **Level:** User goal
 + **Primary actor:** Domain.Housemate or the Domain.House Leader
 
@@ -10,10 +10,11 @@ right frequency and to the right person
 and not notified when they aren't involved in a chore
 
 ###Preconditions:
-+ User is logged into their house
++ User is identified and authenticated
++ System is in house chore list
 
 ###Postconditions:
-+ Chore is added to house/housemate calendar/chore list
++ Chore is added to house calendar/chore list
 + Domain.Housemate members involved are notified
 
 ###Main success scenario:

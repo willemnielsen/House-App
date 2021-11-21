@@ -248,7 +248,7 @@ public class AddItemTest {
 
 
     @Test
-    public void testCalendar(){
+    public void testAddEvent(){
 
         //testJoinHouse();
         this.testAddHouseMate();// add person1 and person2 + login Tom
@@ -608,7 +608,7 @@ public class AddItemTest {
 
     }
 
-
+        //code by haffax on StackOverflow: https://stackoverflow.com/questions/22177590/click-by-bounds-coordinates/22798043#22798043
     public static ViewAction clickXY(final int x, final int y){
         return new GeneralClickAction(
                 Tap.SINGLE,
