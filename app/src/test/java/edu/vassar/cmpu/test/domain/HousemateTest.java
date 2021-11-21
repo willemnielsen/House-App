@@ -7,7 +7,10 @@ import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 
 class HousemateTest {
-
+    /**
+     * Tests myTransactions() by creating two debts and making sure the string returned
+     * is correct
+     */
     @Test
     void myTransactions() {
         ArrayList<Housemate> hmList = new ArrayList<>();
@@ -22,7 +25,10 @@ class HousemateTest {
         assertEquals(A.myTransactions(), "You owe A 20.0 for 10 Apple(s).\nYou owe B 40.0 for 10 Apple(s).\n" );
         assertNotEquals(A.myTransactions(), "");
     }
-
+    /**
+     * Tests myBalance() by creating two debts and making sure the string returned
+     * is correct
+     */
     @Test
     void myBalance() {
         ArrayList<Housemate> hmList = new ArrayList<>();
@@ -39,13 +45,19 @@ class HousemateTest {
         assertEquals(A.myBalance(), "Your balance is -20.0.");
         assertNotEquals(B.myBalance(), A.myBalance());
     }
-
+    /**
+     * Tests getName() by creating a housemate
+     */
     @Test
     void getName() {
         Housemate A = new Housemate("A", "2");
         assertEquals(A.getName(), "A");
     }
 
+    /**
+     * Tests getDebtlist() by creating 2 housemates and adding the same debtlist
+     * to both
+     */
     @Test
     void getDebtlist() {
         ArrayList<Housemate> hmList = new ArrayList<>();
@@ -59,6 +71,9 @@ class HousemateTest {
         assertEquals(A.getDebtlist(), B.getDebtlist());
     }
 
+    /**
+     * Tests testToString() by creating a housemate and comparing the string returned
+     */
     @Test
     void testToString() {
         Housemate A = new Housemate("A", "2");

@@ -8,6 +8,10 @@ import java.util.ArrayList;
 
 class HouseTest {
 
+    /**
+     * Tests addLineItemToShoppingList() by adding one LineItem.
+     */
+
     @Test
     void addLineItemToShoppingList() {
         House house = new House("house");
@@ -19,6 +23,10 @@ class HouseTest {
         assertEquals(house.addLineItemToShoppingList(2, "Apples", 5, hmList), true);
     }
 
+    /**
+     * Tests getShoppingListLineItem() by adding one LineItem and getting the item and its string
+     * form.
+     */
     @Test
     void getShoppingListLineItem() {
         House house = new House("house");
@@ -26,12 +34,13 @@ class HouseTest {
         ArrayList<Housemate> hmList = new ArrayList<Housemate>();
         hmList.add( new Housemate("A", "2"));
         hmList.add( new Housemate("B", "3"));
-        LineItem LI = new LineItem(2, "Apples", 5, hmList);
         house.addLineItemToShoppingList(2, "Apples", 5, hmList);
         assertNotEquals(house.getShoppingListLineItem(0), null);
         assertEquals(house.getShoppingListLineItem(0).toString(), "x2 Apples for $5.0");
     }
-
+    /**
+     * Tests getShoppingListSize() by adding two LineItem and calling the function.
+     */
     @Test
     void getShoppingListSize() {
         House house = new House("house");
@@ -44,7 +53,9 @@ class HouseTest {
         assertEquals(house.getShoppingListSize(), 2);
         assertNotEquals(house.getShoppingListSize(), 3);
     }
-
+    /**
+     * Tests addHousemate() by adding a Housemate and calling the function.
+     */
     @Test
     void addHousemate() {
         House house = new House("house");
@@ -52,7 +63,10 @@ class HouseTest {
         assertEquals(house.addHousemate(A), "A successfully added to this house.");
         assertNotEquals(house.addHousemate(A), "");
     }
-
+    /**
+     * Tests removeHousemate() by adding a Housemate and removing it with the function.
+     * Tried with a housemate not in the house too.
+     */
     @Test
     void removeHousemate() {
         House house = new House("house");
@@ -63,6 +77,10 @@ class HouseTest {
         assertEquals(house.removeHousemate(B), "B successfully removed from this house.");
     }
 
+    /**
+     * Tests createDebtForIHM() by creating the debt for one item
+     * since doesn't return anything / void, we'll look at the houseTransactions
+     */
     @Test
     void createDebtForIHM() {
         House house = new House("house");
@@ -82,6 +100,10 @@ class HouseTest {
                 "B owes A 5.0 for 2 Apples(s).\n");
     }
 
+    /**
+     * Tests createDebtForHH() by creating the debt for one item
+     * since doesn't return anything / void, we'll look at the houseTransactions
+     */
     @Test
     void createDebtForHH() {
         House house = new House("house");
@@ -101,6 +123,10 @@ class HouseTest {
                 "B owes A 5.0 for 2 Apples(s).\n");
     }
 
+    /**
+     * Tests createDebtForMe() by creating the debt for one item
+     * since doesn't return anything / void, we'll look at the houseTransactions
+     */
     @Test
     void createDebtForMe() {
         House house = new House("house");
@@ -119,6 +145,11 @@ class HouseTest {
         assertEquals(house.houseTransactions(), "A paid 10.0 for 2 Apples(s).\n");
     }
 
+    /**
+     * Tests createDebtForIHM() by creating the debt for two items
+     * since doesn't return anything / void, we'll make sure the purchase list is empty a
+     * after calling the function since its supposed to do that
+     */
     @Test
     void checkout() {
         House house = new House("house");
@@ -136,6 +167,11 @@ class HouseTest {
         // since doesn't return anything / void, we'll make sure the purchase list is empty
         assertTrue(house.getPurchasedItems().isEmpty());
     }
+
+    /**
+     * Tests houseTransactions() by creating the debt for two items and making sure the
+     * transaction is correct
+     */
 
     @Test
     void houseTransactions() {
@@ -156,6 +192,10 @@ class HouseTest {
                 "A paid 10.0 for 2 Apples(s).\n");
     }
 
+    /**
+     * Tests houseBalance() by creating the debt for two items and making sure the
+     * balance is correct
+     */
     @Test
     void houseBalance() {
         House house = new House("house");

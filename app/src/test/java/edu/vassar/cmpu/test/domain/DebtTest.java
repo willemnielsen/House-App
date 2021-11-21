@@ -7,7 +7,9 @@ import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 
 class DebtTest {
-
+    /**
+     * Tests getDebtor() by creating a debt
+     */
     @Test
     void getDebtor() {
         ArrayList<Housemate> hmList = new ArrayList<Housemate>();
@@ -20,6 +22,9 @@ class DebtTest {
         assertNotEquals(debt.getDebtor(), A);
     }
 
+    /**
+     * Tests getCreditor() by creating a debt
+     */
     @Test
     void getCreditor() {
         ArrayList<Housemate> hmList = new ArrayList<Housemate>();
@@ -32,6 +37,9 @@ class DebtTest {
         assertNotEquals(debt.getCreditor(), B);
     }
 
+    /**
+     * Tests getItem() by creating a debt
+     */
     @Test
     void getItem() {
         ArrayList<Housemate> hmList = new ArrayList<Housemate>();
@@ -45,6 +53,9 @@ class DebtTest {
         assertNotEquals(debt.getItem(), LI2);
     }
 
+    /**
+     * Tests getOwed() by creating a debt
+     */
     @Test
     void getOwed() {
         ArrayList<Housemate> hmList = new ArrayList<Housemate>();

@@ -11,6 +11,9 @@ import java.util.List;
 
 class LineItemTest {
 
+    /**
+     * Tests getQuantity() by creating a LineItem and asserting the quantity is correct
+     */
     @Test
     void getQuantity() {
         ArrayList<Housemate> hmList = new ArrayList<Housemate>();
@@ -20,6 +23,9 @@ class LineItemTest {
         assertEquals(LI.getQuantity(), 10);
     }
 
+    /**
+     * Tests getPrice() by creating a LineItem and asserting the price is correct
+     */
     @Test
     void getPrice() {
         ArrayList<Housemate> hmList = new ArrayList<Housemate>();
@@ -29,6 +35,9 @@ class LineItemTest {
         assertEquals(LI.getPrice(), 1.4f);
     }
 
+    /**
+     * Tests getName() by creating a LineItem and asserting the names are correct
+     */
     @Test
     void getName() {
         ArrayList<Housemate> hmList = new ArrayList<Housemate>();
@@ -38,6 +47,9 @@ class LineItemTest {
         assertEquals(LI.getName(), "name");
     }
 
+    /**
+     * Tests testToString() by creating a lineItem and asserting the string is correct
+     */
     @Test
     void testToString() {
         ArrayList<Housemate> hmList = new ArrayList<Housemate>();
