@@ -14,8 +14,11 @@ class ShoppingListTest {
     LineItem apple;
     LineItem pie;
 
+    /**
+     * Tests testAddItem() by creating adding 2 items asserting the toString of item is correct
+     */
     @Test
-    void addItem() {
+    void testAddItem() {
         hmList = new ArrayList<Housemate>();
         hmList.add( new Housemate("A", "2"));
         hmList.add( new Housemate("B", "3"));
@@ -34,17 +37,23 @@ class ShoppingListTest {
 
     }
 
+    /**
+     * Tests testRemove() by creating adding 2 items and then removing one
+     */
     @Test
-    void remove() {
-        this.addItem();
+    void testRemove() {
+        this.testAddItem();
         sl.remove(sl.getShoppingListLineItem(0));
         assertEquals(sl.size(), 1);
         assertEquals(sl.getShoppingListLineItem(0).getName(), "Pie");
     }
 
+    /**
+     * Tests testToString() by creating adding 2 items asserting the toString of ShoppingList is correct
+     */
     @Test
     void testToString() {
-        this.addItem();
+        this.testAddItem();
         assertEquals(sl.toString(), "x10 Apple for $20.0" + "\n" + "x5 Pie for $40.0" + "\n");
     }
 }
