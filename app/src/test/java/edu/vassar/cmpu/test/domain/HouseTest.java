@@ -63,7 +63,7 @@ class HouseTest {
         assertEquals(house.removeHousemate(B), "B successfully removed from this house.");
     }
 
-    // TODO: fix 
+    // TODO: fix
     @Test
     void createDebtForIHM() {
         House house = new House("house");
@@ -101,20 +101,36 @@ class HouseTest {
         ArrayList<Housemate> hmList = new ArrayList<>();
         Housemate A = new Housemate("A", "2");
         Housemate B = new Housemate("B", "3");
-        hmList.add(A);
         house.addHousemate(A);
         house.addHousemate(B);
-        LineItem LI = new LineItem(10, "Apple", 1.4f, hmList);
-        LineItem LI2 = new LineItem(10, "Grapes", 1.4f, hmList);
-        Debt d1 = new Debt(A, B , 20, LI);
+        hmList.add(A);
+        hmList.add(B);
+        LineItem LI = new LineItem(2, "Apples", 5, hmList);
+        LineItem LI2 = new LineItem(5, "Grapes", 4, hmList);
+        house.getShoppingList().addItem(2, "Apples", 5, hmList);
+        house.getShoppingList().addItem(2, "Grapes", 5, hmList);
+        house.createDebtForMe(house.getShoppingListLineItem(0));
+        assertEquals(house.houseTransactions(), "True");
     }
 
-    // TODO: fix
     @Test
     void checkout() {
+        House house = new House("house");
+        ArrayList<Housemate> hmList = new ArrayList<>();
+        Housemate A = new Housemate("A", "2");
+        Housemate B = new Housemate("B", "3");
+        house.addHousemate(A);
+        house.addHousemate(B);
+        hmList.add(A);
+        LineItem LI = new LineItem(2, "Apples", 5, hmList);
+        LineItem LI2 = new LineItem(5, "Grapes", 4, hmList);
+        house.getPurchasedItems().add(LI2);
+        house.getPurchasedItems().add(LI);
+        house.checkout("Charge Me", A);
+        // since doesn't return anything / void, we'll make sure the purchase list is empty
+        assertTrue(house.getPurchasedItems().isEmpty());
     }
 
-     // TODO: fix
     @Test
     void houseTransactions() {
         House house = new House("house");
@@ -124,10 +140,14 @@ class HouseTest {
         house.addHousemate(A);
         house.addHousemate(B);
         hmList.add(A);
-        house.addLineItemToShoppingList(2, "Apples", 5, hmList);
-        house.addLineItemToShoppingList(2, "Grapes", 5, hmList);
+        LineItem LI = new LineItem(2, "Apples", 5, hmList);
+        LineItem LI2 = new LineItem(5, "Grapes", 4, hmList);
+        house.getPurchasedItems().add(LI2);
+        house.getPurchasedItems().add(LI);
         house.checkout("Charge Me", A);
-        //assertNotEquals(house.houseTransactions(),"");
+        assertNotEquals(house.houseTransactions(),"");
+        assertEquals(house.houseTransactions(),"A paid 20.0 for 5 Grapes(s).\n" +
+                "A paid 10.0 for 2 Apples(s).\n");
     }
 
     @Test
