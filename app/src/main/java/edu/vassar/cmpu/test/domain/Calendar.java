@@ -67,6 +67,7 @@ public class Calendar {
         events.remove(event);
     }
 
+    public void setEvents(ArrayList<Event> events){this.events = events;}
     public ArrayList<Event> getEvents(){return this.events;}
 
     public Event getThisEvent(Event event) {
