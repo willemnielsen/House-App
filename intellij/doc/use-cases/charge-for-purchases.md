@@ -1,4 +1,4 @@
-#Purchase
+#Charge for Purchases
 + **Scope:** App -> Shopping list -> Purchase List
 + **Level:** User goal
 + **Primary Actor:** Domain.Housemate or Domain.House Leader

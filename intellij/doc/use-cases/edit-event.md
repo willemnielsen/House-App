@@ -1,4 +1,4 @@
-#Edit events:
+#Edit event:
 + **Scope:** App -> Calendar
 + **Level:** User goal
 + **Primary actor:** Domain.Housemate or the Domain.House Leader

@@ -1,4 +1,4 @@
-#Purchase
+#Purchase Items
 + **Scope:** App -> Shopping list
 + **Level:** User goal
 + **Primary Actor:** Domain.Housemate or Domain.House Leader

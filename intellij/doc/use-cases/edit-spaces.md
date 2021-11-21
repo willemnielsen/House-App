@@ -1,4 +1,4 @@
-#Add Space:
+#Edit Spaces:
 + **Scope:** App -> House Spaces
 + **Level:** User goal
 + **Primary actor:** Domain.Housemate or the Domain.House Leader

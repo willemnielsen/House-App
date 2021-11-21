@@ -1,4 +1,4 @@
-#Delete Items:
+#Edit Items:
 + **Scope:** Application -> Shopping list
 + **Level:** User Goal
 + **Primary actor:** Domain.Housemate or Domain.House Leader
