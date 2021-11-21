@@ -20,9 +20,8 @@
 3. User enters name, price, and quantity
 4. System asks user for housemates interested in purchasing the item and provides list of housemates
 5. User selects interested housemates
-6. System adds item object to house shopping list
-7. System asks user if they would like to add more items
-8. System displays shopping list to user
+6. System adds item object to house shopping list and notifies user
+7. System loops back to step 2
 
 ###Extensions:
 
@@ -32,12 +31,12 @@
 **4a.** If user does not select any housemates:
 1. System will not proceed until at least 1 housemate is selected
 
-**6a.** If user selects to add more items:
-1. System will loop back to Step 2
+**7a.** If user selects to exit add item view:
+1. System displays shopping list to user
 
 
 ###Special requirements:
-System must update shopping list within 30 seconds 90% of the time.
++System must update shopping list within 30 seconds 90% of the time.
 
 ###Frequency of occurrence:
 + Often
