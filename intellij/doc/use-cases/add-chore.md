@@ -1,5 +1,5 @@
-#Assign Chores:
-+ **Scope:** Housemates App -> Chore List
+#Add Chores:
++ **Scope:** App -> Chore List
 + **Level:** User goal
 + **Primary actor:** Domain.Housemate or the Domain.House Leader
 
