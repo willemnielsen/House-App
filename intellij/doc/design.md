@@ -59,52 +59,6 @@ Domain.Housemate "1" - "0..*" Domain.LineItem : Purchases
 Domain.Calendar "1" - "0..*" Domain.Event : Contains
 
 @enduml
-
-
-
-
-```
-# Get Domain.Item Sequence Diagram
-```plantuml
-
-@startuml
-actor Actor as Actor
-participant "Domain.ShoppingList: List" as shoppingList
-participant ": Domain.LineItem" as lineItem
-participant ": Domain.Item" as item
-
-
-[o-> shoppingList : add Domain.Item
-activate shoppingList
-
-loop while not done
-    shoppingList -->> Actor  : get price, name, quantity, and interestedHouseMates
-    shoppingList -->> lineItem **: Domain.LineItem(price, name, quantity, interestedHouseMates)
-    lineItem -->> item **: Item(price, name)
-
-end
-
-activate shoppingList
-
-
-@enduml
-```
-
-# Charge Domain.Housemate Sequence Diagram
-```plantuml
-
-@startuml
-actor Domain.Housemate as Actor
-participant ": Domain.House" as house
-participant ": Domain.Housemate" as housemate
-
-
-[o-> house : charge housemates
-    activate house
-    house -->> Actor  : get purchased items
-    house -->> Actor  : get charge distribution option
-    house -->> housemate : createDebt(purchasedItems, distribution)
-@enduml
 ```
 
 # Add Event to Calendar Sequence Diagram
@@ -158,13 +112,13 @@ actor User as Actor
 @enduml
 ```
 
-# Checkout Sequence Diagram
+# Purchase Item Sequence Diagram
 ```plantuml
 @startuml
 actor Housemate as Actor
     loop until done
         ShoppingListScreenFragment -->> Actor  : get lineItem
-        ShoppingListScreenFragment -->> ControllerActivity  : opPurchaseItems(lineItem)
+        ShoppingListScreenFragment -->> ControllerActivity  : onPurchaseItems(lineItem)
         ControllerActivity -->> HouseController : addToPurchase(lineItem)
         HouseController -->> House : addToPurchase(lineItem)
         
@@ -176,7 +130,7 @@ actor Housemate as Actor
 @enduml
 ```
 
-# Add Housemate to House Sequence Diagram
+# Checkout Sequence Diagram
 ```plantuml
 @startuml
 actor Housemate as Actor
@@ -628,7 +582,7 @@ class Domain.HouseController{
 
 }
 
-Controller.ControllerActivity <|.. View.IFragments
+View.IFragments <|.. Controller.ControllerActivity
 Controller.ControllerActivity --> Domain.HouseController  
 
 @enduml
