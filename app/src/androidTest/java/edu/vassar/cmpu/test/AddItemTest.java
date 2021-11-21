@@ -47,6 +47,7 @@ public class AddItemTest {
 
     @Test
     public void testJoinHouse() {
+        activityRule = new ActivityScenarioRule<>(ControllerActivity.class);
         ViewInteraction name = Espresso.onView(ViewMatchers.withId(R.id.houseName))
                 .perform(ViewActions.typeText("Th - 42"));
 
@@ -181,14 +182,21 @@ public class AddItemTest {
     }
 
     @Test
-    public void TestPurchase(){
+    public void TestPurchase1(){
         this.TestPurchase("Charge Me");
-
-        this.TestPurchase("Charge Based on Interested Housemates");
-        //doesnt work
-        //this.TestPurchase("Charge Household");
-
     }
+
+    @Test
+    public void TestPurchase2(){
+        this.TestPurchase("Charge Based on Interested Housemates");
+    }
+
+    @Test
+    public void TestPurchase3(){
+        this.TestPurchase("Charge Household");
+    }
+
+
 
     public void TestPurchase(String distribution){
         this.TestCheckout();
@@ -242,7 +250,9 @@ public class AddItemTest {
     @Test
     public void testCalendar(){
 
-        testJoinHouse();
+        //testJoinHouse();
+        this.testAddHouseMate();// add person1 and person2 + login Tom
+
 
         //        Check all entry fields are set to default text
 
@@ -380,10 +390,10 @@ public class AddItemTest {
 
         addEventButton.perform(ViewActions.click());
 
-        ViewInteraction selectHousemate1 = Espresso.onView(ViewMatchers.withText("memberName1"))
+        ViewInteraction selectHousemate1 = Espresso.onView(ViewMatchers.withText("Person1"))
                 .perform(ViewActions.click());
 
-        ViewInteraction selectHousemate2 = Espresso.onView(ViewMatchers.withText("memberName2"))
+        ViewInteraction selectHousemate2 = Espresso.onView(ViewMatchers.withText("Person2"))
                 .perform(ViewActions.click());
 
         ViewInteraction selectHousemate3 = Espresso.onView(ViewMatchers.withText("Tom"))
@@ -546,33 +556,33 @@ public class AddItemTest {
 
         ViewInteraction eventList = Espresso.onView(ViewMatchers.withId(R.id.eventsList));
         eventList.check(matches(ViewMatchers.withText("Fri Nov 19 00:00:00 EST 2021\n" +
-                "memberName1, memberName2, Tom has Soccer from 3:00PM to 5:30PM. \n\n" +
-                "memberName1, Tom has Dinner from 6:15PM to 7:20PM. \n\n")));
+                "Person1, Person2, Tom has Soccer from 3:00PM to 5:30PM. \n\n" +
+                "Person1, Tom has Dinner from 6:15PM to 7:20PM. \n\n")));
 
 
         currDate.perform(clickXY(150, 600));
         eventList.check(matches(ViewMatchers.withText("Sun Nov 21 00:00:00 EST 2021\n" +
-                "memberName1, Tom has Dinner from 6:15PM to 7:20PM. \n\n")));
+                "Person1, Tom has Dinner from 6:15PM to 7:20PM. \n\n")));
         currDate.perform(clickXY(270, 600));
         eventList.check(matches(ViewMatchers.withText("Mon Nov 22 00:00:00 EST 2021\n" +
-                "memberName1, Tom has Dinner from 6:15PM to 7:20PM. \n\n")));
+                "Person1, Tom has Dinner from 6:15PM to 7:20PM. \n\n")));
         currDate.perform(clickXY(390, 600));
         eventList.check(matches(ViewMatchers.withText("Tue Nov 23 00:00:00 EST 2021\n" +
-                "memberName1, Tom has Dinner from 6:15PM to 7:20PM. \n\n")));
+                "Person1, Tom has Dinner from 6:15PM to 7:20PM. \n\n")));
         currDate.perform(clickXY(510, 600));
         eventList.check(matches(ViewMatchers.withText("Wed Nov 24 00:00:00 EST 2021\n" +
-                "memberName1, Tom has Dinner from 6:15PM to 7:20PM. \n\n")));
+                "Person1, Tom has Dinner from 6:15PM to 7:20PM. \n\n")));
         currDate.perform(clickXY(630, 600));
         eventList.check(matches(ViewMatchers.withText("Thu Nov 25 00:00:00 EST 2021\n" +
-                "memberName1, Tom has Dinner from 6:15PM to 7:20PM. \n\n")));
+                "Person1, Tom has Dinner from 6:15PM to 7:20PM. \n\n")));
         currDate.perform(clickXY(760, 600));
         eventList.check(matches(ViewMatchers.withText("Fri Nov 26 00:00:00 EST 2021\n" +
-                "memberName1, memberName2, Tom has Soccer from 3:00PM to 5:30PM. \n\n" +
-                "memberName1, Tom has Dinner from 6:15PM to 7:20PM. \n\n")));
+                "Person1, Person2, Tom has Soccer from 3:00PM to 5:30PM. \n\n" +
+                "Person1, Tom has Dinner from 6:15PM to 7:20PM. \n\n")));
         currDate.perform(clickXY(880, 100));
         currDate.perform(clickXY(880, 350));
        eventList.check(matches(ViewMatchers.withText("Sat Dec 04 00:00:00 EST 2021\n" +
-                "memberName1, Tom has Dinner from 6:15PM to 7:20PM. \n\n" +
+                "Person1, Tom has Dinner from 6:15PM to 7:20PM. \n\n" +
                 "Tom has Party from 10:10PM to 2:00AM. \n\n")));
 
         //      check to see daily/weekly events are still created a year out
@@ -589,8 +599,8 @@ public class AddItemTest {
         currDate.perform(clickXY(880, 100));
         currDate.perform(clickXY(760, 350));
         eventList.check(matches(ViewMatchers.withText("Fri Nov 04 00:00:00 EDT 2022\n" +
-                "memberName1, memberName2, Tom has Soccer from 3:00PM to 5:30PM. \n\n" +
-                "memberName1, Tom has Dinner from 6:15PM to 7:20PM. \n\n")));
+                "Person1, Person2, Tom has Soccer from 3:00PM to 5:30PM. \n\n" +
+                "Person1, Tom has Dinner from 6:15PM to 7:20PM. \n\n")));
 
         //home screen
         Espresso.onView(ViewMatchers.withId(R.id.previousOnCalendarScreen)).perform(ViewActions.click());

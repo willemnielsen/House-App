@@ -67,8 +67,6 @@ public class ControllerActivity extends AppCompatActivity
     @Override
     public void onCreateHouse(String houseName, String membersName) {
         houseController = new HouseController(houseName);
-        houseController.addHousemate(new Housemate("memberName1", "343253"));
-        houseController.addHousemate(new Housemate("memberName2", "347253"));
         Housemate hm = new Housemate(membersName, "343243");
         houseController.addHousemate(hm);
         houseController.setUser(hm); // sets new user to logging in one
