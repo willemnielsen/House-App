@@ -4,6 +4,8 @@ import android.app.AlertDialog;
 //import android.content.DialogInterface;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.text.Editable;
@@ -25,10 +27,14 @@ import edu.vassar.cmpu.test.domain.ShoppingList;
 
 public class AddItemFragment extends Fragment implements IAddItemView {
 
+    private final static String ITEM_NAME = "itemName";
+    private final static String ITEM_QUANTITY = "itemQuantity";
+    private final static String ITEM_PRICE = "itemPrice";
+
+
     private FragmentAddItemBinding binding;
     private Listener listener;
     private HouseController house;
-
 
     public AddItemFragment(Listener listener) {
         this.listener = listener;
@@ -38,6 +44,8 @@ public class AddItemFragment extends Fragment implements IAddItemView {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        //if things were there before adds them back
+        Bundle args = this.getArguments();
     }
 
     @Override
@@ -143,5 +151,36 @@ public class AddItemFragment extends Fragment implements IAddItemView {
         });
 
 
+    }
+
+    /**
+     * This method is used to give the fragment a chance to save state information before
+     * being destroyed to free up system resources.
+     * @param outState the bundle to save state to
+     */
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState); // will save some widget features automatically
+        //gets values from text field
+        outState.putString(AddItemFragment.ITEM_NAME, binding.typeItemName.getText().toString());
+        outState.putString(AddItemFragment.ITEM_QUANTITY, binding.typeQt.getText().toString());
+        outState.putString(AddItemFragment.ITEM_PRICE, binding.typePrice.getText().toString());
+    }
+
+    /**
+     * This method is used to give the fragment a chance to restore state information before
+     * being destroyed to free up system resources.
+     * @param savedInstanceState the bundle to read state from
+     */
+    @Override
+    public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
+        super.onViewStateRestored(savedInstanceState); // will reinstate widget features automatically
+
+        if (savedInstanceState != null) { // it can be null if it's the first time we're creating the fragment
+            //puts back stored values
+            binding.typeItemName.setText(savedInstanceState.getString(AddItemFragment.ITEM_NAME));
+            binding.typeQt.setText(savedInstanceState.getString(AddItemFragment.ITEM_QUANTITY));
+            binding.typePrice.setText(savedInstanceState.getString(AddItemFragment.ITEM_PRICE));
+        }
     }
 }

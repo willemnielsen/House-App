@@ -1,8 +1,9 @@
 package edu.vassar.cmpu.test.domain;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class LineItem {
+public class LineItem implements Serializable {
 
 
     private int quantity;
