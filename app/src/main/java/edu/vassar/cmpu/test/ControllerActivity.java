@@ -51,7 +51,6 @@ public class ControllerActivity extends AppCompatActivity
             ITransactionsScreenFragment.Listener {
     //extends makes this class an activity
 
-    private ShoppingList shoppingList;
     private LineItem curItem;
     private HouseController houseController;
     private IMainView mainView;
@@ -68,7 +67,7 @@ public class ControllerActivity extends AppCompatActivity
                 setFragmentFactory(fragmentFactory);
 
 
-        mainView = new MainView(this);
+       /* mainView = new MainView(this);
         setContentView(mainView.getRootView());
         Log.i("Housemates", "onCreate activity");
 
@@ -80,7 +79,7 @@ public class ControllerActivity extends AppCompatActivity
         this.persistenceFacade.retrieveShoppingList(new IPersistenceFacade.ShoppingListListener() {
             @Override
             public void onShoppingListReceived(ShoppingList shoppingList) {
-                ControllerActivity.this.shoppingList = shoppingList; // set the activity's shopping list to the one retrieved from the database
+                ControllerActivity.this.houseController.getHouse().setShoppingList() = shoppingList; // set the activity's shopping list to the one retrieved from the database
                 // please see the lecture #24 slides for a more elegant solution to the timing issue
                 // that necessitates this update
                 ControllerActivity.this.mainView.displayFragment(new ShoppingListScreenFragment(ControllerActivity.this));
@@ -90,7 +89,7 @@ public class ControllerActivity extends AppCompatActivity
 
         this.mainView = new MainView(this);
         this.setContentView(this.mainView.getRootView());
-        if (savedInstanceState == null) // means it's the first time we're launching the activity
+        if (savedInstanceState == null) // means it's the first time we're launching the activity*/
             this.mainView.displayFragment(new LoginScreenFragment(this));
             //displays the add Item Fragment
     }
