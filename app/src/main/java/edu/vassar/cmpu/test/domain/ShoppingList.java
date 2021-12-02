@@ -1,9 +1,10 @@
 package edu.vassar.cmpu.test.domain;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ShoppingList {
+public class ShoppingList implements Serializable {
 
     private final List<LineItem> shoppingList;
     private static final String SALE_TOTAL = "saleTotal";

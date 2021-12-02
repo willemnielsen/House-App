@@ -5,6 +5,7 @@ import android.util.Log;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentFactory;
 
 import java.sql.Time;
 import java.util.ArrayList;
@@ -62,6 +63,13 @@ public class ControllerActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
 
+        FragmentFactory fragmentFactory = new HousemateFactory(this);
+        this.getSupportFragmentManager().
+                setFragmentFactory(fragmentFactory);
+
+
+        mainView = new MainView(this);
+        setContentView(mainView.getRootView());
         Log.i("Housemates", "onCreate activity");
 
         if (savedInstanceState != null)
