@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1068501404312",
+    "project_id": "housemates-496ae",
+    "storage_bucket": "housemates-496ae.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1068501404312:android:4f03c470a1287100a21eed",
+        "android_client_info": {
+          "package_name": "edu.vassar.cmpu.test"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1068501404312-svdeunu02o3ndcqh5ir7rpom9oliufkj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAX9uEUd7Ayu39M1eM_q25Ww3EaSKdK1yg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1068501404312-svdeunu02o3ndcqh5ir7rpom9oliufkj.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
