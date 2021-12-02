@@ -10,6 +10,7 @@ public class LineItem {
     private Housemate purchaser;
     private Item item;
 
+
     public LineItem(int quantity, String name, ArrayList<Housemate> interestedHouseMates){
         item = new Item(name);
         this.quantity = quantity;

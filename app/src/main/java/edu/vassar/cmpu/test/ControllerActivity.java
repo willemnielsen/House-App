@@ -1,6 +1,7 @@
 package edu.vassar.cmpu.test;
 
 import android.os.Bundle;
+import android.util.Log;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
@@ -16,6 +17,8 @@ import edu.vassar.cmpu.test.domain.Housemate;
 import edu.vassar.cmpu.test.domain.LineItem;
 import edu.vassar.cmpu.test.domain.Recurrence;
 import edu.vassar.cmpu.test.domain.ShoppingList;
+import edu.vassar.cmpu.test.persistence.FirestoreFacade;
+import edu.vassar.cmpu.test.persistence.IPersistenceFacade;
 import edu.vassar.cmpu.test.view.addEventView.AddEventFragment;
 import edu.vassar.cmpu.test.view.addEventView.IAddEventView;
 import edu.vassar.cmpu.test.view.addItemView.AddItemFragment;
@@ -47,17 +50,41 @@ public class ControllerActivity extends AppCompatActivity
             ITransactionsScreenFragment.Listener {
     //extends makes this class an activity
 
+    private ShoppingList shoppingList;
+    private LineItem curItem;
     private HouseController houseController;
     private IMainView mainView;
+
+    private IPersistenceFacade persistenceFacade = new FirestoreFacade();
+
+    private static final String CUR_ITEM = "curItem";
 
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
 
-        mainView = new MainView(this);
-        setContentView(mainView.getRootView());
+        Log.i("Housemates", "onCreate activity");
 
-        this.mainView.displayFragment(new LoginScreenFragment(this));
-        //displays the add Item Fragment
+        if (savedInstanceState != null)
+            this.curItem = (LineItem) savedInstanceState.getSerializable(CUR_ITEM); // retrieve preexisting line item
+
+        this.shoppingList = new ShoppingList(); //initialize shopping list
+
+        this.persistenceFacade.retrieveShoppingList(new IPersistenceFacade.ShoppingListListener() {
+            @Override
+            public void onShoppingListReceived(ShoppingList shoppingList) {
+                ControllerActivity.this.shoppingList = shoppingList; // set the activity's shopping list to the one retrieved from the database
+                // please see the lecture #24 slides for a more elegant solution to the timing issue
+                // that necessitates this update
+                ControllerActivity.this.mainView.displayFragment(new ShoppingListScreenFragment(ControllerActivity.this));
+            }
+        });
+
+
+        this.mainView = new MainView(this);
+        this.setContentView(this.mainView.getRootView());
+        if (savedInstanceState == null) // means it's the first time we're launching the activity
+            this.mainView.displayFragment(new LoginScreenFragment(this));
+            //displays the add Item Fragment
     }
 
     //

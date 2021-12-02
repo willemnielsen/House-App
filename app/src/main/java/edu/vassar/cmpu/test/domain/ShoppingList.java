@@ -1,14 +1,15 @@
 package edu.vassar.cmpu.test.domain;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class ShoppingList {
 
-    private ArrayList<LineItem> shoppingList = new ArrayList<LineItem>();
+    private final List<LineItem> shoppingList;
     private static final String SALE_TOTAL = "saleTotal";
 
     public ShoppingList(){
-
+      this.shoppingList = new ArrayList<LineItem>();
     }
 
     /** Need other methods
@@ -31,6 +32,11 @@ public class ShoppingList {
        }
         return true;
     }
+
+    public void addLineItem(LineItem lineItem){
+        this.shoppingList.add(lineItem);
+    }
+
 
     /**
      * @param i, i is in range of indexes that shopping list has
