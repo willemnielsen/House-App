@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import edu.vassar.cmpu.test.databinding.FragmentShoppingListScreenBinding;
 import edu.vassar.cmpu.test.domain.Housemate;
@@ -109,7 +110,7 @@ public class ShoppingListScreenFragment extends Fragment implements IShoppingLis
         this.listener.onPurchaseItems(lineItem, this);
     }
     @Override
-    public void updatePurchasedList(ArrayList<LineItem> purchasedItems) {
+    public void updatePurchasedList(List<LineItem> purchasedItems) {
     }
 
     @Override

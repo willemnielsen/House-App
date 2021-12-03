@@ -21,7 +21,7 @@ public class ShoppingList implements Serializable {
      * @param interestedHouseMates
      * @return true if lineitem added to shopping list
      */
-    public boolean addItem(int quantity, String name, float price, ArrayList<Housemate> interestedHouseMates){
+    public boolean addItem(int quantity, String name, float price, List<Housemate> interestedHouseMates){
        if(interestedHouseMates == null ){
            LineItem lineItem = new LineItem(quantity, name, new ArrayList<Housemate>());
            lineItem.setPrice(price);

@@ -1,6 +1,7 @@
 package edu.vassar.cmpu.test.view.housemateListScreen;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import edu.vassar.cmpu.test.domain.Housemate;
 
@@ -11,5 +12,5 @@ public interface IHousemateListScreenFragment {
         void onDebtScreenButton();
     }
 
-    void updateDisplay(ArrayList<Housemate> housemates);
+    void updateDisplay(List<Housemate> housemates);
 }

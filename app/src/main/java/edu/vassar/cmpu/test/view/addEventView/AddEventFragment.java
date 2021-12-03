@@ -120,7 +120,7 @@ public class AddEventFragment extends Fragment implements IAddEventView,
 
     }
     @Override
-    public void getAddedHouseMates(ArrayList<Housemate> housemates) {
+    public void getAddedHouseMates(List<Housemate> housemates) {
         this.binding.addEventButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -188,10 +188,10 @@ public class AddEventFragment extends Fragment implements IAddEventView,
         });
     }
 
-    private ArrayList<Housemate> CreateDialog(ArrayList<Housemate> housemates, String name,
+    private List<Housemate> CreateDialog(List<Housemate> housemates, String name,
                                               Date date, Time st, Time et, String recur){
-        ArrayList<String> selectedHM = new ArrayList<>();
-        ArrayList<Housemate> interestedHM = new ArrayList<>();
+        List<String> selectedHM = new ArrayList<>();
+        List<Housemate> interestedHM = new ArrayList<>();
         String[] names = new String[housemates.size()];
         for(int i = 0 ; i < names.length; i++){
             names[i] = housemates.get(i).getName();

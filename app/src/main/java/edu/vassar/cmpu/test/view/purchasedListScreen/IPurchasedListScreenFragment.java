@@ -1,6 +1,7 @@
 package edu.vassar.cmpu.test.view.purchasedListScreen;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import edu.vassar.cmpu.test.domain.LineItem;
 import edu.vassar.cmpu.test.domain.House;
@@ -12,5 +13,5 @@ public interface IPurchasedListScreenFragment {
 
         void onPurchaseByUser(String distribution, IPurchasedListScreenFragment purchasedListScreenFragment);
     }
-    void updatePurchasedList(ArrayList<LineItem> purchasedItems);
+    void updatePurchasedList(List<LineItem> purchasedItems);
 }

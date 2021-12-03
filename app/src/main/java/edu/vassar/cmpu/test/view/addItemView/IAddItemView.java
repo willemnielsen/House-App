@@ -1,6 +1,7 @@
 package edu.vassar.cmpu.test.view.addItemView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 
 import edu.vassar.cmpu.test.domain.ShoppingList;
@@ -17,7 +18,7 @@ public interface IAddItemView {
          * @param addItemView
          *  adds lineitem to shopping list
          */
-        void onAddedItem(String name, int quantity, float price, ArrayList<Housemate> interestedHMs,
+        void onAddedItem(String name, int quantity, float price, List<Housemate> interestedHMs,
                          IAddItemView addItemView);
 
         /**
@@ -25,6 +26,6 @@ public interface IAddItemView {
          */
         void onPreviousInAddItemFragment();
     }
-    void getHouseMates(ArrayList<Housemate> housemates);
+    void getHouseMates(List<Housemate> housemates);
     void updateDisplay(ShoppingList shoppingList);
 }

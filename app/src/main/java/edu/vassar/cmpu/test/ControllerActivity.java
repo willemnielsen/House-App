@@ -10,6 +10,7 @@ import androidx.fragment.app.FragmentFactory;
 import java.sql.Time;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 
 //import edu.vassar.cmpu.test.domain.House;
@@ -67,28 +68,24 @@ public class ControllerActivity extends AppCompatActivity
                 setFragmentFactory(fragmentFactory);
 
 
-       /* mainView = new MainView(this);
+        mainView = new MainView(this);
         setContentView(mainView.getRootView());
-        Log.i("Housemates", "onCreate activity");
+        //Log.i("Housemates", "onCreate activity");
 
         if (savedInstanceState != null)
             this.curItem = (LineItem) savedInstanceState.getSerializable(CUR_ITEM); // retrieve preexisting line item
 
-        this.shoppingList = new ShoppingList(); //initialize shopping list
 
-        this.persistenceFacade.retrieveShoppingList(new IPersistenceFacade.ShoppingListListener() {
+        /*this.persistenceFacade.retrieveShoppingList(new IPersistenceFacade.ShoppingListListener() {
             @Override
             public void onShoppingListReceived(ShoppingList shoppingList) {
-                ControllerActivity.this.houseController.getHouse().setShoppingList() = shoppingList; // set the activity's shopping list to the one retrieved from the database
+                ControllerActivity.this.houseController.getHouse().loadShoppingList(shoppingList); // set the activity's shopping list to the one retrieved from the database
                 // please see the lecture #24 slides for a more elegant solution to the timing issue
                 // that necessitates this update
-                ControllerActivity.this.mainView.displayFragment(new ShoppingListScreenFragment(ControllerActivity.this));
+                //ControllerActivity.this.mainView.displayFragment(new ShoppingListScreenFragment(ControllerActivity.this));
             }
-        });
+        });*/
 
-
-        this.mainView = new MainView(this);
-        this.setContentView(this.mainView.getRootView());
         if (savedInstanceState == null) // means it's the first time we're launching the activity*/
             this.mainView.displayFragment(new LoginScreenFragment(this));
             //displays the add Item Fragment
@@ -193,7 +190,7 @@ public class ControllerActivity extends AppCompatActivity
 
         @Override
         public void onAddedItem(String name, int quantity, float price,
-                                ArrayList<Housemate> interestedHMs, IAddItemView addItemView) {
+                                List<Housemate> interestedHMs, IAddItemView addItemView) {
             houseController.addLineItemToShoppingList(quantity, name, price, interestedHMs);
             addItemView.updateDisplay(houseController.getHouse().getShoppingList());
         }
@@ -235,7 +232,7 @@ public class ControllerActivity extends AppCompatActivity
 
         @Override
         public void onAddedEvent(String name, Date date, Time startTime, Time endTime,
-                                 ArrayList<Housemate> interestedHMs, String rec,
+                                 List<Housemate> interestedHMs, String rec,
                                  IAddEventView addEventView) {
             Date startDate = date;
             Date endDate = new Date(startDate.getTime()+31556952000L);

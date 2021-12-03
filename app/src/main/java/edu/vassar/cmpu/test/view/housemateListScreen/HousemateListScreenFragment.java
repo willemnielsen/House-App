@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import androidx.fragment.app.Fragment;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import edu.vassar.cmpu.test.databinding.FragmentHousematesBinding;
 import edu.vassar.cmpu.test.domain.Calendar;
@@ -52,7 +53,7 @@ public class HousemateListScreenFragment extends Fragment implements IHousemateL
     }
 
     @Override
-    public void updateDisplay(ArrayList<Housemate> housemates) {
+    public void updateDisplay(List<Housemate> housemates) {
         String names= "";
         for (Housemate name: housemates){
            names= names + name.toString() + "\n" ;

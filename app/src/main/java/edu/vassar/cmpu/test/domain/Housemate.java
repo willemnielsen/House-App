@@ -6,7 +6,7 @@ public class Housemate {
 
     private String name;
     private String housemateId;
-    public ArrayList<Debt> debtlist;
+    public List<Debt> debtlist;
 
     public Housemate(String name, String housemateId){
         this.name = name;
@@ -48,7 +48,7 @@ public class Housemate {
         return name;
     }
 
-    public ArrayList<Debt> getDebtlist(){return debtlist;}
+    public List<Debt> getDebtlist(){return debtlist;}
 
     public String toString(){
         return "" + name + "";

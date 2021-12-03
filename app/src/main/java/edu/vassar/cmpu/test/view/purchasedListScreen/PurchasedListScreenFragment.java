@@ -10,6 +10,7 @@ import android.widget.Toast;
 import androidx.fragment.app.Fragment;
 
 import java.util.ArrayList;
+import java.util.List;
 
 
 import edu.vassar.cmpu.test.databinding.FragmentPurchasedBinding;
@@ -42,7 +43,7 @@ public class PurchasedListScreenFragment extends Fragment implements IPurchasedL
         return this.binding.getRoot();
     }
     @Override
-    public void updatePurchasedList(ArrayList<LineItem> purchasedItems) {
+    public void updatePurchasedList(List<LineItem> purchasedItems) {
         String toText = "There have been " + purchasedItems.size() + " items purchased \n";
         for (LineItem item: purchasedItems){
             toText = toText + item.toString() + "\n";

@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.List;
 
 
 import edu.vassar.cmpu.test.ControllerActivity;
@@ -65,10 +66,10 @@ public class AddItemFragment extends Fragment implements IAddItemView {
 
     }
 
-    private void CreateDialog(ArrayList<Housemate> housemates, String name, int qtyVal,
+    private void CreateDialog(List<Housemate> housemates, String name, int qtyVal,
                               float price){
-        ArrayList<String> selectedHM = new ArrayList<>();
-        ArrayList<Housemate> interestedHM = new ArrayList<>();
+        List<String> selectedHM = new ArrayList<>();
+        List<Housemate> interestedHM = new ArrayList<>();
         String[] names = new String[housemates.size()];
         for(int i = 0 ; i < names.length; i++){
            names[i] = housemates.get(i).getName();
@@ -110,7 +111,7 @@ public class AddItemFragment extends Fragment implements IAddItemView {
     }
 
     @Override
-    public void getHouseMates(ArrayList<Housemate> housemates){
+    public void getHouseMates(List<Housemate> housemates){
         this.binding.addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

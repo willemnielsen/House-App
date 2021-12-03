@@ -4,9 +4,10 @@ import java.sql.Time;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Date;
+import java.util.List;
 
 public class Calendar {
-    private ArrayList<Event> events;
+    private List<Event> events;
     private Date currentDate;
 
     public Calendar() {
@@ -15,7 +16,7 @@ public class Calendar {
     }
 
     public boolean addEvent(String name, Date date, Time startTime, Time endTime,
-                            ArrayList<Housemate> housemates, Recurrence recurrence) {
+                            List<Housemate> housemates, Recurrence recurrence) {
         Event newevent;
         Date incDate = recurrence.getStartDate();
         Long longDate;
@@ -67,8 +68,8 @@ public class Calendar {
         events.remove(event);
     }
 
-    public void setEvents(ArrayList<Event> events){this.events = events;}
-    public ArrayList<Event> getEvents(){return this.events;}
+    public void setEvents(List<Event> events){this.events = events;}
+    public List<Event> getEvents(){return this.events;}
 
     public Event getThisEvent(Event event) {
         return events.get(events.indexOf(event));
@@ -79,7 +80,7 @@ public class Calendar {
         return true;
     }
 
-    public static void sort(ArrayList<Event> eventlist)
+    public static void sort(List<Event> eventlist)
     {
         eventlist.sort(Comparator.comparing(Event::getStartTime));
     }

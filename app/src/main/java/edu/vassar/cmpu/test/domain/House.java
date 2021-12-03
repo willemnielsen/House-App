@@ -6,9 +6,9 @@ public class House {
     private String houseName;
     int houseID = 0;
     private ShoppingList shoppingList;
-    private ArrayList<Housemate> housemates;
-    private ArrayList<LineItem> purchasedItems;
-    private ArrayList<Debt> housedebt;
+    private List<Housemate> housemates;
+    private List<LineItem> purchasedItems;
+    private List<Debt> housedebt;
     private Calendar calendar;
 
     public House(String houseName) {
@@ -26,12 +26,16 @@ public class House {
     }
 
     public boolean addLineItemToShoppingList(int quantity, String name, float price,
-                                             ArrayList<Housemate> interestedHouseMates){
+                                             List<Housemate> interestedHouseMates){
         return shoppingList.addItem(quantity, name, price, interestedHouseMates);
     }
 
     public LineItem getShoppingListLineItem(int i){
         return shoppingList.getShoppingListLineItem(i);
+    }
+
+    public void loadShoppingList(ShoppingList sl){
+        this.shoppingList = sl;
     }
 
     public int getShoppingListSize(){
@@ -42,7 +46,7 @@ public class House {
         return shoppingList;
     }
 
-    public ArrayList<LineItem> getPurchasedItems() {
+    public List<LineItem> getPurchasedItems() {
         return purchasedItems;
     }
 
@@ -159,7 +163,7 @@ public class House {
         return balanceTotal;
     }
 
-    public ArrayList<Housemate> getHousemates(){
+    public List<Housemate> getHousemates(){
         return housemates;
     }
     public Calendar getCalendar(){

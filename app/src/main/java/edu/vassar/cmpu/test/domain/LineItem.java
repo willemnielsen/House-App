@@ -2,24 +2,25 @@ package edu.vassar.cmpu.test.domain;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
 
 public class LineItem implements Serializable {
 
 
     private int quantity;
-    private ArrayList<Housemate> interestedHouseMates;
+    private List<Housemate> interestedHouseMates;
     private Housemate purchaser;
     private Item item;
 
 
-    public LineItem(int quantity, String name, ArrayList<Housemate> interestedHouseMates){
+    public LineItem(int quantity, String name, List<Housemate> interestedHouseMates){
         item = new Item(name);
         this.quantity = quantity;
         this.interestedHouseMates = interestedHouseMates;
     }
 
     public LineItem(int quantity, String name, float price,
-                    ArrayList<Housemate> interestedHouseMates){
+                    List<Housemate> interestedHouseMates){
         item = new Item(name, price);
         this.quantity = quantity;
         this.interestedHouseMates = interestedHouseMates;
@@ -35,7 +36,7 @@ public class LineItem implements Serializable {
         this.quantity = quantity;
     }
 
-    public ArrayList<Housemate> getInterestedHouseMates() {
+    public List<Housemate> getInterestedHouseMates() {
         return interestedHouseMates;
     }
 

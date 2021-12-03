@@ -3,6 +3,7 @@ package edu.vassar.cmpu.test.domain;
 import java.sql.Time;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class HouseController {
 
@@ -39,7 +40,7 @@ public class HouseController {
     }
 
     public boolean addLineItemToShoppingList(int quantity, String name, float price,
-                                             ArrayList<Housemate> interestedHouseMates){
+                                             List<Housemate> interestedHouseMates){
         return house.addLineItemToShoppingList(quantity, name, price, interestedHouseMates);
     }
 
@@ -80,7 +81,7 @@ public class HouseController {
     public String houseBalance(){
         return house.houseBalance();
     }
-    public ArrayList<Housemate> getHousemates() {
+    public List<Housemate> getHousemates() {
         return house.getHousemates();
     }
 
@@ -88,7 +89,7 @@ public class HouseController {
         return house.getCalendar().getThisEvent(event);}
 
     public boolean addEventToCalendar(String name, Date date, Time startTime, Time endTime,
-                                      ArrayList<Housemate> housemates, Recurrence recurrence){
+                                      List<Housemate> housemates, Recurrence recurrence){
         return house.getCalendar().addEvent(name, date, startTime, endTime, housemates, recurrence);
     }
 
