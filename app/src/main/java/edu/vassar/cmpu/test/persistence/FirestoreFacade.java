@@ -1,5 +1,7 @@
 package edu.vassar.cmpu.test.persistence;
 
+import android.util.Log;
+
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -26,8 +28,7 @@ public class FirestoreFacade implements IPersistenceFacade {
     @Override
     public void retrieveShoppingList(ShoppingListListener listener) {
 
-        db.collection(SHOPPING_LIST).
-                get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+        db.collection(SHOPPING_LIST).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
             public void onSuccess(QuerySnapshot qsnap) {
                 ShoppingList shoppingList = new ShoppingList();

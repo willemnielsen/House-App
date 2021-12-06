@@ -12,6 +12,11 @@ public class LineItem implements Serializable {
     private Housemate purchaser;
     private Item item;
 
+    public LineItem(){
+        item = new Item("NA", 0.0f);
+        this.quantity = 0;
+        this.interestedHouseMates = new ArrayList<>();
+    }
 
     public LineItem(int quantity, String name, List<Housemate> interestedHouseMates){
         item = new Item(name);
@@ -59,6 +64,11 @@ public class LineItem implements Serializable {
     public String getName(){
         return item.getName();
     }
+
+    public void setName(String name){
+        item.setName(name);
+    }
+
 
     public String toString(){
         return "x" + this.quantity + " " + item.toString();

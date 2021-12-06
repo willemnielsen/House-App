@@ -52,6 +52,10 @@ public class HouseController {
         return house.getShoppingList().toString();
     }
 
+    public void loadShoppList(ShoppingList sl){
+        this.house.loadShoppingList(sl);
+    }
+
     public void addToPurchase(LineItem lineitem){
         house.getPurchasedItems().add(lineitem);
     }
@@ -59,6 +63,7 @@ public class HouseController {
     public House getHouse(){
         return house;
     }
+
 
 
     /**

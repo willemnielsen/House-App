@@ -49,7 +49,7 @@ public class ControllerActivity extends AppCompatActivity
             IAddItemView.Listener, ICalendarScreenView.Listener, IAddEventView.Listener,
             ILoginScreenFragment.Listener, IHousemateListScreenFragment.Listener,
             IPurchasedListScreenFragment.Listener, IAddHousemate.Listener, IDebtScreenFragment.Listener,
-            ITransactionsScreenFragment.Listener {
+            ITransactionsScreenFragment.Listener, IPersistenceFacade.ShoppingListListener {
     //extends makes this class an activity
 
     private LineItem curItem;
@@ -75,20 +75,9 @@ public class ControllerActivity extends AppCompatActivity
         if (savedInstanceState != null)
             this.curItem = (LineItem) savedInstanceState.getSerializable(CUR_ITEM); // retrieve preexisting line item
 
-
-        /*this.persistenceFacade.retrieveShoppingList(new IPersistenceFacade.ShoppingListListener() {
-            @Override
-            public void onShoppingListReceived(ShoppingList shoppingList) {
-                ControllerActivity.this.houseController.getHouse().loadShoppingList(shoppingList); // set the activity's shopping list to the one retrieved from the database
-                // please see the lecture #24 slides for a more elegant solution to the timing issue
-                // that necessitates this update
-                //ControllerActivity.this.mainView.displayFragment(new ShoppingListScreenFragment(ControllerActivity.this));
-            }
-        });*/
-
         if (savedInstanceState == null) // means it's the first time we're launching the activity*/
             this.mainView.displayFragment(new LoginScreenFragment(this));
-            //displays the add Item Fragment
+        //displays the add Item Fragment
     }
 
     //
@@ -102,6 +91,15 @@ public class ControllerActivity extends AppCompatActivity
         houseController.addHousemate(hm);
         houseController.setUser(hm); // sets new user to logging in one
         openHomeScreen();
+
+        this.persistenceFacade.retrieveShoppingList(new IPersistenceFacade.ShoppingListListener() {
+            @Override
+            public void onShoppingListReceived(ShoppingList shoppingList) {
+                ControllerActivity.this.houseController.getHouse().loadShoppingList(shoppingList); // set the activity's shopping list to the one retrieved from the database
+
+            }
+        });
+
     }
 
     public void openHomeScreen(){
@@ -193,6 +191,7 @@ public class ControllerActivity extends AppCompatActivity
                                 List<Housemate> interestedHMs, IAddItemView addItemView) {
             houseController.addLineItemToShoppingList(quantity, name, price, interestedHMs);
             addItemView.updateDisplay(houseController.getHouse().getShoppingList());
+            this.persistenceFacade.saveLineItem(new LineItem(quantity, name, price, interestedHMs));
         }
 
         @Override
@@ -321,5 +320,10 @@ public class ControllerActivity extends AppCompatActivity
         houseController.checkout(distribution, houseController.getLoggedInUser());
         houseController.getHouse().getPurchasedItems().clear();
         purchasedListScreenFragment.updatePurchasedList(houseController.getHouse().getPurchasedItems());
+    }
+
+    @Override
+    public void onShoppingListReceived(ShoppingList shoppingList) {
+        houseController.loadShoppList(shoppingList);
     }
 }

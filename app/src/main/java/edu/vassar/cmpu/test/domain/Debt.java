@@ -1,11 +1,20 @@
 package edu.vassar.cmpu.test.domain;
 
-public class Debt {
+import java.io.Serializable;
+
+public class Debt implements Serializable {
     private boolean isPaid = false;
     private Housemate debtor;
     private Housemate creditor;
     private LineItem lineItem;
     private float owed;
+
+    public Debt(){
+        this.debtor = null;
+        this.creditor = null;
+        this.owed = 0;
+        this.lineItem = null;
+    }
 
     public Debt(Housemate creditor, Housemate debtor, float owed, LineItem lineItem){
         this.debtor = debtor;

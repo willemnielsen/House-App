@@ -1,12 +1,19 @@
 package edu.vassar.cmpu.test.domain;
+import java.io.Serializable;
 import java.lang.reflect.Array;
 import java.util.*;
-public class Housemate {
+public class Housemate implements Serializable {
 
 
     private String name;
     private String housemateId;
     public List<Debt> debtlist;
+
+    public Housemate(){
+        this.name = "NA";
+        this.housemateId = "None";
+        debtlist = new ArrayList<Debt>();
+    }
 
     public Housemate(String name, String housemateId){
         this.name = name;
