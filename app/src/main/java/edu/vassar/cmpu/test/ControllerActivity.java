@@ -87,6 +87,7 @@ public class ControllerActivity extends AppCompatActivity
     //House
     //
 
+
     @Override
     public void onCreateHouse(String houseName, String membersName) {
         houseController = new HouseController(houseName);
@@ -103,7 +104,8 @@ public class ControllerActivity extends AppCompatActivity
         this.persistenceFacade.retrieveShoppingList(new IPersistenceFacade.ShoppingListListener() {
             @Override
             public void onShoppingListReceived(ShoppingList shoppingList) {
-                ControllerActivity.this.houseController.getHouse().loadShoppingList(shoppingList); // set the activity's shopping list to the one retrieved from the database
+                ControllerActivity.this.houseController.getHouse().loadShoppingList(shoppingList);
+                // set the activity's shopping list to the one retrieved from the database
 
             }
         });
@@ -120,6 +122,14 @@ public class ControllerActivity extends AppCompatActivity
             @Override
             public void onHousemateListReceived(List<Housemate> housemateList) {
                 ControllerActivity.this.houseController.getHouse().loadHousemates(housemateList);
+            }
+        });
+
+        this.persistenceFacade.retrievePurchaseList(new IPersistenceFacade.PurchaseListListener() {
+            @Override
+            public void onPurchaseListReceived(List<LineItem> purchaseList) {
+                ControllerActivity.this.houseController.getHouse().loadPurchasedList(purchaseList);
+                // set the activity's purchase list to the one retrieved from the database
             }
         });
 
@@ -190,6 +200,8 @@ public class ControllerActivity extends AppCompatActivity
         houseController.getHouse().getShoppingList().remove(lineitem);
         shoppingListScreenView.updateDisplay(houseController.getHouse().getShoppingList());
         shoppingListScreenView.updatePurchasedList(houseController.getHouse().getPurchasedItems());
+        this.persistenceFacade.saveLineItemPL(lineitem);
+
     }
 
 
@@ -346,6 +358,7 @@ public class ControllerActivity extends AppCompatActivity
         houseController.checkout(distribution, houseController.getLoggedInUser());
         houseController.getHouse().getPurchasedItems().clear();
         purchasedListScreenFragment.updatePurchasedList(houseController.getHouse().getPurchasedItems());
+
     }
 
     @Override

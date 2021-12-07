@@ -24,6 +24,7 @@ public class FirestoreFacade implements IPersistenceFacade {
     FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     public String HOUSE_NAME = "Default";
+    private static final String PURCHASE_LIST = "Purchase list";
     private static final String SHOPPING_LIST = "shopping list";
     private static final String CALENDAR = "calendar";
     private static final String HOUSEMATE_LIST = "housemate list";
@@ -92,6 +93,26 @@ public class FirestoreFacade implements IPersistenceFacade {
                     calendar.addThisEvent(event);
                 }
                 listener.onCalendarReceived(calendar);
+            }
+        });
+    }
+
+    @Override
+    public void saveLineItemPL(LineItem lineItem) {
+        db.collection(HOUSE_NAME).document(HOUSE_NAME).collection(PURCHASE_LIST).add(lineItem);
+    }
+    @Override
+    public void retrievePurchaseList(PurchaseListListener listener) {
+
+        db.collection(HOUSE_NAME).document(HOUSE_NAME).collection(PURCHASE_LIST).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+            @Override
+            public void onSuccess(QuerySnapshot qsnap) {
+                List<LineItem> purchaseList = new ArrayList<>();
+                for (DocumentSnapshot dsnap : qsnap){
+                    LineItem lineItem = dsnap.toObject(LineItem.class);
+                    purchaseList.add(lineItem);
+                }
+                listener.onPurchaseListReceived(purchaseList);
             }
         });
     }
