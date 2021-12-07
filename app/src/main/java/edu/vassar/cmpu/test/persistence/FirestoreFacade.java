@@ -56,6 +56,7 @@ public class FirestoreFacade implements IPersistenceFacade {
             public void onSuccess(QuerySnapshot qsnap) {
                 Calendar calendar = new Calendar();
                 for (DocumentSnapshot dsnap : qsnap){
+                    Log.i("test", dsnap.toString());
                     Event event = dsnap.toObject(Event.class);
                     calendar.addThisEvent(event);
                 }

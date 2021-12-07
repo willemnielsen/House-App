@@ -1,12 +1,13 @@
 package edu.vassar.cmpu.test.domain;
 
+import java.io.Serializable;
 import java.sql.Time;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 
-public class Calendar {
+public class Calendar implements Serializable {
     private List<Event> events;
     private Date currentDate;
 
