@@ -25,6 +25,10 @@ public class House {
         calendar = new Calendar();
     }
 
+    public String getName(){
+        return houseName;
+    }
+
     public boolean addLineItemToShoppingList(int quantity, String name, float price,
                                              List<Housemate> interestedHouseMates){
         return shoppingList.addItem(quantity, name, price, interestedHouseMates);

@@ -91,10 +91,12 @@ public class ControllerActivity extends AppCompatActivity
         Housemate hm = new Housemate(membersName, "343243");
         houseController.addHousemate(hm);
         houseController.setUser(hm); // sets new user to logging in one
+        this.persistenceFacade.setHouseName(houseController.getHouse().getName());
         this.persistenceFacade.saveHousemate(hm);
         openHomeScreen();
 
-        this.persistenceFacade.setHouseName(houseName.toUpperCase());
+       // this.persistenceFacade.setHouseName(houseName);
+
 
         this.persistenceFacade.retrieveShoppingList(new IPersistenceFacade.ShoppingListListener() {
             @Override

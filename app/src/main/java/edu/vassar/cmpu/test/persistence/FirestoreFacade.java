@@ -7,6 +7,7 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.io.StringReader;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
@@ -27,17 +28,17 @@ public class FirestoreFacade implements IPersistenceFacade {
 
     @Override
     public void setHouseName(String houseName){
-        HOUSE_NAME = houseName;
+       HOUSE_NAME = houseName;
     }
 
     @Override
     public void saveHousemate(Housemate housemate) {
-        db.collection(HOUSEMATE_LIST).add(housemate);
+        db.collection(HOUSE_NAME).document(HOUSE_NAME).collection(HOUSEMATE_LIST).add(housemate);
     }
 
     @Override
     public void retrieveHousemateList(HousematesListListener listener) {
-        db.collection(HOUSEMATE_LIST).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+        db.collection(HOUSE_NAME).document(HOUSE_NAME).collection(HOUSEMATE_LIST).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
             public void onSuccess(QuerySnapshot qsnap) {
                 List<Housemate> housemateList = new ArrayList<>();
@@ -52,13 +53,13 @@ public class FirestoreFacade implements IPersistenceFacade {
 
     @Override
     public void saveLineItem(LineItem lineItem) {
-        db.collection(SHOPPING_LIST).add(lineItem);
+        db.collection(HOUSE_NAME).document(HOUSE_NAME).collection(SHOPPING_LIST).add(lineItem);
     }
 
     @Override
     public void retrieveShoppingList(ShoppingListListener listener) {
 
-        db.collection(SHOPPING_LIST).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+        db.collection(HOUSE_NAME).document(HOUSE_NAME).collection(SHOPPING_LIST).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
             public void onSuccess(QuerySnapshot qsnap) {
                 ShoppingList shoppingList = new ShoppingList();
