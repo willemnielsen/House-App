@@ -46,6 +46,9 @@ public class House {
 
     public void loadHousemates(List<Housemate> housemates){this.housemates = housemates;}
 
+    public void loadPurchasedList(List<LineItem> purchasedItems){this.purchasedItems = purchasedItems;}
+
+
     public int getShoppingListSize(){
         return this.shoppingList.size();
     }

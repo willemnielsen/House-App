@@ -18,7 +18,9 @@ public interface IPersistenceFacade {
     interface CalendarListener{
         void onCalendarReceived(Calendar calendar);
     }
-
+    interface PurchaseListListener{
+        void onPurchaseListReceived(List<LineItem> purchaseList);
+    }
     interface HousematesListListener{
         void onHousemateListReceived(List<Housemate> housemateList);
     }
@@ -31,7 +33,9 @@ public interface IPersistenceFacade {
     void retrieveShoppingList(ShoppingListListener listener);
     void saveEvent(Event event);
     void retrieveCalendar(CalendarListener listener);
-
+    void retrievePurchaseList(PurchaseListListener listener);
     void saveHousemate(Housemate housemate);
     void retrieveHousemateList(HousematesListListener listener);
+    void saveLineItemPL(LineItem lineItem);
+
 }
