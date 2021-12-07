@@ -14,6 +14,8 @@ import java.util.List;
 
 
 //import edu.vassar.cmpu.test.domain.House;
+import edu.vassar.cmpu.test.domain.Calendar;
+import edu.vassar.cmpu.test.domain.Event;
 import edu.vassar.cmpu.test.domain.HouseController;
 import edu.vassar.cmpu.test.domain.Housemate;
 import edu.vassar.cmpu.test.domain.LineItem;
@@ -49,7 +51,7 @@ public class ControllerActivity extends AppCompatActivity
             IAddItemView.Listener, ICalendarScreenView.Listener, IAddEventView.Listener,
             ILoginScreenFragment.Listener, IHousemateListScreenFragment.Listener,
             IPurchasedListScreenFragment.Listener, IAddHousemate.Listener, IDebtScreenFragment.Listener,
-            ITransactionsScreenFragment.Listener, IPersistenceFacade.ShoppingListListener {
+            ITransactionsScreenFragment.Listener, IPersistenceFacade.ShoppingListListener, IPersistenceFacade.CalendarListener {
     //extends makes this class an activity
 
     private LineItem curItem;
@@ -96,6 +98,14 @@ public class ControllerActivity extends AppCompatActivity
             @Override
             public void onShoppingListReceived(ShoppingList shoppingList) {
                 ControllerActivity.this.houseController.getHouse().loadShoppingList(shoppingList); // set the activity's shopping list to the one retrieved from the database
+
+            }
+        });
+
+        this.persistenceFacade.retrieveCalendar(new IPersistenceFacade.CalendarListener() {
+            @Override
+            public void onCalendarReceived(Calendar calendar) {
+                ControllerActivity.this.houseController.getHouse().loadCalendar(calendar); // set the activity's calendar to the one retrieved from the database
 
             }
         });
@@ -240,6 +250,8 @@ public class ControllerActivity extends AppCompatActivity
                     recurrence);
 
             addEventView.updateDisplay(houseController.getHouse().getCalendar());
+            addEventToDatabase(name, date, startTime, endTime, interestedHMs,
+                    recurrence);
         }
 
         @Override
@@ -326,4 +338,53 @@ public class ControllerActivity extends AppCompatActivity
     public void onShoppingListReceived(ShoppingList shoppingList) {
         houseController.loadShoppList(shoppingList);
     }
+
+    @Override
+    public void onCalendarReceived(Calendar calendar) {
+        houseController.loadCalendar(calendar);
+    }
+
+    public void addEventToDatabase(String name, Date date, Time startTime, Time endTime,
+                                  List<Housemate> interestedHMs, Recurrence recurrence) {
+        Event newevent;
+        Date incDate = recurrence.getStartDate();
+        Long longDate;
+        switch (recurrence.getFrequency()) {
+            case "Daily":
+                while (incDate.before(recurrence.getEndDate())) {
+                    if (interestedHMs == null) {
+                        newevent = new Event(name, incDate, startTime, endTime,
+                                new ArrayList<Housemate>());
+                    } else {
+                        newevent = new Event(name, incDate, startTime, endTime, interestedHMs);
+                    }
+                    this.persistenceFacade.saveEvent(newevent);
+                    longDate = incDate.getTime() + 86400000L;
+                    incDate = new Date(longDate);
+                }
+                break;
+            case "Weekly":
+                while (incDate.before(recurrence.getEndDate())) {
+                    if (interestedHMs == null) {
+                        newevent = new Event(name, incDate, startTime, endTime,
+                                new ArrayList<Housemate>());
+                    } else {
+                        newevent = new Event(name, incDate, startTime, endTime, interestedHMs);
+                    }
+                    this.persistenceFacade.saveEvent(newevent);
+                    longDate = incDate.getTime() + 604800000L;
+                    incDate = new Date(longDate);
+                }
+                break;
+            default:
+                if (interestedHMs == null) {
+                    newevent = new Event(name, date, startTime, endTime,
+                            new ArrayList<Housemate>());
+                } else {
+                    newevent = new Event(name, date, startTime, endTime, interestedHMs);
+                }
+                this.persistenceFacade.saveEvent(newevent);
+        }
+    }
+
 }

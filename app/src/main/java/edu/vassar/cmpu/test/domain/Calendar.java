@@ -11,8 +11,8 @@ public class Calendar {
     private Date currentDate;
 
     public Calendar() {
-        events = new ArrayList<Event>();
-        currentDate = new Date();
+        this.events = new ArrayList<Event>();
+        this.currentDate = new Date();
     }
 
     public boolean addEvent(String name, Date date, Time startTime, Time endTime,
@@ -63,6 +63,9 @@ public class Calendar {
         return true;
     }
 
+    public void addThisEvent(Event event){
+        this.events.add(event);
+    }
 
     public void remove(Event event) {
         events.remove(event);

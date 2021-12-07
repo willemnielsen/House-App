@@ -98,4 +98,8 @@ public class HouseController {
         return house.getCalendar().addEvent(name, date, startTime, endTime, housemates, recurrence);
     }
 
+    public void loadCalendar(Calendar calendar){
+        this.house.loadCalendar(calendar);
+    }
+
 }

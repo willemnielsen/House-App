@@ -169,6 +169,9 @@ public class House {
     public Calendar getCalendar(){
         return calendar;
     }
+    public void loadCalendar(Calendar calendar){
+        this.calendar = calendar;
+    }
 
 }
 
