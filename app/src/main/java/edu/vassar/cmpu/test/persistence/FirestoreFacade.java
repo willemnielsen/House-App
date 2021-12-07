@@ -76,13 +76,13 @@ public class FirestoreFacade implements IPersistenceFacade {
 
     @Override
     public void saveEvent(Event event) {
-        db.collection(CALENDAR).add(event);
+        db.collection(HOUSE_NAME).document(HOUSE_NAME).collection(CALENDAR).add(event);
     }
 
     @Override
     public void retrieveCalendar(CalendarListener listener) {
 
-        db.collection(CALENDAR).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+        db.collection(HOUSE_NAME).document(HOUSE_NAME).collection(CALENDAR).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
             public void onSuccess(QuerySnapshot qsnap) {
                 Calendar calendar = new Calendar();

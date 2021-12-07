@@ -53,7 +53,6 @@ public class ControllerActivity extends AppCompatActivity
             ILoginScreenFragment.Listener, IHousemateListScreenFragment.Listener,
             IPurchasedListScreenFragment.Listener, IAddHousemate.Listener, IDebtScreenFragment.Listener,
             ITransactionsScreenFragment.Listener, IPersistenceFacade.ShoppingListListener, IPersistenceFacade.CalendarListener {
-            ITransactionsScreenFragment.Listener{
     //extends makes this class an activity
 
     private LineItem curItem;
