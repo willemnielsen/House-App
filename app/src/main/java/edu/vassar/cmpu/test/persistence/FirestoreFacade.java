@@ -8,6 +8,11 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import edu.vassar.cmpu.test.domain.Event;
+import java.io.StringReader;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.List;
+
 import edu.vassar.cmpu.test.domain.LineItem;
 import edu.vassar.cmpu.test.domain.ShoppingList;
 import edu.vassar.cmpu.test.domain.Housemate;
@@ -18,19 +23,45 @@ public class FirestoreFacade implements IPersistenceFacade {
 
     FirebaseFirestore db = FirebaseFirestore.getInstance();
 
+    public String HOUSE_NAME = "Default";
     private static final String SHOPPING_LIST = "shopping list";
     private static final String CALENDAR = "calendar";
+    private static final String HOUSEMATE_LIST = "housemate list";
 
+    @Override
+    public void setHouseName(String houseName){
+       HOUSE_NAME = houseName;
+    }
+
+    @Override
+    public void saveHousemate(Housemate housemate) {
+        db.collection(HOUSE_NAME).document(HOUSE_NAME).collection(HOUSEMATE_LIST).add(housemate);
+    }
+
+    @Override
+    public void retrieveHousemateList(HousematesListListener listener) {
+        db.collection(HOUSE_NAME).document(HOUSE_NAME).collection(HOUSEMATE_LIST).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+            @Override
+            public void onSuccess(QuerySnapshot qsnap) {
+                List<Housemate> housemateList = new ArrayList<>();
+                for (DocumentSnapshot dsnap : qsnap){
+                    Housemate housemate = dsnap.toObject(Housemate.class);
+                    housemateList.add(housemate);
+                }
+                listener.onHousemateListReceived(housemateList);
+            }
+        });
+    }
 
     @Override
     public void saveLineItem(LineItem lineItem) {
-        db.collection(SHOPPING_LIST).add(lineItem);
+        db.collection(HOUSE_NAME).document(HOUSE_NAME).collection(SHOPPING_LIST).add(lineItem);
     }
 
     @Override
     public void retrieveShoppingList(ShoppingListListener listener) {
 
-        db.collection(SHOPPING_LIST).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+        db.collection(HOUSE_NAME).document(HOUSE_NAME).collection(SHOPPING_LIST).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
             public void onSuccess(QuerySnapshot qsnap) {
                 ShoppingList shoppingList = new ShoppingList();

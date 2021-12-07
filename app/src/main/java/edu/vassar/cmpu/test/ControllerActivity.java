@@ -11,6 +11,7 @@ import java.sql.Time;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 
 //import edu.vassar.cmpu.test.domain.House;
@@ -52,6 +53,7 @@ public class ControllerActivity extends AppCompatActivity
             ILoginScreenFragment.Listener, IHousemateListScreenFragment.Listener,
             IPurchasedListScreenFragment.Listener, IAddHousemate.Listener, IDebtScreenFragment.Listener,
             ITransactionsScreenFragment.Listener, IPersistenceFacade.ShoppingListListener, IPersistenceFacade.CalendarListener {
+            ITransactionsScreenFragment.Listener{
     //extends makes this class an activity
 
     private LineItem curItem;
@@ -92,7 +94,12 @@ public class ControllerActivity extends AppCompatActivity
         Housemate hm = new Housemate(membersName, "343243");
         houseController.addHousemate(hm);
         houseController.setUser(hm); // sets new user to logging in one
+        this.persistenceFacade.setHouseName(houseController.getHouse().getName());
+        this.persistenceFacade.saveHousemate(hm);
         openHomeScreen();
+
+       // this.persistenceFacade.setHouseName(houseName);
+
 
         this.persistenceFacade.retrieveShoppingList(new IPersistenceFacade.ShoppingListListener() {
             @Override
@@ -107,6 +114,13 @@ public class ControllerActivity extends AppCompatActivity
             public void onCalendarReceived(Calendar calendar) {
                 ControllerActivity.this.houseController.getHouse().loadCalendar(calendar); // set the activity's calendar to the one retrieved from the database
 
+            }
+        });
+
+        this.persistenceFacade.retrieveHousemateList(new IPersistenceFacade.HousematesListListener() {
+            @Override
+            public void onHousemateListReceived(List<Housemate> housemateList) {
+                ControllerActivity.this.houseController.getHouse().loadHousemates(housemateList);
             }
         });
 
@@ -305,7 +319,8 @@ public class ControllerActivity extends AppCompatActivity
         public void onAddHousemate(String name) {
             int id = (int) (Math.random() * 1000);
             houseController.addHousemate(new Housemate(name, "" + id));
-        }
+            this.persistenceFacade.saveHousemate(new Housemate(name, "" + id));
+    }
 
         @Override
         public void onPreviousOnAddHousemateScreen() {

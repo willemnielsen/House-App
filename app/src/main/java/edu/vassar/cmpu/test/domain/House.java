@@ -25,10 +25,16 @@ public class House {
         calendar = new Calendar();
     }
 
+    public String getName(){
+        return houseName;
+    }
+
     public boolean addLineItemToShoppingList(int quantity, String name, float price,
                                              List<Housemate> interestedHouseMates){
         return shoppingList.addItem(quantity, name, price, interestedHouseMates);
     }
+
+
 
     public LineItem getShoppingListLineItem(int i){
         return shoppingList.getShoppingListLineItem(i);
@@ -37,6 +43,8 @@ public class House {
     public void loadShoppingList(ShoppingList sl){
         this.shoppingList = sl;
     }
+
+    public void loadHousemates(List<Housemate> housemates){this.housemates = housemates;}
 
     public int getShoppingListSize(){
         return this.shoppingList.size();

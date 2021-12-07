@@ -1,6 +1,8 @@
 package edu.vassar.cmpu.test.persistence;
 
 import edu.vassar.cmpu.test.domain.Event;
+import java.util.List;
+
 import edu.vassar.cmpu.test.domain.LineItem;
 import edu.vassar.cmpu.test.domain.ShoppingList;
 import edu.vassar.cmpu.test.domain.Housemate;
@@ -17,9 +19,19 @@ public interface IPersistenceFacade {
         void onCalendarReceived(Calendar calendar);
     }
 
+    interface HousematesListListener{
+        void onHousemateListReceived(List<Housemate> housemateList);
+    }
+
+
+    void setHouseName(String houseName);
+
+
     void saveLineItem(LineItem lineItem);
     void retrieveShoppingList(ShoppingListListener listener);
     void saveEvent(Event event);
     void retrieveCalendar(CalendarListener listener);
 
+    void saveHousemate(Housemate housemate);
+    void retrieveHousemateList(HousematesListListener listener);
 }
