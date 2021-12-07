@@ -1,5 +1,7 @@
 package edu.vassar.cmpu.test.persistence;
 
+import java.util.List;
+
 import edu.vassar.cmpu.test.domain.LineItem;
 import edu.vassar.cmpu.test.domain.ShoppingList;
 import edu.vassar.cmpu.test.domain.Housemate;
@@ -12,7 +14,17 @@ public interface IPersistenceFacade {
         void onShoppingListReceived(ShoppingList shoppingList);
     }
 
+    interface HousematesListListener{
+        void onHousemateListReceived(List<Housemate> housemateList);
+    }
+
+
+    void setHouseName(String houseName);
+
+
     void saveLineItem(LineItem lineItem);
     void retrieveShoppingList(ShoppingListListener listener);
 
+    void saveHousemate(Housemate housemate);
+    void retrieveHousemateList(HousematesListListener listener);
 }
