@@ -76,4 +76,13 @@ public class Housemate implements Serializable {
     public String toString(){
         return "" + name + "";
     }
+
+    @Override
+    public boolean equals(Object o){
+        if(!(o instanceof Housemate)){
+            return false;
+        }
+        Housemate hm = (Housemate) o;
+        return this.housemateId == hm.housemateId;
+    }
 }
