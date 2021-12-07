@@ -1,8 +1,6 @@
 package edu.vassar.cmpu.test;
 
-import static androidx.test.InstrumentationRegistry.getContext;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
-import static androidx.test.espresso.matcher.RootMatchers.withDecorView;
 
 import androidx.test.espresso.Espresso;
 import androidx.test.espresso.ViewAction;
@@ -13,14 +11,10 @@ import androidx.test.espresso.action.Press;
 import androidx.test.espresso.action.Tap;
 import androidx.test.espresso.action.ViewActions;
 import androidx.test.espresso.assertion.ViewAssertions;
-import androidx.test.espresso.contrib.PickerActions;
 import androidx.test.espresso.matcher.ViewMatchers;
 import androidx.test.ext.junit.rules.ActivityScenarioRule;
 
-import androidx.test.espresso.contrib.PickerActions;
-
 import org.hamcrest.Matchers;
-import org.junit.Rule;
 import org.junit.Test;
 
 import static org.hamcrest.CoreMatchers.not;
@@ -30,7 +24,6 @@ import static org.hamcrest.Matchers.is;
 
 import android.view.View;
 import android.widget.CalendarView;
-import android.widget.DatePicker;
 
 import java.util.ArrayList;
 
@@ -51,10 +44,10 @@ public class AddItemTest {
         ViewInteraction name = Espresso.onView(ViewMatchers.withId(R.id.houseName))
                 .perform(ViewActions.typeText("Th - 42"));
 
-        ViewInteraction qty = Espresso.onView(ViewMatchers.withId(R.id.newMembersName))
+        ViewInteraction qty = Espresso.onView(ViewMatchers.withId(R.id.housePassword))
                 .perform(ViewActions.typeText("Tom"));
 
-        ViewInteraction closekb = Espresso.onView(ViewMatchers.withId(R.id.newMembersName))
+        ViewInteraction closekb = Espresso.onView(ViewMatchers.withId(R.id.housePassword))
                 .perform(ViewActions.closeSoftKeyboard());
 
         ViewInteraction button = Espresso.onView(ViewMatchers.withId(R.id.join_house_button))

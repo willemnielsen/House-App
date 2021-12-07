@@ -38,8 +38,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="80dp"
-        android:labelFor="@id/newMembersName"
-        android:text="@string/enter_name"
+        android:labelFor="@id/housePassword"
+        android:text="@string/password"
         android:textColor="#FFFFFF"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
@@ -47,7 +47,7 @@
         app:layout_constraintTop_toBottomOf="@+id/houseName" />
 
     <EditText
-        android:id="@+id/newMembersName"
+        android:id="@+id/housePassword"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
@@ -65,10 +65,23 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="124dp"
         android:fontFamily="@font/rubik_bold"
+        android:text="@string/create"
+        app:layout_constraintEnd_toStartOf="@+id/join_house_button2"
+        app:layout_constraintHorizontal_bias="0.795"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/housePassword" />
+
+    <Button
+        android:id="@+id/join_house_button2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="124dp"
+        android:fontFamily="@font/rubik_bold"
         android:text="@string/join"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.69"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/newMembersName" />
+        app:layout_constraintTop_toBottomOf="@+id/housePassword" />
 
     <ImageView
         android:id="@+id/logo_homescreen"
