@@ -90,7 +90,7 @@ public class ControllerActivity extends AppCompatActivity
     @Override
     public void onCreateHouse(String houseName, String membersName) {
         houseController = new HouseController(houseName);
-        Housemate hm = new Housemate(membersName, "343243");
+        Housemate hm = new Housemate(membersName);
         houseController.addHousemate(hm);
         houseController.setUser(hm); // sets new user to logging in one
         this.persistenceFacade.setHouseName(houseController.getHouse().getName());
@@ -317,8 +317,8 @@ public class ControllerActivity extends AppCompatActivity
         @Override
         public void onAddHousemate(String name) {
             int id = (int) (Math.random() * 1000);
-            houseController.addHousemate(new Housemate(name, "" + id));
-            this.persistenceFacade.saveHousemate(new Housemate(name, "" + id));
+            houseController.addHousemate(new Housemate(name));
+            this.persistenceFacade.saveHousemate(new Housemate(name));
     }
 
         @Override

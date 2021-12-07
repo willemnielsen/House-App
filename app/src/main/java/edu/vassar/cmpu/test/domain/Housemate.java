@@ -6,18 +6,18 @@ public class Housemate implements Serializable {
 
 
     private String name;
-    private String housemateId;
+    private long housemateId;
     public List<Debt> debtlist;
 
     public Housemate(){
         this.name = "NA";
-        this.housemateId = "None";
+        this.housemateId = 0;
         debtlist = new ArrayList<Debt>();
     }
 
-    public Housemate(String name, String housemateId){
+    public Housemate(String name){
         this.name = name;
-        this.housemateId = housemateId;
+        this.housemateId = new Random().nextLong();
         debtlist = new ArrayList<Debt>();
     }
 
@@ -55,7 +55,23 @@ public class Housemate implements Serializable {
         return name;
     }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
     public List<Debt> getDebtlist(){return debtlist;}
+
+    public void setDebtlist(List<Debt> debtlist) {
+        this.debtlist = debtlist;
+    }
+
+    public long getHousemateId() {
+        return housemateId;
+    }
+
+    public void setHousemateId(long housemateId) {
+        this.housemateId = housemateId;
+    }
 
     public String toString(){
         return "" + name + "";
