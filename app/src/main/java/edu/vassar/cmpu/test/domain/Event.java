@@ -6,6 +6,9 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * Event class for events of the house
+ */
 public class Event implements Serializable {
     private String name;
     private Date date;
@@ -13,6 +16,11 @@ public class Event implements Serializable {
     private Time endTime;
     private List<Housemate> housemates;
 
+    /**
+     * Creates an event object. Instantiates name, date, startTime, endTime and housemates
+     * attributes of this event. By default, name is "Event", date is today, startTime and endTime
+     * are Unix epoch, housemates is an empty array list.
+     */
     public Event() {
         this.name = "Event";
         this.date = new Date();
@@ -70,6 +78,10 @@ public class Event implements Serializable {
         this.housemates = housemates;
     }
 
+    /**
+     * Converts the event to a string.
+     * @return String with event name, start time and end time, and housemates.
+     */
     public String toString() {
         String print = "";
         print += name + " from ";

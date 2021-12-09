@@ -6,16 +6,34 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
-
+/**
+Calendar class used to store the events of a particular house
+*/
 public class Calendar implements Serializable {
     private List<Event> events;
     private Date currentDate;
 
+    /**
+     * Creates a calendar object, which instantiates the events and currentDate attributes. The
+     * events attribute stores the list of events on the calendar. The currentDate attribute is the
+     * date on the calendar selected by the user at any given time.
+     */
     public Calendar() {
         this.events = new ArrayList<Event>();
         this.currentDate = new Date();
     }
 
+    /**
+     * This method adds an event to the calendar. If the recurrence frequency is daily or weekly it
+     * adds multiple different instances of events to the calendar on the recurring dates.
+     * @param name              name of event
+     * @param date              first date that event occurs
+     * @param startTime         start time of event
+     * @param endTime           end time of event
+     * @param housemates        list of housemates participating in event
+     * @param recurrence        type of recurrence associated with this event
+     * @return <code>true</code>
+     */
     public boolean addEvent(String name, Date date, Time startTime, Time endTime,
                             List<Housemate> housemates, Recurrence recurrence) {
         Event newevent;
@@ -89,7 +107,10 @@ public class Calendar implements Serializable {
         eventlist.sort(Comparator.comparing(Event::getStartTime));
     }
 
-
+    /**
+     * This method converts the calendar to a string
+     * @return <code>list</code>, a string of all events on the calendar
+     */
     public String toString() {
         String list = "" + currentDate + "\n";
         for (Event event : events) {
