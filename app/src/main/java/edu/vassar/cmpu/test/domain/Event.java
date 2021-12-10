@@ -7,7 +7,9 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * Event class for events of the house
+ * Event class for events of the house. This class contains attributes <code>name</code>,
+ * <code>date</code>, <code>startTime</code>, <code>endTime</code>, <code>housemates</code>
+ * (interested housemates)
  */
 public class Event implements Serializable {
     private String name;
@@ -17,8 +19,7 @@ public class Event implements Serializable {
     private List<Housemate> housemates;
 
     /**
-     * Creates an event object. Instantiates name, date, startTime, endTime and housemates
-     * attributes of this event. By default, name is "Event", date is today, startTime and endTime
+     * Creates an event object. By default, name is "Event", date is today, startTime and endTime
      * are Unix epoch, housemates is an empty array list.
      */
     public Event() {
@@ -29,6 +30,14 @@ public class Event implements Serializable {
         this.housemates = new ArrayList<>();
     }
 
+    /**
+     * Creates an event object with the given parameters
+     * @param name          event name
+     * @param date          event date
+     * @param startTime     event starTime
+     * @param endTime       event endTime
+     * @param housemates    list of interested housemates
+     */
     public Event(String name, Date date, Time startTime, Time endTime,
                  List<Housemate> housemates) {
         this.name = name;

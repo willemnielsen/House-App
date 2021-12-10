@@ -7,16 +7,17 @@ import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 /**
-Calendar class used to store the events of a particular house
+ * Calendar class used to store the events of a particular house. The events attribute stores the
+ * list of events on the calendar. The currentDate attribute is the date on the calendar selected by
+ * the user.
 */
 public class Calendar implements Serializable {
     private List<Event> events;
     private Date currentDate;
 
     /**
-     * Creates a calendar object, which instantiates the events and currentDate attributes. The
-     * events attribute stores the list of events on the calendar. The currentDate attribute is the
-     * date on the calendar selected by the user at any given time.
+     * Creates a calendar object, which sets <code>events</code> to an empty ArrayList and
+     * <code>currentDate</code> to today.
      */
     public Calendar() {
         this.events = new ArrayList<Event>();
