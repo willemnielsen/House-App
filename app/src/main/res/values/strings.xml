@@ -57,6 +57,11 @@
     <string name="log_in">Log In</string>
     <string name="password">Password</string>
     <string name="create">Create</string>
+    <string name="registration_success_msg">Registration successful. Please sign in now.</string>
+    <string name="user_already_exists_msg">Registration failed. Username already exists.</string>
+    <string name="invalid_credentials_msg">Signin failed. Invalid credentials.</string>
+    <string name="house_already_exists_msg">Registration failed. House already exists.</string>
+
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

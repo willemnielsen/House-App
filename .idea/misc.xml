@@ -14,7 +14,7 @@
         <entry key="app/src/main/res/layout/fragment_add_event.xml" value="0.125" />
         <entry key="app/src/main/res/layout/fragment_add_housemate.xml" value="0.18885869565217392" />
         <entry key="app/src/main/res/layout/fragment_add_item.xml" value="0.19292492969328726" />
-        <entry key="app/src/main/res/layout/fragment_auth.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/fragment_auth.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_calendar_month.xml" value="0.125" />
         <entry key="app/src/main/res/layout/fragment_debt_screen.xml" value="0.18885869565217392" />
         <entry key="app/src/main/res/layout/fragment_dialog.xml" value="0.18092895940064813" />

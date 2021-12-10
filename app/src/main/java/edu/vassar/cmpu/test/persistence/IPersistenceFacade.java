@@ -53,5 +53,8 @@ public interface IPersistenceFacade {
     void createUserIfNotExists(@NonNull Housemate user, @NonNull BinaryResultListener listener);
     void retrieveUser(@NonNull String username, @NonNull DataListener<Housemate> listener);
 
+    void createHouseIfNotExists(@NonNull House house, @NonNull BinaryResultListener listener);
+    void retrieveHouse(@NonNull String houseName, @NonNull DataListener<House> listener);
+
 
 }

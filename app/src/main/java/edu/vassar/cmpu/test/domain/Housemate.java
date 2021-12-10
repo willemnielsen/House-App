@@ -32,8 +32,7 @@ public class Housemate implements Serializable {
      * is an empty arraylist
      * @param name      name of housemate to be created
      */
-    public Housemate(String name){
-    public Housemate(String name, String username, String password){
+    public Housemate(String username, String password){
         this.name = name;
         this.housemateId = new Random().nextLong();
         debtlist = new ArrayList<Debt>();

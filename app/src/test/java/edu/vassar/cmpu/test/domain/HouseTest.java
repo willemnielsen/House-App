@@ -14,7 +14,7 @@ class HouseTest {
 
     @Test
     void addLineItemToShoppingList() {
-        House house = new House("house");
+        House house = new House("house", "password");
         ShoppingList shoppingList = new ShoppingList();
         ArrayList<Housemate> hmList = new ArrayList<Housemate>();
         hmList.add( new Housemate("A", "2"));
@@ -29,7 +29,7 @@ class HouseTest {
      */
     @Test
     void getShoppingListLineItem() {
-        House house = new House("house");
+        House house = new House("house", "password");
         ShoppingList shoppingList = new ShoppingList();
         ArrayList<Housemate> hmList = new ArrayList<Housemate>();
         hmList.add( new Housemate("A", "2"));
@@ -43,7 +43,7 @@ class HouseTest {
      */
     @Test
     void getShoppingListSize() {
-        House house = new House("house");
+        House house = new House("house", "password");
         ShoppingList shoppingList = new ShoppingList();
         ArrayList<Housemate> hmList = new ArrayList<Housemate>();
         hmList.add( new Housemate("A", "2"));
@@ -58,7 +58,7 @@ class HouseTest {
      */
     @Test
     void addHousemate() {
-        House house = new House("house");
+        House house = new House("house", "password");
         Housemate A = new Housemate("A", "2");
         assertEquals(house.addHousemate(A), "A successfully added to this house.");
         assertNotEquals(house.addHousemate(A), "");
@@ -69,7 +69,7 @@ class HouseTest {
      */
     @Test
     void removeHousemate() {
-        House house = new House("house");
+        House house = new House("house", "password");
         Housemate B = new Housemate("B", "3");
         house.addHousemate(B);
         Housemate A = new Housemate("A", "2");
@@ -83,7 +83,7 @@ class HouseTest {
      */
     @Test
     void createDebtForIHM() {
-        House house = new House("house");
+        House house = new House("house", "password");
         ArrayList<Housemate> hmList = new ArrayList<>();
         Housemate A = new Housemate("A", "2");
         Housemate B = new Housemate("B", "3");
@@ -106,7 +106,7 @@ class HouseTest {
      */
     @Test
     void createDebtForHH() {
-        House house = new House("house");
+        House house = new House("house", "password");
         ArrayList<Housemate> hmList = new ArrayList<>();
         Housemate A = new Housemate("A", "2");
         Housemate B = new Housemate("B", "3");
@@ -129,7 +129,7 @@ class HouseTest {
      */
     @Test
     void createDebtForMe() {
-        House house = new House("house");
+        House house = new House("house", "password");
         ArrayList<Housemate> hmList = new ArrayList<>();
         Housemate A = new Housemate("A", "2");
         Housemate B = new Housemate("B", "3");
@@ -152,7 +152,7 @@ class HouseTest {
      */
     @Test
     void checkout() {
-        House house = new House("house");
+        House house = new House("house", "password");
         ArrayList<Housemate> hmList = new ArrayList<>();
         Housemate A = new Housemate("A", "2");
         Housemate B = new Housemate("B", "3");
@@ -175,7 +175,7 @@ class HouseTest {
 
     @Test
     void houseTransactions() {
-        House house = new House("house");
+        House house = new House("house", "password");
         ArrayList<Housemate> hmList = new ArrayList<>();
         Housemate A = new Housemate("A", "2");
         Housemate B = new Housemate("B", "3");
@@ -198,7 +198,7 @@ class HouseTest {
      */
     @Test
     void houseBalance() {
-        House house = new House("house");
+        House house = new House("house", "password");
         ArrayList<Housemate> hmList = new ArrayList<>();
         Housemate A = new Housemate("A", "2");
         Housemate B = new Housemate("B", "3");

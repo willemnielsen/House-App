@@ -2,6 +2,8 @@ package edu.vassar.cmpu.test.persistence;
 
 import android.util.Log;
 
+import androidx.annotation.NonNull;
+
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -28,6 +30,8 @@ public class FirestoreFacade implements IPersistenceFacade {
     private static final String SHOPPING_LIST = "shopping list";
     private static final String CALENDAR = "calendar";
     private static final String HOUSEMATE_LIST = "housemate list";
+    private static final String HOUSEMATES = "housemates";
+    private static final String HOUSE = "house";
 
     @Override
     public void setHouseName(String houseName){
@@ -116,5 +120,88 @@ public class FirestoreFacade implements IPersistenceFacade {
             }
         });
     }
+    @Override
+    public void createUserIfNotExists(@NonNull Housemate user, @NonNull BinaryResultListener listener) {
+
+        this.retrieveUser(user.getUsername(), new DataListener<Housemate>() {
+                    @Override
+                    public void onDataReceived(@NonNull Housemate user) { // there's data there, so no go
+                        listener.onNoResult();
+                    }
+
+                    @Override
+                    public void onNoDataFound() { // there's no data there, so we can add the user
+                        FirestoreFacade.this.setUser(user, listener);
+                    }
+                }
+        );
+    }
+
+    private void setUser(@NonNull Housemate user, @NonNull BinaryResultListener listener){
+        this.db.collection(HOUSE_NAME).document(HOUSE_NAME).collection(HOUSEMATES)
+                .document(user.getUsername())
+                .set(user)
+                .addOnSuccessListener( avoid -> listener.onYesResult())
+                .addOnFailureListener(e ->
+                        Log.w("NextGenPos", "Error retrieving ledger from database",e));
+    }
+
+    @Override
+    public void retrieveUser(@NonNull String username, @NonNull DataListener<Housemate> listener) {
+
+        this.db.collection(HOUSE_NAME).document(HOUSE_NAME).collection(HOUSEMATES).
+                document(username).get()
+                .addOnSuccessListener(dsnap -> {
+                    if (dsnap.exists()) { // got some data back
+                        Housemate user = dsnap.toObject(Housemate.class);
+                        assert (user != null);
+                        listener.onDataReceived(user);
+                    } else listener.onNoDataFound();  // no username match
+                })
+                .addOnFailureListener(e ->
+                        Log.w("Housemates", "Error retrieving user from database",e));
+    }
+
+    @Override
+    public void createHouseIfNotExists(@NonNull House house, @NonNull BinaryResultListener listener) {
+
+        this.retrieveHouse(house.getName(), new DataListener<House>() {
+                    @Override
+                    public void onDataReceived(@NonNull House house) { // there's data there, so no go
+                        listener.onNoResult();
+                    }
+
+                    @Override
+                    public void onNoDataFound() { // there's no data there, so we can add the user
+                        FirestoreFacade.this.setHouse(house, listener);
+                    }
+                }
+        );
+    }
+
+    private void setHouse(@NonNull House house, @NonNull BinaryResultListener listener){
+        this.db
+                .document(house.getName())
+                .set(house)
+                .addOnSuccessListener( avoid -> listener.onYesResult())
+                .addOnFailureListener(e ->
+                        Log.w("NextGenPos", "Error retrieving ledger from database",e));
+    }
+
+    @Override
+    public void retrieveHouse(@NonNull String houseName, @NonNull DataListener<House> listener) {
+
+        this.db.document(houseName).get()
+                .addOnSuccessListener(dsnap -> {
+                    if (dsnap.exists()) { // got some data back
+                        House house = dsnap.toObject(House.class);
+                        assert (house != null);
+                        listener.onDataReceived(house);
+                    } else listener.onNoDataFound();  // no username match
+                })
+                .addOnFailureListener(e ->
+                        Log.w("Housemates", "Error retrieving house from database",e));
+    }
+
 }
 

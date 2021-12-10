@@ -3,6 +3,7 @@ package edu.vassar.cmpu.test;
 import android.os.Bundle;
 import android.util.Log;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentFactory;
@@ -17,6 +18,7 @@ import java.util.Locale;
 //import edu.vassar.cmpu.test.domain.House;
 import edu.vassar.cmpu.test.domain.Calendar;
 import edu.vassar.cmpu.test.domain.Event;
+import edu.vassar.cmpu.test.domain.House;
 import edu.vassar.cmpu.test.domain.HouseController;
 import edu.vassar.cmpu.test.domain.Housemate;
 import edu.vassar.cmpu.test.domain.LineItem;
@@ -28,6 +30,8 @@ import edu.vassar.cmpu.test.view.addEventView.AddEventFragment;
 import edu.vassar.cmpu.test.view.addEventView.IAddEventView;
 import edu.vassar.cmpu.test.view.addItemView.AddItemFragment;
 import edu.vassar.cmpu.test.view.addItemView.IAddItemView;
+import edu.vassar.cmpu.test.view.authScreen.AuthFragment;
+import edu.vassar.cmpu.test.view.authScreen.IAuthView;
 import edu.vassar.cmpu.test.view.calendarScreen.CalendarScreenFragment;
 import edu.vassar.cmpu.test.view.calendarScreen.ICalendarScreenView;
 import edu.vassar.cmpu.test.view.homeScreen.HomeScreenFragment;
@@ -52,7 +56,7 @@ public class ControllerActivity extends AppCompatActivity
             IAddItemView.Listener, ICalendarScreenView.Listener, IAddEventView.Listener,
             ILoginScreenFragment.Listener, IHousemateListScreenFragment.Listener,
             IPurchasedListScreenFragment.Listener, IAddHousemate.Listener, IDebtScreenFragment.Listener,
-            ITransactionsScreenFragment.Listener, IPersistenceFacade.ShoppingListListener, IPersistenceFacade.CalendarListener {
+            ITransactionsScreenFragment.Listener, IPersistenceFacade.ShoppingListListener, IPersistenceFacade.CalendarListener, IAuthView.Listener {
     //extends makes this class an activity
 
     private LineItem curItem;
@@ -62,13 +66,19 @@ public class ControllerActivity extends AppCompatActivity
     private IPersistenceFacade persistenceFacade = new FirestoreFacade();
 
     private static final String CUR_ITEM = "curItem";
+    private static final String CUR_USER = "curUser";
+    private static final String CUR_HOUSE = "curHouse";
+
+    private Housemate curUser;       // current user
+    private House curHouse;       // current house
 
     protected void onCreate(Bundle savedInstanceState){
-        super.onCreate(savedInstanceState);
 
         FragmentFactory fragmentFactory = new HousemateFactory(this);
         this.getSupportFragmentManager().
                 setFragmentFactory(fragmentFactory);
+
+        super.onCreate(savedInstanceState);
 
 
         mainView = new MainView(this);
@@ -88,11 +98,9 @@ public class ControllerActivity extends AppCompatActivity
     //
 
 
-    @Override
-    public void onCreateHouse(String houseName, String membersName) {
-        houseController = new HouseController(houseName);
-        Housemate hm = new Housemate(membersName);
-        houseController.addHousemate(hm);
+/*    @Override
+    public void onCreateHouse(String houseName, String housePassword) {
+        houseController = new HouseController(houseName, housePassword);
         houseController.setUser(hm); // sets new user to logging in one
         this.persistenceFacade.setHouseName(houseController.getHouse().getName());
         this.persistenceFacade.saveHousemate(hm);
@@ -101,6 +109,50 @@ public class ControllerActivity extends AppCompatActivity
        // this.persistenceFacade.setHouseName(houseName);
 
 
+    }*/
+
+    public void openHomeScreen(){
+        this.mainView.displayFragment(new HomeScreenFragment(this));
+    }
+
+    //
+    // Home Screen
+    //
+
+    /* ILoginScreenFragment.Listener realization start */
+    @Override
+    public void onRegisterHouse(String houseName, String housePassword, ILoginScreenFragment loginScreenFragment) {
+        houseController = new HouseController(houseName, housePassword);
+        House house = new House(houseName, housePassword); // our tentative user
+        this.persistenceFacade.setHouseName(houseController.getHouse().getName());
+        this.persistenceFacade.createHouseIfNotExists(house, new IPersistenceFacade.BinaryResultListener() {
+            @Override
+            public void onYesResult() { loginScreenFragment.onRegisterHouseSuccess(); }
+
+            @Override
+            public void onNoResult() { loginScreenFragment.onHouseAlreadyExists(); }
+        });
+    }
+
+    @Override
+    public void onHouseSigninAttempt(String houseName, String housePassword, ILoginScreenFragment loginScreenFragment) {
+
+        this.persistenceFacade.retrieveHouse(houseName, new IPersistenceFacade.DataListener<House>() {
+            @Override
+            public void onDataReceived(@NonNull House houseName) {
+                if (houseName.validatePassword(housePassword)){ // password matches
+                    ControllerActivity.this.curHouse = houseName; // we have a new user
+                    // navigate to ledger screen
+                    ControllerActivity.this.mainView.displayFragment(new AuthFragment(ControllerActivity.this));
+
+                } else loginScreenFragment.onInvalidHouseCredentials(); // let the view know things didn't work out
+            }
+
+            @Override
+            public void onNoDataFound() { // means username does not exist
+                loginScreenFragment.onInvalidHouseCredentials(); // let the view know things didn't work out
+            }
+        });
         this.persistenceFacade.retrieveShoppingList(new IPersistenceFacade.ShoppingListListener() {
             @Override
             public void onShoppingListReceived(ShoppingList shoppingList) {
@@ -132,16 +184,45 @@ public class ControllerActivity extends AppCompatActivity
                 // set the activity's purchase list to the one retrieved from the database
             }
         });
+    }
+    /* ILoginScreenFragment.Listener realization end */
 
+    /* IAuthView.Listener realization start */
+    @Override
+    public void onRegister(String username, String password, IAuthView authView) {
+        Housemate user = new Housemate(username, password); // our tentative user
+        this.persistenceFacade.createUserIfNotExists(user, new IPersistenceFacade.BinaryResultListener() {
+            @Override
+            public void onYesResult() { authView.onRegisterSuccess(); }
+
+            @Override
+            public void onNoResult() { authView.onUserAlreadyExists(); }
+        });
     }
 
-    public void openHomeScreen(){
-        this.mainView.displayFragment(new HomeScreenFragment(this));
-    }
+    @Override
+    public void onSigninAttempt(String username, String password, IAuthView authView) {
 
-    //
-    // Home Screen
-    //
+        this.persistenceFacade.retrieveUser(username, new IPersistenceFacade.DataListener<Housemate>() {
+            @Override
+            public void onDataReceived(@NonNull Housemate user) {
+                if (user.validatePassword(password)){ // password matches
+                    ControllerActivity.this.curUser = user; // we have a new user
+                    // navigate to ledger screen
+                    ControllerActivity.this.mainView.displayFragment(new HomeScreenFragment(ControllerActivity.this));
+
+
+                } else authView.onInvalidCredentials(); // let the view know things didn't work out
+            }
+
+            @Override
+            public void onNoDataFound() { // means username does not exist
+                authView.onInvalidCredentials(); // let the view know things didn't work out
+            }
+        });
+    }
+    /* IAuthView.Listener realization end */
+
 
     @Override
     public void onOpenShoppingList() {
@@ -308,8 +389,13 @@ public class ControllerActivity extends AppCompatActivity
 
     @Override
     public void onAddHousemateOnHousemateListScreen() {
-        this.mainView.displayFragment(new AddHousemateFragment(this));
+
     }
+
+/*    @Override
+    public void onAddHousemate() {
+        this.mainView.displayFragment(new AddHousemateFragment(this));
+    }*/
 
     @Override
     public void onDebtScreenButton() {
@@ -326,14 +412,19 @@ public class ControllerActivity extends AppCompatActivity
         //
         // add housemate
         //
-        @Override
-        public void onAddHousemate(String name) {
+/*        @Override
+        public void onAddHousemateOnHousemateListScreen(String name, String password) {
             int id = (int) (Math.random() * 1000);
-            houseController.addHousemate(new Housemate(name));
-            this.persistenceFacade.saveHousemate(new Housemate(name));
+            houseController.addHousemate(new Housemate(name, password));
+            this.persistenceFacade.saveHousemate(new Housemate(name, password));
+    }*/
+
+    @Override
+    public void onAddHousemate(String name) {
+
     }
 
-        @Override
+    @Override
         public void onPreviousOnAddHousemateScreen() {
             this.openHousemateListScreen();
         }

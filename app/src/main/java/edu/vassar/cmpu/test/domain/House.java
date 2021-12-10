@@ -1,13 +1,15 @@
 package edu.vassar.cmpu.test.domain;
 
+import java.io.Serializable;
 import java.util.*;
 
 /**
  * Class for the house. Contains the shopping list, calendar, housemates, and record of debt.
  */
-public class House {
+public class House implements Serializable {
 
     private String houseName;
+    private AuthKey authKey;
     int houseID = 0;
     private ShoppingList shoppingList;
     private List<Housemate> housemates;
@@ -19,13 +21,14 @@ public class House {
      * Creates a house object. Uses input name has house name, sets random 6 digit house ID.
      * @param houseName         name for the house
      */
-    public House(String houseName) {
+    public House(String houseName, String housePassword) {
         Random random = new Random();
         for (int i = 0; i <= 5; i++) {
             int rand = random.nextInt(10);
             houseID = houseID * 10 + rand;
         }
         this.houseName = houseName;
+        this.authKey= new AuthKey(housePassword);
         shoppingList = new ShoppingList();
         housemates = new ArrayList<Housemate>();
         purchasedItems = new ArrayList<LineItem>();
@@ -33,6 +36,11 @@ public class House {
         calendar = new Calendar();
     }
 
+    public AuthKey getAuthKey(){ return this.authKey; }
+
+    public boolean validatePassword(String password){
+        return this.authKey.validatePassword(password);
+    }
     public String getName(){
         return houseName;
     }

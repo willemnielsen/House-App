@@ -10,8 +10,8 @@ public class HouseController {
     private House house;
     private Housemate loggedInUser;
 
-    public HouseController(String houseName){
-        house = new House(houseName);
+    public HouseController(String houseName, String housePassword){
+        house = new House(houseName, housePassword);
     }
 
     public void addHousemate(Housemate housemate) {
