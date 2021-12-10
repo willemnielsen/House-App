@@ -1,5 +1,7 @@
 package edu.vassar.cmpu.test.persistence;
 
+import androidx.annotation.NonNull;
+
 import edu.vassar.cmpu.test.domain.Event;
 import java.util.List;
 
@@ -10,6 +12,16 @@ import edu.vassar.cmpu.test.domain.Calendar;
 import edu.vassar.cmpu.test.domain.House;
 
 public interface IPersistenceFacade {
+
+    interface DataListener<T>{
+        void onDataReceived(@NonNull T data);
+        void onNoDataFound();
+    }
+
+    interface BinaryResultListener {
+        void onYesResult();
+        void onNoResult();
+    }
 
     interface ShoppingListListener{
         void onShoppingListReceived(ShoppingList shoppingList);
@@ -37,5 +49,9 @@ public interface IPersistenceFacade {
     void saveHousemate(Housemate housemate);
     void retrieveHousemateList(HousematesListListener listener);
     void saveLineItemPL(LineItem lineItem);
+
+    void createUserIfNotExists(@NonNull Housemate user, @NonNull BinaryResultListener listener);
+    void retrieveUser(@NonNull String username, @NonNull DataListener<Housemate> listener);
+
 
 }

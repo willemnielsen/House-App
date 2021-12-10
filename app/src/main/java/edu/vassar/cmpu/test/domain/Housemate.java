@@ -8,18 +8,32 @@ public class Housemate implements Serializable {
     private String name;
     private long housemateId;
     public List<Debt> debtlist;
+    private String username;
+    private AuthKey authKey;
 
     public Housemate(){
         this.name = "NA";
         this.housemateId = 0;
         debtlist = new ArrayList<Debt>();
+        this.username="NA";
+        this.authKey= new AuthKey();
     }
 
-    public Housemate(String name){
+    public Housemate(String name, String username, String password){
         this.name = name;
         this.housemateId = new Random().nextLong();
         debtlist = new ArrayList<Debt>();
+        this.username = username;
+        this.authKey = new AuthKey(password);
     }
+
+    public String getUsername(){ return this.username; }
+    public AuthKey getAuthKey(){ return this.authKey; }
+
+    public boolean validatePassword(String password){
+        return this.authKey.validatePassword(password);
+    }
+
 
     public String myTransactions(){
         String transactionList = "";
