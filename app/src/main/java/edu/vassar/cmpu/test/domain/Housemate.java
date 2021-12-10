@@ -2,6 +2,10 @@ package edu.vassar.cmpu.test.domain;
 import java.io.Serializable;
 import java.lang.reflect.Array;
 import java.util.*;
+
+/**
+ * Class for housemate. Contains name, id, and list of debt for the housemate
+ */
 public class Housemate implements Serializable {
 
 
@@ -11,6 +15,10 @@ public class Housemate implements Serializable {
     private String username;
     private AuthKey authKey;
 
+    /**
+     * Creates a housemate object. By default name is "NA", id is 0, and debt list is an empty
+     * arraylist
+     */
     public Housemate(){
         this.name = "NA";
         this.housemateId = 0;
@@ -19,6 +27,12 @@ public class Housemate implements Serializable {
         this.authKey= new AuthKey();
     }
 
+    /**
+     * Creates a housemate object with given name. By default, id is a random long and debt list
+     * is an empty arraylist
+     * @param name      name of housemate to be created
+     */
+    public Housemate(String name){
     public Housemate(String name, String username, String password){
         this.name = name;
         this.housemateId = new Random().nextLong();
@@ -35,6 +49,10 @@ public class Housemate implements Serializable {
     }
 
 
+    /**
+     * myTransactions creates a string that lists what you paid for and what you owe for.
+     * @return          transactionList, a string that lists the housemate's transactions
+     */
     public String myTransactions(){
         String transactionList = "";
         for (Debt debt: debtlist) {
@@ -47,6 +65,11 @@ public class Housemate implements Serializable {
         }
         return transactionList;
     }
+
+    /**
+     * myBalance takes the total credit - total debt of the housemate and returns it in string form
+     * @return      balanceTotal, a string that states your total credit - total balance
+     */
 
     public String myBalance(){
         float credit = 0;
@@ -65,32 +88,62 @@ public class Housemate implements Serializable {
         return balanceTotal;
     }
 
+    /**
+     * Retrieves name of housemate
+     * @return name of housemate
+     */
     public String getName() {
         return name;
     }
 
+    /**
+     * Sets name of housemate
+     * @param name         name of housemate to be set
+     */
     public void setName(String name) {
         this.name = name;
     }
 
+    /**
+     * Retrieves list of debt for this housemate
+     * @return      the debtlist attribute for this housemate
+     */
     public List<Debt> getDebtlist(){return debtlist;}
 
     public void setDebtlist(List<Debt> debtlist) {
         this.debtlist = debtlist;
     }
 
+    /**
+     * Retrieves housemate id
+     * @return      the housemateId attribute for this housemate
+     */
     public long getHousemateId() {
         return housemateId;
     }
 
+    /**
+     * Sets housemate id
+     * @param housemateId       the housemate id that will be set
+     */
     public void setHousemateId(long housemateId) {
         this.housemateId = housemateId;
     }
 
+    /**
+     * Gives name of housemate in string form
+     * @return      name of housemate in string form
+     */
     public String toString(){
         return "" + name + "";
     }
 
+    /**
+     * Checks whether this housemate is the same as the given object
+     * @param o         the object that is tested
+     * @return          True if the object is a housemate and has the same housemate id. Otherwise,
+     * returns false.
+     */
     @Override
     public boolean equals(Object o){
         if(!(o instanceof Housemate)){

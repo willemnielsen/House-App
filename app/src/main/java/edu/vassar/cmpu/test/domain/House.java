@@ -1,6 +1,10 @@
 package edu.vassar.cmpu.test.domain;
 
 import java.util.*;
+
+/**
+ * Class for the house. Contains the shopping list, calendar, housemates, and record of debt.
+ */
 public class House {
 
     private String houseName;
@@ -11,6 +15,10 @@ public class House {
     private List<Debt> housedebt;
     private Calendar calendar;
 
+    /**
+     * Creates a house object. Uses input name has house name, sets random 6 digit house ID.
+     * @param houseName         name for the house
+     */
     public House(String houseName) {
         Random random = new Random();
         for (int i = 0; i <= 5; i++) {
@@ -65,6 +73,12 @@ public class House {
         purchasedItems.add(lineItem);
     }
 
+    /**
+     * Adds housemate to house.
+     * @param housemate     Housemate to be added
+     * @return If housemate is already in the house, returns a string that says so.
+     * Else, returns a string that confirms the addition of the housemate.
+     */
     public String addHousemate(Housemate housemate) {
         String output;
         if (housemates.contains(housemate)) {
@@ -87,6 +101,15 @@ public class House {
         return output;
     }
 
+    /**
+     * Creates one or more debt object(s) for the specified line item and adds this/these object(s)
+     * to the house debt. If multiple people are interested in the line item, then one debt object
+     * is created for each interested housemate, and the cost is divided evenly amongst them. For
+     * each debt object, the purchaser of the line item is the creditor and the interested housemate
+     * is the debtor. The amount owed is the price of the line item divided by the number of
+     * interested housemates. The debt object is also added to each respective housemate's debt list
+     * @param lineItem      the line item that the debt is created for
+     */
     public void createDebtForIHM(LineItem lineItem) {
         for (Housemate interHM : lineItem.getInterestedHouseMates()) {
                 Debt newdebt = new Debt(lineItem.getPurchaser(), interHM,
@@ -104,6 +127,12 @@ public class House {
         }
     }
 
+    /**
+     * Does the same thing as createDebtForIHM but instead of dividing the cost evenly amongst
+     * the interested housemates, it divides it amongst every housemate in the house.
+     * @param lineItem          the line item that the debt is created for
+     */
+
     public void createDebtForHH(LineItem lineItem) {
         for (Housemate currHM : housemates) {
             Debt newdebt = new Debt(lineItem.getPurchaser(), currHM,
@@ -120,6 +149,12 @@ public class House {
         }
     }
 
+    /**
+     * For the case where the user selects charge me, this method creates a debt object where the
+     * creditor and debtor is the purchaser and the amount owed is the cost of the line item
+     * @param lineItem          line item that the debt is for
+     */
+
     public void createDebtForMe(LineItem lineItem) {
         Debt newdebt = new Debt(lineItem.getPurchaser(), lineItem.getPurchaser(),
                 lineItem.getPrice()*lineItem.getQuantity(), lineItem);
@@ -127,6 +162,15 @@ public class House {
         lineItem.getPurchaser().getDebtlist().add(newdebt);
         }
 
+    /**
+     * This method iterates through the purchased items list and does the following:
+     * If the distribution is "Charge Based on Interested Housemates" then it calls the
+     * createDebtForIHM method
+     * If the distribution is "Charge Household" then it calls the createDebtForHH method
+     * If the distribution is "Charge Me" then it calls the createDebtForMe method
+     * @param distribution          how to distribute the cost of each line item
+     * @param purchaser             the housemate that is purchased the items
+     */
     public void checkout(String distribution, Housemate purchaser) {
         for (LineItem lineItem: purchasedItems) {
             lineItem.setPurchaser(purchaser);
@@ -141,6 +185,11 @@ public class House {
         purchasedItems.clear();
     }
 
+    /**
+     *
+     * @return String that lists all the debt in the history of the house. If the debtor and the
+     * creditor are the same person then the string says, "[Housemate_Name] paid x for [item name]."
+     */
     public String houseTransactions(){
         String transactionList = "";
         for (Debt debt: housedebt) {
@@ -155,6 +204,11 @@ public class House {
         return transactionList;
     }
 
+    /**
+     * This method takes each housemate's total credit - total owed and adds it to a string
+     * balanceTotal.
+     * @return balanceTotal a string that lists all the housemates net credit/debt
+     */
     public String houseBalance(){
         String balanceTotal = "";
         for (Housemate hm: housemates) {
