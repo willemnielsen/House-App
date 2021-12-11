@@ -29,8 +29,15 @@ public class AuthKey implements Serializable {
         this.key = generateKey(salt, password);
     }
 
+    public void setSalt(String salt){
+        this.salt = salt;
+    }
     public String getSalt() {
         return salt;
+    }
+
+    public void setKey(String key) {
+        this.key = key;
     }
 
     public String getKey() {

@@ -70,7 +70,6 @@ public class ControllerActivity extends AppCompatActivity
     private static final String CUR_HOUSE = "curHouse";
 
     private Housemate curUser;       // current user
-    private House curHouse;       // current house
 
     protected void onCreate(Bundle savedInstanceState){
 
@@ -141,8 +140,10 @@ public class ControllerActivity extends AppCompatActivity
             @Override
             public void onDataReceived(@NonNull House houseName) {
                 if (houseName.validatePassword(housePassword)){ // password matches
-                    ControllerActivity.this.curHouse = houseName; // we have a new user
-                    ControllerActivity.this.houseController.setHouse(curHouse);
+                    ControllerActivity.this.houseController.getHouse().setAuthKey(houseName.getAuthKey());
+                    ControllerActivity.this.houseController.getHouse().setAuthKey(houseName.getAuthKey());
+                    Log.e("TEST", "loaded House!!!!! ");
+
                     // navigate to ledger screen
                     ControllerActivity.this.mainView.displayFragment(new AuthFragment(ControllerActivity.this));
 
@@ -159,6 +160,7 @@ public class ControllerActivity extends AppCompatActivity
             @Override
             public void onShoppingListReceived(ShoppingList shoppingList) {
                 ControllerActivity.this.houseController.getHouse().loadShoppingList(shoppingList);
+                Log.e("TEST", "loaded ShoppingLIST ");
                 // set the activity's shopping list to the one retrieved from the database
 
             }
@@ -168,6 +170,7 @@ public class ControllerActivity extends AppCompatActivity
             @Override
             public void onCalendarReceived(Calendar calendar) {
                 ControllerActivity.this.houseController.getHouse().loadCalendar(calendar); // set the activity's calendar to the one retrieved from the database
+                Log.e("TEST", "loaded CALENDER ");
 
             }
         });
@@ -264,8 +267,10 @@ public class ControllerActivity extends AppCompatActivity
     //
 
     public void openShoppingListScreen() {
+
         IShoppingListScreenView sl = new ShoppingListScreenFragment(this);
         this.mainView.displayFragment((ShoppingListScreenFragment) sl);
+        Log.e("TEST", "SL AT OPEN SCREEN:" + houseController.getHouse().getShoppingList());
         sl.updateDisplay(houseController.getHouse().getShoppingList());
         sl.purchaseItems(houseController.getHouse().getShoppingList());
 

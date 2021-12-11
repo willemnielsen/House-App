@@ -1,5 +1,7 @@
 package edu.vassar.cmpu.test.domain;
 
+import android.util.Log;
+
 import java.io.Serializable;
 import java.util.*;
 
@@ -49,6 +51,10 @@ public class House implements Serializable {
 
     public AuthKey getAuthKey(){ return this.authKey; }
 
+    public void setAuthKey(AuthKey authKey) {
+        this.authKey = authKey;
+    }
+
     public boolean validatePassword(String password){
         return this.authKey.validatePassword(password);
     }
@@ -69,6 +75,7 @@ public class House implements Serializable {
 
     public void loadShoppingList(ShoppingList sl){
         this.shoppingList = sl;
+        Log.e("TEST", "SL AT A ON LOAD METHOD"  + this.shoppingList.toString());
     }
 
     public void loadHousemates(List<Housemate> housemates){this.housemates = housemates;}

@@ -72,6 +72,7 @@ public class FirestoreFacade implements IPersistenceFacade {
                 for (DocumentSnapshot dsnap : qsnap){
                     LineItem lineItem = dsnap.toObject(LineItem.class);
                     shoppingList.addLineItem(lineItem);
+                    Log.e("TEST", shoppingList.getShoppingList().toString());
                 }
                 listener.onShoppingListReceived(shoppingList);
             }
@@ -104,6 +105,12 @@ public class FirestoreFacade implements IPersistenceFacade {
     public void saveLineItemPL(LineItem lineItem) {
         this.db.collection(HOUSE_NAME).document(HOUSE_NAME).collection(PURCHASE_LIST).add(lineItem);
     }
+
+    @Override
+    public void retrieveDebtList(DebtListListener listener) {
+
+    }
+
     @Override
     public void retrievePurchaseList(PurchaseListListener listener) {
 

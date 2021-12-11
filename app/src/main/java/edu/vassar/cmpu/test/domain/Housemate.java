@@ -41,7 +41,16 @@ public class Housemate implements Serializable {
     }
 
     public String getUsername(){ return this.username; }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
     public AuthKey getAuthKey(){ return this.authKey; }
+
+    public void setAuthKey(AuthKey authKey) {
+        this.authKey = authKey;
+    }
 
     public boolean validatePassword(String password){
         return this.authKey.validatePassword(password);
@@ -129,6 +138,7 @@ public class Housemate implements Serializable {
         this.housemateId = housemateId;
     }
 
+
     /**
      * Gives name of housemate in string form
      * @return      name of housemate in string form
@@ -149,6 +159,6 @@ public class Housemate implements Serializable {
             return false;
         }
         Housemate hm = (Housemate) o;
-        return this.housemateId == hm.housemateId;
+        return this.authKey.getKey() == hm.authKey.getKey();
     }
 }
