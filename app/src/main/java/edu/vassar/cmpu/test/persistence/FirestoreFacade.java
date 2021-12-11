@@ -39,12 +39,12 @@ public class FirestoreFacade implements IPersistenceFacade {
 
     @Override
     public void saveHousemate(Housemate housemate) {
-        db.collection(HOUSE_NAME).document(HOUSE_NAME).collection(HOUSEMATE_LIST).add(housemate);
+        this.db.collection(HOUSE_NAME).document(HOUSE_NAME).collection(HOUSEMATE_LIST).add(housemate);
     }
 
     @Override
     public void retrieveHousemateList(HousematesListListener listener) {
-        db.collection(HOUSE_NAME).document(HOUSE_NAME).collection(HOUSEMATE_LIST).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+        this.db.collection(HOUSE_NAME).document(HOUSE_NAME).collection(HOUSEMATE_LIST).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
             public void onSuccess(QuerySnapshot qsnap) {
                 List<Housemate> housemateList = new ArrayList<>();
@@ -59,13 +59,13 @@ public class FirestoreFacade implements IPersistenceFacade {
 
     @Override
     public void saveLineItem(LineItem lineItem) {
-        db.collection(HOUSE_NAME).document(HOUSE_NAME).collection(SHOPPING_LIST).add(lineItem);
+        this.db.collection(HOUSE_NAME).document(HOUSE_NAME).collection(SHOPPING_LIST).add(lineItem);
     }
 
     @Override
     public void retrieveShoppingList(ShoppingListListener listener) {
 
-        db.collection(HOUSE_NAME).document(HOUSE_NAME).collection(SHOPPING_LIST).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+        this.db.collection(HOUSE_NAME).document(HOUSE_NAME).collection(SHOPPING_LIST).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
             public void onSuccess(QuerySnapshot qsnap) {
                 ShoppingList shoppingList = new ShoppingList();
@@ -80,13 +80,13 @@ public class FirestoreFacade implements IPersistenceFacade {
 
     @Override
     public void saveEvent(Event event) {
-        db.collection(HOUSE_NAME).document(HOUSE_NAME).collection(CALENDAR).add(event);
+        this.db.collection(HOUSE_NAME).document(HOUSE_NAME).collection(CALENDAR).add(event);
     }
 
     @Override
     public void retrieveCalendar(CalendarListener listener) {
 
-        db.collection(HOUSE_NAME).document(HOUSE_NAME).collection(CALENDAR).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+        this.db.collection(HOUSE_NAME).document(HOUSE_NAME).collection(CALENDAR).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
             public void onSuccess(QuerySnapshot qsnap) {
                 Calendar calendar = new Calendar();
@@ -102,12 +102,12 @@ public class FirestoreFacade implements IPersistenceFacade {
 
     @Override
     public void saveLineItemPL(LineItem lineItem) {
-        db.collection(HOUSE_NAME).document(HOUSE_NAME).collection(PURCHASE_LIST).add(lineItem);
+        this.db.collection(HOUSE_NAME).document(HOUSE_NAME).collection(PURCHASE_LIST).add(lineItem);
     }
     @Override
     public void retrievePurchaseList(PurchaseListListener listener) {
 
-        db.collection(HOUSE_NAME).document(HOUSE_NAME).collection(PURCHASE_LIST).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+        this.db.collection(HOUSE_NAME).document(HOUSE_NAME).collection(PURCHASE_LIST).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
             public void onSuccess(QuerySnapshot qsnap) {
                 List<LineItem> purchaseList = new ArrayList<>();

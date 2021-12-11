@@ -136,7 +136,7 @@ public class ControllerActivity extends AppCompatActivity
 
     @Override
     public void onHouseSigninAttempt(String houseName, String housePassword, ILoginScreenFragment loginScreenFragment) {
-
+        this.persistenceFacade.setHouseName(houseName);
         this.persistenceFacade.retrieveHouse(houseName, new IPersistenceFacade.DataListener<House>() {
             @Override
             public void onDataReceived(@NonNull House houseName) {
