@@ -6,7 +6,7 @@ import java.util.List;
 
 public class ShoppingList implements Serializable {
 
-    private final List<LineItem> shoppingList;
+    private List<LineItem> shoppingList;
     private static final String SALE_TOTAL = "saleTotal";
 
     public ShoppingList(){
@@ -66,5 +66,11 @@ public class ShoppingList implements Serializable {
         return list;
     }
 
+    public List<LineItem> getShoppingList() {
+        return shoppingList;
+    }
 
+    public void setShoppingList(List<LineItem> shoppingList) {
+        this.shoppingList = shoppingList;
+    }
 }

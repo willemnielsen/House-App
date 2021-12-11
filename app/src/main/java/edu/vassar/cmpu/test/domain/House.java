@@ -17,6 +17,17 @@ public class House implements Serializable {
     private List<Debt> housedebt;
     private Calendar calendar;
 
+    public House(){
+        this.houseName = "Test";
+        this.authKey = new AuthKey("password");
+        int houseID = 0;
+        this.shoppingList = new ShoppingList();
+        this.housemates = new ArrayList<Housemate>();
+        this.purchasedItems = new ArrayList<LineItem>();
+        this.housedebt = new ArrayList<Debt>();
+        this.calendar= new Calendar();
+    }
+
     /**
      * Creates a house object. Uses input name has house name, sets random 6 digit house ID.
      * @param houseName         name for the house

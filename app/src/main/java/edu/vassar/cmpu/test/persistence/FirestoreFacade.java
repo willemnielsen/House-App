@@ -31,7 +31,6 @@ public class FirestoreFacade implements IPersistenceFacade {
     private static final String CALENDAR = "calendar";
     private static final String HOUSEMATE_LIST = "housemate list";
     private static final String HOUSEMATES = "housemates";
-    private static final String HOUSE = "house";
 
     @Override
     public void setHouseName(String houseName){
@@ -148,7 +147,6 @@ public class FirestoreFacade implements IPersistenceFacade {
 
     @Override
     public void retrieveUser(@NonNull String username, @NonNull DataListener<Housemate> listener) {
-
         this.db.collection(HOUSE_NAME).document(HOUSE_NAME).collection(HOUSEMATES).
                 document(username).get()
                 .addOnSuccessListener(dsnap -> {
@@ -164,8 +162,8 @@ public class FirestoreFacade implements IPersistenceFacade {
 
     @Override
     public void createHouseIfNotExists(@NonNull House house, @NonNull BinaryResultListener listener) {
-
-        this.retrieveHouse(house.getName(), new DataListener<House>() {
+        setHouseName(house.getName());
+        this.retrieveHouse(HOUSE_NAME, new DataListener<House>() {
                     @Override
                     public void onDataReceived(@NonNull House house) { // there's data there, so no go
                         listener.onNoResult();
@@ -180,8 +178,9 @@ public class FirestoreFacade implements IPersistenceFacade {
     }
 
     private void setHouse(@NonNull House house, @NonNull BinaryResultListener listener){
-        this.db
-                .document(house.getName())
+        setHouseName(house.getName());
+        this.db.collection(HOUSE_NAME)
+                .document(HOUSE_NAME)
                 .set(house)
                 .addOnSuccessListener( avoid -> listener.onYesResult())
                 .addOnFailureListener(e ->
@@ -190,8 +189,7 @@ public class FirestoreFacade implements IPersistenceFacade {
 
     @Override
     public void retrieveHouse(@NonNull String houseName, @NonNull DataListener<House> listener) {
-
-        this.db.document(houseName).get()
+        this.db.collection(houseName).document(houseName).get()
                 .addOnSuccessListener(dsnap -> {
                     if (dsnap.exists()) { // got some data back
                         House house = dsnap.toObject(House.class);

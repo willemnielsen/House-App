@@ -10,6 +10,9 @@ public class HouseController {
     private House house;
     private Housemate loggedInUser;
 
+    public HouseController(){
+    }
+
     public HouseController(String houseName, String housePassword){
         house = new House(houseName, housePassword);
     }
@@ -20,6 +23,10 @@ public class HouseController {
     
     public void setUser(Housemate user) {
         loggedInUser = user;
+    }
+
+    public void setHouse(House house) {
+        this.house = house;
     }
     
     public Housemate getLoggedInUser(){

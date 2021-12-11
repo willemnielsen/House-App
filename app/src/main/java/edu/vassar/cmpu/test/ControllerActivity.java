@@ -60,7 +60,7 @@ public class ControllerActivity extends AppCompatActivity
     //extends makes this class an activity
 
     private LineItem curItem;
-    private HouseController houseController;
+    private HouseController houseController = new HouseController();
     private IMainView mainView;
 
     private IPersistenceFacade persistenceFacade = new FirestoreFacade();
@@ -90,7 +90,7 @@ public class ControllerActivity extends AppCompatActivity
 
         if (savedInstanceState == null) // means it's the first time we're launching the activity*/
             this.mainView.displayFragment(new LoginScreenFragment(this));
-        //displays the add Item Fragment
+        //displays the Login Screen Fragment
     }
 
     //
@@ -122,10 +122,10 @@ public class ControllerActivity extends AppCompatActivity
     /* ILoginScreenFragment.Listener realization start */
     @Override
     public void onRegisterHouse(String houseName, String housePassword, ILoginScreenFragment loginScreenFragment) {
-        houseController = new HouseController(houseName, housePassword);
-        House house = new House(houseName, housePassword); // our tentative user
-        this.persistenceFacade.setHouseName(houseController.getHouse().getName());
-        this.persistenceFacade.createHouseIfNotExists(house, new IPersistenceFacade.BinaryResultListener() {
+        HouseController house = new HouseController(houseName, housePassword); // our tentative house
+        ControllerActivity.this.houseController = house;
+        this.persistenceFacade.setHouseName(houseName);
+        this.persistenceFacade.createHouseIfNotExists(house.getHouse(), new IPersistenceFacade.BinaryResultListener() {
             @Override
             public void onYesResult() { loginScreenFragment.onRegisterHouseSuccess(); }
 
@@ -142,6 +142,7 @@ public class ControllerActivity extends AppCompatActivity
             public void onDataReceived(@NonNull House houseName) {
                 if (houseName.validatePassword(housePassword)){ // password matches
                     ControllerActivity.this.curHouse = houseName; // we have a new user
+                    ControllerActivity.this.houseController.setHouse(curHouse);
                     // navigate to ledger screen
                     ControllerActivity.this.mainView.displayFragment(new AuthFragment(ControllerActivity.this));
 
@@ -153,6 +154,7 @@ public class ControllerActivity extends AppCompatActivity
                 loginScreenFragment.onInvalidHouseCredentials(); // let the view know things didn't work out
             }
         });
+
         this.persistenceFacade.retrieveShoppingList(new IPersistenceFacade.ShoppingListListener() {
             @Override
             public void onShoppingListReceived(ShoppingList shoppingList) {
@@ -208,6 +210,7 @@ public class ControllerActivity extends AppCompatActivity
             public void onDataReceived(@NonNull Housemate user) {
                 if (user.validatePassword(password)){ // password matches
                     ControllerActivity.this.curUser = user; // we have a new user
+                    houseController.setUser(user);
                     // navigate to ledger screen
                     ControllerActivity.this.mainView.displayFragment(new HomeScreenFragment(ControllerActivity.this));
 
