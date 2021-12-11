@@ -11,6 +11,7 @@ public class HouseController {
     private Housemate loggedInUser;
 
     public HouseController(){
+        house = new House();
     }
 
     public HouseController(String houseName, String housePassword){

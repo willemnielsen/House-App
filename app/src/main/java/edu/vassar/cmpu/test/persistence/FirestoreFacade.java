@@ -137,7 +137,7 @@ public class FirestoreFacade implements IPersistenceFacade {
     }
 
     private void setUser(@NonNull Housemate user, @NonNull BinaryResultListener listener){
-        this.db.collection(HOUSE_NAME).document(HOUSE_NAME).collection(HOUSEMATES)
+        this.db.collection(HOUSE_NAME).document(HOUSE_NAME).collection(HOUSEMATE_LIST)
                 .document(user.getUsername())
                 .set(user)
                 .addOnSuccessListener( avoid -> listener.onYesResult())
@@ -147,7 +147,7 @@ public class FirestoreFacade implements IPersistenceFacade {
 
     @Override
     public void retrieveUser(@NonNull String username, @NonNull DataListener<Housemate> listener) {
-        this.db.collection(HOUSE_NAME).document(HOUSE_NAME).collection(HOUSEMATES).
+        this.db.collection(HOUSE_NAME).document(HOUSE_NAME).collection(HOUSEMATE_LIST).
                 document(username).get()
                 .addOnSuccessListener(dsnap -> {
                     if (dsnap.exists()) { // got some data back

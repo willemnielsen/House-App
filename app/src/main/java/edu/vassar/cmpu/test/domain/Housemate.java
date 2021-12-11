@@ -33,7 +33,7 @@ public class Housemate implements Serializable {
      * @param name      name of housemate to be created
      */
     public Housemate(String username, String password){
-        this.name = name;
+        this.name = username;
         this.housemateId = new Random().nextLong();
         debtlist = new ArrayList<Debt>();
         this.username = username;
@@ -134,7 +134,7 @@ public class Housemate implements Serializable {
      * @return      name of housemate in string form
      */
     public String toString(){
-        return "" + name + "";
+        return "" + username + "";
     }
 
     /**

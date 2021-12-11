@@ -195,7 +195,9 @@ public class ControllerActivity extends AppCompatActivity
         Housemate user = new Housemate(username, password); // our tentative user
         this.persistenceFacade.createUserIfNotExists(user, new IPersistenceFacade.BinaryResultListener() {
             @Override
-            public void onYesResult() { authView.onRegisterSuccess(); }
+            public void onYesResult() {
+                houseController.getHouse().getHousemates().add(user);
+                authView.onRegisterSuccess(); }
 
             @Override
             public void onNoResult() { authView.onUserAlreadyExists(); }
@@ -415,12 +417,14 @@ public class ControllerActivity extends AppCompatActivity
         //
         // add housemate
         //
-/*        @Override
+ /*
+    @Override
         public void onAddHousemateOnHousemateListScreen(String name, String password) {
-            int id = (int) (Math.random() * 1000);
-            houseController.addHousemate(new Housemate(name, password));
-            this.persistenceFacade.saveHousemate(new Housemate(name, password));
-    }*/
+           houseController.addHousemate(new Housemate(name, password));
+           this.persistenceFacade.saveHousemate(new Housemate(name, password));
+       }
+      */
+
 
     @Override
     public void onAddHousemate(String name) {
