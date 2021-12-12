@@ -1,6 +1,8 @@
 package edu.vassar.cmpu.test.view.addEventView;
 
 import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.text.Editable;
 import android.view.LayoutInflater;
@@ -20,9 +22,11 @@ import java.util.Date;
 import java.util.List;
 
 
+import edu.vassar.cmpu.test.R;
 import edu.vassar.cmpu.test.databinding.FragmentAddEventBinding;
 import edu.vassar.cmpu.test.domain.Calendar;
 import edu.vassar.cmpu.test.domain.Housemate;
+import edu.vassar.cmpu.test.view.addItemView.AddItemFragment;
 
 
 public class AddEventFragment extends Fragment implements IAddEventView,
@@ -41,6 +45,7 @@ public class AddEventFragment extends Fragment implements IAddEventView,
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         this.binding = FragmentAddEventBinding.inflate(inflater);
+        Spinner spinnerEyyyy = (Spinner) this.binding.endDateYyyy;
         Spinner spinnerH = (Spinner) this.binding.sthour;
         Spinner spinnerM = (Spinner) this.binding.stmin;
         Spinner spinnerAP = (Spinner) this.binding.ampm;
@@ -48,6 +53,11 @@ public class AddEventFragment extends Fragment implements IAddEventView,
         Spinner spinnerM2 = (Spinner) this.binding.etmin;
         Spinner spinnerAP2 = (Spinner) this.binding.ampm2;
         Spinner spinnerR = (Spinner) this.binding.recurrence;
+        Spinner spinnerEdd = (Spinner) this.binding.endDateDd;
+        Spinner spinnerEmm = (Spinner) this.binding.endDateMm;
+        List<String> days = new ArrayList<>();
+        List<String> months = new ArrayList<>();
+        List<String> years = new ArrayList<>();
         List<String> hours = new ArrayList<>();
         List<String> mins = new ArrayList<>();
         List<String> ap = new ArrayList<>();
@@ -69,6 +79,22 @@ public class AddEventFragment extends Fragment implements IAddEventView,
             }
             mins.add(time);
         }
+        for(int i = 1; i<32; i++){
+            String time = "";
+            time += i;
+            if(i<13){
+                months.add(time);
+                days.add(time);
+            }
+            else{
+                days.add(time);
+            }
+        }
+        for(int i = 2021; i<2030; i++){
+            String time = "";
+            time += i;
+            years.add(time);
+        }
         // Creating adapter for spinner
         ArrayAdapter<String> dataAdapterH = new ArrayAdapter<>(getContext(),
                 android.R.layout.simple_spinner_item, hours);
@@ -78,14 +104,24 @@ public class AddEventFragment extends Fragment implements IAddEventView,
                 android.R.layout.simple_spinner_item, ap);
         ArrayAdapter<String> dataAdapterR = new ArrayAdapter<>(getContext(),
                 android.R.layout.simple_spinner_item, rec);
+        ArrayAdapter<String> dataAdapterEdd = new ArrayAdapter<>(getContext(),
+                android.R.layout.simple_spinner_item, days);
+        ArrayAdapter<String> dataAdapterEmm = new ArrayAdapter<>(getContext(),
+                android.R.layout.simple_spinner_item, months);
+        ArrayAdapter<String> dataAdapterEyyyy = new ArrayAdapter<>(getContext(),
+                android.R.layout.simple_spinner_item, years);
 
         // Drop down layout style - list view with radio button
         dataAdapterH.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         dataAdapterM.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         dataAdapterAP.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         dataAdapterR.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        dataAdapterEdd.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        dataAdapterEmm.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        dataAdapterEyyyy.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
         // attaching data adapter to spinner
+        spinnerEyyyy.setAdapter(dataAdapterEyyyy);
         spinnerH.setAdapter(dataAdapterH);
         spinnerM.setAdapter(dataAdapterM);
         spinnerAP.setAdapter(dataAdapterAP);
@@ -93,6 +129,8 @@ public class AddEventFragment extends Fragment implements IAddEventView,
         spinnerM2.setAdapter(dataAdapterM);
         spinnerAP2.setAdapter(dataAdapterAP);
         spinnerR.setAdapter(dataAdapterR);
+        spinnerEdd.setAdapter(dataAdapterEdd);
+        spinnerEmm.setAdapter(dataAdapterEmm);
 
         spinnerH.setOnItemSelectedListener(this);
         spinnerM.setOnItemSelectedListener(this);
@@ -101,9 +139,48 @@ public class AddEventFragment extends Fragment implements IAddEventView,
         spinnerM2.setOnItemSelectedListener(this);
         spinnerAP2.setOnItemSelectedListener(this);
         spinnerR.setOnItemSelectedListener(this);
+        spinnerEdd.setOnItemSelectedListener(this);
+        spinnerEmm.setOnItemSelectedListener(this);
+        spinnerEyyyy.setOnItemSelectedListener(this);
         return this.binding.getRoot();
     }
+    /*
+    @Override
+    public void onGetEndDate(){
+        this.binding.setEndDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view){
+                onCreateEndDateDialog();
+            }
+        }
+        this.binding.setEndDate.setText(););
+    }
 
+
+    @Override
+    public Date onCreateEndDateDialog() {
+        Date date = new Date();
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        // Get the layout inflater
+        LayoutInflater inflater = requireActivity().getLayoutInflater();
+
+        // Inflate and set the layout for the dialog
+        // Pass null as the parent view because its going in the dialog layout
+        builder.setView(inflater.inflate(R.layout.end_date_popup, null))
+                // Add action buttons
+                .setPositiveButton("done", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+
+                    Spinner spinnerR = (Spinner) this.binding.recurrence;
+
+
+                });
+        return date;
+    }
+    */
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
@@ -151,9 +228,12 @@ public class AddEventFragment extends Fragment implements IAddEventView,
                     int month = Integer.parseInt(binding.typeMonth.getText().toString());
                     int day = Integer.parseInt(binding.typeDay.getText().toString());
                     Date date = new Date(year - 1900, month - 1, day);
-
+                    int edYear = Integer.parseInt(binding.EDYearText.getText().toString());
+                    int edMonth = Integer.parseInt(binding.EDMonthText.getText().toString());
+                    int edDay = Integer.parseInt(binding.EDDayText.getText().toString());
+                    Date endDate = new Date(edYear - 1900, edMonth - 1, edDay);
                     String recur = binding.recText.getText().toString();
-                    if (!name.isEmpty()) CreateDialog(housemates, name, date, st, et, recur);
+                    if (!name.isEmpty()) CreateDialog(housemates, name, date, st, et, recur, endDate);
 
 
                 } catch (NumberFormatException e) {
@@ -183,13 +263,15 @@ public class AddEventFragment extends Fragment implements IAddEventView,
                 binding.typeMonth.setText(reset);
                 binding.typeDay.setText(reset);
                 binding.typeYear.setText(reset);
-
+                binding.EDMonthText.setText(reset);
+                binding.EDDayText.setText(reset);
+                binding.EDYearText.setText(reset);
             }
         });
     }
 
     private List<Housemate> CreateDialog(List<Housemate> housemates, String name,
-                                              Date date, Time st, Time et, String recur){
+                                              Date date, Time st, Time et, String recur, Date endDate){
         List<String> selectedHM = new ArrayList<>();
         List<Housemate> interestedHM = new ArrayList<>();
         String[] names = new String[housemates.size()];
@@ -212,7 +294,7 @@ public class AddEventFragment extends Fragment implements IAddEventView,
                     }
         }).setPositiveButton("Done", (dialog, which) -> {
             if (selectedHM.isEmpty()){
-                CreateDialog(housemates, name, date, st, et, recur);
+                CreateDialog(housemates, name, date, st, et, recur, endDate);
                 String data = "Please Select Housemates to Add to the Event.";
                 Toast.makeText(getActivity(), data, Toast.LENGTH_SHORT).show();
             } else{
@@ -221,7 +303,7 @@ public class AddEventFragment extends Fragment implements IAddEventView,
                     data = data + " " + n;
                 }
                 AddEventFragment.this.listener.onAddedEvent(name, date, st, et, interestedHM, recur,
-                        AddEventFragment.this);
+                        endDate, AddEventFragment.this);
                 Toast.makeText(getActivity(), data, Toast.LENGTH_SHORT).show();
             }
         }).setNegativeButton("Cancel", (dialog, which) -> {
@@ -236,8 +318,8 @@ public class AddEventFragment extends Fragment implements IAddEventView,
     }
 
     public void onAddedEvent(String name, Date date, Time st, Time et,
-                             ArrayList<Housemate> interestedHMs, String rec) {
-        this.listener.onAddedEvent(name, date, st, et, interestedHMs, rec,this);
+                             ArrayList<Housemate> interestedHMs, String rec, Date endDate) {
+        this.listener.onAddedEvent(name, date, st, et, interestedHMs, rec, endDate,this);
     }
 
 
@@ -248,26 +330,26 @@ public class AddEventFragment extends Fragment implements IAddEventView,
 
     @Override
     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-        if(adapterView.getId() == this.binding.sthour.getId()){
+        if (adapterView.getId() == this.binding.sthour.getId()) {
             this.binding.hourText.setText(this.binding.sthour.getSelectedItem().toString());
-        }
-        else if(adapterView.getId() == this.binding.stmin.getId()){
+        } else if (adapterView.getId() == this.binding.endDateYyyy.getId()) {
+            this.binding.EDYearText.setText(this.binding.endDateYyyy.getSelectedItem().toString());
+        } else if (adapterView.getId() == this.binding.stmin.getId()) {
             this.binding.minText.setText(this.binding.stmin.getSelectedItem().toString());
-        }
-        else if(adapterView.getId() == this.binding.ampm.getId()){
+        } else if (adapterView.getId() == this.binding.ampm.getId()) {
             this.binding.ampmText.setText(this.binding.ampm.getSelectedItem().toString());
-        }
-        else if(adapterView.getId() == this.binding.ethour.getId()){
+        } else if (adapterView.getId() == this.binding.ethour.getId()) {
             this.binding.hourText2.setText(this.binding.ethour.getSelectedItem().toString());
-        }
-        else if(adapterView.getId() == this.binding.etmin.getId()){
+        } else if (adapterView.getId() == this.binding.etmin.getId()) {
             this.binding.minText2.setText(this.binding.etmin.getSelectedItem().toString());
-        }
-        else if(adapterView.getId() == this.binding.ampm2.getId()){
+        } else if (adapterView.getId() == this.binding.ampm2.getId()) {
             this.binding.ampmText2.setText(this.binding.ampm2.getSelectedItem().toString());
-        }
-        else{
+        } else if (adapterView.getId() == this.binding.recurrence.getId()) {
             this.binding.recText.setText(this.binding.recurrence.getSelectedItem().toString());
+        } else if (adapterView.getId() == this.binding.endDateDd.getId()) {
+            this.binding.EDDayText.setText(this.binding.endDateDd.getSelectedItem().toString());
+        } else if (adapterView.getId() == this.binding.endDateMm.getId()) {
+            this.binding.EDMonthText.setText(this.binding.endDateMm.getSelectedItem().toString());
         }
     }
 

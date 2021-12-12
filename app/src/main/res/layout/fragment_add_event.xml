@@ -11,29 +11,26 @@
         android:id="@+id/addEventButton"
         android:layout_width="123dp"
         android:layout_height="60dp"
-        android:layout_marginBottom="24dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="20dp"
         android:elevation="4dp"
         android:fontFamily="@font/rubik_bold"
         android:text="@string/add_event"
         app:cornerRadius="10dp"
-        app:layout_constraintBottom_toTopOf="@+id/back"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/square"
-        app:layout_constraintVertical_bias="0.0"
         tools:ignore="DuplicateSpeakableTextCheck" />
 
     <Button
         android:id="@+id/back"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="24dp"
+        android:layout_width="123dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="20dp"
+        android:fontFamily="@font/rubik_bold"
         android:text="@string/back"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/square"
-        app:layout_constraintVertical_bias="1.0" />
+        app:cornerRadius="10dp"
+        app:layout_constraintBottom_toBottomOf="@+id/addEventButton"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <View
         android:id="@+id/square"
@@ -85,6 +82,7 @@
         android:id="@+id/label_recurrence"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="32dp"
         android:fontFamily="@font/rubik_bold"
         android:labelFor="@id/type_price"
@@ -93,7 +91,7 @@
         app:layout_constraintBottom_toBottomOf="@+id/square"
         app:layout_constraintEnd_toEndOf="@+id/square"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/label_et"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/label_et"
         app:layout_constraintVertical_bias="0.0" />
 
@@ -141,6 +139,38 @@
         app:layout_constraintBottom_toBottomOf="@+id/label_event_date"
         app:layout_constraintEnd_toStartOf="@+id/type_day"
         app:layout_constraintTop_toTopOf="@+id/label_event_date" />
+
+    <TextView
+        android:id="@+id/endDate_slash1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="224dp"
+        android:layout_marginEnd="101dp"
+        android:fontFamily="@font/rubik_bold"
+        android:labelFor="@id/type_year"
+        android:text="@string/slash"
+        android:textAppearance="@style/item_labels"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/square"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/square"
+        app:layout_constraintTop_toTopOf="@+id/endDate_mm"
+        app:layout_constraintVertical_bias="0.076" />
+
+    <TextView
+        android:id="@+id/endDate_slash2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="200dp"
+        android:fontFamily="@font/rubik_bold"
+        android:labelFor="@id/type_year"
+        android:text="@string/slash"
+        android:textAppearance="@style/item_labels"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="@+id/endDate_slash1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/second_slash"
@@ -327,8 +357,8 @@
         app:layout_constraintBottom_toBottomOf="@+id/ethour"
         app:layout_constraintEnd_toEndOf="@+id/first_colon"
         app:layout_constraintHorizontal_bias="0.37"
-        app:layout_constraintTop_toTopOf="@+id/ethour"
         app:layout_constraintStart_toStartOf="@+id/first_colon"
+        app:layout_constraintTop_toTopOf="@+id/ethour"
         app:layout_constraintVertical_bias="0.625" />
 
     <Spinner
@@ -348,9 +378,37 @@
         app:layout_constraintBottom_toBottomOf="@+id/label_et"
         app:layout_constraintEnd_toStartOf="@+id/second_colon"
         app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="@+id/sthour"
         app:layout_constraintStart_toEndOf="@+id/label_et"
+        app:layout_constraintStart_toStartOf="@+id/sthour"
         app:layout_constraintTop_toTopOf="@+id/label_et" />
+
+    <Spinner
+        android:id="@+id/endDate_mm"
+        android:layout_width="65dp"
+        android:layout_height="48dp"
+        app:layout_constraintBottom_toBottomOf="@+id/square"
+        app:layout_constraintEnd_toStartOf="@+id/endDate_slash1"
+        app:layout_constraintStart_toEndOf="@+id/recurrence"
+        app:layout_constraintTop_toBottomOf="@+id/text_SetEndDate" />
+
+    <Spinner
+        android:id="@+id/endDate_dd"
+        android:layout_width="65dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="-10dp"
+        app:layout_constraintBottom_toBottomOf="@+id/endDate_mm"
+        app:layout_constraintStart_toEndOf="@+id/endDate_slash1"
+        app:layout_constraintTop_toTopOf="@+id/endDate_mm" />
+
+    <Spinner
+        android:id="@+id/endDate_yyyy"
+        android:layout_width="50dp"
+        android:layout_height="38dp"
+        android:layout_marginEnd="10dp"
+        app:layout_constraintBottom_toBottomOf="@+id/endDate_dd"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/endDate_dd"
+        app:layout_constraintVertical_bias="0.0" />
 
     <Spinner
         android:id="@+id/etmin"
@@ -359,8 +417,8 @@
         app:layout_constraintBottom_toBottomOf="@+id/label_et"
         app:layout_constraintEnd_toStartOf="@+id/ampm2"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/stmin"
         app:layout_constraintStart_toEndOf="@+id/second_colon"
+        app:layout_constraintStart_toStartOf="@+id/stmin"
         app:layout_constraintTop_toTopOf="@+id/label_et" />
 
     <TextView
@@ -378,6 +436,53 @@
         app:layout_constraintVertical_bias="0.0" />
 
     <TextView
+        android:id="@+id/ED_dayText"
+        android:layout_width="36dp"
+        android:layout_height="46dp"
+        android:layout_marginStart="144dp"
+        android:fontFamily="@font/rubik_bold"
+        android:textAlignment="center"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@+id/ED_monthText"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/ED_monthText"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/ED_yearText"
+        android:layout_width="50dp"
+        android:layout_height="46dp"
+        android:layout_marginEnd="24dp"
+        android:fontFamily="@font/rubik_bold"
+        android:textAlignment="center"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@+id/ED_monthText"
+        app:layout_constraintEnd_toEndOf="@+id/endDate_yyyy"
+        app:layout_constraintHorizontal_bias="0.407"
+        app:layout_constraintStart_toEndOf="@+id/endDate_slash2"
+        app:layout_constraintTop_toTopOf="@+id/ED_monthText"
+        app:layout_constraintVertical_bias="0.0" />
+
+
+    <TextView
+        android:id="@+id/ED_monthText"
+        android:layout_width="36dp"
+        android:layout_height="46dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="-8dp"
+        android:fontFamily="@font/rubik_bold"
+        android:textAlignment="center"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/endDate_slash1"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/recText"
+        app:layout_constraintTop_toTopOf="@+id/endDate_mm"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
         android:id="@+id/ampmText2"
         android:layout_width="36dp"
         android:layout_height="46dp"
@@ -386,9 +491,9 @@
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="@+id/minText2"
         app:layout_constraintEnd_toEndOf="@id/ampmText"
-        app:layout_constraintStart_toStartOf="@+id/ampmText"
         app:layout_constraintHorizontal_bias="0.177"
         app:layout_constraintStart_toEndOf="@+id/etmin"
+        app:layout_constraintStart_toStartOf="@+id/ampmText"
         app:layout_constraintTop_toTopOf="@+id/minText2"
         app:layout_constraintVertical_bias="0.0" />
 
@@ -400,9 +505,9 @@
         android:textAlignment="center"
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="@+id/hourText2"
+        app:layout_constraintEnd_toEndOf="@+id/minText"
         app:layout_constraintHorizontal_bias="0.206"
         app:layout_constraintStart_toStartOf="@+id/minText"
-        app:layout_constraintEnd_toEndOf="@+id/minText"
         app:layout_constraintTop_toTopOf="@+id/hourText2"
         app:layout_constraintVertical_bias="0.0" />
 
@@ -411,10 +516,11 @@
         android:layout_width="70dp"
         android:layout_height="46dp"
         android:layout_below="@+id/recText"
+        android:layout_marginStart="21dp"
         app:layout_constraintBottom_toBottomOf="@+id/label_recurrence"
         app:layout_constraintEnd_toEndOf="@+id/ampm2"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/ethour"
+        app:layout_constraintStart_toStartOf="@+id/recText"
         app:layout_constraintTop_toTopOf="@+id/label_recurrence" />
 
     <TextView
@@ -443,6 +549,16 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/add_event_header"
         app:layout_constraintVertical_bias="0.354" />
+
+    <TextView
+        android:id="@+id/text_SetEndDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Set End Date"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        app:layout_constraintEnd_toEndOf="@+id/endDate_yyyy"
+        app:layout_constraintStart_toStartOf="@+id/ED_monthText"
+        app:layout_constraintTop_toBottomOf="@+id/etmin" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

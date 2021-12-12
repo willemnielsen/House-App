@@ -361,10 +361,9 @@ public class ControllerActivity extends AppCompatActivity
 
         @Override
         public void onAddedEvent(String name, Date date, Time startTime, Time endTime,
-                                 List<Housemate> interestedHMs, String rec,
+                                 List<Housemate> interestedHMs, String rec, Date endDate,
                                  IAddEventView addEventView) {
             Date startDate = date;
-            Date endDate = new Date(startDate.getTime()+31556952000L);
             Recurrence recurrence = new Recurrence(rec, startDate, endDate);
             houseController.addEventToCalendar(name, date, startTime, endTime, interestedHMs,
                     recurrence);
