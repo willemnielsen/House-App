@@ -53,6 +53,7 @@ public interface IPersistenceFacade {
     void saveHousemate(Housemate housemate);
     void retrieveHousemateList(HousematesListListener listener);
     void saveLineItemPL(LineItem lineItem);
+    void onCheckOut();
     void retrieveDebtList(DebtListListener listener);
     void createUserIfNotExists(@NonNull Housemate user, @NonNull BinaryResultListener listener);
     void retrieveUser(@NonNull String username, @NonNull DataListener<Housemate> listener);

@@ -465,7 +465,8 @@ public class ControllerActivity extends AppCompatActivity
         houseController.checkout(distribution, houseController.getLoggedInUser());
         houseController.getHouse().getPurchasedItems().clear();
         purchasedListScreenFragment.updatePurchasedList(houseController.getHouse().getPurchasedItems());
-
+        //remove all items from data base
+        this.persistenceFacade.onCheckOut();
     }
 
     @Override

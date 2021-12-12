@@ -128,6 +128,22 @@ public class FirestoreFacade implements IPersistenceFacade {
 
     }
 
+    /**
+     * clear all data from purchased list
+     */
+    @Override
+    public void onCheckOut(){
+        this.db.collection(HOUSE_NAME).document(HOUSE_NAME).collection(PURCHASE_LIST).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+            @Override
+            public void onSuccess(QuerySnapshot qsnap) {
+                for(DocumentSnapshot dsnap : qsnap){
+                    //removes all lineitems from purchased list
+                    db.collection(HOUSE_NAME).document(HOUSE_NAME).collection(PURCHASE_LIST).document(dsnap.getId()).delete();
+                }
+            }
+        });
+    }
+
     @Override
     public void retrieveDebtList(DebtListListener listener) {
 
