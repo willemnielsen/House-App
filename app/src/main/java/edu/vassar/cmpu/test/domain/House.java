@@ -224,11 +224,11 @@ public class House implements Serializable {
             //if(debt.getCreditor().getName().equals(debt.getDebtor().getName()))
             if(debt.getCreditorAuthKey().getKey().equals(debt.getDebtorAuthKey().getKey()))
                 transactionList += getHousemate(debt.getDebtorAuthKey()).getName() + " paid " + debt.getOwed() + " for "
-                        + debt.getItem().getQuantity() + " " + debt.getItem().getName() + "(s).\n";
+                        + debt.getLineItem().getQuantity() + " " + debt.getLineItem().getName() + "(s).\n";
             else
                 transactionList += getHousemate(debt.getDebtorAuthKey()).getName() + " owes " +
                         getHousemate(debt.getCreditorAuthKey()).getName() + " " + debt.getOwed() + " for " +
-                        debt.getItem().getQuantity() + " " + debt.getItem().getName() + "(s).\n";
+                        debt.getLineItem().getQuantity() + " " + debt.getLineItem().getName() + "(s).\n";
         }
         return transactionList;
     }

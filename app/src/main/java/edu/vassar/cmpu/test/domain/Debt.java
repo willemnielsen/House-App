@@ -36,8 +36,34 @@ public class Debt implements Serializable {
         this.lineItem = lineItem;
     }
 
+
+    public void setDebtorAuthKey(AuthKey debtorAuthKey) {
+        this.debtorAuthKey = debtorAuthKey;
+    }
+
     public AuthKey getDebtorAuthKey(){return debtorAuthKey;}
+
+    public void setCreditorAuthKey(AuthKey creditorAuthKey) {
+        this.creditorAuthKey = creditorAuthKey;
+    }
+
     public AuthKey getCreditorAuthKey(){return creditorAuthKey;}
-    public LineItem getItem(){return lineItem;}
+
+    public LineItem getLineItem() {
+        return lineItem;
+    }
+
+    public void setLineItem(LineItem lineItem) {
+        this.lineItem = lineItem;
+    }
+
+    public void setOwed(float owed) {
+        this.owed = owed;
+    }
+
+    public void setPaid(boolean paid) {
+        isPaid = paid;
+    }
+
     public float getOwed(){return owed;}
 }
