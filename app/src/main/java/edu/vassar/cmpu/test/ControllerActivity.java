@@ -288,6 +288,10 @@ public class ControllerActivity extends AppCompatActivity
     @Override
     public void onPurchaseItems(LineItem lineitem, IShoppingListScreenView shoppingListScreenView){
         houseController.addToPurchase(lineitem);
+
+        //remove from data base
+
+
         houseController.getHouse().getShoppingList().remove(lineitem);
         shoppingListScreenView.updateDisplay(houseController.getHouse().getShoppingList());
         shoppingListScreenView.updatePurchasedList(houseController.getHouse().getPurchasedItems());

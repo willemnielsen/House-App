@@ -5,8 +5,11 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import edu.vassar.cmpu.test.domain.Event;
@@ -62,6 +65,8 @@ public class FirestoreFacade implements IPersistenceFacade {
         this.db.collection(HOUSE_NAME).document(HOUSE_NAME).collection(SHOPPING_LIST).add(lineItem);
     }
 
+
+
     @Override
     public void retrieveShoppingList(ShoppingListListener listener) {
 
@@ -104,6 +109,23 @@ public class FirestoreFacade implements IPersistenceFacade {
     @Override
     public void saveLineItemPL(LineItem lineItem) {
         this.db.collection(HOUSE_NAME).document(HOUSE_NAME).collection(PURCHASE_LIST).add(lineItem);
+
+        this.db.collection(HOUSE_NAME).document(HOUSE_NAME).collection(SHOPPING_LIST).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+
+            @Override
+            public void onSuccess(QuerySnapshot qsnap) {
+                String ref = "";
+                for(DocumentSnapshot dsnap : qsnap){
+                    //finds corresponds lineitem
+                    if(dsnap.toObject(LineItem.class).getName().equals(lineItem.getName())){
+                        ref = dsnap.getId();
+                        db.collection(HOUSE_NAME).document(HOUSE_NAME).collection(SHOPPING_LIST).document(ref).delete();
+                        break;
+                    }
+                }
+            }
+        });
+
     }
 
     @Override
