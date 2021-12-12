@@ -144,6 +144,28 @@ public class FirestoreFacade implements IPersistenceFacade {
         });
     }
 
+    /**
+     *
+     * @param housemates
+     * updated debt list for all housemates
+     */
+    public void updateHousemateDebt(List<Housemate> housemates){
+        this.db.collection(HOUSE_NAME).document(HOUSE_NAME).collection(HOUSEMATE_LIST).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+            @Override
+            public void onSuccess(QuerySnapshot qsnap) {
+                for(DocumentSnapshot dsnap : qsnap){
+                    for(Housemate hm : housemates){
+                        if(dsnap.toObject(Housemate.class).getAuthKey().getKey().equals(hm.getAuthKey().getKey())){
+                            db.collection(HOUSE_NAME).document(HOUSE_NAME).collection(PURCHASE_LIST)
+                                    .document(dsnap.getId()).set(hm);
+                            break;
+                        }
+                    }
+                }
+            }
+        });
+    }
+
     @Override
     public void retrieveDebtList(DebtListListener listener) {
 

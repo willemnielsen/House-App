@@ -467,6 +467,8 @@ public class ControllerActivity extends AppCompatActivity
         purchasedListScreenFragment.updatePurchasedList(houseController.getHouse().getPurchasedItems());
         //remove all items from data base
         this.persistenceFacade.onCheckOut();
+        //update housemates debt list
+        this.persistenceFacade.updateHousemateDebt(houseController.getHousemates());
     }
 
     @Override
