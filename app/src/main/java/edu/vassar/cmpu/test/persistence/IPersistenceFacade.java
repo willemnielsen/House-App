@@ -37,9 +37,11 @@ public interface IPersistenceFacade {
     interface HousematesListListener{
         void onHousemateListReceived(List<Housemate> housemateList);
     }
+
     interface DebtListListener{
         void onDebtListReceived(List<Debt> debtList);
     }
+
 
 
     void setHouseName(String houseName);
@@ -56,6 +58,7 @@ public interface IPersistenceFacade {
     void onCheckOut();
     void updateHousemateDebt(List<Housemate> housemates);
     void retrieveDebtList(DebtListListener listener);
+    void saveDebtList(List<Debt> debtlist, int start);
     void createUserIfNotExists(@NonNull Housemate user, @NonNull BinaryResultListener listener);
     void retrieveUser(@NonNull String username, @NonNull DataListener<Housemate> listener);
 

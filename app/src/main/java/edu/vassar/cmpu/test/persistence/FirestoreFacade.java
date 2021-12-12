@@ -12,6 +12,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import edu.vassar.cmpu.test.domain.Debt;
 import edu.vassar.cmpu.test.domain.Event;
 import java.io.StringReader;
 import java.lang.reflect.Array;
@@ -33,6 +34,7 @@ public class FirestoreFacade implements IPersistenceFacade {
     private static final String SHOPPING_LIST = "shopping list";
     private static final String CALENDAR = "calendar";
     private static final String HOUSEMATE_LIST = "housemate list";
+    private static final String DEBT_LIST = "debt list";
 
 
     @Override
@@ -171,7 +173,17 @@ public class FirestoreFacade implements IPersistenceFacade {
 
     @Override
     public void retrieveDebtList(DebtListListener listener) {
-
+        this.db.collection(HOUSE_NAME).document(HOUSE_NAME).collection(DEBT_LIST).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+            @Override
+            public void onSuccess(QuerySnapshot qsnap) {
+                List<Debt> debtList = new ArrayList<>();
+                for (DocumentSnapshot dsnap : qsnap){
+                    Debt debt = dsnap.toObject(Debt.class);
+                    debtList.add(debt);
+                }
+                listener.onDebtListReceived(debtList);
+            }
+        });
     }
 
     @Override
@@ -189,6 +201,18 @@ public class FirestoreFacade implements IPersistenceFacade {
             }
         });
     }
+
+
+    @Override
+    public void saveDebtList(List<Debt> debtlist, int start){
+
+        Log.e("TEST DEBT LIST" ,  "DELETED AND NOW ADDING DEBT" + debtlist.toString());
+        for(int i = start; i < debtlist.size(); i++)
+            this.db.collection(HOUSE_NAME).document(HOUSE_NAME).collection(DEBT_LIST).add(debtlist.get(i));
+
+    }
+
+
     @Override
     public void createUserIfNotExists(@NonNull Housemate user, @NonNull BinaryResultListener listener) {
 

@@ -17,6 +17,7 @@ import java.util.Locale;
 
 //import edu.vassar.cmpu.test.domain.House;
 import edu.vassar.cmpu.test.domain.Calendar;
+import edu.vassar.cmpu.test.domain.Debt;
 import edu.vassar.cmpu.test.domain.Event;
 import edu.vassar.cmpu.test.domain.House;
 import edu.vassar.cmpu.test.domain.HouseController;
@@ -56,7 +57,7 @@ public class ControllerActivity extends AppCompatActivity
             IAddItemView.Listener, ICalendarScreenView.Listener, IAddEventView.Listener,
             ILoginScreenFragment.Listener, IHousemateListScreenFragment.Listener,
             IPurchasedListScreenFragment.Listener, IAddHousemate.Listener, IDebtScreenFragment.Listener,
-            ITransactionsScreenFragment.Listener, IPersistenceFacade.ShoppingListListener, IPersistenceFacade.CalendarListener, IAuthView.Listener {
+            ITransactionsScreenFragment.Listener, IPersistenceFacade.ShoppingListListener, IPersistenceFacade.CalendarListener, IPersistenceFacade.DebtListListener, IAuthView.Listener {
     //extends makes this class an activity
 
     private LineItem curItem;
@@ -69,6 +70,7 @@ public class ControllerActivity extends AppCompatActivity
     private static final String CUR_USER = "curUser";
     private static final String CUR_HOUSE = "curHouse";
 
+    private int debtlistSize = 0; //used to not double add
     private Housemate curUser;       // current user
 
     protected void onCreate(Bundle savedInstanceState){
@@ -91,6 +93,8 @@ public class ControllerActivity extends AppCompatActivity
             this.mainView.displayFragment(new LoginScreenFragment(this));
         //displays the Login Screen Fragment
     }
+
+
 
     //
     //House
@@ -187,6 +191,15 @@ public class ControllerActivity extends AppCompatActivity
             public void onPurchaseListReceived(List<LineItem> purchaseList) {
                 ControllerActivity.this.houseController.getHouse().loadPurchasedList(purchaseList);
                 // set the activity's purchase list to the one retrieved from the database
+            }
+        });
+
+        this.persistenceFacade.retrieveDebtList(new IPersistenceFacade.DebtListListener() {
+            @Override
+            public void onDebtListReceived(List<Debt> debtList) {
+                ControllerActivity.this.houseController.getHouse().loadDebtList(debtList);
+                ControllerActivity.this.debtlistSize = debtList.size();
+                //ControllerActivity.this.persistenceFacade.resetDebtList();
             }
         });
     }
@@ -290,12 +303,11 @@ public class ControllerActivity extends AppCompatActivity
         houseController.addToPurchase(lineitem);
 
         //remove from data base
-
-
         houseController.getHouse().getShoppingList().remove(lineitem);
         shoppingListScreenView.updateDisplay(houseController.getHouse().getShoppingList());
         shoppingListScreenView.updatePurchasedList(houseController.getHouse().getPurchasedItems());
         this.persistenceFacade.saveLineItemPL(lineitem);
+
 
     }
 
@@ -464,10 +476,13 @@ public class ControllerActivity extends AppCompatActivity
         houseController.checkout(distribution, houseController.getLoggedInUser());
         houseController.getHouse().getPurchasedItems().clear();
         purchasedListScreenFragment.updatePurchasedList(houseController.getHouse().getPurchasedItems());
-        this.persistenceFacade.updateHousemateDebt(houseController.getHousemates());
         //remove all items from data base
         this.persistenceFacade.onCheckOut();
         //update housemates debt list
+        this.persistenceFacade.updateHousemateDebt(houseController.getHousemates());
+        //save debt list -> transaction screen
+        this.persistenceFacade.saveDebtList(houseController.getHouse().getHousedebt(), this.debtlistSize);
+        this.debtlistSize = houseController.getHouse().getHousedebt().size();
     }
 
     @Override
@@ -523,4 +538,10 @@ public class ControllerActivity extends AppCompatActivity
         }
     }
 
+    @Override
+    public void onDebtListReceived(List<Debt> debtList) {
+        this.houseController.loadDebtList(debtList);
+        ControllerActivity.this.debtlistSize = debtList.size();
+        //this.persistenceFacade.resetDebtList();
+    }
 }

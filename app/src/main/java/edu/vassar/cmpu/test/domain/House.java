@@ -294,5 +294,13 @@ public class House implements Serializable {
     public void loadDebtList(List<Debt> dl) {
         this.housedebt = dl;
     }
+
+    public List<Debt> getHousedebt(){
+        return this.housedebt;
+    }
+
+    public void setHousedebt(List<Debt> housedebt) {
+        this.housedebt = housedebt;
+    }
 }
 

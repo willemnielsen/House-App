@@ -66,4 +66,17 @@ public class Debt implements Serializable {
     }
 
     public float getOwed(){return owed;}
+
+    @Override
+    public boolean equals(Object o){
+        if(!(o instanceof Debt)){
+            return false;
+        }
+        Debt debt = (Debt) o;
+        return this.getDebtorAuthKey().equals(debt.debtorAuthKey)
+                && this.getCreditorAuthKey().equals(debt.creditorAuthKey)
+                && this.isPaid == debt.isPaid
+                && this.owed == debt.owed
+                && this.lineItem.equals(debt.getLineItem());
+    }
 }

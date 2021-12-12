@@ -83,4 +83,25 @@ public class LineItem implements Serializable {
     public String toString(){
         return "x" + this.quantity + " " + item.toString();
     }
+
+    /*
+    public boolean equal0s(Object o){
+        if(!(o instanceof LineItem)){
+            return false;
+        }
+        LineItem li = (LineItem) o;
+        if(this.interestedHouseMatesAuthKet.size() != li.interestedHouseMatesAuthKet.size()){
+            return false;
+        }
+        for(int i = 0; i < this.interestedHouseMatesAuthKet.size(); i++){
+            if(!this.interestedHouseMatesAuthKet.get(i).equals(li.interestedHouseMatesAuthKet.get(i))){
+                return false;
+            }
+        }
+        return this.getPurchaserAuthKey().equals(li.getPurchaserAuthKey())
+                && this.toString().equals(li.toString());
+
+    }
+
+     */
 }
