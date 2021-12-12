@@ -155,9 +155,10 @@ public class FirestoreFacade implements IPersistenceFacade {
             public void onSuccess(QuerySnapshot qsnap) {
                 for(DocumentSnapshot dsnap : qsnap){
                     for(Housemate hm : housemates){
-                        if(dsnap.toObject(Housemate.class).getAuthKey().getKey().equals(hm.getAuthKey().getKey())){
+                        if(dsnap.toObject(Housemate.class).equals(hm)){
                             db.collection(HOUSE_NAME).document(HOUSE_NAME).collection(PURCHASE_LIST)
                                     .document(dsnap.getId()).set(hm);
+                            Log.e("TEST for updates" , "came here" + hm.getDebtlist());
                             break;
                         }
                     }

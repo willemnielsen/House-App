@@ -55,6 +55,15 @@ public class AuthKey implements Serializable {
         return String.format("salt: %s, key: %s", this.salt, this.key);
     }
 
+    @Override
+    public boolean equals(Object o){
+        if(!(o instanceof AuthKey)){
+            return false;
+        }
+        AuthKey ak = (AuthKey) o;
+        return this.getKey().equals(ak.getKey()) && this.getSalt().equals(ak.getSalt());
+    }
+
     private static final int SALT_LEN = 20;
     private static final int KEY_LEN = 40;
     private static final int NITERS = 64000;

@@ -166,6 +166,6 @@ public class Housemate implements Serializable {
             return false;
         }
         Housemate hm = (Housemate) o;
-        return this.authKey.getKey() == hm.authKey.getKey();
+        return this.authKey.equals(hm.getAuthKey()) && this.getName().equals(hm.getName());
     }
 }

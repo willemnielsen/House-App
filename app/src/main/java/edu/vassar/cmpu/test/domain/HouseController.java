@@ -64,6 +64,11 @@ public class HouseController {
         this.house.loadShoppingList(sl);
     }
 
+    public void loadDebtList(List<Debt> dl){
+        this.house.loadDebtList(dl);
+    }
+
+
     public void addToPurchase(LineItem lineitem){
         house.getPurchasedItems().add(lineitem);
     }

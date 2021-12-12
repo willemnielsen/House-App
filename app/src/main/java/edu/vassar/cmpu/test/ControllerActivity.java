@@ -465,10 +465,10 @@ public class ControllerActivity extends AppCompatActivity
         houseController.checkout(distribution, houseController.getLoggedInUser());
         houseController.getHouse().getPurchasedItems().clear();
         purchasedListScreenFragment.updatePurchasedList(houseController.getHouse().getPurchasedItems());
+        this.persistenceFacade.updateHousemateDebt(houseController.getHousemates());
         //remove all items from data base
         this.persistenceFacade.onCheckOut();
         //update housemates debt list
-        this.persistenceFacade.updateHousemateDebt(houseController.getHousemates());
     }
 
     @Override

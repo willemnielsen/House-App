@@ -142,7 +142,7 @@ public class House implements Serializable {
                         (lineItem.getPrice()*lineItem.getQuantity())/lineItem.getInterestedHouseMatesAuthKet().size(),
                         lineItem);
                 //if(!interHM.getName().equals(lineItem.getPurchaser().getName())) {
-                if( interHM.getAuthKey().getKey().equals(lineItem.getPurchaserAuthKey().getKey())){
+                if( interHM.getAuthKey().equals(lineItem.getPurchaserAuthKey())){
                     this.housedebt.add(newdebt);
                     interHM.getDebtlist().add(newdebt);
                     getHousemate(lineItem.getPurchaserAuthKey()).getDebtlist().add(newdebt);
@@ -165,7 +165,7 @@ public class House implements Serializable {
             Debt newdebt = new Debt(getHousemate(lineItem.getPurchaserAuthKey()), currHM,
                     (lineItem.getPrice()*lineItem.getQuantity())/housemates.size(), lineItem);
             //if(!currHM.getName().equals(lineItem.getPurchaser().getName())) {
-            if(!currHM.getAuthKey().getKey().equals(lineItem.getPurchaserAuthKey().getKey())){
+            if(!currHM.getAuthKey().equals(lineItem.getPurchaserAuthKey())){
                 this.housedebt.add(newdebt);
                 currHM.getDebtlist().add(newdebt);
                 getHousemate(lineItem.getPurchaserAuthKey()).getDebtlist().add(newdebt);
@@ -222,7 +222,7 @@ public class House implements Serializable {
         String transactionList = "";
         for (Debt debt: housedebt) {
             //if(debt.getCreditor().getName().equals(debt.getDebtor().getName()))
-            if(debt.getCreditorAuthKey().getKey().equals(debt.getDebtorAuthKey().getKey()))
+            if(debt.getCreditorAuthKey().equals(debt.getDebtorAuthKey()))
                 transactionList += getHousemate(debt.getDebtorAuthKey()).getName() + " paid " + debt.getOwed() + " for "
                         + debt.getLineItem().getQuantity() + " " + debt.getLineItem().getName() + "(s).\n";
             else
@@ -247,13 +247,13 @@ public class House implements Serializable {
                 Housemate debtor = getHousemate(debt.getDebtorAuthKey());
                 Housemate creditor = getHousemate(debt.getCreditorAuthKey());
                 //if (creditor.getName().equals(hm.getName()) && !creditor.getName().equals(debtor.getName()))
-                if(debt.getCreditorAuthKey().getKey().equals(hm.getAuthKey().getKey()) &&
-                !debt.getCreditorAuthKey().getKey().equals(debt.getDebtorAuthKey().getKey()))
+                if(debt.getCreditorAuthKey().equals(hm.getAuthKey()) &&
+                !debt.getCreditorAuthKey().equals(debt.getDebtorAuthKey()))
                     credit += debt.getOwed();
                 //if (debt.getDebtor().getName().equals(hm.getName()) &&
                         //!creditor.getName().equals(debtor.getName()))
-                if(debt.getDebtorAuthKey().getKey().equals(hm.getAuthKey().getKey())
-                    && !debt.getCreditorAuthKey().getKey().equals(debt.getDebtorAuthKey()));
+                if(debt.getDebtorAuthKey().equals(hm.getAuthKey())
+                    && !debt.getCreditorAuthKey().equals(debt.getDebtorAuthKey()));
                     owed += debt.getOwed();
             }
             float net = credit - owed;
@@ -275,7 +275,7 @@ public class House implements Serializable {
     // key -> address of housemate
     public Housemate getHousemate(AuthKey key){
         for(int i = 0; i < housemates.size(); i++){
-            if(housemates.get(i).getAuthKey().getKey().equals(key.getKey())){
+            if(housemates.get(i).getAuthKey().equals(key)){
                 return housemates.get(i);
             }
         }
@@ -291,5 +291,8 @@ public class House implements Serializable {
         return tempList;
     }
 
+    public void loadDebtList(List<Debt> dl) {
+        this.housedebt = dl;
+    }
 }
 
