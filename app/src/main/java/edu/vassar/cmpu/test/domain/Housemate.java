@@ -30,7 +30,7 @@ public class Housemate implements Serializable {
     /**
      * Creates a housemate object with given name. By default, id is a random long and debt list
      * is an empty arraylist
-     * @param name      name of housemate to be created
+     * @param username      name of housemate to be created
      */
     public Housemate(String username, String password){
         this.name = username;
@@ -61,6 +61,7 @@ public class Housemate implements Serializable {
      * myTransactions creates a string that lists what you paid for and what you owe for.
      * @return          transactionList, a string that lists the housemate's transactions
      */
+    /*
     public String myTransactions(){
         String transactionList = "";
         for (Debt debt: debtlist) {
@@ -74,6 +75,8 @@ public class Housemate implements Serializable {
         return transactionList;
     }
 
+     */
+
     /**
      * myBalance takes the total credit - total debt of the housemate and returns it in string form
      * @return      balanceTotal, a string that states your total credit - total balance
@@ -84,11 +87,15 @@ public class Housemate implements Serializable {
         float owed = 0;
         String balanceTotal = "";
         for (Debt debt: debtlist) {
-            if(debt.getCreditor().name.equals(this.name) &&
-                    !debt.getCreditor().name.equals(debt.getDebtor().name))
+            //if(debt.getCreditor().name.equals(this.name) &&
+            //        !debt.getCreditor().name.equals(debt.getDebtor().name))
+            if(debt.getCreditorAuthKey().getKey().equals(this.getAuthKey().getKey())
+                && !debt.getCreditorAuthKey().getKey().equals(debt.getDebtorAuthKey().getKey()))
                 credit += debt.getOwed();
-            if (debt.getDebtor().name.equals(this.name) &&
-                    !debt.getCreditor().name.equals(debt.getDebtor().name))
+            //if (debt.getDebtor().name.equals(this.name) &&
+            //        !debt.getCreditor().name.equals(debt.getDebtor().name))
+            if(debt.getDebtorAuthKey().getKey().equals(this.getAuthKey().getKey())
+                && !debt.getCreditorAuthKey().getKey().equals(debt.getDebtorAuthKey().getKey()))
                 owed += debt.getOwed();
     }
         float net = credit-owed;

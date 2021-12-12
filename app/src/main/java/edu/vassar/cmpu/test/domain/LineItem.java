@@ -8,49 +8,60 @@ public class LineItem implements Serializable {
 
 
     private int quantity;
-    private List<Housemate> interestedHouseMates;
-    private Housemate purchaser;
+
+    private List<AuthKey> interestedHouseMatesAuthKet;
+    private AuthKey purchaserAuthKey;
     private Item item;
 
     public LineItem(){
         item = new Item("NA", 0.0f);
         this.quantity = 0;
-        this.interestedHouseMates = new ArrayList<>();
+        this.interestedHouseMatesAuthKet = new ArrayList<>();
     }
 
     public LineItem(int quantity, String name, List<Housemate> interestedHouseMates){
         item = new Item(name);
         this.quantity = quantity;
-        this.interestedHouseMates = interestedHouseMates;
+        this.interestedHouseMatesAuthKet = new ArrayList<>();
+        for(Housemate hm : interestedHouseMates){
+            this.interestedHouseMatesAuthKet.add(hm.getAuthKey());
+        }
     }
 
     public LineItem(int quantity, String name, float price,
                     List<Housemate> interestedHouseMates){
         item = new Item(name, price);
         this.quantity = quantity;
-        this.interestedHouseMates = interestedHouseMates;
+        this.interestedHouseMatesAuthKet = new ArrayList<>();
+        for(Housemate hm : interestedHouseMates){
+            this.interestedHouseMatesAuthKet.add(hm.getAuthKey());
+        }
     }
 
     public int getQuantity() {
         return quantity;
     }
     public void addPurchaser(Housemate purchaser){
-        this.purchaser = purchaser;
+        this.purchaserAuthKey = purchaser.getAuthKey();
     }
     public void setQuantity(int quantity) {
         this.quantity = quantity;
     }
 
-    public List<Housemate> getInterestedHouseMates() {
-        return interestedHouseMates;
+    public List<AuthKey> getInterestedHouseMatesAuthKet() {
+        return interestedHouseMatesAuthKet;
     }
 
-    public Housemate getPurchaser() {
-        return purchaser;
+    public void setInterestedHouseMatesAuthKet(List<AuthKey> interestedHouseMatesAuthKet) {
+        this.interestedHouseMatesAuthKet = interestedHouseMatesAuthKet;
     }
 
-    public void setPurchaser(Housemate purchaser) {
-        this.purchaser = purchaser;
+    public AuthKey getPurchaserAuthKey() {
+        return purchaserAuthKey;
+    }
+
+    public void setPurchaserAuthKey(AuthKey purchaserAuthKey) {
+        this.purchaserAuthKey = purchaserAuthKey;
     }
 
     public float getPrice(){
@@ -69,9 +80,7 @@ public class LineItem implements Serializable {
         item.setName(name);
     }
 
-
     public String toString(){
         return "x" + this.quantity + " " + item.toString();
     }
-
 }

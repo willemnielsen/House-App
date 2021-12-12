@@ -1,5 +1,7 @@
 package edu.vassar.cmpu.test.domain;
 
+import com.google.rpc.context.AttributeContext;
+
 import java.io.Serializable;
 
 /**
@@ -8,14 +10,14 @@ import java.io.Serializable;
  */
 public class Debt implements Serializable {
     private boolean isPaid = false;
-    private Housemate debtor;
-    private Housemate creditor;
+    private AuthKey debtorAuthKey;
+    private AuthKey creditorAuthKey;
     private LineItem lineItem;
     private float owed;
 
     public Debt(){
-        this.debtor = null;
-        this.creditor = null;
+        this.debtorAuthKey = null;
+        this.creditorAuthKey = null;
         this.owed = 0;
         this.lineItem = null;
     }
@@ -28,14 +30,14 @@ public class Debt implements Serializable {
      * @param lineItem      the line item that caused this debt
      */
     public Debt(Housemate creditor, Housemate debtor, float owed, LineItem lineItem){
-        this.debtor = debtor;
-        this.creditor = creditor;
+        this.debtorAuthKey = debtor.getAuthKey();
+        this.creditorAuthKey = creditor.getAuthKey();
         this.owed = owed;
         this.lineItem = lineItem;
     }
 
-    public Housemate getDebtor(){return debtor;}
-    public Housemate getCreditor(){return creditor;}
+    public AuthKey getDebtorAuthKey(){return debtorAuthKey;}
+    public AuthKey getCreditorAuthKey(){return creditorAuthKey;}
     public LineItem getItem(){return lineItem;}
     public float getOwed(){return owed;}
 }
