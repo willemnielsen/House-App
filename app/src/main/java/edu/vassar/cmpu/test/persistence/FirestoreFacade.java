@@ -33,7 +33,7 @@ public class FirestoreFacade implements IPersistenceFacade {
     private static final String SHOPPING_LIST = "shopping list";
     private static final String CALENDAR = "calendar";
     private static final String HOUSEMATE_LIST = "housemate list";
-    private static final String HOUSEMATES = "housemates";
+
 
     @Override
     public void setHouseName(String houseName){
@@ -155,10 +155,12 @@ public class FirestoreFacade implements IPersistenceFacade {
             public void onSuccess(QuerySnapshot qsnap) {
                 for(DocumentSnapshot dsnap : qsnap){
                     for(Housemate hm : housemates){
-                        if(dsnap.toObject(Housemate.class).equals(hm)){
-                            db.collection(HOUSE_NAME).document(HOUSE_NAME).collection(PURCHASE_LIST)
-                                    .document(dsnap.getId()).set(hm);
-                            Log.e("TEST for updates" , "came here" + hm.getDebtlist());
+                        if(dsnap.toObject(Housemate.class).getAuthKey().equals(hm.getAuthKey())){
+                            db.collection(HOUSE_NAME).document(HOUSE_NAME).collection(HOUSEMATE_LIST)
+                                    .document(dsnap.getId()).set(hm);//.update("debtlist", hm.debtlist);
+                            if(hm.getDebtlist().size() > 0){
+                                Log.e("TEST for updates" , "came here" + hm.getDebtlist().get(0).getOwed());
+                            }
                             break;
                         }
                     }
