@@ -779,7 +779,6 @@ class HouseController{
 
 }
 
-View.IFragments <|.. Controller.ControllerActivity
 Controller.ControllerActivity --> HouseController  
 
 @enduml
