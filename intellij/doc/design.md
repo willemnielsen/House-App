@@ -144,6 +144,22 @@ actor User as Actor
 @enduml
 ```
 
+# Log in as User Sequence Diagram
+```plantuml
+@startuml
+actor User as Actor
+    loginScreenFragment -->> Actor  : get Name, Password
+    loginScreenFragment -->> ControllerActivity  : onSigninAttempt(name, password)
+    ControllerActivity -->> IPersistenceFacade: retrieveUser()
+    IPersistenceFacade -->> ControllerActivity : onDataRecieved() 
+    ControllerActivity -->> HouseController : getHousemate()
+    HouseController -->> Housemate : validatePassword()
+    HouseController -->> ControllerActivity : passwordValidated()
+    ControllerActivity -->> HouseController : getHousemate()
+    HouseController -->> Housemate : setAuthKey()
+    ControllerActivity --> HousemateFragment **
+@enduml
+``` 
 # Purchase Item Sequence Diagram
 ```plantuml
 @startuml
