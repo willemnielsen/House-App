@@ -107,8 +107,40 @@ actor Housemate as Actor
 ```plantuml
 @startuml
 actor User as Actor
-    loginScreenFragment -->> Actor  : get HouseName, Usersname
-    loginScreenFragment -->> ControllerActivity  : onAddHousemate(HouseName, UsersName)
+    loginScreenFragment -->> Actor  : get House Name, House Password
+    loginScreenFragment -->> ControllerActivity  : onRegisterHouse(houseName, housePassword)
+    ControllerActivity -->> IPersistenceFacade: createHouseIfNotExists()
+    IPersistenceFacade -->> ControllerActivity : onYesResult()
+    ControllerActivity -->> loginScreenFragment : onRegisterHouseSuccess()
+@enduml
+```
+
+# Log in to House Sequence Diagram
+```plantuml
+@startuml
+actor User as Actor
+    loginScreenFragment -->> Actor  : get House Name, House Password
+    loginScreenFragment -->> ControllerActivity  : onHouseSigninAttempt(houseName, housePassword)
+    ControllerActivity -->> IPersistenceFacade: retrieveHouse()
+    IPersistenceFacade -->> ControllerActivity : onDataRecieved() 
+    ControllerActivity -->> HouseController : getHouse()
+    HouseController -->> House : validatePassword()
+    HouseController -->> ControllerActivity : passwordValidated()
+    ControllerActivity -->> HouseController : getHouse()
+    HouseController -->> House : setAuthKey()
+    ControllerActivity --> AuthFragment **
+@enduml
+``` 
+
+# Join House Sequence Diagram
+```plantuml
+@startuml
+actor User as Actor
+    loginScreenFragment -->> Actor  : get Housemate name, Housemate password
+    loginScreenFragment -->> ControllerActivity  : onRegister(name, password)
+    ControllerActivity -->> IPersistenceFacade: createUserIfNotExists()
+    IPersistenceFacade -->> ControllerActivity : onYesResult()
+    ControllerActivity -->> loginScreenFragment : onRegisterHouseSuccess()
 @enduml
 ```
 
