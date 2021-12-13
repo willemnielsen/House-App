@@ -47,42 +47,72 @@ public class Event implements Serializable {
         this.housemates = housemates;
     }
 
+    /**
+     * Returns the name of the event the user added
+     */
     public String getName() {
         return name;
     }
 
+    /**
+     * Setter for the name of the event the user added
+     */
     public void setName(String name) {
         this.name = name;
     }
 
+    /**
+     * Returns the date of the event added
+     */
     public Date getDate() {
         return date;
     }
 
+    /**
+     * Setter for the date of the event added
+     */
     public void setDate(Date date) {
         this.date = date;
     }
 
+    /**
+     * Returns the start time of the event added
+     */
     public Time getStartTime() {
         return startTime;
     }
 
+    /**
+     * Setter for the start time of the event added
+     */
     public void setStartTime(Date startTime) {
         this.startTime = new Time(startTime.getTime());
     }
 
+    /**
+     * Returns the end time of the event added
+     */
     public Time getEndTime() {
         return endTime;
     }
 
+    /**
+     * Setter for the end time of the event added
+     */
     public void setEndTime(Date endTime) {
         this.endTime = new Time(endTime.getTime());
     }
 
+    /**
+     * Returns the housemates that are associated to the event
+     */
     public List<Housemate> getHousemates() {
         return housemates;
     }
 
+    /**
+     * Setter for the housemates that are associated to the event
+     */
     public void setHousemates(List<Housemate> housemates) {
         this.housemates = housemates;
     }

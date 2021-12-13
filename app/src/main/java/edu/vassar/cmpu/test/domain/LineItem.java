@@ -13,12 +13,18 @@ public class LineItem implements Serializable {
     private AuthKey purchaserAuthKey;
     private Item item;
 
+    /**
+     * Class constructor
+     */
     public LineItem(){
         item = new Item("NA", 0.0f);
         this.quantity = 0;
         this.interestedHouseMatesAuthKet = new ArrayList<>();
     }
 
+    /**
+     * Class constructor with all attributes except price
+     */
     public LineItem(int quantity, String name, List<Housemate> interestedHouseMates){
         item = new Item(name);
         this.quantity = quantity;
@@ -28,6 +34,10 @@ public class LineItem implements Serializable {
         }
     }
 
+
+    /**
+     * Class constructor with all attributes
+     */
     public LineItem(int quantity, String name, float price,
                     List<Housemate> interestedHouseMates){
         item = new Item(name, price);
@@ -38,16 +48,27 @@ public class LineItem implements Serializable {
         }
     }
 
+    /**
+     * returns item quantity
+     */
     public int getQuantity() {
         return quantity;
     }
+
+    /**
+     * addes purchaser to the item
+     */
     public void addPurchaser(Housemate purchaser){
         this.purchaserAuthKey = purchaser.getAuthKey();
     }
+
     public void setQuantity(int quantity) {
         this.quantity = quantity;
     }
 
+    /**
+     * returns the list of interested housemates
+     */
     public List<AuthKey> getInterestedHouseMatesAuthKet() {
         return interestedHouseMatesAuthKet;
     }
@@ -56,13 +77,20 @@ public class LineItem implements Serializable {
         this.interestedHouseMatesAuthKet = interestedHouseMatesAuthKet;
     }
 
+    /**
+     * returns the purchaser authkey
+     */
     public AuthKey getPurchaserAuthKey() {
         return purchaserAuthKey;
     }
 
+    /**
+     * setter for the purchaser authkey
+     */
     public void setPurchaserAuthKey(AuthKey purchaserAuthKey) {
         this.purchaserAuthKey = purchaserAuthKey;
     }
+
 
     public float getPrice(){
         return item.getPrice();

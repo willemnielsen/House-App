@@ -15,6 +15,9 @@ public class Debt implements Serializable {
     private LineItem lineItem;
     private float owed;
 
+    /**
+     * Class constructor.
+     */
     public Debt(){
         this.debtorAuthKey = null;
         this.creditorAuthKey = null;
@@ -41,32 +44,59 @@ public class Debt implements Serializable {
         this.debtorAuthKey = debtorAuthKey;
     }
 
+    /**
+     * Returns the debtor key
+     */
     public AuthKey getDebtorAuthKey(){return debtorAuthKey;}
 
     public void setCreditorAuthKey(AuthKey creditorAuthKey) {
         this.creditorAuthKey = creditorAuthKey;
     }
 
+    /**
+     * Returns the creditor key
+     */
     public AuthKey getCreditorAuthKey(){return creditorAuthKey;}
 
+    /**
+     * Returns the line item that was purchased
+     */
     public LineItem getLineItem() {
         return lineItem;
     }
 
+    /**
+     * Setter for line item that is being added
+     * @param lineItem              item
+     */
     public void setLineItem(LineItem lineItem) {
         this.lineItem = lineItem;
     }
 
+    /**
+     * Setter for amount due
+     * @param owed              float number that represents the amount due
+     */
     public void setOwed(float owed) {
         this.owed = owed;
     }
 
+    /**
+     * Setter for paid boolean
+     * @param paid              boolean value, true means an item was paid, false means it was not
+     */
     public void setPaid(boolean paid) {
         isPaid = paid;
     }
 
+    /**
+     * Returns the amount a housemate owes
+     */
     public float getOwed(){return owed;}
 
+    /**
+     * Creates a debt object.
+     */
     @Override
     public boolean equals(Object o){
         if(!(o instanceof Debt)){
