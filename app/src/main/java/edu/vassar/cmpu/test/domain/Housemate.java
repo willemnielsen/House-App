@@ -40,18 +40,33 @@ public class Housemate implements Serializable {
         this.authKey = new AuthKey(password);
     }
 
+    /**
+     * Retrieves username of the housemate
+     */
     public String getUsername(){ return this.username; }
 
+    /**
+     * Setter for username
+     */
     public void setUsername(String username) {
         this.username = username;
     }
 
+    /**
+     * Retrieves the authkey
+     */
     public AuthKey getAuthKey(){ return this.authKey; }
 
+    /**
+     * Setter for the authkey
+     */
     public void setAuthKey(AuthKey authKey) {
         this.authKey = authKey;
     }
 
+    /**
+     * Makes sure the password is correct
+     */
     public boolean validatePassword(String password){
         return this.authKey.validatePassword(password);
     }

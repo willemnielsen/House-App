@@ -19,6 +19,9 @@ public class House implements Serializable {
     private List<Debt> housedebt;
     private Calendar calendar;
 
+    /**
+     * Class constructor.
+     */
     public House(){
         this.houseName = "Test";
         this.authKey = new AuthKey("password");
@@ -49,30 +52,57 @@ public class House implements Serializable {
         calendar = new Calendar();
     }
 
+    /**
+     * Returns the authKey for the house
+     */
     public AuthKey getAuthKey(){ return this.authKey; }
 
+    /**
+     *  Setter for the authKey for the house
+     */
     public void setAuthKey(AuthKey authKey) {
         this.authKey = authKey;
     }
 
+    /**
+     *  Insures that the password entered is correct
+     */
     public boolean validatePassword(String password){
         return this.authKey.validatePassword(password);
     }
+
+    /**
+     * Returns the name of the current house
+     */
     public String getName(){
         return houseName;
     }
 
+
+    /**
+     * adds line item to the house shopping list
+     *
+     *   @param quantity
+     *   @param name
+     *   @param price
+     *   @param interestedHouseMates
+     *   @return true if lineitem added to shopping list
+     */
     public boolean addLineItemToShoppingList(int quantity, String name, float price,
                                              List<Housemate> interestedHouseMates){
         return shoppingList.addItem(quantity, name, price, interestedHouseMates);
     }
 
-
-
+    /**
+     * Returns the item list from the house shopping list at the index i
+     */
     public LineItem getShoppingListLineItem(int i){
         return shoppingList.getShoppingListLineItem(i);
     }
 
+    /**
+     * logs when the shopping list loads to the shopping list
+     */
     public void loadShoppingList(ShoppingList sl){
         this.shoppingList = sl;
         Log.e("TEST", "SL AT A ON LOAD METHOD"  + this.shoppingList.toString());
@@ -82,19 +112,30 @@ public class House implements Serializable {
 
     public void loadPurchasedList(List<LineItem> purchasedItems){this.purchasedItems = purchasedItems;}
 
-
+    /**
+     * Returns the size of the house shopping list
+     */
     public int getShoppingListSize(){
         return this.shoppingList.size();
     }
 
+    /**
+     * Returns the shoppingList object associated to the house
+     */
     public ShoppingList getShoppingList(){
         return shoppingList;
     }
 
+    /**
+     * Returns the purchasedItems list associated to the house
+     */
     public List<LineItem> getPurchasedItems() {
         return purchasedItems;
     }
 
+    /**
+     * adds line item to the purchasedItems list
+     */
     private void purchaseItem(LineItem lineItem) {
         purchasedItems.add(lineItem);
     }
@@ -116,6 +157,12 @@ public class House implements Serializable {
         return output;
     }
 
+    /**
+     * Adds housemate to house.
+     * @param housemate     Housemate to be added
+     * @return If housemate is successfully removes, returns a string that says so.
+     * Else, returns a string that says that the housemate does not exist.
+     */
     public String removeHousemate(Housemate housemate) {
         String output;
         if (housemates.contains(housemate)) {
@@ -263,17 +310,29 @@ public class House implements Serializable {
         return balanceTotal;
     }
 
-
+    /**
+     * Returns the housemate list associated to the house
+     */
     public List<Housemate> getHousemates(){
         return housemates;
     }
+
+    /**
+     * Returns the calendar associated to the house
+     */
     public Calendar getCalendar(){
         return calendar;
     }
+
     public void loadCalendar(Calendar calendar){
         this.calendar = calendar;
     }
 
+    /**
+     * This method takes a key and returns the housemate that the key is associated to.
+     * @param key          address of housemate
+     * @return the housemate with the given key
+     */
     // key -> address of housemate
     public Housemate getHousemate(AuthKey key){
         for(int i = 0; i < housemates.size(); i++){
@@ -284,6 +343,11 @@ public class House implements Serializable {
         return null;
     }
 
+    /**
+     * This method takes in a list of keys and returns a list of housemates with that key.
+     * @param keys          address of housemates
+     * @return the housemate with the given key
+     */
     // keys -> address of housemates
     public List<Housemate> getHousemateList(List<AuthKey> keys){
         List<Housemate> tempList = new ArrayList<>();
@@ -297,10 +361,18 @@ public class House implements Serializable {
         this.housedebt = dl;
     }
 
+    /**
+     * Returns the list of house debts
+     * @return the a list of debts
+     */
     public List<Debt> getHousedebt(){
         return this.housedebt;
     }
 
+
+    /**
+     * Setter for the list of house debts
+     */
     public void setHousedebt(List<Debt> housedebt) {
         this.housedebt = housedebt;
     }

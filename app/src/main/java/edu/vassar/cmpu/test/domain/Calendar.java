@@ -83,26 +83,53 @@ public class Calendar implements Serializable {
         return true;
     }
 
+    /**
+     * This method adds an event to the list of events
+     * @param event              event object
+     */
     public void addThisEvent(Event event){
         this.events.add(event);
     }
 
+    /**
+     * This method removes an event from the list of events
+     * @param event              event object
+     */
     public void remove(Event event) {
         events.remove(event);
     }
 
+    /**
+     * Setter for events
+     * @param events              event object
+     */
     public void setEvents(List<Event> events){this.events = events;}
+
+    /**
+     * Getter for events
+     */
     public List<Event> getEvents(){return this.events;}
 
+    /**
+     * Get a specific event from the event list
+     * * @param events              event object associated to the Calendar
+     */
     public Event getThisEvent(Event event) {
         return events.get(events.indexOf(event));
     }
 
+    /**
+     * Setter for the current day
+     * @param date              the date for the current date, changes
+     */
     public boolean setCurrentDate(Date date) {
         this.currentDate = date;
         return true;
     }
-
+    /**
+     * This method sorts the list of events by the start time
+     * @param eventlist              list of events
+     */
     public static void sort(List<Event> eventlist)
     {
         eventlist.sort(Comparator.comparing(Event::getStartTime));
