@@ -18,8 +18,8 @@ class DebtTest {
         hmList.add(A);
         LineItem LI = new LineItem(10, "Apple", 1.4f, hmList);
         Debt debt = new Debt(A, B , 20, LI);
-        assertEquals(debt.getDebtor(), B);
-        assertNotEquals(debt.getDebtor(), A);
+        assertEquals(debt.getDebtorAuthKey(), B.getAuthKey());
+        assertNotEquals(debt.getDebtorAuthKey(), A.getAuthKey());
     }
 
     /**
@@ -33,8 +33,8 @@ class DebtTest {
         hmList.add(A);
         LineItem LI = new LineItem(10, "Apple", 1.4f, hmList);
         Debt debt = new Debt(A, B , 20, LI);
-        assertEquals(debt.getCreditor(), A);
-        assertNotEquals(debt.getCreditor(), B);
+        assertEquals(debt.getCreditorAuthKey(), A.getAuthKey());
+        assertNotEquals(debt.getCreditorAuthKey(), B.getAuthKey());
     }
 
     /**
@@ -49,8 +49,8 @@ class DebtTest {
         LineItem LI = new LineItem(10, "Apple", 1.4f, hmList);
         LineItem LI2 = new LineItem(10, "Grapes", 1.4f, hmList);
         Debt debt = new Debt(A, B , 20, LI);
-        assertEquals(debt.getItem(), LI);
-        assertNotEquals(debt.getItem(), LI2);
+        assertEquals(debt.getLineItem(), LI);
+        assertNotEquals(debt.getLineItem(), LI2);
     }
 
     /**
