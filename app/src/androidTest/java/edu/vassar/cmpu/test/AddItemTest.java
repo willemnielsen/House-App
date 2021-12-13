@@ -37,69 +37,81 @@ public class AddItemTest {
     public ActivityScenarioRule<ControllerActivity> activityRule = new ActivityScenarioRule<>(ControllerActivity.class);
     public ArrayList<Housemate> housematesList;
     public ShoppingList shoppingList;
+    public String houseName = "Th - 7";
+
 
     @Test
-    public void testJoinHouse() {
+    public void testLoginAndRegister(){
         activityRule = new ActivityScenarioRule<>(ControllerActivity.class);
         ViewInteraction name = Espresso.onView(ViewMatchers.withId(R.id.houseName))
-                .perform(ViewActions.typeText("Th - 42"));
+                .perform(ViewActions.typeText(houseName));
+        Espresso.onView(ViewMatchers.withId(R.id.housePassword)).perform(ViewActions.closeSoftKeyboard());
 
-        ViewInteraction qty = Espresso.onView(ViewMatchers.withId(R.id.housePassword))
-                .perform(ViewActions.typeText("Tom"));
+        ViewInteraction pass = Espresso.onView(ViewMatchers.withId(R.id.housePassword))
+                .perform(ViewActions.typeText(houseName));
+        Espresso.onView(ViewMatchers.withId(R.id.housePassword)).perform(ViewActions.closeSoftKeyboard());
 
-        ViewInteraction closekb = Espresso.onView(ViewMatchers.withId(R.id.housePassword))
-                .perform(ViewActions.closeSoftKeyboard());
-
-        ViewInteraction button = Espresso.onView(ViewMatchers.withId(R.id.join_house_button))
+        Espresso.onView(ViewMatchers.withId(R.id.join_house_button))
                 .perform(ViewActions.click());
+
+        Espresso.onView(ViewMatchers.withId(R.id.join_house_button)).perform(ViewActions.click());
+
+        Espresso.onView(ViewMatchers.withId(R.id.join_house_button2)).perform(ViewActions.click());
+
     }
 
     @Test
-    public void testAddHouseMate(){
-        testJoinHouse();
-        Espresso.onView(ViewMatchers.withId(R.id.open_housemateList_button)).perform(ViewActions.click());
+    public void testRegisterUsers(){
+        this.testLoginAndRegister();
 
         housematesList = new ArrayList<>();
-        housematesList.add(new Housemate("Tom", "343243"));
-        housematesList.add(new Housemate("Person1", "1"));
-        housematesList.add(new Housemate("Person2",  "2"));
+        housematesList.add(new Housemate("Person1", "Person1"));
+        housematesList.add(new Housemate("Person2",  "Person2"));
+        housematesList.add(new Housemate("Tom", "Tom"));
 
-        //add housemates
-        Espresso.onView(ViewMatchers.withId(R.id.addHousemateButton)).perform(ViewActions.click());
-
-        for(int i = 1; i < housematesList.size(); i++){
-            ViewInteraction newMembersName = Espresso.onView(ViewMatchers.withId(R.id.type_housemate_name))
-                    .perform(ViewActions.typeText(housematesList.get(i).getName()));
-            Espresso.onView(ViewMatchers.withId(R.id.type_housemate_name)).perform(ViewActions.closeSoftKeyboard());
-            Espresso.onView(ViewMatchers.withId(R.id.addNewHousemateButton)).perform(ViewActions.click());
+        for(int i = 0; i < housematesList.size(); i++) {
+            this.testRegisterUser(housematesList.get(i));
+            if(i != housematesList.size() - 1){
+               Espresso.onView(ViewMatchers.withId(R.id.newMembersName)).perform(ViewActions.clearText());
+               Espresso.onView(ViewMatchers.withId(R.id.housematePassword)).perform(ViewActions.clearText());
+            }
         }
+        Espresso.onView(ViewMatchers.withId(R.id.login)).perform(ViewActions.click());
+    }
 
-        //back to housemate screen
-        Espresso.onView(ViewMatchers.withId(R.id.previousOnAddHousemate)).perform(ViewActions.click());
+    /**
+     *
+     * @param housemate
+     * on auth screen added housemate to list by creating new user
+     * assuming fields are empty
+     */
+    private void testRegisterUser(Housemate housemate){
+        ViewInteraction name = Espresso.onView(ViewMatchers.withId(R.id.newMembersName))
+                .perform(ViewActions.typeText(housemate.getName()));
 
-        //checks the label contains all the members name
-        ViewInteraction housematesNames = Espresso.onView(ViewMatchers.withId(R.id.housemates));
-        for(Housemate hm : housematesList) {
-           housematesNames.check(ViewAssertions.matches(ViewMatchers.withSubstring(hm.getName())));
-        }
+        ViewInteraction pass = Espresso.onView(ViewMatchers.withId(R.id.housematePassword))
+                .perform(ViewActions.typeText(housemate.getName()));
 
-        //resets to homescreen
-        Espresso.onView(ViewMatchers.withId(R.id.previousOnHousemateListScreen)).perform(ViewActions.click());
+        Espresso.onView(ViewMatchers.withId(R.id.housematePassword)).perform(ViewActions.closeSoftKeyboard());
+        Espresso.onView(ViewMatchers.withId(R.id.join_house_button3)).perform(ViewActions.click());
     }
 
     @Test
     public void TestAddItem(){
-        this.testAddHouseMate();// --> logins too
+        this.testRegisterUsers();// --> logins too
 
         Espresso.onView(ViewMatchers.withId(R.id.open_shoppingList_button)).perform(ViewActions.click());
+
+
+
 
         Espresso.onView(ViewMatchers.withId(R.id.addItemButton)).perform(ViewActions.click());
 
         shoppingList = new ShoppingList();
         shoppingList.addItem(10, "Apple", 20f, housematesList);
         ArrayList<Housemate> SubHousemateList1 = new ArrayList<>();
+        SubHousemateList1.add(housematesList.get(2));
         SubHousemateList1.add(housematesList.get(0));
-        SubHousemateList1.add(housematesList.get(1));
         shoppingList.addItem(5, "Pie", 40f, SubHousemateList1);
 
         for(int i = 0; i < shoppingList.size(); i++){
@@ -192,6 +204,7 @@ public class AddItemTest {
 
 
     public void TestPurchase(String distribution){
+        this.houseName = "Th - " + String.valueOf(this.houseName.hashCode() * 2);
         this.TestCheckout();
 
         Espresso.onView(ViewMatchers.withId(R.id.open_purchasedList_button)).perform(ViewActions.click());
@@ -219,19 +232,19 @@ public class AddItemTest {
         }
 
         if(distribution.equals("Charge Based on Interested Housemates")) {
-            transactionString.check(ViewAssertions.matches(ViewMatchers.withSubstring(housematesList.get(2).getName() + " owes Tom 66.666664 for 10 Apple(s)")));
-            transactionString.check(ViewAssertions.matches(ViewMatchers.withSubstring("Tom paid 66.666664 for 10 Apple(s)")));
             transactionString.check(ViewAssertions.matches(ViewMatchers.withSubstring(housematesList.get(1).getName() + " owes Tom 66.666664 for 10 Apple(s)")));
+            transactionString.check(ViewAssertions.matches(ViewMatchers.withSubstring("Tom paid 66.666664 for 10 Apple(s)")));
+            transactionString.check(ViewAssertions.matches(ViewMatchers.withSubstring(housematesList.get(0).getName() + " owes Tom 66.666664 for 10 Apple(s)")));
             transactionString.check(ViewAssertions.matches(ViewMatchers.withSubstring("Tom paid 100.0 for 5 Pie(s)")));
-            transactionString.check(ViewAssertions.matches(ViewMatchers.withSubstring(housematesList.get(1).getName() + " owes Tom 100.0 for 5 Pie(s)")));
+            transactionString.check(ViewAssertions.matches(ViewMatchers.withSubstring(housematesList.get(0).getName() + " owes Tom 100.0 for 5 Pie(s)")));
         }
 
         if(distribution.equals("Charge Household")) {
+            transactionString.check(ViewAssertions.matches(ViewMatchers.withSubstring(housematesList.get(0).getName() + " owes Tom 66.666664 for 5 Pie(s)")));
             transactionString.check(ViewAssertions.matches(ViewMatchers.withSubstring(housematesList.get(1).getName() + " owes Tom 66.666664 for 5 Pie(s)")));
-            transactionString.check(ViewAssertions.matches(ViewMatchers.withSubstring(housematesList.get(2).getName() + " owes Tom 66.666664 for 5 Pie(s)")));
             transactionString.check(ViewAssertions.matches(ViewMatchers.withSubstring("Tom paid 66.666664 for 5 Pie(s)")));
+            transactionString.check(ViewAssertions.matches(ViewMatchers.withSubstring(housematesList.get(0).getName() + " owes Tom 66.666664 for 10 Apple(s)")));
             transactionString.check(ViewAssertions.matches(ViewMatchers.withSubstring(housematesList.get(1).getName() + " owes Tom 66.666664 for 10 Apple(s)")));
-            transactionString.check(ViewAssertions.matches(ViewMatchers.withSubstring(housematesList.get(2).getName() + " owes Tom 66.666664 for 10 Apple(s)")));
             transactionString.check(ViewAssertions.matches(ViewMatchers.withSubstring("Tom paid 66.666664 for 10 Apple(s)")));
         }
 
@@ -244,7 +257,7 @@ public class AddItemTest {
     public void testAddEvent(){
 
         //testJoinHouse();
-        this.testAddHouseMate();// add person1 and person2 + login Tom
+        this.testRegisterUsers();// add person1 and person2 + login Tom
 
 
         //        Check all entry fields are set to default text

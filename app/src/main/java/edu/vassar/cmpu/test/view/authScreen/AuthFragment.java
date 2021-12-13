@@ -72,7 +72,7 @@ public class AuthFragment extends Fragment implements IAuthView {
     // prevent multiple registration attempts
     private void activateRegisteredConfig(){
         this.isRegistered = true;
-        this.binding.newMembersName.setEnabled(false);
+        //this.binding.newMembersName.setEnabled(false);
     }
 
     @Override
@@ -88,7 +88,7 @@ public class AuthFragment extends Fragment implements IAuthView {
     private void displayMessage(int msgRid){
         Snackbar.make(this.binding.getRoot(),
                 msgRid,
-                Snackbar.LENGTH_LONG)
+                Snackbar.LENGTH_SHORT)
                 .show();
     }
 }
