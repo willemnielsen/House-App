@@ -1,62 +1,62 @@
-# Add Domain.Item Domain Model
+# Add Item Domain Model
 ```plantuml
 @startuml
 hide circle
 hide empty methods
 
-class Domain.House{
+class House{
     houseName
     houseID
 }
-class Domain.ShoppingList{ 
+class ShoppingList{ 
 }
-class Domain.LineItem{
+class LineItem{
     quantity
 }
 
-class Domain.Item{
+class Item{
     price
     name
 }
 
-class Domain.Debt{
+class Debt{
     owed
 }
 
 
-class Domain.Housemate{   
+class Housemate{   
     name
     housemateId
 }
-class Domain.Calendar{
+class Calendar{
 
 }
 
-class Domain.Event{
+class Event{
     name
     date
     startTime
     endTime
 }
 
-class Domain.Recurrence{
+class Recurrence{
     frequency
     startDate
     endDate
 }
 
 ' associations
-Domain.House "1" -- "1..*" Domain.Housemate : \tContains\t\t
-Domain.House "1" -- "1..*" Domain.ShoppingList : \tContains\t\t
-Domain.House "1" -- "1" Domain.LineItem : \tPurchased\t\t
-Domain.House "1" -- "1" Domain.Calendar : Contains
-Domain.Housemate "1..*" - "0..*" Domain.LineItem : \tOwns\t\t
-Domain.ShoppingList "1" -- "0..*" Domain.LineItem : \tContains\t\t
-Domain.LineItem "*" - "1...*" Domain.Item : \tDescribed by \t\t
-Domain.Housemate "1..*" -down- "0..*" Domain.Debt : \tOwed by\t\t
-Domain.Debt "1*" -right- "1" Domain.LineItem : for
-Domain.Housemate "1" - "0..*" Domain.LineItem : Purchases
-Domain.Calendar "1" - "0..*" Domain.Event : Contains
+House "1" -- "1..*" Housemate : \tContains\t\t
+House "1" -- "1..*" ShoppingList : \tContains\t\t
+House "1" -- "1" LineItem : \tPurchased\t\t
+House "1" -- "1" Calendar : Contains
+Housemate "1..*" - "0..*" LineItem : \tOwns\t\t
+ShoppingList "1" -- "0..*" LineItem : \tContains\t\t
+LineItem "*" - "1...*" Item : \tDescribed by \t\t
+Housemate "1..*" -down- "0..*" Debt : \tOwed by\t\t
+Debt "1*" -right- "1" LineItem : for
+Housemate "1" - "0..*" LineItem : Purchases
+Calendar "1" - "0..*" Event : Contains
 
 @enduml
 ```
@@ -146,234 +146,270 @@ actor Housemate as Actor
 # Class Diagram for Domain
 ```plantuml
 @startuml
-
-class Domain.House {
-    - houseName : String {unique}
-    - houseID : int = 0
-    + addHousemate(housemate : Housemate) : String
-    + removeHousemate(housemate : Housemate) : String
-    + nameHouse(name : String) : String
-    - purchaseItem(lineItem : LineItem) : void
-    + createDebtForIHM(lineItem : LineItem) : void
-    + createDebtForHH(lineItem : LineItem) : void
-    + createDebtForMe(lineItem : LineItem) : void
-    + checkout(distribution : String, purchaser : Housemate) : void
-    + houseTransactions() : String
-    + addLineItemToShoppingList(quantity : int, name : String, price : float,  interestedHouseMates : List<Housemate>) : boolean
-    + getShoppingListLineItem(i : int) : LineItem
-    + getShoppingListSize() : int
-    + getShoppingList() : ShoppingList
-    + getPurchasedItems() : List<LineItem>
-    + getHousemates() : List<Housemate>
-    }
- Domain.House -> "(1) \nshoppingList\n{List}" Domain.ShoppingList : \t\t\t\t
- Domain.House --> "(1) \nhousemates\n{List}" Domain.Housemate : \t\t\t\t
- Domain.House --> "(1..*) \npurchasedItems\n{List}" Domain.LineItem : \t\t\t\t
- Domain.House -> "(1..*) \nhousedebt\n{List}" Domain.Debt : \t\t\t\t
-
-class Domain.ShoppingList{
-    + addItem(quantity : int, name : String, price : float, interestedHouseMates : List<Housemate>) : boolean
-    + getShoppingListLineItem(i : int) : LineItem
-    + size() : int
-    + clear() : void
-    + toString() : String
+class ShoppingList {
++ boolean addItem(int,String,float,List<Housemate>)
++ void addLineItem(LineItem)
++ LineItem getShoppingListLineItem(int)
++ void remove(LineItem)
++ int size()
++ void clear()
++ String toString()
++ List<LineItem> getShoppingList()
++ void setShoppingList(List<LineItem>)
 }
-Domain.House --> "(1..*) \nshoppingList\n{List}" Domain.LineItem : \t\t\t\t
-Domain.House --> "(1)" Domain.Calendar 
-class Domain.Calendar {
-    - currentDate : Date
-    + addEvent(name, date, startTime, endTime, interestedHouseMates, recurrence : Recurrence) : boolean
-    + remove() : void
-    + getThisEvent() : Event
-    + setCurrentDate() : boolean
-    + getCurrentDate() : Date
-    + toString() : String
+class AuthKey {
++ void setSalt(String)
++ String getSalt()
++ void setKey(String)
++ String getKey()
++ boolean validatePassword(String)
++ String toString()
++ boolean equals(Object)
 }
-
-class Domain.Event {
-    - name : String
-    - date : Date
-    - startTime : time
-    - endTime : time
-    + getName() : String
-    + getDate() : Date
-    + getStartTime() : Time
-    + getEndTime() : Time
-    + toString() : String
-    }
-Domain.Calendar --> "(0..*) \nevents\n{List}" Domain.Event : \t\t\t\t
-Domain.Event --> "(0..*) \nhousemates\n{List}" Domain.Housemate : \t\t\t\t
-class Domain.Recurrence {
-    - frequency : String
-    - startDate : Date
-    - endDate : Date
-    + getFrequency() : String
-    + getStartDate() : Date
-    + getEndDate() : Date
+class Item {
++ void setPrice(float)
++ float getPrice()
++ String getName()
++ void setName(String)
++ String toString()
 }
-
-class Domain.LineItem {
-    - quantity  : int 
-    + getQuantity() : int
-    + addPurchaser(purchaser : Housemate) : void
-    + setQuantity(quantity : int) : void
-    + getInterestedHouseMates() : List<Housemate>
-    + getPurchaser() : Housemate
-    + setPurchaser() : void
-    + getPrice() : float
-    + setPrice() : void
-    + getName() : String
-    + toString() : String
-    }   
-Domain.LineItem --> "(1) \ninterestedHouseMates\n{List}" Domain.Housemate : \t\t\t\t
-Domain.LineItem --> "(1) \nPurchaser\n{List}" Domain.Housemate : \t\t\t\t
-Domain.LineItem *-- Domain.Item
-
-class Domain.Item {
-    - name : String
-    - price : float
-    + setPrice(price : float) : void
-    + getPrice() : float
-    + getName() : String
-    + toString() : String
-    }
-
-class Domain.Housemate {
-    - name : String
-    - housemateId : String
-    + myTransactions() : String
-    + myBalance() : String
-    + getName() : String
-    + toString() : String
-    }
-Domain.Housemate --> "(1..*) \ndebtlist\n{List}" Domain.Debt : \t\t\t\t
-
-class Domain.Debt{
-    - isPaid : boolean = false
-    - owed : float
-    + getDebtor() : Housemate
-    + getCreditor() : Housemate
-    + getItem() : LineItem
-    + getOwed() : float
+class Housemate {
++ List<Debt> debtlist
++ String getUsername()
++ void setUsername(String)
++ AuthKey getAuthKey()
++ void setAuthKey(AuthKey)
++ boolean validatePassword(String)
++ String myBalance()
++ String getName()
++ void setName(String)
++ List<Debt> getDebtlist()
++ void setDebtlist(List<Debt>)
++ long getHousemateId()
++ void setHousemateId(long)
++ String toString()
++ boolean equals(Object)
 }
-Domain.Debt -> "(1) \ndebtor\n" Domain.Housemate : \t\t\t\t
-Domain.Debt -> "(1) \ncreditor\n" Domain.Housemate : \t\t\t\t
-Domain.Debt -> "(1..*) \nlineItem\n" Domain.LineItem : \t\t\t\t
-
-class Domain.HouseController{
-    + addHousemate(housemate : Housemate) : void
-    + removeHousemate(housemate : Housemate) : void
-    + checkout(distribution : String, purchaser : Housemate) : void
-    + getShoppingListLineItem(i : int) : LineItem
-    + addLineItemToShoppingList(quantity : int, name : String, price : float, interestedHouseMates : List) : boolean
-    + getShoppingListSize() : int
-    + shoppingListToString() : String
-    + addToPurchase(lineitem : LineItem) : void
-    + getHouse() : House
-    + getHousemate(name : String) : Housemate
-    + houseTransactions() : String
-    + {static} convertPurchaseToString(lIL : List<LineItem>) : String
-    + {static} convertHouseMatesToString(h : List<Housemate>) : String
-    + getHousemates() : List<Housemate>
+class Recurrence {
++ String getFrequency()
++ Date getEndDate()
++ Date getStartDate()
++ void setFrequency(String)
++ void setEndDate(Date)
++ void setStartDate(Date)
 }
-Domain.HouseController --> "(1) \nhouse\n{House}" Domain.House :\t\t\t\t
-
+class HouseController {
++ void addHousemate(Housemate)
++ void setUser(Housemate)
++ void setHouse(House)
++ Housemate getLoggedInUser()
++ void removeHousemate(Housemate)
++ void checkout(String,Housemate)
++ LineItem getShoppingListLineItem(int)
++ boolean addLineItemToShoppingList(int,String,float,List<Housemate>)
++ int getShoppingListSize()
++ String shoppingListToString()
++ void loadShoppList(ShoppingList)
++ void loadDebtList(List<Debt>)
++ void addToPurchase(LineItem)
++ House getHouse()
++ Housemate getHousemate(String)
++ String houseTransactions()
++ String houseBalance()
++ List<Housemate> getHousemates()
++ Event getThisEvent(Event)
++ boolean addEventToCalendar(String,Date,Time,Time,List<Housemate>,Recurrence)
++ void loadCalendar(Calendar)
+}
+class Event {
++ String getName()
++ void setName(String)
++ Date getDate()
++ void setDate(Date)
++ Time getStartTime()
++ void setStartTime(Date)
++ Time getEndTime()
++ void setEndTime(Date)
++ List<Housemate> getHousemates()
++ void setHousemates(List<Housemate>)
++ String toString()
+}
+class Debt {
++ void setDebtorAuthKey(AuthKey)
++ AuthKey getDebtorAuthKey()
++ void setCreditorAuthKey(AuthKey)
++ AuthKey getCreditorAuthKey()
++ LineItem getLineItem()
++ void setLineItem(LineItem)
++ void setOwed(float)
++ void setPaid(boolean)
++ float getOwed()
++ boolean equals(Object)
+}
+class Calendar {
++ boolean addEvent(String,Date,Time,Time,List<Housemate>,Recurrence)
++ void addThisEvent(Event)
++ void remove(Event)
++ void setEvents(List<Event>)
++ List<Event> getEvents()
++ Event getThisEvent(Event)
++ boolean setCurrentDate(Date)
++ {static} void sort(List<Event>)
++ String toString()
+}
+class House {
+~ int houseID
++ AuthKey getAuthKey()
++ void setAuthKey(AuthKey)
++ boolean validatePassword(String)
++ String getName()
++ boolean addLineItemToShoppingList(int,String,float,List<Housemate>)
++ LineItem getShoppingListLineItem(int)
++ void loadShoppingList(ShoppingList)
++ void loadHousemates(List<Housemate>)
++ void loadPurchasedList(List<LineItem>)
++ int getShoppingListSize()
++ ShoppingList getShoppingList()
++ List<LineItem> getPurchasedItems()
++ String addHousemate(Housemate)
++ String removeHousemate(Housemate)
++ void createDebtForIHM(LineItem)
++ void createDebtForHH(LineItem)
++ void createDebtForMe(LineItem)
++ void checkout(String,Housemate)
++ String houseTransactions()
++ String houseBalance()
++ List<Housemate> getHousemates()
++ Calendar getCalendar()
++ void loadCalendar(Calendar)
++ Housemate getHousemate(AuthKey)
++ List<Housemate> getHousemateList(List<AuthKey>)
++ void loadDebtList(List<Debt>)
++ List<Debt> getHousedebt()
++ void setHousedebt(List<Debt>)
+}
+class LineItem {
++ int getQuantity()
++ void addPurchaser(Housemate)
++ void setQuantity(int)
++ List<AuthKey> getInterestedHouseMatesAuthKet()
++ void setInterestedHouseMatesAuthKet(List<AuthKey>)
++ AuthKey getPurchaserAuthKey()
++ void setPurchaserAuthKey(AuthKey)
++ float getPrice()
++ void setPrice(float)
++ String getName()
++ void setName(String)
++ String toString()
+}
+House -> "(1) \nshoppingList\n{List}" ShoppingList : \t\t\t\t
+ House --> "(1) \nhousemates\n{List}" Housemate : \t\t\t\t
+ House --> "(1..*) \npurchasedItems\n{List}" LineItem : \t\t\t\t
+ House -> "(1..*) \nhousedebt\n{List}" Debt : \t\t\t\t
+House --> "(1..*) \nshoppingList\n{List}" LineItem : \t\t\t\t
+House --> "(1)" Calendar 
+Calendar --> "(0..*) \nevents\n{List}" Event : \t\t\t\t
+Event --> "(0..*) \nhousemates\n{List}" Housemate : \t\t\t\t
+LineItem --> "(1) \ninterestedHouseMates\n{List}" Housemate : \t\t\t\t
+LineItem --> "(1) \nPurchaser\n{List}" Housemate : \t\t\t\t
+LineItem *-- Item
+Housemate --> "(1..*) \ndebtlist\n{List}" Debt : \t\t\t\t
+Housemate --> "(1)" AuthKey 
+Debt -> "(1) \ndebtor\n" Housemate : \t\t\t\t
+Debt -> "(1) \ncreditor\n" Housemate : \t\t\t\t
+Debt -> "(1..*) \nlineItem\n" LineItem : \t\t\t\t
+HouseController --> "(1) \nhouse\n{House}" House :\t\t\t\t
+Serializable <|.. ShoppingList
+Serializable <|.. AuthKey
+Serializable <|.. Item
+Serializable <|.. Housemate
+Serializable <|.. Recurrence
+Serializable <|.. Event
+Serializable <|.. Debt
+Serializable <|.. Calendar
+Serializable <|.. House
+Serializable <|.. LineItem
 @enduml
 ```
 
 # Class Diagram for Controller
 ```plantuml
 @startuml
-hide circle
-hide empty methods
-
-class Controller.ControllerActivity {
+class edu.vassar.cmpu.test.ControllerActivity {
 # void onCreate(Bundle)
-+ void onCreateHouse(String,String)
 + void openHomeScreen()
++ void onRegisterHouse(String,String,ILoginScreenFragment)
++ void onHouseSigninAttempt(String,String,ILoginScreenFragment)
++ void onRegister(String,String,IAuthView)
++ void onSigninAttempt(String,String,IAuthView)
 + void onOpenShoppingList()
 + void onOpenCalendar()
 + void onOpenHousemateList()
 + void onOpenPurchasedList()
++ void onOpenTransactions()
++ void onPreviousOnTransactionsScreen()
 + void openShoppingListScreen()
 + void onAddItem()
 + void onPreviousOnShoppingListScreen()
 + void onPurchaseItems(LineItem,IShoppingListScreenView)
 + void openAddItemScreen()
-+ void onAddedItem(String,int,float,ArrayList<Housemate>,IAddItemView)
++ void onAddedItem(String,int,float,List<Housemate>,IAddItemView)
 + void onPreviousInAddItemFragment()
 + void openCalendarScreen()
 + void onAddEvent()
 + void onPreviousOnCalendarScreen()
 + void openAddEventScreen()
-+ void onAddedEvent(String,Date,Time,Time,ArrayList<Housemate>,String,IAddEventView)
++ void onAddedEvent(String,Date,Time,Time,List<Housemate>,String,Date,IAddEventView)
 + void onSetDate(Date,ICalendarScreenView)
 + void onPreviousInAddEventFragment()
 + void openHousemateListScreen()
 + void onPreviousOnHousemateListScreen()
 + void onAddHousemateOnHousemateListScreen()
++ void onDebtScreenButton()
++ void onPreviousOnDebtScreen()
 + void onAddHousemate(String)
 + void onPreviousOnAddHousemateScreen()
 + void openPurchasedListScreen()
 + void onPreviousOnPurchasedListScreen()
++ void onPurchaseByUser(String,IPurchasedListScreenFragment)
++ void onShoppingListReceived(ShoppingList)
++ void onCalendarReceived(Calendar)
++ void addEventToDatabase(String,Date,Time,Time,List<Housemate>,Recurrence)
++ void onDebtListReceived(List<Debt>)
 }
 
+
+edu.vassar.cmpu.test.Listener <|.. edu.vassar.cmpu.test.ControllerActivity
+edu.vassar.cmpu.test.Listener <|.. edu.vassar.cmpu.test.ControllerActivity
+edu.vassar.cmpu.test.Listener <|.. edu.vassar.cmpu.test.ControllerActivity
+edu.vassar.cmpu.test.Listener <|.. edu.vassar.cmpu.test.ControllerActivity
+edu.vassar.cmpu.test.Listener <|.. edu.vassar.cmpu.test.ControllerActivity
+edu.vassar.cmpu.test.Listener <|.. edu.vassar.cmpu.test.ControllerActivity
+edu.vassar.cmpu.test.Listener <|.. edu.vassar.cmpu.test.ControllerActivity
+edu.vassar.cmpu.test.Listener <|.. edu.vassar.cmpu.test.ControllerActivity
+edu.vassar.cmpu.test.Listener <|.. edu.vassar.cmpu.test.ControllerActivity
+edu.vassar.cmpu.test.Listener <|.. edu.vassar.cmpu.test.ControllerActivity
+edu.vassar.cmpu.test.Listener <|.. edu.vassar.cmpu.test.ControllerActivity
+edu.vassar.cmpu.test.ShoppingListListener <|.. edu.vassar.cmpu.test.ControllerActivity
+edu.vassar.cmpu.test.CalendarListener <|.. edu.vassar.cmpu.test.ControllerActivity
+edu.vassar.cmpu.test.DebtListListener <|.. edu.vassar.cmpu.test.ControllerActivity
+edu.vassar.cmpu.test.Listener <|.. edu.vassar.cmpu.test.ControllerActivity
+androidx.appcompat.app.AppCompatActivity <|-- edu.vassar.cmpu.test.ControllerActivity
 @enduml
 ```
 
 # Class Diagram for View
 ```plantuml
 @startuml
-
-class View.housemateListScreen.addHousemate.AddHousemateFragment {
-~ FragmentAddHousemateBinding binding
-~ Listener listener
-+ void onCreate(Bundle)
-+ View onCreateView(LayoutInflater,ViewGroup,Bundle)
-+ void onViewCreated(View,Bundle)
-}
-
-interface View.addEventView.IAddEventView {
-~ void getAddedHouseMates(ArrayList<Housemate>)
+interface edu.vassar.cmpu.test.view.calendarScreen.ICalendarScreenView {
 ~ void updateDisplay(Calendar)
 }
-interface View.addEventView.IAddEventView.Listener {
-~ void onAddedEvent(String,Date,Time,Time,ArrayList<Housemate>,String,IAddEventView)
-~ void onPreviousInAddEventFragment()
-}
-
-class View.housemateListScreen.HousemateListScreenFragment {
-- Listener listener
-- FragmentHousematesBinding binding
-+ void onCreate(Bundle)
-+ View onCreateView(LayoutInflater,ViewGroup,Bundle)
-+ void onViewCreated(View,Bundle)
-+ void updateDisplay(ArrayList<Housemate>)
-}
-
-interface View.housemateListScreen.addHousemate.IAddHousemate {
-}
-interface View.housemateListScreen.addHousemate.IAddHousemate.Listener {
-~ void onAddHousemate(String)
-~ void onPreviousOnAddHousemateScreen()
-}
-interface View.housemateListScreen.IHousemateListScreenFragment {
-~ void updateDisplay(ArrayList<Housemate>)
-}
-interface View.housemateListScreen.IHousemateListScreenFragment.Listener {
-~ void onPreviousOnHousemateListScreen()
-~ void onAddHousemateOnHousemateListScreen()
-~ void onDebtScreenButton()
-}
-interface View.calendarScreen.ICalendarScreenView {
-~ void updateDisplay(Calendar)
-}
-interface View.calendarScreen.ICalendarScreenView.Listener {
+interface edu.vassar.cmpu.test.view.calendarScreen.ICalendarScreenView.Listener {
 ~ void onAddEvent()
 ~ void onSetDate(Date,ICalendarScreenView)
 ~ void onPreviousOnCalendarScreen()
 }
-class View.calendarScreen.CalendarScreenFragment {
+class edu.vassar.cmpu.test.view.calendarScreen.CalendarScreenFragment {
 - Listener listener
 - FragmentCalendarMonthBinding binding
 + void onCreate(Bundle)
@@ -381,60 +417,93 @@ class View.calendarScreen.CalendarScreenFragment {
 + void onViewCreated(View,Bundle)
 + void updateDisplay(Calendar)
 }
-class View.temp {
+interface edu.vassar.cmpu.test.view.addEventView.IAddEventView {
+~ void getAddedHouseMates(List<Housemate>)
+~ void updateDisplay(Calendar)
 }
-
-
-class View.addEventView.AddEventFragment {
+interface edu.vassar.cmpu.test.view.addEventView.IAddEventView.Listener {
+~ void onAddedEvent(String,Date,Time,Time,List<Housemate>,String,Date,IAddEventView)
+~ void onPreviousInAddEventFragment()
+}
+class edu.vassar.cmpu.test.view.addEventView.AddEventFragment {
 - FragmentAddEventBinding binding
 - Listener listener
 + void onCreate(Bundle)
 + View onCreateView(LayoutInflater,ViewGroup,Bundle)
 + void onViewCreated(View,Bundle)
-+ void getAddedHouseMates(ArrayList<Housemate>)
-- ArrayList<Housemate> CreateDialog(ArrayList<Housemate>,String,Date,Time,Time,String)
-+ void onAddedEvent(String,Date,Time,Time,ArrayList<Housemate>,String)
++ void getAddedHouseMates(List<Housemate>)
+- List<Housemate> CreateDialog(List<Housemate>,String,Date,Time,Time,String,Date)
++ void onAddedEvent(String,Date,Time,Time,ArrayList<Housemate>,String,Date)
 + void updateDisplay(Calendar)
 + void onItemSelected(AdapterView<?>,View,int,long)
 + void onNothingSelected(AdapterView<?>)
 }
 
 
-
-View.housemateListScreen.IHousemateListScreenFragment <|.. View.housemateListScreen.HousemateListScreenFragment
-View.housemateListScreen.addHousemate.IAddHousemate <|.. View.housemateListScreen.addHousemate.AddHousemateFragment
-View.addEventView.IAddEventView +.. View.addEventView.IAddEventView.Listener
-View.addEventView.IAddEventView <|.. View.addEventView.AddEventFragment
-View.housemateListScreen.addHousemate.IAddHousemate +.. View.housemateListScreen.addHousemate.IAddHousemate.Listener
-View.housemateListScreen.IHousemateListScreenFragment +.. View.housemateListScreen.IHousemateListScreenFragment.Listener
-View.calendarScreen.ICalendarScreenView +.. View.calendarScreen.ICalendarScreenView.Listener
-View.calendarScreen.ICalendarScreenView <|.. View.calendarScreen.CalendarScreenFragment
-
+edu.vassar.cmpu.test.view.calendarScreen.ICalendarScreenView +.. edu.vassar.cmpu.test.view.calendarScreen.ICalendarScreenView.Listener
+edu.vassar.cmpu.test.view.calendarScreen.ICalendarScreenView <|.. edu.vassar.cmpu.test.view.calendarScreen.CalendarScreenFragment
+androidx.fragment.app.Fragment <|-- edu.vassar.cmpu.test.view.calendarScreen.CalendarScreenFragment
+edu.vassar.cmpu.test.view.addEventView.IAddEventView +.. edu.vassar.cmpu.test.view.addEventView.IAddEventView.Listener
+edu.vassar.cmpu.test.view.addEventView.IAddEventView <|.. edu.vassar.cmpu.test.view.addEventView.AddEventFragment
+edu.vassar.cmpu.test.view.addEventView.OnItemSelectedListener <|.. edu.vassar.cmpu.test.view.addEventView.AddEventFragment
+androidx.fragment.app.Fragment <|-- edu.vassar.cmpu.test.view.addEventView.AddEventFragment
 @enduml
 ```
 
 # Class Diagram for View Part 2
 ```plantuml
 @startuml
-
-class View.purchasedListScreen.PurchasedListScreenFragment {
+class edu.vassar.cmpu.test.view.purchasedListScreen.PurchasedListScreenFragment {
 - FragmentPurchasedBinding binding
 - Listener listener
 + void onCreate(Bundle)
 + View onCreateView(LayoutInflater,ViewGroup,Bundle)
-+ void updatePurchasedList(ArrayList<LineItem>)
++ void updatePurchasedList(List<LineItem>)
 + void onViewCreated(View,Bundle)
 + void CreateDialog()
 }
-interface View.purchasedListScreen.IPurchasedListScreenFragment {
-~ void updatePurchasedList(ArrayList<LineItem>)
+interface edu.vassar.cmpu.test.view.addItemView.IAddItemView {
+~ void getHouseMates(List<Housemate>)
+~ void updateDisplay(ShoppingList)
 }
-interface View.purchasedListScreen.IPurchasedListScreenFragment.Listener {
+interface edu.vassar.cmpu.test.view.addItemView.IAddItemView.Listener {
+~ void onAddedItem(String,int,float,List<Housemate>,IAddItemView)
+~ void onPreviousInAddItemFragment()
+}
+interface edu.vassar.cmpu.test.view.purchasedListScreen.IPurchasedListScreenFragment {
+~ void updatePurchasedList(List<LineItem>)
+}
+interface edu.vassar.cmpu.test.view.purchasedListScreen.IPurchasedListScreenFragment.Listener {
 ~ void onPreviousOnPurchasedListScreen()
 ~ void onPurchaseByUser(String,IPurchasedListScreenFragment)
 }
-
-class View.shoppingListScreen.ShoppingListScreenFragment {
+interface edu.vassar.cmpu.test.view.shoppingListScreen.IShoppingListScreenView {
+~ void updateDisplay(ShoppingList)
+~ void purchaseItems(ShoppingList)
+~ void updatePurchasedList(List<LineItem>)
+}
+interface edu.vassar.cmpu.test.view.shoppingListScreen.IShoppingListScreenView.Listener {
+~ void onAddItem()
+~ void onPurchaseItems(LineItem,IShoppingListScreenView)
+~ void onPreviousOnShoppingListScreen()
+}
+class edu.vassar.cmpu.test.view.addItemView.AddItemFragment {
+- {static} String ITEM_NAME
+- {static} String ITEM_QUANTITY
+- {static} String ITEM_PRICE
+- FragmentAddItemBinding binding
+- Listener listener
+- HouseController house
++ void onCreate(Bundle)
++ View onCreateView(LayoutInflater,ViewGroup,Bundle)
++ void onViewCreated(View,Bundle)
+- void CreateDialog(List<Housemate>,String,int,float)
++ void updateDisplay(ShoppingList)
++ void getHouseMates(List<Housemate>)
++ void onSaveInstanceState(Bundle)
++ void onViewStateRestored(Bundle)
+}
+class edu.vassar.cmpu.test.view.shoppingListScreen.ShoppingListScreenFragment {
 - Listener listener
 - FragmentShoppingListScreenBinding binding
 + void onCreate(Bundle)
@@ -443,106 +512,142 @@ class View.shoppingListScreen.ShoppingListScreenFragment {
 - ArrayList<LineItem> CreateDialog(ShoppingList)
 + void updateDisplay(ShoppingList)
 + void onPurchaseItems(LineItem)
-+ void updatePurchasedList(ArrayList<LineItem>)
++ void updatePurchasedList(List<LineItem>)
 + void purchaseItems(ShoppingList)
 }
-interface View.shoppingListScreen.IShoppingListScreenView {
-~ void updateDisplay(ShoppingList)
-~ void purchaseItems(ShoppingList)
-~ void updatePurchasedList(ArrayList<LineItem>)
-}
-interface View.shoppingListScreen.IShoppingListScreenView.Listener {
-~ void onAddItem()
-~ void onPurchaseItems(LineItem,IShoppingListScreenView)
-~ void onPreviousOnShoppingListScreen()
-}
-
-class View.transactionsScreen.TransactionsScreenFragment {
-~ FragmentTransactionsScreenBinding binding
-~ Listener listener
-+ void onCreate(Bundle)
-+ View onCreateView(LayoutInflater,ViewGroup,Bundle)
-+ void onViewCreated(View,Bundle)
-+ void updateDisplay(String)
-}
-interface View.transactionsScreen.ITransactionsScreenFragment {
-~ void updateDisplay(String)
-}
-interface View.transactionsScreen.ITransactionsScreenFragment.Listener {
-~ void onPreviousOnTransactionsScreen()
-}
-
-class View.addItemView.AddItemFragment {
-- FragmentAddItemBinding binding
-- Listener listener
-- HouseController house
-+ void onCreate(Bundle)
-+ View onCreateView(LayoutInflater,ViewGroup,Bundle)
-+ void onViewCreated(View,Bundle)
-- void CreateDialog(ArrayList<Housemate>,String,int,float)
-+ void updateDisplay(ShoppingList)
-+ void getHouseMates(ArrayList<Housemate>)
-}
-
-interface View.addItemView.IAddItemView {
-~ void getHouseMates(ArrayList<Housemate>)
-~ void updateDisplay(ShoppingList)
-}
-interface View.addItemView.IAddItemView.Listener {
-~ void onAddedItem(String,int,float,ArrayList<Housemate>,IAddItemView)
-~ void onPreviousInAddItemFragment()
-}
 
 
-
-View.purchasedListScreen.IPurchasedListScreenFragment <|.. View.purchasedListScreen.PurchasedListScreenFragment
-View.purchasedListScreen.IPurchasedListScreenFragment +.. View.purchasedListScreen.IPurchasedListScreenFragment.Listener
-View.shoppingListScreen.IShoppingListScreenView +.. View.shoppingListScreen.IShoppingListScreenView.Listener
-View.shoppingListScreen.IShoppingListScreenView <|.. View.shoppingListScreen.ShoppingListScreenFragment
-View.transactionsScreen.ITransactionsScreenFragment +.. View.transactionsScreen.ITransactionsScreenFragment.Listener
-View.transactionsScreen.ITransactionsScreenFragment <|.. View.transactionsScreen.TransactionsScreenFragment
-View.addItemView.IAddItemView +.. View.addItemView.IAddItemView.Listener
-View.addItemView.IAddItemView <|.. View.addItemView.AddItemFragment
+edu.vassar.cmpu.test.view.purchasedListScreen.IPurchasedListScreenFragment <|.. edu.vassar.cmpu.test.view.purchasedListScreen.PurchasedListScreenFragment
+androidx.fragment.app.Fragment <|-- edu.vassar.cmpu.test.view.purchasedListScreen.PurchasedListScreenFragment
+edu.vassar.cmpu.test.view.addItemView.IAddItemView +.. edu.vassar.cmpu.test.view.addItemView.IAddItemView.Listener
+edu.vassar.cmpu.test.view.purchasedListScreen.IPurchasedListScreenFragment +.. edu.vassar.cmpu.test.view.purchasedListScreen.IPurchasedListScreenFragment.Listener
+edu.vassar.cmpu.test.view.shoppingListScreen.IShoppingListScreenView +.. edu.vassar.cmpu.test.view.shoppingListScreen.IShoppingListScreenView.Listener
+edu.vassar.cmpu.test.view.addItemView.IAddItemView <|.. edu.vassar.cmpu.test.view.addItemView.AddItemFragment
+androidx.fragment.app.Fragment <|-- edu.vassar.cmpu.test.view.addItemView.AddItemFragment
+edu.vassar.cmpu.test.view.shoppingListScreen.IShoppingListScreenView <|.. edu.vassar.cmpu.test.view.shoppingListScreen.ShoppingListScreenFragment
+androidx.fragment.app.Fragment <|-- edu.vassar.cmpu.test.view.shoppingListScreen.ShoppingListScreenFragment
 @enduml
 ```
 
 # Class Diagram for View Part 3
 ```plantuml
 @startuml
-
-class View.loginScreen.LoginScreenFragment {
-- Listener listener
-- FragmentLoginScreenBinding binding
-+ void onCreate(Bundle)
-+ View onCreateView(LayoutInflater,ViewGroup,Bundle)
-+ void onViewCreated(View,Bundle)
-}
-
-interface View.loginScreen.ILoginScreenFragment {
-}
-interface View.loginScreen.ILoginScreenFragment.Listener {
-~ void onCreateHouse(String,String)
-}
-
-class View.homeScreen.HomeScreenFragment {
+class edu.vassar.cmpu.test.view.homeScreen.HomeScreenFragment {
 - Listener listener
 - FragmentHomeScreenBinding binding
 + void onCreate(Bundle)
 + View onCreateView(LayoutInflater,ViewGroup,Bundle)
 + void onViewCreated(View,Bundle)
 }
-
-interface View.homeScreen.IHomeScreenFragment {
+interface edu.vassar.cmpu.test.view.loginScreen.ILoginScreenFragment {
+~ void onRegisterHouseSuccess()
+~ void onInvalidHouseCredentials()
+~ void onHouseAlreadyExists()
 }
-interface View.homeScreen.IHomeScreenFragment.Listener {
+interface edu.vassar.cmpu.test.view.loginScreen.ILoginScreenFragment.Listener {
+~ void onRegisterHouse(String,String,ILoginScreenFragment)
+~ void onHouseSigninAttempt(String,String,ILoginScreenFragment)
+}
+interface edu.vassar.cmpu.test.view.homeScreen.IHomeScreenFragment {
+}
+interface edu.vassar.cmpu.test.view.homeScreen.IHomeScreenFragment.Listener {
 + void onOpenShoppingList()
 + void onOpenCalendar()
 + void onOpenHousemateList()
 + void onOpenPurchasedList()
 + void onOpenTransactions()
 }
+class edu.vassar.cmpu.test.view.authScreen.AuthFragment {
+- {static} String IS_REGISTERED
+- Listener listener
+- FragmentAuthBinding binding
+- boolean isRegistered
++ View onCreateView(LayoutInflater,ViewGroup,Bundle)
++ void onViewCreated(View,Bundle)
++ void onSaveInstanceState(Bundle)
++ void onRegisterSuccess()
+- void activateRegisteredConfig()
++ void onInvalidCredentials()
++ void onUserAlreadyExists()
+- void displayMessage(int)
+}
+class edu.vassar.cmpu.test.view.loginScreen.LoginScreenFragment {
+- {static} String IS_REGISTERED
+- ILoginScreenFragment.Listener listener
+- FragmentLoginScreenBinding binding
+- boolean isRegistered
++ void onCreate(Bundle)
++ View onCreateView(LayoutInflater,ViewGroup,Bundle)
++ void onViewCreated(View,Bundle)
++ void onSaveInstanceState(Bundle)
++ void onRegisterHouseSuccess()
+- void activateRegisteredConfig()
++ void onInvalidHouseCredentials()
++ void onHouseAlreadyExists()
+- void displayMessage(int)
+}
+interface edu.vassar.cmpu.test.view.authScreen.IAuthView {
+~ void onRegisterSuccess()
+~ void onInvalidCredentials()
+~ void onUserAlreadyExists()
+}
+interface edu.vassar.cmpu.test.view.authScreen.IAuthView.Listener {
+~ void onRegister(String,String,IAuthView)
+~ void onSigninAttempt(String,String,IAuthView)
+}
 
-class View.housemateListScreen.debtScreen.DebtScreenFragment {
+
+edu.vassar.cmpu.test.view.homeScreen.IHomeScreenFragment <|.. edu.vassar.cmpu.test.view.homeScreen.HomeScreenFragment
+androidx.fragment.app.Fragment <|-- edu.vassar.cmpu.test.view.homeScreen.HomeScreenFragment
+edu.vassar.cmpu.test.view.loginScreen.ILoginScreenFragment +.. edu.vassar.cmpu.test.view.loginScreen.ILoginScreenFragment.Listener
+edu.vassar.cmpu.test.view.homeScreen.IHomeScreenFragment +.. edu.vassar.cmpu.test.view.homeScreen.IHomeScreenFragment.Listener
+edu.vassar.cmpu.test.view.authScreen.IAuthView <|.. edu.vassar.cmpu.test.view.authScreen.AuthFragment
+androidx.fragment.app.Fragment <|-- edu.vassar.cmpu.test.view.authScreen.AuthFragment
+edu.vassar.cmpu.test.view.loginScreen.ILoginScreenFragment <|.. edu.vassar.cmpu.test.view.loginScreen.LoginScreenFragment
+androidx.fragment.app.Fragment <|-- edu.vassar.cmpu.test.view.loginScreen.LoginScreenFragment
+edu.vassar.cmpu.test.view.authScreen.IAuthView +.. edu.vassar.cmpu.test.view.authScreen.IAuthView.Listener
+@enduml
+```
+
+# Class Diagram for View Part 4
+```plantuml
+@startuml
+class edu.vassar.cmpu.test.view.housemateListScreen.HousemateListScreenFragment {
+- Listener listener
+- FragmentHousematesBinding binding
++ void onCreate(Bundle)
++ View onCreateView(LayoutInflater,ViewGroup,Bundle)
++ void onViewCreated(View,Bundle)
++ void updateDisplay(List<Housemate>)
+}
+interface edu.vassar.cmpu.test.view.housemateListScreen.addHousemate.IAddHousemate {
+}
+interface edu.vassar.cmpu.test.view.housemateListScreen.addHousemate.IAddHousemate.Listener {
+~ void onAddHousemate(String)
+~ void onPreviousOnAddHousemateScreen()
+}
+interface edu.vassar.cmpu.test.view.housemateListScreen.IHousemateListScreenFragment {
+~ void updateDisplay(List<Housemate>)
+}
+interface edu.vassar.cmpu.test.view.housemateListScreen.IHousemateListScreenFragment.Listener {
+~ void onPreviousOnHousemateListScreen()
+~ void onAddHousemateOnHousemateListScreen()
+~ void onDebtScreenButton()
+}
+interface edu.vassar.cmpu.test.view.housemateListScreen.debtScreen.IDebtScreenFragment {
++ void updateDisplay(String)
+}
+interface edu.vassar.cmpu.test.view.housemateListScreen.debtScreen.IDebtScreenFragment.Listener {
+~ void onPreviousOnDebtScreen()
+}
+class edu.vassar.cmpu.test.view.housemateListScreen.addHousemate.AddHousemateFragment {
+~ FragmentAddHousemateBinding binding
+~ Listener listener
++ void onCreate(Bundle)
++ View onCreateView(LayoutInflater,ViewGroup,Bundle)
++ void onViewCreated(View,Bundle)
+}
+class edu.vassar.cmpu.test.view.housemateListScreen.debtScreen.DebtScreenFragment {
 ~ FragmentDebtScreenBinding binding
 ~ Listener listener
 + void onCreate(Bundle)
@@ -550,23 +655,115 @@ class View.housemateListScreen.debtScreen.DebtScreenFragment {
 + void onViewCreated(View,Bundle)
 + void updateDisplay(String)
 }
-
-interface View.housemateListScreen.debtScreen.IDebtScreenFragment {
+interface edu.vassar.cmpu.test.view.transactionsScreen.ITransactionsScreenFragment {
+~ void updateDisplay(String)
+}
+interface edu.vassar.cmpu.test.view.transactionsScreen.ITransactionsScreenFragment.Listener {
+~ void onPreviousOnTransactionsScreen()
+}
+class edu.vassar.cmpu.test.view.transactionsScreen.TransactionsScreenFragment {
+~ FragmentTransactionsScreenBinding binding
+~ Listener listener
++ void onCreate(Bundle)
++ View onCreateView(LayoutInflater,ViewGroup,Bundle)
++ void onViewCreated(View,Bundle)
 + void updateDisplay(String)
 }
-interface View.housemateListScreen.debtScreen.IDebtScreenFragment.Listener {
-~ void onPreviousOnDebtScreen()
-}
 
-View.housemateListScreen.debtScreen.IDebtScreenFragment +.. View.housemateListScreen.debtScreen.IDebtScreenFragment.Listener
-View.housemateListScreen.debtScreen.IDebtScreenFragment <|.. View.housemateListScreen.debtScreen.DebtScreenFragment
-View.loginScreen.ILoginScreenFragment <|.. View.loginScreen.LoginScreenFragment
-View.loginScreen.ILoginScreenFragment +.. View.loginScreen.ILoginScreenFragment.Listener
-View.homeScreen.IHomeScreenFragment +.. View.homeScreen.IHomeScreenFragment.Listener
-View.homeScreen.IHomeScreenFragment <|.. View.homeScreen.HomeScreenFragment
+
+edu.vassar.cmpu.test.view.housemateListScreen.IHousemateListScreenFragment <|.. edu.vassar.cmpu.test.view.housemateListScreen.HousemateListScreenFragment
+androidx.fragment.app.Fragment <|-- edu.vassar.cmpu.test.view.housemateListScreen.HousemateListScreenFragment
+edu.vassar.cmpu.test.view.housemateListScreen.addHousemate.IAddHousemate +.. edu.vassar.cmpu.test.view.housemateListScreen.addHousemate.IAddHousemate.Listener
+edu.vassar.cmpu.test.view.housemateListScreen.IHousemateListScreenFragment +.. edu.vassar.cmpu.test.view.housemateListScreen.IHousemateListScreenFragment.Listener
+edu.vassar.cmpu.test.view.housemateListScreen.debtScreen.IDebtScreenFragment +.. edu.vassar.cmpu.test.view.housemateListScreen.debtScreen.IDebtScreenFragment.Listener
+edu.vassar.cmpu.test.view.housemateListScreen.addHousemate.IAddHousemate <|.. edu.vassar.cmpu.test.view.housemateListScreen.addHousemate.AddHousemateFragment
+androidx.fragment.app.Fragment <|-- edu.vassar.cmpu.test.view.housemateListScreen.addHousemate.AddHousemateFragment
+edu.vassar.cmpu.test.view.housemateListScreen.debtScreen.IDebtScreenFragment <|.. edu.vassar.cmpu.test.view.housemateListScreen.debtScreen.DebtScreenFragment
+androidx.fragment.app.Fragment <|-- edu.vassar.cmpu.test.view.housemateListScreen.debtScreen.DebtScreenFragment
+edu.vassar.cmpu.test.view.transactionsScreen.ITransactionsScreenFragment +.. edu.vassar.cmpu.test.view.transactionsScreen.ITransactionsScreenFragment.Listener
+edu.vassar.cmpu.test.view.transactionsScreen.ITransactionsScreenFragment <|.. edu.vassar.cmpu.test.view.transactionsScreen.TransactionsScreenFragment
+androidx.fragment.app.Fragment <|-- edu.vassar.cmpu.test.view.transactionsScreen.TransactionsScreenFragment
 @enduml
 ```
 
+# Class Diagram for Persistence
+```plantuml
+@startuml
+class edu.vassar.cmpu.test.persistence.FirestoreFacade {
+~ FirebaseFirestore db
++ String HOUSE_NAME
++ void setHouseName(String)
++ void saveHousemate(Housemate)
++ void retrieveHousemateList(HousematesListListener)
++ void saveLineItem(LineItem)
++ void retrieveShoppingList(ShoppingListListener)
++ void saveEvent(Event)
++ void retrieveCalendar(CalendarListener)
++ void saveLineItemPL(LineItem)
++ void onCheckOut()
++ void updateHousemateDebt(List<Housemate>)
++ void retrieveDebtList(DebtListListener)
++ void retrievePurchaseList(PurchaseListListener)
++ void saveDebtList(List<Debt>,int)
++ void createUserIfNotExists(Housemate,BinaryResultListener)
++ void retrieveUser(String,DataListener<Housemate>)
++ void createHouseIfNotExists(House,BinaryResultListener)
++ void retrieveHouse(String,DataListener<House>)
+}
+interface edu.vassar.cmpu.test.persistence.IPersistenceFacade {
+~ void setHouseName(String)
+~ void saveLineItem(LineItem)
+~ void retrieveShoppingList(ShoppingListListener)
+~ void saveEvent(Event)
+~ void retrieveCalendar(CalendarListener)
+~ void retrievePurchaseList(PurchaseListListener)
+~ void saveHousemate(Housemate)
+~ void retrieveHousemateList(HousematesListListener)
+~ void saveLineItemPL(LineItem)
+~ void onCheckOut()
+~ void updateHousemateDebt(List<Housemate>)
+~ void retrieveDebtList(DebtListListener)
+~ void saveDebtList(List<Debt>,int)
+~ void createUserIfNotExists(Housemate,BinaryResultListener)
+~ void retrieveUser(String,DataListener<Housemate>)
+~ void createHouseIfNotExists(House,BinaryResultListener)
+~ void retrieveHouse(String,DataListener<House>)
+}
+interface edu.vassar.cmpu.test.persistence.IPersistenceFacade.DataListener {
+~ void onDataReceived(T)
+~ void onNoDataFound()
+}
+interface edu.vassar.cmpu.test.persistence.IPersistenceFacade.BinaryResultListener {
+~ void onYesResult()
+~ void onNoResult()
+}
+interface edu.vassar.cmpu.test.persistence.IPersistenceFacade.ShoppingListListener {
+~ void onShoppingListReceived(ShoppingList)
+}
+interface edu.vassar.cmpu.test.persistence.IPersistenceFacade.CalendarListener {
+~ void onCalendarReceived(Calendar)
+}
+interface edu.vassar.cmpu.test.persistence.IPersistenceFacade.PurchaseListListener {
+~ void onPurchaseListReceived(List<LineItem>)
+}
+interface edu.vassar.cmpu.test.persistence.IPersistenceFacade.HousematesListListener {
+~ void onHousemateListReceived(List<Housemate>)
+}
+interface edu.vassar.cmpu.test.persistence.IPersistenceFacade.DebtListListener {
+~ void onDebtListReceived(List<Debt>)
+}
+
+
+edu.vassar.cmpu.test.persistence.IPersistenceFacade <|.. edu.vassar.cmpu.test.persistence.FirestoreFacade
+edu.vassar.cmpu.test.persistence.IPersistenceFacade +.. edu.vassar.cmpu.test.persistence.IPersistenceFacade.DataListener
+edu.vassar.cmpu.test.persistence.IPersistenceFacade +.. edu.vassar.cmpu.test.persistence.IPersistenceFacade.BinaryResultListener
+edu.vassar.cmpu.test.persistence.IPersistenceFacade +.. edu.vassar.cmpu.test.persistence.IPersistenceFacade.ShoppingListListener
+edu.vassar.cmpu.test.persistence.IPersistenceFacade +.. edu.vassar.cmpu.test.persistence.IPersistenceFacade.CalendarListener
+edu.vassar.cmpu.test.persistence.IPersistenceFacade +.. edu.vassar.cmpu.test.persistence.IPersistenceFacade.PurchaseListListener
+edu.vassar.cmpu.test.persistence.IPersistenceFacade +.. edu.vassar.cmpu.test.persistence.IPersistenceFacade.HousematesListListener
+edu.vassar.cmpu.test.persistence.IPersistenceFacade +.. edu.vassar.cmpu.test.persistence.IPersistenceFacade.DebtListListener
+@enduml
+```
 
 # Class Diagram Connections
 ```plantuml
@@ -578,12 +775,12 @@ class Controller.ControllerActivity{
 class View.IFragments{
 
 }
-class Domain.HouseController{
+class HouseController{
 
 }
 
 View.IFragments <|.. Controller.ControllerActivity
-Controller.ControllerActivity --> Domain.HouseController  
+Controller.ControllerActivity --> HouseController  
 
 @enduml
 ```
