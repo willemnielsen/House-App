@@ -144,43 +144,6 @@ public class AddEventFragment extends Fragment implements IAddEventView,
         spinnerEyyyy.setOnItemSelectedListener(this);
         return this.binding.getRoot();
     }
-    /*
-    @Override
-    public void onGetEndDate(){
-        this.binding.setEndDate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view){
-                onCreateEndDateDialog();
-            }
-        }
-        this.binding.setEndDate.setText(););
-    }
-
-
-    @Override
-    public Date onCreateEndDateDialog() {
-        Date date = new Date();
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        // Get the layout inflater
-        LayoutInflater inflater = requireActivity().getLayoutInflater();
-
-        // Inflate and set the layout for the dialog
-        // Pass null as the parent view because its going in the dialog layout
-        builder.setView(inflater.inflate(R.layout.end_date_popup, null))
-                // Add action buttons
-                .setPositiveButton("done", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-
-                    }
-
-                    Spinner spinnerR = (Spinner) this.binding.recurrence;
-
-
-                });
-        return date;
-    }
-    */
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
