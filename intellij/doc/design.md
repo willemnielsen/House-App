@@ -92,16 +92,6 @@ actor Housemate as Actor
 @enduml
 ```
 
-# Add Housemate to House Sequence Diagram
-```plantuml
-@startuml
-actor Housemate as Actor
-    addHousemateFragment -->> Actor  : get name
-    addHousemateFragment -->> ControllerActivity  : onAddHousemate(name)
-    ControllerActivity -->> HouseController : addHousemate(new Housemate(name, randID))
-    HouseController -->> House : addHousemate(new Housemate(name, randID))    
-@enduml
-```
 
 # Create House Sequence Diagram
 ```plantuml
