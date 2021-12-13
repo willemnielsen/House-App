@@ -93,7 +93,7 @@ class HouseTest {
         hmList.add(B);
         house.getShoppingList().addItem(2, "Apples", 5, hmList);
         house.getShoppingList().addItem(2, "Grapes", 5, hmList);
-        house.getShoppingListLineItem(0).setPurchaser(A);
+        house.getShoppingListLineItem(0).setPurchaserAuthKey(A.getAuthKey());
         house.createDebtForIHM(house.getShoppingListLineItem(0));
         //since doesn't return anything / void, we'll look at the houseTransactions
         assertEquals(house.houseTransactions(), "A paid 5.0 for 2 Apples(s).\n" +
@@ -116,7 +116,7 @@ class HouseTest {
         hmList.add(B);
         house.getShoppingList().addItem(2, "Apples", 5, hmList);
         house.getShoppingList().addItem(2, "Grapes", 5, hmList);
-        house.getShoppingListLineItem(0).setPurchaser(A);
+        house.getShoppingListLineItem(0).setPurchaserAuthKey(A.getAuthKey());
         house.createDebtForHH(house.getShoppingListLineItem(0));
         //since doesn't return anything / void, we'll look at the houseTransactions
         assertEquals(house.houseTransactions(), "A paid 5.0 for 2 Apples(s).\n" +
@@ -139,7 +139,7 @@ class HouseTest {
         hmList.add(B);
         house.getShoppingList().addItem(2, "Apples", 5, hmList);
         house.getShoppingList().addItem(2, "Grapes", 5, hmList);
-        house.getShoppingListLineItem(0).setPurchaser(A);
+        house.getShoppingListLineItem(0).setPurchaserAuthKey(A.getAuthKey());
         house.createDebtForMe(house.getShoppingListLineItem(0));
         //since doesn't return anything / void, we'll look at the houseTransactions
         assertEquals(house.houseTransactions(), "A paid 10.0 for 2 Apples(s).\n");
