@@ -1,0 +1,76 @@
+@startuml
+class edu.vassar.cmpu.test.view.homeScreen.HomeScreenFragment {
+- Listener listener
+- FragmentHomeScreenBinding binding
++ void onCreate(Bundle)
++ View onCreateView(LayoutInflater,ViewGroup,Bundle)
++ void onViewCreated(View,Bundle)
+}
+interface edu.vassar.cmpu.test.view.loginScreen.ILoginScreenFragment {
+~ void onRegisterHouseSuccess()
+~ void onInvalidHouseCredentials()
+~ void onHouseAlreadyExists()
+}
+interface edu.vassar.cmpu.test.view.loginScreen.ILoginScreenFragment.Listener {
+~ void onRegisterHouse(String,String,ILoginScreenFragment)
+~ void onHouseSigninAttempt(String,String,ILoginScreenFragment)
+}
+interface edu.vassar.cmpu.test.view.homeScreen.IHomeScreenFragment {
+}
+interface edu.vassar.cmpu.test.view.homeScreen.IHomeScreenFragment.Listener {
++ void onOpenShoppingList()
++ void onOpenCalendar()
++ void onOpenHousemateList()
++ void onOpenPurchasedList()
++ void onOpenTransactions()
+}
+class edu.vassar.cmpu.test.view.authScreen.AuthFragment {
+- {static} String IS_REGISTERED
+- Listener listener
+- FragmentAuthBinding binding
+- boolean isRegistered
++ View onCreateView(LayoutInflater,ViewGroup,Bundle)
++ void onViewCreated(View,Bundle)
++ void onSaveInstanceState(Bundle)
++ void onRegisterSuccess()
+- void activateRegisteredConfig()
++ void onInvalidCredentials()
++ void onUserAlreadyExists()
+- void displayMessage(int)
+}
+class edu.vassar.cmpu.test.view.loginScreen.LoginScreenFragment {
+- {static} String IS_REGISTERED
+- ILoginScreenFragment.Listener listener
+- FragmentLoginScreenBinding binding
+- boolean isRegistered
++ void onCreate(Bundle)
++ View onCreateView(LayoutInflater,ViewGroup,Bundle)
++ void onViewCreated(View,Bundle)
++ void onSaveInstanceState(Bundle)
++ void onRegisterHouseSuccess()
+- void activateRegisteredConfig()
++ void onInvalidHouseCredentials()
++ void onHouseAlreadyExists()
+- void displayMessage(int)
+}
+interface edu.vassar.cmpu.test.view.authScreen.IAuthView {
+~ void onRegisterSuccess()
+~ void onInvalidCredentials()
+~ void onUserAlreadyExists()
+}
+interface edu.vassar.cmpu.test.view.authScreen.IAuthView.Listener {
+~ void onRegister(String,String,IAuthView)
+~ void onSigninAttempt(String,String,IAuthView)
+}
+
+
+edu.vassar.cmpu.test.view.homeScreen.IHomeScreenFragment <|.. edu.vassar.cmpu.test.view.homeScreen.HomeScreenFragment
+androidx.fragment.app.Fragment <|-- edu.vassar.cmpu.test.view.homeScreen.HomeScreenFragment
+edu.vassar.cmpu.test.view.loginScreen.ILoginScreenFragment +.. edu.vassar.cmpu.test.view.loginScreen.ILoginScreenFragment.Listener
+edu.vassar.cmpu.test.view.homeScreen.IHomeScreenFragment +.. edu.vassar.cmpu.test.view.homeScreen.IHomeScreenFragment.Listener
+edu.vassar.cmpu.test.view.authScreen.IAuthView <|.. edu.vassar.cmpu.test.view.authScreen.AuthFragment
+androidx.fragment.app.Fragment <|-- edu.vassar.cmpu.test.view.authScreen.AuthFragment
+edu.vassar.cmpu.test.view.loginScreen.ILoginScreenFragment <|.. edu.vassar.cmpu.test.view.loginScreen.LoginScreenFragment
+androidx.fragment.app.Fragment <|-- edu.vassar.cmpu.test.view.loginScreen.LoginScreenFragment
+edu.vassar.cmpu.test.view.authScreen.IAuthView +.. edu.vassar.cmpu.test.view.authScreen.IAuthView.Listener
+@enduml

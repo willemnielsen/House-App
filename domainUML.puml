@@ -1,0 +1,170 @@
+@startuml
+class ShoppingList {
++ boolean addItem(int,String,float,List<Housemate>)
++ void addLineItem(LineItem)
++ LineItem getShoppingListLineItem(int)
++ void remove(LineItem)
++ int size()
++ void clear()
++ String toString()
++ List<LineItem> getShoppingList()
++ void setShoppingList(List<LineItem>)
+}
+class AuthKey {
++ void setSalt(String)
++ String getSalt()
++ void setKey(String)
++ String getKey()
++ boolean validatePassword(String)
++ String toString()
++ boolean equals(Object)
+}
+class Item {
++ void setPrice(float)
++ float getPrice()
++ String getName()
++ void setName(String)
++ String toString()
+}
+class Housemate {
++ List<Debt> debtlist
++ String getUsername()
++ void setUsername(String)
++ AuthKey getAuthKey()
++ void setAuthKey(AuthKey)
++ boolean validatePassword(String)
++ String myBalance()
++ String getName()
++ void setName(String)
++ List<Debt> getDebtlist()
++ void setDebtlist(List<Debt>)
++ long getHousemateId()
++ void setHousemateId(long)
++ String toString()
++ boolean equals(Object)
+}
+class Recurrence {
++ String getFrequency()
++ Date getEndDate()
++ Date getStartDate()
++ void setFrequency(String)
++ void setEndDate(Date)
++ void setStartDate(Date)
+}
+class HouseController {
++ void addHousemate(Housemate)
++ void setUser(Housemate)
++ void setHouse(House)
++ Housemate getLoggedInUser()
++ void removeHousemate(Housemate)
++ void checkout(String,Housemate)
++ LineItem getShoppingListLineItem(int)
++ boolean addLineItemToShoppingList(int,String,float,List<Housemate>)
++ int getShoppingListSize()
++ String shoppingListToString()
++ void loadShoppList(ShoppingList)
++ void loadDebtList(List<Debt>)
++ void addToPurchase(LineItem)
++ House getHouse()
++ Housemate getHousemate(String)
++ String houseTransactions()
++ String houseBalance()
++ List<Housemate> getHousemates()
++ Event getThisEvent(Event)
++ boolean addEventToCalendar(String,Date,Time,Time,List<Housemate>,Recurrence)
++ void loadCalendar(Calendar)
+}
+class Event {
++ String getName()
++ void setName(String)
++ Date getDate()
++ void setDate(Date)
++ Time getStartTime()
++ void setStartTime(Date)
++ Time getEndTime()
++ void setEndTime(Date)
++ List<Housemate> getHousemates()
++ void setHousemates(List<Housemate>)
++ String toString()
+}
+class Debt {
++ void setDebtorAuthKey(AuthKey)
++ AuthKey getDebtorAuthKey()
++ void setCreditorAuthKey(AuthKey)
++ AuthKey getCreditorAuthKey()
++ LineItem getLineItem()
++ void setLineItem(LineItem)
++ void setOwed(float)
++ void setPaid(boolean)
++ float getOwed()
++ boolean equals(Object)
+}
+class Calendar {
++ boolean addEvent(String,Date,Time,Time,List<Housemate>,Recurrence)
++ void addThisEvent(Event)
++ void remove(Event)
++ void setEvents(List<Event>)
++ List<Event> getEvents()
++ Event getThisEvent(Event)
++ boolean setCurrentDate(Date)
++ {static} void sort(List<Event>)
++ String toString()
+}
+class House {
+~ int houseID
++ AuthKey getAuthKey()
++ void setAuthKey(AuthKey)
++ boolean validatePassword(String)
++ String getName()
++ boolean addLineItemToShoppingList(int,String,float,List<Housemate>)
++ LineItem getShoppingListLineItem(int)
++ void loadShoppingList(ShoppingList)
++ void loadHousemates(List<Housemate>)
++ void loadPurchasedList(List<LineItem>)
++ int getShoppingListSize()
++ ShoppingList getShoppingList()
++ List<LineItem> getPurchasedItems()
++ String addHousemate(Housemate)
++ String removeHousemate(Housemate)
++ void createDebtForIHM(LineItem)
++ void createDebtForHH(LineItem)
++ void createDebtForMe(LineItem)
++ void checkout(String,Housemate)
++ String houseTransactions()
++ String houseBalance()
++ List<Housemate> getHousemates()
++ Calendar getCalendar()
++ void loadCalendar(Calendar)
++ Housemate getHousemate(AuthKey)
++ List<Housemate> getHousemateList(List<AuthKey>)
++ void loadDebtList(List<Debt>)
++ List<Debt> getHousedebt()
++ void setHousedebt(List<Debt>)
+}
+class LineItem {
++ int getQuantity()
++ void addPurchaser(Housemate)
++ void setQuantity(int)
++ List<AuthKey> getInterestedHouseMatesAuthKet()
++ void setInterestedHouseMatesAuthKet(List<AuthKey>)
++ AuthKey getPurchaserAuthKey()
++ void setPurchaserAuthKey(AuthKey)
++ float getPrice()
++ void setPrice(float)
++ String getName()
++ void setName(String)
++ String toString()
+}
+
+
+Serializable <|.. ShoppingList
+Serializable <|.. AuthKey
+Serializable <|.. Item
+Serializable <|.. Housemate
+Serializable <|.. Recurrence
+Serializable <|.. Event
+Serializable <|.. Debt
+Serializable <|.. Calendar
+Serializable <|.. House
+Serializable <|.. LineItem
+@enduml

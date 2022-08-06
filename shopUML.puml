@@ -1,0 +1,75 @@
+@startuml
+class edu.vassar.cmpu.test.view.purchasedListScreen.PurchasedListScreenFragment {
+- FragmentPurchasedBinding binding
+- Listener listener
++ void onCreate(Bundle)
++ View onCreateView(LayoutInflater,ViewGroup,Bundle)
++ void updatePurchasedList(List<LineItem>)
++ void onViewCreated(View,Bundle)
++ void CreateDialog()
+}
+interface edu.vassar.cmpu.test.view.addItemView.IAddItemView {
+~ void getHouseMates(List<Housemate>)
+~ void updateDisplay(ShoppingList)
+}
+interface edu.vassar.cmpu.test.view.addItemView.IAddItemView.Listener {
+~ void onAddedItem(String,int,float,List<Housemate>,IAddItemView)
+~ void onPreviousInAddItemFragment()
+}
+interface edu.vassar.cmpu.test.view.purchasedListScreen.IPurchasedListScreenFragment {
+~ void updatePurchasedList(List<LineItem>)
+}
+interface edu.vassar.cmpu.test.view.purchasedListScreen.IPurchasedListScreenFragment.Listener {
+~ void onPreviousOnPurchasedListScreen()
+~ void onPurchaseByUser(String,IPurchasedListScreenFragment)
+}
+interface edu.vassar.cmpu.test.view.shoppingListScreen.IShoppingListScreenView {
+~ void updateDisplay(ShoppingList)
+~ void purchaseItems(ShoppingList)
+~ void updatePurchasedList(List<LineItem>)
+}
+interface edu.vassar.cmpu.test.view.shoppingListScreen.IShoppingListScreenView.Listener {
+~ void onAddItem()
+~ void onPurchaseItems(LineItem,IShoppingListScreenView)
+~ void onPreviousOnShoppingListScreen()
+}
+class edu.vassar.cmpu.test.view.addItemView.AddItemFragment {
+- {static} String ITEM_NAME
+- {static} String ITEM_QUANTITY
+- {static} String ITEM_PRICE
+- FragmentAddItemBinding binding
+- Listener listener
+- HouseController house
++ void onCreate(Bundle)
++ View onCreateView(LayoutInflater,ViewGroup,Bundle)
++ void onViewCreated(View,Bundle)
+- void CreateDialog(List<Housemate>,String,int,float)
++ void updateDisplay(ShoppingList)
++ void getHouseMates(List<Housemate>)
++ void onSaveInstanceState(Bundle)
++ void onViewStateRestored(Bundle)
+}
+class edu.vassar.cmpu.test.view.shoppingListScreen.ShoppingListScreenFragment {
+- Listener listener
+- FragmentShoppingListScreenBinding binding
++ void onCreate(Bundle)
++ View onCreateView(LayoutInflater,ViewGroup,Bundle)
++ void onViewCreated(View,Bundle)
+- ArrayList<LineItem> CreateDialog(ShoppingList)
++ void updateDisplay(ShoppingList)
++ void onPurchaseItems(LineItem)
++ void updatePurchasedList(List<LineItem>)
++ void purchaseItems(ShoppingList)
+}
+
+
+edu.vassar.cmpu.test.view.purchasedListScreen.IPurchasedListScreenFragment <|.. edu.vassar.cmpu.test.view.purchasedListScreen.PurchasedListScreenFragment
+androidx.fragment.app.Fragment <|-- edu.vassar.cmpu.test.view.purchasedListScreen.PurchasedListScreenFragment
+edu.vassar.cmpu.test.view.addItemView.IAddItemView +.. edu.vassar.cmpu.test.view.addItemView.IAddItemView.Listener
+edu.vassar.cmpu.test.view.purchasedListScreen.IPurchasedListScreenFragment +.. edu.vassar.cmpu.test.view.purchasedListScreen.IPurchasedListScreenFragment.Listener
+edu.vassar.cmpu.test.view.shoppingListScreen.IShoppingListScreenView +.. edu.vassar.cmpu.test.view.shoppingListScreen.IShoppingListScreenView.Listener
+edu.vassar.cmpu.test.view.addItemView.IAddItemView <|.. edu.vassar.cmpu.test.view.addItemView.AddItemFragment
+androidx.fragment.app.Fragment <|-- edu.vassar.cmpu.test.view.addItemView.AddItemFragment
+edu.vassar.cmpu.test.view.shoppingListScreen.IShoppingListScreenView <|.. edu.vassar.cmpu.test.view.shoppingListScreen.ShoppingListScreenFragment
+androidx.fragment.app.Fragment <|-- edu.vassar.cmpu.test.view.shoppingListScreen.ShoppingListScreenFragment
+@enduml

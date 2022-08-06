@@ -1,0 +1,75 @@
+@startuml
+class edu.vassar.cmpu.test.persistence.FirestoreFacade {
+~ FirebaseFirestore db
++ String HOUSE_NAME
++ void setHouseName(String)
++ void saveHousemate(Housemate)
++ void retrieveHousemateList(HousematesListListener)
++ void saveLineItem(LineItem)
++ void retrieveShoppingList(ShoppingListListener)
++ void saveEvent(Event)
++ void retrieveCalendar(CalendarListener)
++ void saveLineItemPL(LineItem)
++ void onCheckOut()
++ void updateHousemateDebt(List<Housemate>)
++ void retrieveDebtList(DebtListListener)
++ void retrievePurchaseList(PurchaseListListener)
++ void saveDebtList(List<Debt>,int)
++ void createUserIfNotExists(Housemate,BinaryResultListener)
++ void retrieveUser(String,DataListener<Housemate>)
++ void createHouseIfNotExists(House,BinaryResultListener)
++ void retrieveHouse(String,DataListener<House>)
+}
+interface edu.vassar.cmpu.test.persistence.IPersistenceFacade {
+~ void setHouseName(String)
+~ void saveLineItem(LineItem)
+~ void retrieveShoppingList(ShoppingListListener)
+~ void saveEvent(Event)
+~ void retrieveCalendar(CalendarListener)
+~ void retrievePurchaseList(PurchaseListListener)
+~ void saveHousemate(Housemate)
+~ void retrieveHousemateList(HousematesListListener)
+~ void saveLineItemPL(LineItem)
+~ void onCheckOut()
+~ void updateHousemateDebt(List<Housemate>)
+~ void retrieveDebtList(DebtListListener)
+~ void saveDebtList(List<Debt>,int)
+~ void createUserIfNotExists(Housemate,BinaryResultListener)
+~ void retrieveUser(String,DataListener<Housemate>)
+~ void createHouseIfNotExists(House,BinaryResultListener)
+~ void retrieveHouse(String,DataListener<House>)
+}
+interface edu.vassar.cmpu.test.persistence.IPersistenceFacade.DataListener {
+~ void onDataReceived(T)
+~ void onNoDataFound()
+}
+interface edu.vassar.cmpu.test.persistence.IPersistenceFacade.BinaryResultListener {
+~ void onYesResult()
+~ void onNoResult()
+}
+interface edu.vassar.cmpu.test.persistence.IPersistenceFacade.ShoppingListListener {
+~ void onShoppingListReceived(ShoppingList)
+}
+interface edu.vassar.cmpu.test.persistence.IPersistenceFacade.CalendarListener {
+~ void onCalendarReceived(Calendar)
+}
+interface edu.vassar.cmpu.test.persistence.IPersistenceFacade.PurchaseListListener {
+~ void onPurchaseListReceived(List<LineItem>)
+}
+interface edu.vassar.cmpu.test.persistence.IPersistenceFacade.HousematesListListener {
+~ void onHousemateListReceived(List<Housemate>)
+}
+interface edu.vassar.cmpu.test.persistence.IPersistenceFacade.DebtListListener {
+~ void onDebtListReceived(List<Debt>)
+}
+
+
+edu.vassar.cmpu.test.persistence.IPersistenceFacade <|.. edu.vassar.cmpu.test.persistence.FirestoreFacade
+edu.vassar.cmpu.test.persistence.IPersistenceFacade +.. edu.vassar.cmpu.test.persistence.IPersistenceFacade.DataListener
+edu.vassar.cmpu.test.persistence.IPersistenceFacade +.. edu.vassar.cmpu.test.persistence.IPersistenceFacade.BinaryResultListener
+edu.vassar.cmpu.test.persistence.IPersistenceFacade +.. edu.vassar.cmpu.test.persistence.IPersistenceFacade.ShoppingListListener
+edu.vassar.cmpu.test.persistence.IPersistenceFacade +.. edu.vassar.cmpu.test.persistence.IPersistenceFacade.CalendarListener
+edu.vassar.cmpu.test.persistence.IPersistenceFacade +.. edu.vassar.cmpu.test.persistence.IPersistenceFacade.PurchaseListListener
+edu.vassar.cmpu.test.persistence.IPersistenceFacade +.. edu.vassar.cmpu.test.persistence.IPersistenceFacade.HousematesListListener
+edu.vassar.cmpu.test.persistence.IPersistenceFacade +.. edu.vassar.cmpu.test.persistence.IPersistenceFacade.DebtListListener
+@enduml

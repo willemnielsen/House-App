@@ -1,0 +1,48 @@
+@startuml
+interface edu.vassar.cmpu.test.view.calendarScreen.ICalendarScreenView {
+~ void updateDisplay(Calendar)
+}
+interface edu.vassar.cmpu.test.view.calendarScreen.ICalendarScreenView.Listener {
+~ void onAddEvent()
+~ void onSetDate(Date,ICalendarScreenView)
+~ void onPreviousOnCalendarScreen()
+}
+class edu.vassar.cmpu.test.view.calendarScreen.CalendarScreenFragment {
+- Listener listener
+- FragmentCalendarMonthBinding binding
++ void onCreate(Bundle)
++ View onCreateView(LayoutInflater,ViewGroup,Bundle)
++ void onViewCreated(View,Bundle)
++ void updateDisplay(Calendar)
+}
+interface edu.vassar.cmpu.test.view.addEventView.IAddEventView {
+~ void getAddedHouseMates(List<Housemate>)
+~ void updateDisplay(Calendar)
+}
+interface edu.vassar.cmpu.test.view.addEventView.IAddEventView.Listener {
+~ void onAddedEvent(String,Date,Time,Time,List<Housemate>,String,Date,IAddEventView)
+~ void onPreviousInAddEventFragment()
+}
+class edu.vassar.cmpu.test.view.addEventView.AddEventFragment {
+- FragmentAddEventBinding binding
+- Listener listener
++ void onCreate(Bundle)
++ View onCreateView(LayoutInflater,ViewGroup,Bundle)
++ void onViewCreated(View,Bundle)
++ void getAddedHouseMates(List<Housemate>)
+- List<Housemate> CreateDialog(List<Housemate>,String,Date,Time,Time,String,Date)
++ void onAddedEvent(String,Date,Time,Time,ArrayList<Housemate>,String,Date)
++ void updateDisplay(Calendar)
++ void onItemSelected(AdapterView<?>,View,int,long)
++ void onNothingSelected(AdapterView<?>)
+}
+
+
+edu.vassar.cmpu.test.view.calendarScreen.ICalendarScreenView +.. edu.vassar.cmpu.test.view.calendarScreen.ICalendarScreenView.Listener
+edu.vassar.cmpu.test.view.calendarScreen.ICalendarScreenView <|.. edu.vassar.cmpu.test.view.calendarScreen.CalendarScreenFragment
+androidx.fragment.app.Fragment <|-- edu.vassar.cmpu.test.view.calendarScreen.CalendarScreenFragment
+edu.vassar.cmpu.test.view.addEventView.IAddEventView +.. edu.vassar.cmpu.test.view.addEventView.IAddEventView.Listener
+edu.vassar.cmpu.test.view.addEventView.IAddEventView <|.. edu.vassar.cmpu.test.view.addEventView.AddEventFragment
+edu.vassar.cmpu.test.view.addEventView.OnItemSelectedListener <|.. edu.vassar.cmpu.test.view.addEventView.AddEventFragment
+androidx.fragment.app.Fragment <|-- edu.vassar.cmpu.test.view.addEventView.AddEventFragment
+@enduml

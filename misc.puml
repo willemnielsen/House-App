@@ -1,0 +1,73 @@
+@startuml
+class edu.vassar.cmpu.test.view.housemateListScreen.HousemateListScreenFragment {
+- Listener listener
+- FragmentHousematesBinding binding
++ void onCreate(Bundle)
++ View onCreateView(LayoutInflater,ViewGroup,Bundle)
++ void onViewCreated(View,Bundle)
++ void updateDisplay(List<Housemate>)
+}
+interface edu.vassar.cmpu.test.view.housemateListScreen.addHousemate.IAddHousemate {
+}
+interface edu.vassar.cmpu.test.view.housemateListScreen.addHousemate.IAddHousemate.Listener {
+~ void onAddHousemate(String)
+~ void onPreviousOnAddHousemateScreen()
+}
+interface edu.vassar.cmpu.test.view.housemateListScreen.IHousemateListScreenFragment {
+~ void updateDisplay(List<Housemate>)
+}
+interface edu.vassar.cmpu.test.view.housemateListScreen.IHousemateListScreenFragment.Listener {
+~ void onPreviousOnHousemateListScreen()
+~ void onAddHousemateOnHousemateListScreen()
+~ void onDebtScreenButton()
+}
+interface edu.vassar.cmpu.test.view.housemateListScreen.debtScreen.IDebtScreenFragment {
++ void updateDisplay(String)
+}
+interface edu.vassar.cmpu.test.view.housemateListScreen.debtScreen.IDebtScreenFragment.Listener {
+~ void onPreviousOnDebtScreen()
+}
+class edu.vassar.cmpu.test.view.housemateListScreen.addHousemate.AddHousemateFragment {
+~ FragmentAddHousemateBinding binding
+~ Listener listener
++ void onCreate(Bundle)
++ View onCreateView(LayoutInflater,ViewGroup,Bundle)
++ void onViewCreated(View,Bundle)
+}
+class edu.vassar.cmpu.test.view.housemateListScreen.debtScreen.DebtScreenFragment {
+~ FragmentDebtScreenBinding binding
+~ Listener listener
++ void onCreate(Bundle)
++ View onCreateView(LayoutInflater,ViewGroup,Bundle)
++ void onViewCreated(View,Bundle)
++ void updateDisplay(String)
+}
+interface edu.vassar.cmpu.test.view.transactionsScreen.ITransactionsScreenFragment {
+~ void updateDisplay(String)
+}
+interface edu.vassar.cmpu.test.view.transactionsScreen.ITransactionsScreenFragment.Listener {
+~ void onPreviousOnTransactionsScreen()
+}
+class edu.vassar.cmpu.test.view.transactionsScreen.TransactionsScreenFragment {
+~ FragmentTransactionsScreenBinding binding
+~ Listener listener
++ void onCreate(Bundle)
++ View onCreateView(LayoutInflater,ViewGroup,Bundle)
++ void onViewCreated(View,Bundle)
++ void updateDisplay(String)
+}
+
+
+edu.vassar.cmpu.test.view.housemateListScreen.IHousemateListScreenFragment <|.. edu.vassar.cmpu.test.view.housemateListScreen.HousemateListScreenFragment
+androidx.fragment.app.Fragment <|-- edu.vassar.cmpu.test.view.housemateListScreen.HousemateListScreenFragment
+edu.vassar.cmpu.test.view.housemateListScreen.addHousemate.IAddHousemate +.. edu.vassar.cmpu.test.view.housemateListScreen.addHousemate.IAddHousemate.Listener
+edu.vassar.cmpu.test.view.housemateListScreen.IHousemateListScreenFragment +.. edu.vassar.cmpu.test.view.housemateListScreen.IHousemateListScreenFragment.Listener
+edu.vassar.cmpu.test.view.housemateListScreen.debtScreen.IDebtScreenFragment +.. edu.vassar.cmpu.test.view.housemateListScreen.debtScreen.IDebtScreenFragment.Listener
+edu.vassar.cmpu.test.view.housemateListScreen.addHousemate.IAddHousemate <|.. edu.vassar.cmpu.test.view.housemateListScreen.addHousemate.AddHousemateFragment
+androidx.fragment.app.Fragment <|-- edu.vassar.cmpu.test.view.housemateListScreen.addHousemate.AddHousemateFragment
+edu.vassar.cmpu.test.view.housemateListScreen.debtScreen.IDebtScreenFragment <|.. edu.vassar.cmpu.test.view.housemateListScreen.debtScreen.DebtScreenFragment
+androidx.fragment.app.Fragment <|-- edu.vassar.cmpu.test.view.housemateListScreen.debtScreen.DebtScreenFragment
+edu.vassar.cmpu.test.view.transactionsScreen.ITransactionsScreenFragment +.. edu.vassar.cmpu.test.view.transactionsScreen.ITransactionsScreenFragment.Listener
+edu.vassar.cmpu.test.view.transactionsScreen.ITransactionsScreenFragment <|.. edu.vassar.cmpu.test.view.transactionsScreen.TransactionsScreenFragment
+androidx.fragment.app.Fragment <|-- edu.vassar.cmpu.test.view.transactionsScreen.TransactionsScreenFragment
+@enduml

@@ -1,0 +1,62 @@
+@startuml
+class edu.vassar.cmpu.test.ControllerActivity {
+# void onCreate(Bundle)
++ void openHomeScreen()
++ void onRegisterHouse(String,String,ILoginScreenFragment)
++ void onHouseSigninAttempt(String,String,ILoginScreenFragment)
++ void onRegister(String,String,IAuthView)
++ void onSigninAttempt(String,String,IAuthView)
++ void onOpenShoppingList()
++ void onOpenCalendar()
++ void onOpenHousemateList()
++ void onOpenPurchasedList()
++ void onOpenTransactions()
++ void onPreviousOnTransactionsScreen()
++ void openShoppingListScreen()
++ void onAddItem()
++ void onPreviousOnShoppingListScreen()
++ void onPurchaseItems(LineItem,IShoppingListScreenView)
++ void openAddItemScreen()
++ void onAddedItem(String,int,float,List<Housemate>,IAddItemView)
++ void onPreviousInAddItemFragment()
++ void openCalendarScreen()
++ void onAddEvent()
++ void onPreviousOnCalendarScreen()
++ void openAddEventScreen()
++ void onAddedEvent(String,Date,Time,Time,List<Housemate>,String,Date,IAddEventView)
++ void onSetDate(Date,ICalendarScreenView)
++ void onPreviousInAddEventFragment()
++ void openHousemateListScreen()
++ void onPreviousOnHousemateListScreen()
++ void onAddHousemateOnHousemateListScreen()
++ void onDebtScreenButton()
++ void onPreviousOnDebtScreen()
++ void onAddHousemate(String)
++ void onPreviousOnAddHousemateScreen()
++ void openPurchasedListScreen()
++ void onPreviousOnPurchasedListScreen()
++ void onPurchaseByUser(String,IPurchasedListScreenFragment)
++ void onShoppingListReceived(ShoppingList)
++ void onCalendarReceived(Calendar)
++ void addEventToDatabase(String,Date,Time,Time,List<Housemate>,Recurrence)
++ void onDebtListReceived(List<Debt>)
+}
+
+
+edu.vassar.cmpu.test.Listener <|.. edu.vassar.cmpu.test.ControllerActivity
+edu.vassar.cmpu.test.Listener <|.. edu.vassar.cmpu.test.ControllerActivity
+edu.vassar.cmpu.test.Listener <|.. edu.vassar.cmpu.test.ControllerActivity
+edu.vassar.cmpu.test.Listener <|.. edu.vassar.cmpu.test.ControllerActivity
+edu.vassar.cmpu.test.Listener <|.. edu.vassar.cmpu.test.ControllerActivity
+edu.vassar.cmpu.test.Listener <|.. edu.vassar.cmpu.test.ControllerActivity
+edu.vassar.cmpu.test.Listener <|.. edu.vassar.cmpu.test.ControllerActivity
+edu.vassar.cmpu.test.Listener <|.. edu.vassar.cmpu.test.ControllerActivity
+edu.vassar.cmpu.test.Listener <|.. edu.vassar.cmpu.test.ControllerActivity
+edu.vassar.cmpu.test.Listener <|.. edu.vassar.cmpu.test.ControllerActivity
+edu.vassar.cmpu.test.Listener <|.. edu.vassar.cmpu.test.ControllerActivity
+edu.vassar.cmpu.test.ShoppingListListener <|.. edu.vassar.cmpu.test.ControllerActivity
+edu.vassar.cmpu.test.CalendarListener <|.. edu.vassar.cmpu.test.ControllerActivity
+edu.vassar.cmpu.test.DebtListListener <|.. edu.vassar.cmpu.test.ControllerActivity
+edu.vassar.cmpu.test.Listener <|.. edu.vassar.cmpu.test.ControllerActivity
+androidx.appcompat.app.AppCompatActivity <|-- edu.vassar.cmpu.test.ControllerActivity
+@enduml
